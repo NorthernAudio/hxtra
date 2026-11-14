@@ -89,6 +89,11 @@ In the Edit view, each block in the signal-flow row shows its share of the DSP i
 
 In the model browser, each model shows the share it would take, in white between its icon and its name, and the top right corner shows the total as in the Edit view.
 
+Global Settings › DSP Meter has two settings:
+
+- **Meter** (Both, Browser, Blocks, Off): where the shares show. Both, the default, shows them in the Edit view's blocks and in the model browser; Browser only in the browser; Blocks only in the Edit view; Off nowhere. The browser's model names stay where the meter moved them, with room for the shares, whatever Meter says.
+- **Total** (Off, Small, Large): the total in the top right corner. **Off**, the default, draws nothing there, so a long preset name or block title isn't covered. **Small** draws it in the meter's 3x5 digits at 2x, about half the title's height, in the same corner, so a long name can still run into it. **Large** draws it in the title's font, as before these settings.
+
 75 is what blocks may use: the firmware's preset limit of 90%, less the 15% it always keeps. The numbers are the firmware's own fixed cost of each model, the same ones it uses to decide whether a block fits, not a measured load.
 
 ## Real block names
