@@ -241,6 +241,13 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 </details>
 
+### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate (optional, off unless you tick it on the setup page)
+
+*Gate, Threshold and Decay knobs on the FX Loop and Return blocks*
+
+- A noise gate on what comes back from the loop, like the Input block's, so a noisy pedal in the loop no longer takes a Noise Gate block.
+- Each FX Loop and Return block then uses about 0.2% (mono) or 0.4% (stereo) more DSP.
+
 ### <img src="docs/assets/icons/nam.svg" width="28" height="28" align="top" alt=""> NAM A2 Lite
 
 - [Neural Amp Modeler](https://www.neuralampmodeler.com) captures on the HX Stomp's own DSP, from [hx-stomp-nam-lite](https://github.com/nocaseguy/hx-stomp-nam-lite). The setup page converts your `.nam` files.
@@ -375,7 +382,7 @@ One person chose every feature and decided how each should look, feel and behave
 <td valign="top">
 
 ### <img src="docs/assets/icons/faq-choose.svg" width="28" height="28" align="top" alt=""> Can I choose which features I get?
-The setup page builds every feature, plus Real block names if you tick their box. To leave a feature out of the firmware altogether, [build it yourself](docs/building.md).
+The setup page builds every feature, plus Real block names and the FX Loop gate if you tick their boxes. To leave a feature out of the firmware altogether, [build it yourself](docs/building.md).
 
 &nbsp;
 

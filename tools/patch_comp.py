@@ -60,7 +60,8 @@ def e3_add_strings(e3, wanted):
     """Entry 3 with the strings of `wanted` it lacks appended to its section, and {string: index} for them all.
     Indices never change. A stock section (at 0x200) is copied past the end. Once add-model has copied the section and
     the model table to the tail (0xcae00), their stock copies at 0x200..h[8] are dead: the section goes back to 0x200 and
-    the model table and everything after it move back over the old tail section, their offsets with them. That keeps
+    the model table and everything after it move back over the old tail section, their offsets with them; a later call
+    (tools/patch_gate.py's, then this tool's) grows it there in place. That keeps
     Entry 3 small: one 11 KB larger than the default build's makes the unit drop every amp and preamp [verified on unit]."""
     e3 = bytearray(e3)
     h = list(struct.unpack_from('<10I', e3, 0))
@@ -77,7 +78,9 @@ def e3_add_strings(e3, wanted):
         return bytes(e3), index
     n = nstr + len(added) // 12
     section = struct.pack('<2I', n, 8 + 12 * n + len(data)) + recs + added + data
-    if str_off < STOCK_E3_END:
+    if str_off == STR_HOME and h[6] >= STOCK_E3_END and STR_HOME + len(section) <= h[8]:    # back home by an earlier call
+        out = e3[:STR_HOME] + section + bytes(h[8] - STR_HOME - len(section)) + e3[h[8]:]
+    elif str_off < STOCK_E3_END:
         out = e3 + bytes(pa._align(len(e3), 0x200) - len(e3))
         h[3] = len(out)
         out += section

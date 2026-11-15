@@ -10,6 +10,7 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [DSP usage display](#dsp-usage-display) | Edit view and model browser: each block's or model's share, the total at the top right · no settings | `HX_DSP_METER=1` |
 | [Breathing line](#breathing-line) | Home screen: the line between the signal flow and the knobs · Global Settings > Breathing Line | `HX_BREATHING_LINE=1` |
 | [Real block names](#real-block-names) | Model browser and Edit view: each block's title · no settings | `HX_REAL_NAMES=1` |
+| [FX Loop gate](#fx-loop-gate) | The FX Loop and Return blocks: three more knobs, Gate, Threshold and Decay | `HX_FX_GATE=1` |
 | [Long press](#long-press) | FS1–FS5 in Stomp footswitch mode · Global Settings > Footswitches, pages 2 to 5 | `HX_LONG_PRESS=1` |
 | [More snapshots](#more-snapshots) | The snapshot footswitches, with Footswitch Mode on Snapshot · no settings | `HX_MORE_SNAPSHOTS=1` |
 | [Metronome](#metronome) | Model browser: Looper > Metronome > Metronome · the block's knobs | `HX_CLICK=1` |
@@ -17,7 +18,7 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [Boot screen](#boot-screen-hx-stomp-only) | The screen at power-on · set when you build | `--splash`, `--splash-text` |
 | [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | always on |
 
-Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but Real block names only when you tick its box. Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
+Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but Real block names and the FX Loop gate only when you tick their boxes. Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
 
 ```sh
 HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
@@ -112,6 +113,21 @@ Just for fun: the line across the middle of the Home screen, between the signal 
 - **Where it shows:** on the Home screen only. Other screens stay stock, and the line stops animating while you're on them.
 - **The selected part of the line** is still thicker, as on the stock line, and **Off** gives the stock line back.
 - **Settings** (Global Settings > Breathing Line): Color, Type and Speed. See [Custom settings](#custom-settings).
+
+## FX Loop gate
+
+A noise gate built into the FX Loop and Return blocks, as the Input block has one, so a noisy pedal in the loop doesn't take a Noise Gate block of its own ([#69](https://github.com/wisemandenny/hxtra/issues/69)). It gates what comes back from the loop, before the block's Return level and Mix; the dry signal and the Send are not gated.
+
+| Knob | Values | What it does |
+|---|---|---|
+| **Gate** | **Off** (default), On | Turns the gate on. Off, the block sounds as on stock firmware. |
+| **Threshold** | −96 … 0 dB (default **−48**) | Below this level the returned signal is muted. |
+| **Decay** | 0.01 … 1 s (default **0.1**) | How fast the gate closes. |
+
+- **Off unless you ask:** a checkbox on the setup page, unticked, or `HX_FX_GATE=1` for `build.py`. HX Stomp only.
+- **DSP:** each FX Loop and Return block costs about 0.2% more (0.4% stereo), whether its gate is on or off. A preset already at the limit with one of these blocks may not load.
+- **Stereo blocks** gate each side on its own, not linked.
+- **Presets** saved with the gate keep its knobs. Opening such a preset on stock firmware, or in HX Edit, is not tested yet.
 
 ## Long press
 
