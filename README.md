@@ -227,6 +227,12 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 </details>
 
+### <img src="docs/assets/icons/usb-monitor.svg" width="28" height="28" align="top" alt=""> USB monitoring
+
+*Global Settings › Ins/Outs, page 3*
+
+- **Path A Out** (Main L/R, Send/USB): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop).
+
 ### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names (optional, off unless you tick it on the setup page)
 
 *No settings*
