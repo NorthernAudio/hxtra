@@ -70,6 +70,7 @@ VIRTUAL = (   # (virtual ID, container ID, first bit, bits, the '<feature>.<key>
     (0xdf, 111, 0, 4, 'tap_color.color', ''),
     (0xe0, 112, 0, 2, 'usb_monitor.path_a', ''),
     (0xe1, 113, 0, 4, 'preset_color.color', ''),
+    (0xe2, 113, 4, 4, 'preset_color.this', ''),
 )
 
 
