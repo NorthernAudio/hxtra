@@ -210,6 +210,12 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 </details>
 
+### <img src="docs/assets/icons/preset-color.svg" width="28" height="28" align="top" alt=""> Preset LED color
+
+*Global Settings › Displays, page 2*
+
+- **Preset LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): in Preset footswitch mode, the colour of the current preset's LED ring, and of its switch icon on the Home screen. The other presets' rings stay off, as stock.
+
 ### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome
 
 *New block: Looper › Metronome*

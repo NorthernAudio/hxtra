@@ -622,6 +622,43 @@ def t_global_eq(u):
         u.home()
 
 
+@case('preset_color', 'Preset LED Color: in Preset footswitch mode the current preset\'s ring takes the colour picked in '
+      'Displays, and follows a change made there')
+def t_preset_color(u):
+    colours = ('Red', 'DkOrange', 'LtOrange', 'Yellow', 'Green', 'Teal', 'Blue', 'Violet', 'Pink', 'White')
+    green = lambda c, mode: mode == 1 and (c >> 8 & 0xff) > 2 * max(c & 0xff, c >> 16)
+    blue = lambda c, mode: mode == 1 and (c >> 16) > 2 * max(c & 0xff, c >> 8 & 0xff)
+    u.global_settings('Displays')
+    u.page_to('Preset')
+    was = u.dial(1, 'Green', colours)
+    u.home()
+    presses, k = 0, None
+    try:
+        for _ in range(4):                      # PAGE◀ steps the footswitch mode; Preset mode lights one ring, the current preset's
+            lit = [i for i, (c, mode) in enumerate(u.leds()) if mode]
+            if len(lit) == 1 and green(*u.leds()[lit[0]]):
+                k = lit[0]
+                break
+            u.press('page_left', settle=0.6)
+            presses += 1
+        if k is None:
+            raise Fail(f'no footswitch mode lit one green ring: {u.leds()}')
+        u.global_settings('Displays')
+        u.page_to('Preset')
+        u.dial(1, 'Blue', colours)
+        u.home()
+        c, _ = ring(u, k, want=blue)
+        if not blue(c, 1):
+            raise Fail(f'after Preset LED Color went to Blue, FS{k + 1}\'s ring is {c:06x} (0xBBGGRR)')
+    finally:
+        u.global_settings('Displays')
+        u.page_to('Preset')
+        u.dial(1, was, colours)
+        u.home()
+        for _ in range(presses):
+            u.press('page_right', settle=0.6)
+
+
 @case('more_snapshots', 'More snapshots: in Snapshot mode the lit footswitch again flips to snapshots 4..6 and back')
 def t_more_snapshots(u):
     u.home()
