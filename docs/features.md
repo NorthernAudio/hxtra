@@ -7,7 +7,7 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [Tuner settings](#tuner-settings) | The tuner's own settings, on a third page: open the tuner and page right past Trails, Offsets and String 6 | `HX_TUNER=1` |
 | [BPM](#bpm) | Home screen: the tempo at the top left, the beat dot beside the preset number · Global Settings > BPM Display | `HX_BPM=1` |
 | [Tap LED color](#tap-led-color) | The TAP footswitch: its ring, and its icon and label on the Home screen · Global Settings > Displays, under Tap Tempo LED | `HX_TAP_COLOR=1` |
-| [Preset LED color](#preset-led-color) | The current preset's footswitch in Preset footswitch mode: its ring, and its icon on the Home screen · Global Settings > Displays, page 2 | `HX_PRESET_COLOR=1` |
+| [Preset LED color](#preset-led-color) | Each preset's footswitch in Preset footswitch mode, in its own colour: its ring, and its icon on the Home screen · Global Settings > Displays, page 2 | `HX_PRESET_COLOR=1` |
 | [DSP usage display](#dsp-usage-display) | Edit view and model browser: each block's or model's share, the total at the top right · no settings | `HX_DSP_METER=1` |
 | [Breathing line](#breathing-line) | Home screen: the line between the signal flow and the knobs · Global Settings > Breathing Line | `HX_BREATHING_LINE=1` |
 | [Real block names](#real-block-names) | Model browser and Edit view: each block's title · no settings | `HX_REAL_NAMES=1` |
@@ -36,7 +36,8 @@ The features' settings are in Global Settings, each feature in a section of its 
 | BPM | **Color** | **White** (default), Gray, Red, Orange, Yellow, Green, Cyan, Blue, Purple, Tempo | The tempo's and the dot's colour. Tempo follows the TAP footswitch's colour (Tap LED Color; stock red in a build without it) |
 | BPM | **Dot Position** | **Left** (default), Right, Both, Off | Where the beat dot sits, beside the preset number. Off hides the dot; with Font Size Off too the BPM display is off and the TAP ring blinks as stock |
 | Tap LED color | **Tap LED Color** | **Red** (default), DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random | The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label. In Global Settings > Displays, under Tap Tempo LED. |
-| Preset LED color | **Preset LED** | **Red** (default), DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White | In Preset footswitch mode, the current preset's colour: its ring, and its switch icon on the Home screen. The other presets' rings stay off and their icons dark, as stock. In Global Settings > Displays, page 2. |
+| Preset LED color | **Preset LED** | **Red** (default), DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White | In Preset footswitch mode, the colour of a preset without its own while it is selected: its ring, and its switch icon on the Home screen. In Global Settings > Displays, page 2. |
+| Preset LED color | **This Preset** | **None** (default), Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White | The current preset's own colour, saved with the preset. In Preset footswitch mode its ring and icon are lit in it while it is selected and dimmed while it is not. In Global Settings > Displays, page 2. |
 | Long press | **FS1 Hold Function** … **FS5 Hold Function** | Off, Tuner, FS4, FS5, FS6 … FS10 (defaults FS6 … FS10) | What holding that footswitch for 1 s does. FS4 and FS5 are external switches. In Global Settings > Footswitches, pages 2 and 3, after FS5 Function. |
 | Long press | **FS6 Function** … **FS10 Function** | Tuner, Stomp 6 … 10, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode>, <FS Mode, AllBypas, TogglEXP, GlobalEQ (default Stomp) | What that virtual footswitch does, as FS3 … FS5 Function do for the real ones, with Tuner in place of TAP/Tunr, and GlobalEQ added. In Global Settings > Footswitches, pages 4 and 5. |
 | Breathing line | **Color** | White, Red, Green, Blue, Fire, Ice, Sunset, Ocean, Aurora, Neon, **Rainbow** (default) | The line's colours. The gradients flow along the line: Fire is red, orange and yellow; Ice blue, cyan and white; Sunset purple, pink and orange; Ocean deep blue, blue and aqua; Aurora green, sky blue and violet; Neon magenta, indigo and cyan; Rainbow every hue. Where the motion dims the line, the colours dim with it. |
@@ -87,10 +88,12 @@ The TAP footswitch's ring blinks red with the tempo, and its icon and label on t
 
 ## Preset LED color
 
-In Preset footswitch mode the HX Stomp lights the current preset's ring red, and its switch icon on the Home screen is red. Preset LED Color (Global Settings > Displays, page 2, labelled Preset over LED) picks another colour for both, from the same palette as Tap LED color.
+In Preset footswitch mode the HX Stomp lights the current preset's ring red, with a red switch icon on the Home screen, and leaves the other two presets' rings off. HXtra gives each preset a colour of its own, from the same palette as Tap LED color.
 
-- **The other presets** keep the stock look: their rings off, their icons dark.
-- **A change** shows when you go back to the Home screen; the lit ring and its icon take the new colour at once.
+- **This Preset** (Global Settings > Displays, page 2) sets the current preset's colour. Save the preset to keep it: the colour is stored in the preset itself, so it goes with the preset when you move, export or restore it.
+- **Selected**, a preset's ring and icon are lit in its colour. **Not selected**, a preset with a colour shows it dimmed (the shade the HX Stomp uses for a bypassed block of that colour), so you can see which footswitch holds which preset.
+- **A preset without a colour** is lit in **Preset LED**'s colour (red by default, as stock) while it is selected, and off while it is not.
+- **A change** shows when you go back to the Home screen.
 - **Other modes** keep the stock colours: Stomp mode's rings are the blocks' colours, Snapshot mode's the snapshots'.
 
 ## DSP usage display
