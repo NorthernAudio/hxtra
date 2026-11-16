@@ -1,6 +1,6 @@
 # USB monitoring
 
-Global Settings > Ins/Outs > Path A Out (`HX_USB_MONITOR`, `tools/features/usb_monitor.py`, `src/m4/usb_monitor.s`): Send/USB sends path A to the Send bus, which is USB 3/4 to the computer and the Send jacks, instead of Main L/R. A DAW can then monitor the processed sound (issue #81). How the routing works: [sharc/usb-routing.md](../sharc/usb-routing.md). Status tags as in [conventions.md](../conventions.md).
+Global Settings > Ins/Outs > Path A Out (`HX_USB_MONITOR`, `tools/features/usb_monitor.py`, `src/m4/usb_monitor.s`, `tools/patch_usbmon.py`, `src/sharc/usb_monitor.asm`): Send/USB sends path A to the Send bus, which is USB 3/4 to the computer and the Send jacks, instead of Main L/R, and USB Only also silences the Send jacks. A DAW can then monitor the processed sound (issue #81). Value 3, Main+Snd, is post-send's (#93). How the routing works: [sharc/usb-routing.md](../sharc/usb-routing.md). Status tags as in [conventions.md](../conventions.md).
 
 ## How it works [verified offline, unicorn: tests/test_usb_monitor.py]
 
@@ -10,6 +10,12 @@ Global Settings > Ins/Outs > Path A Out (`HX_USB_MONITOR`, `tools/features/usb_m
   - After CHANGED `0x28dceb30(view, ID)` with ID `0xe0` (a turn), and after the page repaint `0x28dce854(view)` (a click's reset), `um_apply` compares the setting with `um_sent`.
   - When they differ and path A is on Main or Send, it calls the stock output API `0x28e03c68(engine, 9, 1)`. The engine comes from `0x28d92a98()`, and 9 is path A's Output block's grid position. That call ends in the owned send, which applies the setting.
   - Nothing is sent while path A's Output is off (0) or before the first send.
+- **The mode word** [verified offline: ssim, tests/test_usbmon.py]: after each send of path A's destination, `um_send` looks up the app parameter named by stock string 1247 'Output' (`0x28df35a0`, each time: a rebuilt app gets new handles) and sends the setting as an int (`0x28df35e8`). A build without the DSP side has no such parameter and sends nothing.
+  - `tools/patch_usbmon.py` gives HelixStomp_App that parameter (slot 67, int 0..3, default 0) and a writer to path [83, 10], the output's stereo meter `0x25e8`, as pid 100.
+  - The meter's wrapped control function keeps it in `USB_MODE`, which is the first data word of `usb_monitor.asm`, placed by `tools/block3.py`. Anything outside 0..3 becomes 0.
+  - The Send jacks' writer `0x2aaa` is wrapped and gets a silent input (16 zero words) while the mode is 2. It runs before the Main writer in each block, so mode 3's add (post-send's wrapper of `0x2aab`) lands in the same block.
+- **Setting changes** also re-send path A when only the mode changes (Send/USB ↔ USB Only: the same destination). `um_sent` keeps the last destination in byte 0 and the mode in byte 1.
+- **Entry 3's size**: the app's 67 parameter records go to the tail (`0x860` bytes). So the step first moves the string section back to its stock place (`patch_comp.e3_add_strings(..., home=True)`). Without that, a NAM build with no gate or GR meter reached `0xf1560`, over `E3_MAX` `0xf10f0`; with it, `0xd7b60`.
 - **Presets**: the edit buffer reads back the value sent, so a preset saved with Send/USB on holds 6 for path A. A stock unit's setter refuses 6 on path A and keeps Main.
 
 ## On the unit [verified on unit, 2026-11-16]

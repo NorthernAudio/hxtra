@@ -56,8 +56,9 @@ def e3_strings(e3):
     return str_off, recs, data, index
 
 
-def e3_add_strings(e3, wanted):
-    """Entry 3 with the strings of `wanted` it lacks appended to its section, and {string: index} for them all.
+def e3_add_strings(e3, wanted, home=False):
+    """Entry 3 with the strings of `wanted` it lacks appended to its section, and {string: index} for them all; with `home`, the
+    section moves back to 0x200 (below) even when none are new, for a step that grows Entry 3 without adding a string.
     Indices never change. A stock section (at 0x200) is copied past the end. Once add-model has copied the section and
     the model table to the tail (0xcae00), their stock copies at 0x200..h[8] are dead: the section goes back to 0x200 and
     the model table and everything after it move back over the old tail section, their offsets with them; a later call
@@ -74,7 +75,7 @@ def e3_add_strings(e3, wanted):
             added += struct.pack('<3I', len(data), zlib.crc32(raw) & 0xffffffff, len(raw))
             data += raw + b'\x00'
             index[s] = nstr + len(added) // 12 - 1
-    if not added:
+    if not added and not (home and str_off >= STOCK_E3_END):
         return bytes(e3), index
     n = nstr + len(added) // 12
     section = struct.pack('<2I', n, 8 + 12 * n + len(data)) + recs + added + data

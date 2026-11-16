@@ -151,6 +151,9 @@ def main():
     if os.environ.get("HX_FX_GATE") and unit == "HX_Stomp":
         run(py, "tools/patch_gate.py", image, titled)
         os.replace(titled, image)
+    if os.environ.get("HX_USB_MONITOR") and unit == "HX_Stomp":
+        run(py, "tools/patch_usbmon.py", image, titled)
+        os.replace(titled, image)
     if os.environ.get("HX_GR") and unit == "HX_Stomp":
         # last: every step that adds a model rebuilds the Entry 3 and 4 tails the knobs live in
         run(py, "tools/patch_comp.py", image, titled)
