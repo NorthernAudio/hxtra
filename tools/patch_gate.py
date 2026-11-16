@@ -7,7 +7,7 @@ Each model in MODELS gets the knobs Gate (Off by default), Threshold and Decay a
 its return reader (primitive 0x2618) brings in, before the block's Return level and Mix; the dry signal and the Send are not gated.
 Stereo models gate each side on its own. A new member in a block's composite gets no knob writes unless it is bound, and binding one
 stops the block (docs/research/sharc/cores/gates.md), so the gate is a wrapper around the reader the blocks already have:
-  Entry 2: fx_gate.asm in Block 3 right under the Metronome's kernel (dsp_place), and primitive 0x2618's process and control
+  Entry 2: fx_gate.asm in Block 3 where tools/block3.py places it (dsp_place), and primitive 0x2618's process and control
            functions entering it.
   Entry 4: each model's blob gets one input node per knob, a root default for each, and writers handing them to each of its
            readers as pids GATE_PID.., which the wrapper's control function keeps.
@@ -20,9 +20,9 @@ import argparse
 import os
 import struct
 
+import block3
 import patch_amp as pa
 import nam_multi
-import patch_click
 import patch_comp as pc
 
 ASM = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src', 'sharc', 'fx_gate.asm')
@@ -58,23 +58,8 @@ def dsp_size():
 
 
 def dsp_place():
-    """(DM base, PM base) of fx_gate.asm: its code right under the Metronome's kernel and its data under that, in the room NAM's
-    three slots leave (two with the GR meter, whose DSP code sits above them)."""
-    n_dm, n_pm = dsp_size()
-    lay = patch_click.nam_layout()
-    click = patch_click.pm_base(patch_click.kernel_size(), lay)
-    assert click == patch_click.pm_base(patch_click.kernel_size(), patch_click.nam_layout(gr=True))
-    pm = click - n_pm - (n_pm & 1)
-    dm = nw(pm) - n_dm
-    if dm < lay.b3_to:
-        raise SystemExit(f'the gate\'s DSP code ({n_dm} words, {n_pm} instructions) does not fit between NAM\'s slots '
-                         f'({lay.b3_to:#x}) and the Metronome\'s kernel ({nw(click):#x})')
-    gr_dm, gr_pm = pc.dsp_place()
-    secs, _ = pa.sasm.assemble(pc.dsp_asm(gr_dm, gr_pm), 'frame_probe.asm')
-    gr_n = sum(len(s.words) for s in secs if s.kind == 'pm')
-    if nw(gr_pm + gr_n + (gr_n & 1)) > dm:
-        raise SystemExit(f'the gate\'s DSP code at {dm:#x} overlaps the GR meter\'s')
-    return dm, pm
+    """(DM base, PM base) of fx_gate.asm (tools/block3.py)."""
+    return block3.place('HX_FX_GATE')
 
 
 def patch_dsp(l6ia_bytes, log=print):
