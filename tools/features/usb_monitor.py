@@ -1,18 +1,21 @@
-"""USB Monitor: Global Settings > Ins/Outs > Path A Out picks where path A's Output block goes, Main L/R (stock) or Send/USB:
-the Send bus, which is the Send jacks and USB 3/4 to the computer. With Send/USB a DAW records and monitors the processed sound
-while Main and the phones play only what it sends back on USB 1/2: software monitoring (issue #81). The stock firmware lets only
-path B reach the Send bus, and only by moving its merge to the end.
+"""USB Monitor: Global Settings > Ins/Outs > Path A Out picks where path A's Output block goes: Main L/R (stock), Send/USB (the
+Send bus: the Send jacks and USB 3/4 to the computer) or USB Only (USB 3/4 alone, the Send jacks silent). With Send/USB or USB
+Only a DAW records and monitors the processed sound while Main and the phones play only what it sends back on USB 1/2: software
+monitoring (issue #81). The stock firmware lets only path B reach the Send bus, and only by moving its merge to the end.
 
-src/m4/usb_monitor.s owns the function that sends a path's destination to the DSP and sends Send for path A's Main, so every preset
-follows the setting. A preset saved meanwhile holds Send for path A, which a stock unit refuses on load, leaving path A on Main. A
-turn or a reset of the setting sends path A's destination again at once."""
+src/m4/usb_monitor.s owns the function that sends a path's destination to the DSP: it sends Send for path A's Main, and after it
+the setting inside USB Input Trim (trim + 1000 * (mode + 1)), which src/sharc/usb_monitor.asm takes back out into its mode word
+(tools/patch_usbmon.py; USB Only silences the Send jacks' writer). A preset saved meanwhile holds Send for path A, which a stock unit refuses on load, leaving path
+A on Main. A turn or a reset of the setting sends path A's destination again at once. A checkbox in the web page's DSP features
+(WEB 'dsp': its DSP code takes Block 3 room, tools/block3.py) and HX_USB_MONITOR for build.py."""
 from features import Setting
 import patch_menu as pm
 
 FLAG = 'HX_USB_MONITOR'
+WEB = 'dsp'
 MENU = 'Ins/Outs'
 SETTINGS = (     # Ins/Outs' last empty slot; a label's last line shows on top
-    Setting('path_a', b'Out\nPath A', (b'Main L/R', b'Send/USB')),
+    Setting('path_a', b'Out\nPath A', (b'Main L/R', b'Send/USB', b'USB Only')),
 )
 
 SEND_FN = 0x28df5760                # (ctx, app, path, value): a path's destination to the DSP, after 0x28e002a8's range check

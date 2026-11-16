@@ -238,7 +238,7 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 *Global Settings › Ins/Outs, page 3*
 
-- **Path A Out** (Main L/R, Send/USB): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop).
+- **Path A Out** (Main L/R, Send/USB, USB Only): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so with Send/USB the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop). **USB Only** sends it to the computer alone: the Send jacks stay silent, for path A and for every Send and FX Loop block too, so nothing can feed back.
 
 ### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names (optional, off unless you tick it on the setup page)
 

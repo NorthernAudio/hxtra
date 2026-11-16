@@ -49,7 +49,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [sharc/visa.md](sharc/visa.md) | Entry 2's VISA code: where it loads, the parcel order, instruction lengths, the 16/32-bit forms, the compiled C calling convention; `visa_dis.py` | reading SHARC code outside the 48-bit PM block, or disassembling Entry 2 |
 | [sharc/model-blobs.md](sharc/model-blobs.md) | a model's parameters in Entry 3, Entry 4's parameter maps and node trees, the Entry 0 info row, tempo sync | adding a block parameter or a model |
 | [sharc/cores/gates.md](sharc/cores/gates.md) | the gate core `0x2720` and the return reader `0x2618`; the composite format (buffers, member records), sub-bindings and the node tree, op `0x2b`; why a new bound member kills a block; the FX Loop gate's wrapper | adding a gate or any member to a block, wrapping a primitive |
-| [sharc/usb-routing.md](sharc/usb-routing.md) | the app graph `HelixStomp_App`: input/output select, USB trim, phones and volume routing parameters; the M4's load-time rewrite of Output select; what reaches USB | anything about where audio goes: outputs, Send, USB channels, monitoring |
+| [sharc/usb-routing.md](sharc/usb-routing.md) | the app graph `HelixStomp_App`: input/output select, USB trim, phones and volume routing parameters; the M4's load-time rewrite of Output select; what reaches USB; blob 1 cannot change; how parameter maps turn values into DSP calls; the app's members in blob 0 | anything about where audio goes: outputs, Send, USB channels, monitoring; before touching blob 1 or the app's parameters |
 | [sharc/cores/compressors.md](sharc/cores/compressors.md) | the compressor cores `0x271a`, `0x2719`, `0x2710`: which block uses which, wiring, pids, init values, the Deluxe core's loop | metering or changing a compressor |
 
 ## Features
@@ -70,7 +70,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
 | [features/preset-color.md](features/preset-color.md) | Preset LED Color: the current preset's ring and icon in Preset mode, the stock Preset LED case and Home builder | working on Preset mode's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |
-| [features/usb-monitor.md](features/usb-monitor.md) | USB monitoring: Path A Out in Ins/Outs, the owned destination send, applying a change at once | working on USB monitoring, or on path A's output |
+| [features/usb-monitor.md](features/usb-monitor.md) | USB monitoring: Path A Out in Ins/Outs, the owned destination send, applying a change at once, USB Only's mode riding on USB Input Trim | working on USB monitoring, or on path A's output |
 | [features/screen-mirror.md](features/screen-mirror.md) | the screen on a computer: the command, the frame coding, the Mac viewer and recorder | working on the screen mirror, or recording a demo |
 | [features/usb-input.md](features/usb-input.md) | footswitches, knobs and buttons pressed from a computer: the command, the key queue, `tools/hx_input.py` | driving the unit from a script or a test |
 

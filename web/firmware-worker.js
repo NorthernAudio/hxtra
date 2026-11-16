@@ -70,6 +70,7 @@ var SOURCES = [
   "tools/patch_menu.py",
   "tools/patch_click.py",
   "tools/patch_gate.py",
+  "tools/patch_usbmon.py",
   "tools/patch_comp.py",
   "tools/m4asm.py",
   "tools/image_store.py",
@@ -124,6 +125,7 @@ var SOURCES = [
   "src/sharc/click.asm",
   "src/sharc/frame_probe.asm",
   "src/sharc/fx_gate.asm",
+  "src/sharc/usb_monitor.asm",
 ];
 // The release's M4 code for the features (tools/m4cache.py); a page from a checkout has none, and offers no features.
 var CACHE = "m4cache.json";
@@ -256,6 +258,11 @@ async function build(stock, flags, slots) {
       step(5, "Adding the kernel to the DSP program…",
            ["tools/patch_gate.py", "build/nam_lite.l6ia", "build/nam_lite_gate.l6ia"]);
       p.FS.rename("/repo/build/nam_lite_gate.l6ia", "/repo/build/nam_lite.l6ia");
+    }
+    if (flags.indexOf("HX_USB_MONITOR") >= 0) {
+      step(5, "Adding the kernel to the DSP program…",
+           ["tools/patch_usbmon.py", "build/nam_lite.l6ia", "build/nam_lite_usbmon.l6ia"]);
+      p.FS.rename("/repo/build/nam_lite_usbmon.l6ia", "/repo/build/nam_lite.l6ia");
     }
     if (flags.indexOf("HX_GR") >= 0) {      // last, as in build.py: every step that adds a model rebuilds the tails its knobs live in
       step(5, "Adding the kernel to the DSP program…",

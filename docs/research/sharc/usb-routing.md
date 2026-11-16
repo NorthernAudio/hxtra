@@ -33,7 +33,7 @@ Where the HX Stomp's inputs and outputs are chosen, and what reaches the compute
   - `phonesSelect` → two op `0x43` nodes → path [0] (the app itself), pids 42 and 45.
 - Composite `0x60000a` (the output block) has two gains `0x225`, a pan/mix `0x2391`, two `0x25e6` sinks with init param 1 = 0 and 1, two `0x2390`, and a `0x25e8` with 2 inputs and init param 1 = 2.
 - **[hypothesis]** `0x25e6` writes one output channel, and `select` picks its bus. Main and Send are separate models, and `OutputSend` has its own Mono/Stereo `Type`. So each of the 0..9 values is probably a single destination (6 = Send L/R), not a Helix-style "Multi" (post-send, #93).
-- Blob 1's root node has type `0xffffffff`, and no composite in blob 0 has the 171 members its node tree uses (the largest, `0x6001ab`, has 154). So the app's top composite is not in blob 0. **[hypothesis]** The SHARC code builds it.
+- Blob 1's root node has type `0xffffffff`, and no composite in blob 0's table has the 171 members its node tree uses (the largest, `0x6001ab`, has 154). The app's members are blob 0's own root list instead (see "The app's members" below).
 
 ## The M4 rewrites Output select on preset load [verified on unit, 2026-11-14]
 
@@ -201,8 +201,33 @@ How it was tested: the USB Monitor build (image `997d079e…`, boot usb-monitor-
 - So **a USB-only output = Path A on Send, with the `0x2aaa` (SP4B) writer's ch 0 and 1 instances writing silence.** USB 3/4 (`0x2aac` ch 2, 3) still carries the Send bus.
 
 
+## Blob 1 cannot change [verified on unit, 2026-11-16]
+
+A new app parameter for the output mode needed blob 1 (HelixStomp_App) to grow. Every image that changed blob 1 froze at boot (RAM runs `usb-monitor-7*`, all with the same M4 and DSP code):
+
+| image | blob 1 | boots |
+|---|---|---|
+| 7a, 7c, 7e, 7f | stock (M4 side; DSP wraps; Entry 3 string move; an Entry 3 app parameter with no blob change) | yes |
+| 7j | stock words, moved to the end of Entry 4 | yes |
+| 7k | its parameter map 2 zero words longer | no |
+| 7h, 7b, 7g | an input node; a writer to [83, 10], with the tables copied or grown in place | no |
+| 7m (`6ef1e863…`) | one word of table F's unused row 89, 0 → 1, same size | no |
+
+So blob 1's contents are checked, not only its size: no feature may edit it.
+
+## How the app turns its parameters into DSP calls [verified offline]
+
+- A parameter map's nodes run inside blob 1, before any DSP code: op `0xa`/`0xb` float/int inputs, op 1 writers {path, pid, 1}, op 2 readers, op `0x43` (67) a test against one constant, op `0x58` (88) a lookup (table B). Table F lists nested maps, one per composite member that has parameters, with the same header; a write to a composite's path with pid k sets that member's map's slot k.
+- **Path A's destination never reaches DSP code as a number.** `outputSelect.0` → [83] pid 3 → nested map 58 (the output block's), slot 3 → op 67 tests ==6 → [83] pid 1 (Send), ==1 and ==5 → op 88 → [83] pid 2 (Main). Any other value turns both off, which is why 2..4, 7 and 10..12 are silent. The tuner's output (`tunerOutputSelect` → [85] pid 3, nested map 17298) works the same way.
+- **`usbInGain0_1` (USB Input Trim, slot 56, string 4209, stock setting ID 3)** goes from a float input straight to writers [99] pid 1 and [105] pid 1, nothing between: its raw float reaches those members' control function. USB monitoring sends its mode this way ([features/usb-monitor.md](../features/usb-monitor.md)).
+
+## The app's members [verified offline]
+
+- Blob 0's header words 10 and 11 (`0xaa`, `0x16`) are a root member list: 170 records of 20 words at word `0x16`, as composite members are (record word 0 its index, word 6 its type). Slot k of blob 1 is member k − 1; blob 1's node tree overrides some (slot 83: base `0x600009`, overridden to the output block `0x60000a`).
+- Members 98 and 104 (slots 99 and 105), not overridden, are `0x80`, the Level gain (registry row `0x200298`, control `0x60f3e2`, process `0x8d7f5`), init (1, 0), (2, 0).
+- The list's most common types: `0x600004` ×16, `0x60000b` ×8, `0x600008` ×7, `0x2391` ×7, `0x2aac` ×6, `0x80` ×6.
+
 ## Open
 
 - The physical Main output for values 2..4, 7 and 10..12: only USB was recorded for them.
 - What HX Edit shows for path A's Output with Send/USB on.
-- A USB-only destination: Send/USB reaches the computer only through the Send bus. Separating USB 3/4 from the Send jacks needs to know how the SHARC's audio reaches USB0: which link carries the eight channels, and whether USB 3/4 has a slot of its own there.
