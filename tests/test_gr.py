@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pytest
 
+import block3
 import features
 import nam_multi
 import patch_amp as pa
@@ -274,8 +275,8 @@ def test_wrap_prim_refuses_a_stock_address_that_differs():
 # ---- the DSP wrapper's place, beside NAM A2 Lite's kernel and the Metronome's
 
 def dsp_ranges():
-    """[start, end) normal-word ranges of the wrapper's data and code, from pc.dsp_place()."""
-    dm, pm = pc.dsp_place()
+    """[start, end) normal-word ranges of the wrapper's data and code, beside two NAM slots."""
+    dm, pm = block3.place('HX_GR', {})
     secs, _ = sasm.assemble(pc.dsp_asm(dm, pm), 'frame_probe.asm')
     (n_dm,), (n_pm,) = ([len(s.words) for s in secs if s.kind == k] for k in ('dm', 'pm'))
     return (dm, dm + n_dm), (pc.nw(pm), pc.nw(pm + n_pm + (n_pm & 1)))
@@ -285,26 +286,26 @@ def overlap(a, b):
     return a[0] < b[1] and b[0] < a[1]
 
 
-def test_dsp_sits_right_above_nams_two_slots():
-    lay = patch_click.nam_layout(gr=True)
+def test_dsp_sits_in_the_room_nam_leaves():
+    lo, hi = block3.room(2)
     (data, code) = dsp_ranges()
-    assert lay.slots == 2 and data[0] == lay.b3_to and data[1] <= code[0]
-    assert not any(overlap(r, c) for r in (data, code) for c in lay.claims())
+    assert lo <= data[0] and data[1] <= code[0] and code[1] <= hi
+    assert not any(overlap(r, c) for r in (data, code) for c in block3.layout(2).claims())
 
 
-def test_dsp_sits_under_the_metronome_and_nams_cold_code():
-    lay = patch_click.nam_layout(gr=True)
-    click = patch_click.pm_base(patch_click.kernel_size(), lay)
-    _, code = dsp_ranges()
-    assert code[1] <= pc.nw(click) < pc.nw(lay.cold_pm)
-    _, pm = pc.dsp_place()
-    assert 0x0e302c <= pm and pc.nw(pm) + (code[1] - code[0]) <= nam_multi.NW3 + 0x8000
+def test_dsp_sits_under_the_metronome():
+    env = {'HX_CLICK': '1', 'HX_GR': '1'}
+    click = block3.place('HX_CLICK', env)[1]
+    dm, pm = block3.place('HX_GR', env)
+    n_pm = pc.dsp_size()[1]
+    assert pc.nw(pm + n_pm + (n_pm & 1)) <= pc.nw(click) and 0x0e302c <= pm
 
 
 def test_dsp_does_not_fit_beside_three_slots():
-    lay = patch_click.nam_layout(gr=False)
-    (data, code) = dsp_ranges()
-    assert lay.slots == 3 and lay.cold_nw - lay.b3_to < (data[1] - data[0]) + (code[1] - code[0])
+    assert block3.cost('HX_GR') > block3.words(3)
+    assert block3.slots({'HX_GR': '1'}) == 2
+    with pytest.raises(SystemExit, match='3 NAM slots leave 512'):
+        block3.slots({'HX_GR': '1', 'HX_NAM_SLOTS': '3'})
 
 
 def test_wraps_call_the_stock_code_the_wrapper_calls():
@@ -471,8 +472,8 @@ def test_comp_patch_refuses_a_second_run(comp_patched):
 # ---- the whole GR build, pinned as tests/test_firmware.py pins the default one
 
 GR_BUILT_MD5 = {
-    'HX_GR': '2131fbb1187aa6c35d39a2c9697019d1',
-    'HX_GR HX_CLICK': 'b1591056ed1d2020743766c34702e6c8',    # patch_click.py adds a model, which would drop knobs written before it
+    'HX_GR': '28f18449ecbbfa9af38c34090905e43c',
+    'HX_GR HX_CLICK': 'd30a75d5edc70498f9893568c42da359',    # patch_click.py adds a model, which would drop knobs written before it
 }
 
 

@@ -3,9 +3,11 @@
 
 usage: m4cache.py <HX_Stomp_v3.80.0_0x103966115.hxf> [-o build/m4cache.json] [--release v1.0.0]
 
-Runs the features of tools/patch_menu.py, all those the page builds, on the image build.py gives them (the stock file with
-NAM A2 Lite added: the features' code reads addresses in it), keeping what every module assembled to (keyed by m4asm.key),
-then builds the same with build.py to pin its MD5. tools/release.py attaches the file to
+Runs the features of tools/patch_menu.py, all those the page builds, on the images build.py gives them (the stock file with
+NAM A2 Lite added, and without it for HX_NAM_SLOTS=0: the features' code reads addresses in it), keeping what every module
+assembled to (keyed by m4asm.key), then builds every combination the page offers with build.py to pin its MD5: each NAM slot
+count with each set of DSP features that fits beside it (tools/block3.py), with each set of the other opt-ins. The page reads
+the room and the costs from "dsp". tools/release.py attaches the file to
 the GitHub release, and the Pages workflow publishes it next to the page; m4asm reads it when HX_M4_CACHE names it.
 """
 import argparse
@@ -18,6 +20,7 @@ import subprocess
 import sys
 import tempfile
 
+import block3
 import features
 import m4asm
 import patch_amp as pa
@@ -37,12 +40,26 @@ def web_options():
     return _web('opt-in')
 
 
+def web_dsp():
+    """The switch of every feature the page offers among its DSP features, off until ticked (WEB 'dsp'), in feature order."""
+    return _web('dsp')
+
+
 def _web(kind):
     return [features.flags(m)[0] for m in features.load() if features.flags(m) and getattr(m, 'WEB', True) == kind]
 
 
 def combo_key(flags):
     return '+'.join(sorted(flags))
+
+
+def subsets(flags):
+    return [list(c) for n in range(len(flags) + 1) for c in itertools.combinations(flags, n)]
+
+
+def slots_flag(slots):
+    """The NAM slot count as the pseudo-flag a combination's key and built_md5's environment take."""
+    return f'{block3.VAR}={slots}'
 
 
 def nam_base(stock, d):
@@ -61,8 +78,8 @@ def nam_base(stock, d):
     return src
 
 
-def modules(stock, flags):
-    """{m4asm.key: {code, symbols}} of every module the features of flags assemble."""
+def modules(stock, flags, nam=True):
+    """{m4asm.key: {code, symbols}} of every module the features of flags assemble, on the image with NAM A2 Lite (nam) or without."""
     out, assemble = {}, m4asm.assemble_module
 
     def keep(src, include=()):
@@ -71,7 +88,7 @@ def modules(stock, flags):
         return code, symbols
 
     with tempfile.TemporaryDirectory() as d:
-        data, _ = pa.load_l6ia_from_any(nam_base(stock, d))
+        data, _ = pa.load_l6ia_from_any(nam_base(stock, d) if nam else stock)
     m4asm.assemble_module = keep
     try:
         pm.menu_entries(lambda e: pa.get_entry_swapped(data, e), env={f: '1' for f in flags})
@@ -81,9 +98,9 @@ def modules(stock, flags):
 
 
 def built_md5(stock, flags):
-    """The MD5 of build.py's .hxf with flags on and no other HX_ variable."""
+    """The MD5 of build.py's .hxf with flags on (a 'VAR=value' one set to its value) and no other HX_ variable."""
     env = {k: v for k, v in os.environ.items() if not k.startswith('HX_')}
-    env.update({f: '1' for f in flags})
+    env.update(f.split('=', 1) if '=' in f else (f, '1') for f in flags)
     with tempfile.TemporaryDirectory() as d:
         out = os.path.join(d, 'out.hxf')
         r = subprocess.run([sys.executable, os.path.join(ROOT, 'build.py'), os.path.abspath(stock), '-o', out, '--no-check'],
@@ -96,10 +113,15 @@ def built_md5(stock, flags):
 def make(stock, release=None):
     if os.environ.get(m4asm.CACHE):
         raise SystemExit(f'm4cache: unset {m4asm.CACHE}: this assembles with clang')
-    flags, options = web_flags(), web_options()
-    combos = [flags + list(c) for n in range(len(options) + 1) for c in itertools.combinations(options, n)]
+    flags, options, dsp = web_flags(), web_options(), web_dsp()
+    combos = [flags + d + o + [slots_flag(s)] for s in block3.SLOTS for d in subsets(dsp) if block3.fits(s, d)
+              for o in subsets(options)]
+    every = flags + options + dsp
     return {'release': release, 'unit': UNIT, 'features': flags, 'options': options,
-            'md5': {UNIT: {combo_key(c): built_md5(stock, c) for c in combos}}, 'modules': modules(stock, flags + options)}
+            'dsp': {'features': dsp, 'slots': list(block3.SLOTS), 'room': {str(s): block3.words(s) for s in block3.SLOTS},
+                    'cost': {f: block3.cost(f) for f in dsp}},
+            'md5': {UNIT: {combo_key(c): built_md5(stock, c) for c in combos}},
+            'modules': {**modules(stock, every), **modules(stock, every, nam=False)}}
 
 
 def main():
