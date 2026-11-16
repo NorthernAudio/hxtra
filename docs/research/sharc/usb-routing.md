@@ -102,8 +102,107 @@ How it was tested: the USB Monitor build (image `997d079e…`, boot usb-monitor-
 - So with an FX Loop block, an output on Send feeds back through whatever is in the loop.
 - The HX Stomp adds a fourth value (a bool) to an FX Loop block's parameters when it loads one.
 
+## Where USB audio is made (Option B research, 2026-11-16) [verified offline, disassembly]
+
+- The output block composite `0x60000a`'s `0x25e6`/`0x25e8` members are meter taps, not sinks: `0x25e6` (one input, init 0 or 1) and `0x25e8` (two inputs, init 2) also sit in `0x600009`, `0x600013`, `0x600035`, `0x600037`, `0x6000e1` and `0x6000e3`. Which bus a destination value drives is decided in SHARC code, not in a composite. Their registry entries (DM `0x200000`, post-send) agree:
+  - `0x25e6` at `0x200390`: init `0x6105be`, ctrl `0x6105a5`, process `0x8db2a`, 1 DM word, no PM.
+  - `0x25e8` at `0x200398`: init `0x6105ea`, ctrl `0x6105d1`, process `0x8db42`, 1 DM word.
+  - The rest of `0x60000a`: `0x225` at `0x2002a0` (process `0x8d7f5`), `0x2390` at `0x200378` (process `0x8da6a`), and `0x2391` at `0x200400` (process `0x8dca9`, no init or ctrl).
+- Entry 0 segment 3 (`0x20000000`, 48 KB) holds the USB device: the UTF-16 strings "LINE 6", "HX Stomp", "HX Stomp Msg Pipe", "HX Stomp Audio Ctrl", "HX Stomp MIDI" at `0x2000617e`.., 21 literals of USB0 (`0x40006000`, `0x400061c0` ENDPTCTRL) and 21 of I2S0 (`0x400a2000`). Its code is Thumb-1 only (`movs`, `mov lr, r8`, `bx` through registers), so it is most likely the LPC4350's Cortex-M0 coprocessor's.
+- The USB audio interfaces (configuration descriptor at `0x20006048`, 304 bytes) are UAC2. They carry 8 channels each way in 4-byte slots of 24 bits. Endpoint `0x03` (iso OUT, from the computer) and `0x83` (iso IN, to it) each take up to 224 bytes a microframe.
+- **I2S0 is the 8-channel audio link with the SHARC.** DAO/DAI are `0x7fb`/`0x87fb` (32-bit words, WS half-period 32, slave). The FIFO service at `0x20000bb0` counts words modulo 8 (`ands` with 7 in `[ctx+0x18]`) and resyncs on bit 0 of a received word. The callbacks are registered at `0x20000402` with context `0x20006338`: `0x20003311` gives the next word to send, `0x20003391` the place for the next word received, and `0x20003401` handles a resync.
+- **The coprocessor is a straight pipe.** The receive callback `0x20003390` writes each word at the next 4 bytes of the current USB IN buffer (descriptor `[ctx+0x30] + 32 * [ctx+0x40]`: buffer `+0x10`, length `+0x18`) and steps through 8 buffers. Received I2S slot k is USB channel k + 1 to the computer, with no table between them. The send side marks slot 0 by bit 0 (`0x20003330`..).
+- So USB 3/4 to the computer is whatever the SHARC puts in I2S slots 2 and 3, and nothing on the LPC side can tell the Send bus's copy for USB from its copy for the Send jacks. **A USB-only output has to be made in the SHARC.**
+
+## The SHARC's audio ports (Entry 2) [verified offline]
+
+- Entry 2's code: 11,635 48-bit instructions in PM at `0x8c100..0x8ee95` (tag 5). Everything else is VISA: 16-bit parcels at short-word addresses `0x13ac4a..0x183138` (tag 3, **high half first**, count in parcels; tag-1 zero fills between them are code too) and in DDR2 at `0x600000..` (tag 10 words at `0x300000..0x30d06e`, low half first). `tools/sharc/visa_dis.py` (#118) disassembles both. Its VISA forms match the ADSP-2136x/2137x/214xx Programming Reference rev 2.4, chapter 10. Register names are checked against the ADSP-214xx Hardware Reference rev 1.1, Appendix B.
+- IOP register addresses (def21469.h, SPORT `SPCTLn` at `0xc00`/`0xc01`/`0x400`/`0x401`/`0x800`/`0x801`/`0x4800`/`0x4801`, SRU at `0x2430..0x247b`) appear as 32-bit immediates in VISA 48-bit parcels `1002 0000 <reg>` (read) and `1102 0000 <reg>` (write, **[hypothesis]** type 14 `ureg <-> DM(addr32)`):
+  - The DAI/SRU routing is set up at short-word `0x6092d0..0x609650` (SRU_PIN0..4, SRU_PBEN0..3, SRU_CLK0/4/5, SRU_DAT0, SRU_FS0/4).
+  - The SPORT DMA chain pointers are cleared at `0x60925f..0x609290` (CPSP0A, 0B, 1A, 2A, 4A, 4B, 5A, 6A), and SPCTL0, 1, 5 and 6 are written at `0x609296..0x6092b0`.
+  - The 48-bit PM code also writes SPCTL2 (19 places, from `0x8c11e`), SPCTL4 (`0x8c129`..), SRU_CLK2 (`0x8c49f`), SRU_CLK4 (`0x8d39d`..) and SRU_DAT1 (`0x8e64e`).
+- **The SRU setup's pattern** [verified offline, `visa_dis.py`]: `1002 0000 <reg>` reads the register into R2, `cc2X` ANDs it with a mask in RX, `cd2X` ORs in a value from RX, and `1102 0000 <reg>` writes it back. The masks and values come from `0f8r hhhh` (32-bit parcel pair: Rr = a 16-bit immediate) and `0f0r hhhh llll` (48-bit: Rr = a 32-bit immediate). Each DMA chain pointer is loaded from DM (`1002 000e 14xx` is `R2 = DM(0xe14xx)`, a load; a NOP follows) and stored to its CPSP.
+- **SPORT modes** [verified offline: the immediates stored to SPCTLn at `0x609296..0x6092b0`, decoded with the ADSP-2146x SPCTL fields, I2S mode]. Every SPORT runs in I2S mode (OPMODE, bit 11) with 32-bit words (SLEN 31). So 8 channels come in and 8 go out, as stereo pairs:
+
+  | SPORT | SPCTL | direction, data channels |
+  |---|---|---|
+  | 0 | `0x013d29f1` | receive, A and B |
+  | 1 | `0x000d29f1` | receive, A |
+  | 2 | `0x000d29f1` | receive, A |
+  | 4 | `0x033d29f1` | transmit, A and B |
+  | 5 | `0x020d29f1` | transmit, A |
+  | 6 | `0x020d29f1` | transmit, A |
+
+  **[hypothesis]** The LPC link is one receiving and one transmitting SPORT clocked at four times the sample rate (8 words a 48 kHz sample, as the LPC side counts). SRU_CLK5 and SRU_FS4 (SPORT6/7's clock and frame sync) get their own source, `0x1d`, at `0x609641`/`0x609649`. Its SHARC→LPC side is then SPORT6 A, and USB 3/4 are its words 2 and 3 of each 8.
+- **SRU writes** (replayed from the `1002`/`cc`/`cd`/`1102` sequences): SRU_DAT0 gets fields `0x5000`, `0x0e000000`, `0x11` and `0x480`, SRU_CLK0 and SRU_FS0 get the same values (`0x7000`, `0x38000000`, `0x1d`, `0x3a0`, `0x01d00000`), and SRU_CLK4 gets `0x6` and `0xc0`. Reading them as routing needs the DAI chapter's field codes and the board's pin wiring, not done.
+- **The SPORT DMA chain pointers** come from an array of eight words at DM `0xe1492..0xe14ae`, 4 apart: SPORT2A `0xe1492`, 5A `0xe1496`, 0A `0xe149a`, 0B `0xe149e`, 1A `0xe14a2`, 4A `0xe14a6`, 4B `0xe14aa`, 6A `0xe14ae`. They are loaded at `0x60925b..0x60928c`. No code names those addresses as immediates, so whatever fills them uses a pointer.
+- **`0x6082b3` is not the SPORT setup** (an earlier hypothesis, refuted with `visa_dis.py`). It builds five 7-word DMA blocks (`M3 = 7`) at `0xe1470..` after two 0x100-word copies from `0xc3cb6`/`0xc3eb6` into `0xe0f6a`. That is the 1 KB SPI link frames to the M4 (`m4/dsp-link.md`). Its object is at `0xc3c8f`, with handlers `0x173a0c`/`0x1739c7`.
+
+## The SHARC's I/O: ports, main loop, and the I/O primitives [verified offline, `visa_dis.py`, 2026-11-16]
+
+- **The SPORT driver** is at internal VISA `0x17615a..0x1762cf` and numbers eight ports:
+
+  | port | SPORT | direction | buffer (words a block) |
+  |---|---|---|---|
+  | 0 | 2A | in, **from the computer (USB)** | 0x80 (16 samples × 8 slots) |
+  | 1 | 5A | out, **to the computer (USB)** | 0x80 |
+  | 2 | 0A | in | 0x20 (16 × stereo) |
+  | 3 | 0B | in | 0x20 |
+  | 4 | 1A | in | 0x20 |
+  | 5 | 4A | out | 0x20 |
+  | 6 | 4B | out | 0x20 |
+  | 7 | 6A | out | 0x20 |
+
+  - The setup `0x17615a(port, ...)` builds a ring of three TCBs a port. The TCB pointers are at DM `0xe1492 + 4 * port`, with the next two TCBs at `+0x20` and `+0x40`. The chain pointer bit (19) is set, and the buffers are consecutive at `R8 + n * length`.
+  - The buffer length comes from jump table DM `0xc4cd9`: `0x80` for ports 0 and 1, `0x20` for the rest. The hypothesis that SPORT6 is the USB link is refuted.
+  - `0x176228(port)` reads the port's DMA index register (`IISP2A 0x440`, `IISP5A 0x848`, `IISP0A 0xc40`, `0B 0xc44`, `1A 0xc48`, `4A 0x840`, `4B 0x844`, `6A 0x4840`; jump table `0xc4ce1`) and returns the buffer the core may use now.
+- **The main loop** `0x1763a4..0x176460`:
+  1. It waits for the block (`0x8eaf4(0xc5b3c)`).
+  2. It stores each port's current buffer at DM `0xc5b44` (port 0), `0xc5b45` (port 1) and `0xc5b4c..0xc5b51` (ports 2..7).
+  3. It runs the graph (`0x17418a`, with the object at DM `0xc4d11`).
+- **Inputs and outputs are graph primitives.** Each instance's `DM(0,I0)` is a channel index, `I1` its input buffer (outputs) or `I2` its output buffer (inputs). Each works on 16 samples a block. Registry rows are at DM `0x200000`:
+
+  | primitive | registry | process | what |
+  |---|---|---|---|
+  | `0x2a94` | `0x200000` | `0x8cdbb` | jack input, ports 2/3 (ch ≥ 3 is port 3), stereo; fixed → float |
+  | `0x2a97` | `0x200008` | `0x8cdca` | jack input, port 4 |
+  | `0x2a9b` | `0x200010` | `0x8cdd2` | USB input (port 0), finds the 8-slot frame by bit 0, then reads slot ch |
+  | `0x2aa8` | `0x200018` | `0x8ce33` | jack output, port 5 (SP4A), stereo, ch parity = L/R |
+  | `0x2aaa` | `0x200020` | `0x8ce36` | jack output, port 6 (SP4B) |
+  | `0x2aac` | `0x200028` | `0x8ce11` | **USB output** (port 1): slot ch of 8 (`[0xc5b45] + ch`, stride 8). It clips, fixes, clears bit 0 and sets it on ch 0 only (the LPC's frame sync) |
+  | `0x2aab` | `0x200030` | `0x8ce30` | jack output, port 7 (SP6A) |
+
+  The outputs share init `0x60a5e2` and ctrl `0x60a5ed`; the inputs share `0x60a5ae` (or `0x60a5cf`) and ctrl `0x60a5b9`.
+- So **USB 3/4 to the computer is the `0x2aac` instances with ch 2 and 3**, and the Send jacks are one of the jack-output writers (port 5, 6 or 7), ch pair unknown. They are separate primitive instances fed from the same bus. **[hypothesis]** A registry-wrapped jack-output writer that writes silence for the Send pair while Path A Out is on USB-only gives a true USB-only output (path A on Send, the Send jacks muted). The same writer, adding the Main writer's input, gives #93's Main+Send.
+- **Composite `0x600000`** (49 members, 13 in, 6 out) is the fixed I/O block, and `0x600010` (31 members) is a smaller variant. `0x600000` holds:
+  - jack inputs `0x2a94` ch 2 and 5, `0x2a97` ch 0 and 1;
+  - USB inputs `0x2a9b` ch 2..7;
+  - USB outputs `0x2aac` ch 4 and 5: USB 5/6 to the computer, the dry Main inputs.
+
+  No composite in blob 0 holds a jack-output writer (`0x2aa8`/`0x2aaa`/`0x2aab`). Their instances sit in the app's top composite, which blob 0 does not hold.
+- **Which writer is which** [verified on unit, 2026-11-16, post-send's probe image post-send-5, payload `d05c1900…`]:
+  - The probe muted, then toned (3 kHz square), each (jack writer, ch) in turn. A preset had Main and Send both carrying plucks from USB 5/6 (path B on Send).
+  - USB was recorded with Send L → Return L to USB 7/8, and a Volt 4 recorded Main Out L (input 1) and the phones (input 2, TRS into a mono input: the tip).
+  - Each output answered to exactly one key, in tone and in mute:
+
+  | output | writer | ch | call order in a block |
+  |---|---|---|---|
+  | phones (tip) | `0x2aa8` (SP4A, port 5) | 1 (ch 0 is the other side) | 1st, 2nd (ch 0, ch 1) |
+  | Send L | `0x2aaa` (SP4B, port 6) | 0 | 3rd |
+  | Send R | `0x2aaa` (SP4B, port 6) | 1 | 4th |
+  | Main R | `0x2aab` (SP6A, port 7) | 0 | 5th |
+  | Main L | `0x2aab` (SP6A, port 7) | 1 | 6th |
+
+  - Main R and the call order come from post-send's second probe (post-send-6, payload `8f1dba83…`). Main R's mute dropped Main R on the Volt by 36.1 dB. The call order is each writer instance's place among the jack writers in a block, written digitally to USB 6.
+  - Only those six jack-writer instances run. Send R follows because `0x2aaa` has just the two instances and ch 0 is Send L.
+  - The Send writer runs before the Main writer in every block, so code in Main's writer can add into the Send words in the same block.
+  - The SP4A ch 7 dip in the first probe was the plucks (post-send's RMS shows none).
+  - **Open:** in post-send-6's take, USB 7/8 to the computer was digital zero for the whole take, stock steps included. Its `0x2aac` wrapper changes ch 4 and 5. post-send-5 (ch 5 only) had the Return on 7/8. A take on plain `next` would rule the probe in or out.
+- So **a USB-only output = Path A on Send, with the `0x2aaa` (SP4B) writer's ch 0 and 1 instances writing silence.** USB 3/4 (`0x2aac` ch 2, 3) still carries the Send bus.
+
+
 ## Open
 
 - The physical Main output for values 2..4, 7 and 10..12: only USB was recorded for them.
 - What HX Edit shows for path A's Output with Send/USB on.
-- A USB-only destination: Send/USB reaches the computer only through the Send bus. Separating USB 3/4 from the Send jacks needs the SHARC's side of the routing.
+- A USB-only destination: Send/USB reaches the computer only through the Send bus. Separating USB 3/4 from the Send jacks needs to know how the SHARC's audio reaches USB0: which link carries the eight channels, and whether USB 3/4 has a slot of its own there.
