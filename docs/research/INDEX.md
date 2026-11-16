@@ -37,6 +37,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [m4/snapshots.md](m4/snapshots.md) | the snapshot manager and records, select and its callers, the snapshot footswitch mode, the snapshot icon | anything about snapshots |
 | [m4/presets.md](m4/presets.md) | the eMMC stores (presets, globals, IRs) and the preset file's layout | storing data in a preset, or reading preset files |
 | [m4/dsp-link.md](m4/dsp-link.md) | the SPI frames between the DSP and the M4, and sending DSP values in a frame's tail | getting a value from the DSP to the screen |
+| [m4/split-routing.md](m4/split-routing.md) | a preset's split and merge in the edit buffer, how they are applied, why an empty path B is refused, the routing switches (`splitToLower`, `joinToLower`) the M4 sends | changing what path B, the split or the merge do |
 | [m4/usb-editor.md](m4/usb-editor.md) | HX Edit's editor service on the M4: the command table, a command's request and reply, the reply functions, the free command numbers | adding a USB command, or reading the unit from a computer |
 
 ## The SHARC (DSP) side
