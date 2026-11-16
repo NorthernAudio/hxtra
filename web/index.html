@@ -148,8 +148,9 @@
   #dsp[hidden], #other[hidden] { display: none; }
   #dsp .sub { margin: 0; color: var(--muted); font-size: 14.5px; }
   .room p { margin: 4px 0 0; font: 13px/1.3 var(--font-mono); color: var(--muted); }
-  .room-bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
-  .room-bar span { display: block; height: 100%; width: 0; background: var(--ok); transition: width .2s; }
+  .room-bar { display: flex; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .room-bar span { height: 100%; width: 0; background: var(--ok); transition: width .2s; }
+  .room-bar #roomNam { background: var(--accent); }
   .slots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .checks .slots label { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; }
   .checks .slots input { margin: 0; }
@@ -291,7 +292,7 @@
     <div id="dsp" hidden>
       <h3 data-i18n="dsp.title"></h3>
       <p class="sub" data-i18n="dsp.sub"></p>
-      <div class="room"><div class="room-bar"><span id="roomUsed"></span></div><p id="roomText"></p></div>
+      <div class="room"><div class="room-bar"><span id="roomNam"></span><span id="roomUsed"></span></div><p id="roomText"></p></div>
       <div class="checks">
         <div class="feat" id="nam"><span data-i18n="dsp.nam"></span>
           <div class="slots" role="radiogroup" data-i18n-label="dsp.nam.label">
@@ -301,6 +302,7 @@
             <label data-slots="0"><input type="radio" name="slots" value="0"> <span data-i18n="dsp.off"></span></label>
           </div>
           <ul data-i18n="dsp.namS"></ul>
+          <p class="cost" id="namCost"></p>
         </div>
         <div class="feat" data-dsp="HX_GR" hidden><label><input type="checkbox" checked> <span data-i18n="feat.gr"></span></label>
           <ul data-i18n="feat.grS"></ul>
@@ -2535,7 +2537,8 @@ var LANG_NAMES = {
 
   // Every build has the release's features, whose M4 code (tools/m4cache.py) a checkout's page lacks, and the options ticked.
   // The DSP features share the Block 3 room NAM A2 Lite's slots leave (tools/block3.py): the cache's "dsp" has the room for
-  // each slot count and each feature's cost, and a box or a slot count that would overflow it can't be picked.
+  // each slot count and each feature's cost, and a box or a slot count that would overflow it can't be picked. The meter's
+  // total is the room with no NAM, so NAM's blocks count as used: what they take is what Off would free.
   var features = [];
   var optBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-option]"));
   var dspBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-dsp]"));
@@ -2551,11 +2554,14 @@ var LANG_NAMES = {
   }
   function dspDraw() {
     if (!dsp) return;
-    var room = dsp.room[slotsPicked()];
+    var total = Math.max.apply(null, dsp.slots.map(function (s) { return dsp.room[s]; }));
+    var nam = total - dsp.room[slotsPicked()];
     var used = ticked(dspBoxes, "dsp").reduce(function (n, f) { return n + dsp.cost[f]; }, 0);
-    var left = room - used;
-    $("roomUsed").style.width = Math.min(100, 100 * used / room) + "%";
-    $("roomText").textContent = t("dsp.used", { used: used, room: room, left: left });
+    var left = total - nam - used;
+    $("roomNam").style.width = 100 * nam / total + "%";
+    $("roomUsed").style.width = Math.min(100, 100 * used / total) + "%";
+    $("roomText").textContent = t("dsp.used", { used: nam + used, room: total, left: left });
+    $("namCost").textContent = t("dsp.cost", { cost: nam });
     dspBoxes.forEach(function (o) {
       var box = o.querySelector("input"), cost = dsp.cost[o.dataset.dsp];
       box.disabled = !box.checked && cost > left;
