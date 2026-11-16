@@ -1,8 +1,8 @@
 @ usb_monitor.s - Path A Out: where path A's Output block goes. Send/USB and USB Only send it to the Send bus instead of Main L/R:
 @ the Send jacks and USB 3/4 to the computer, so a DAW can monitor the processed sound while Main and the phones play only what it
-@ sends back on USB 1/2. USB Only also silences the Send jacks: the setting goes to the DSP as the app's parameter 'Output' (the
-@ mode word of src/sharc/usb_monitor.asm, tools/patch_usbmon.py), sent after each send of path A's destination. The swap happens
-@ where the destination goes to the DSP, so every preset follows the setting.
+@ sends back on USB 1/2. USB Only also silences the Send jacks: the setting rides to the DSP inside USB Input Trim, sent after each
+@ send of path A's destination as trim + 1000 * (mode + 1), which the DSP splits again (src/sharc/usb_monitor.asm, its mode word;
+@ tools/patch_usbmon.py). The swap happens where the destination goes to the DSP, so every preset follows the setting.
 .syntax unified
 .thumb
 .include "hxtra.inc"
@@ -10,11 +10,13 @@
 .equ SET_OUTPUT, 0x28e03c69         @ (engine, grid position, value): an Output block's destination, as when Path B's merge moves
 .equ PARAM_FIND, 0x28df35a1         @ (ctx, instance, name's Entry 3 string, &handle): an app parameter's handle, < 0 when it has none
 .equ PARAM_SEND, 0x28df35e9         @ (ctx, instance, handle, &{u8 type, u32 value}): an app parameter to the DSP
-.equ MODE_NAME, 1247                @ the stock string 'Output', the mode parameter's name (tools/patch_usbmon.py NAME)
+.equ GET_VALUE, 0x28e1f845          @ (ID, &{type, value}): a Global Setting, < 0 when it has none
+.equ TRIM_NAME, 4209                @ usbInGain0_1, USB Input Trim: a float the DSP's Level gains [99] and [105] take as it comes
+.equ TRIM_ID, 3                     @ its Global Setting
+.equ CODE_STEP, 1000                @ trim + CODE_STEP * (mode + 1): above any trim, as usb_monitor.asm splits it
 .equ OUTPUT_A, 9                    @ path A's Output block's grid position
 .equ MAIN, 1
 .equ SEND, 6
-.equ INT, 2
 
 .thumb_func
 um_send:                            @ owns 0x28df5760(ctx, app, path, value), which sends a path's destination to the DSP; r12 its stock
@@ -39,6 +41,8 @@ um_send_call:
     mov r3, r7
     blx r8
     cbnz r6, um_send_done
+    cmp r0, #0
+    blt um_send_done                @ the stock send gave up before reading the app: so does the mode
     mov r7, r0                      @ the stock send's result
     mov r0, r4
     mov r1, r5
@@ -47,26 +51,43 @@ um_send_call:
 um_send_done:
     pop {r4-r8, pc}
 
-um_mode:                            @ (ctx, app): the setting to the DSP as the app parameter MODE_NAME, when the app has it
+um_mode:                            @ (ctx, app): the setting to the DSP inside USB Input Trim
     push {r4-r7, lr}
-    sub sp, #12                     @ the value {type, value} at sp, the handle at sp + 8
+    sub sp, #20                     @ the value {type, value} at sp, the handle at sp + 8, the trim {type, value} at sp + 12
     ldr r4, [r0, #0xc]
     adds r4, #4                     @ the parameter context, as 0x28df5760 takes it
     ldr.w r5, [r1, #0xac8]          @ the app's instance
     mov r0, r4
     mov r1, r5
-    movw r2, #MODE_NAME
+    movw r2, #TRIM_NAME
     add r3, sp, #8
     ldr r6, =PARAM_FIND
     blx r6                          @ looked up each time: a rebuilt app gets new handles
     cmp r0, #0
-    blt um_mode_done                @ a build without the DSP side: nothing to send
+    blt um_mode_done
+    movs r0, #TRIM_ID
+    add r1, sp, #12
+    ldr r6, =GET_VALUE
+    blx r6
+    cmp r0, #0
+    bge um_mode_trim
+    movs r0, #0                     @ no trim stored: 0 dB, a float 0
+    str r0, [sp, #12]
+    str r0, [sp, #16]
+um_mode_trim:
     bl um_setting
     adr r1, um_sent
     strb r0, [r1, #1]
-    str r0, [sp, #4]
-    movs r1, #INT
-    strb r1, [sp]
+    adds r0, #1
+    movw r1, #CODE_STEP
+    muls r0, r1, r0
+    vmov s0, r0
+    vcvt.f32.s32 s0, s0
+    vldr s1, [sp, #16]
+    vadd.f32 s0, s0, s1
+    vstr s0, [sp, #4]
+    ldr r1, [sp, #12]
+    strb r1, [sp]                   @ the trim's own type
     mov r0, r4
     mov r1, r5
     ldr r2, [sp, #8]
@@ -74,7 +95,7 @@ um_mode:                            @ (ctx, app): the setting to the DSP as the 
     ldr r6, =PARAM_SEND
     blx r6
 um_mode_done:
-    add sp, #12
+    add sp, #20
     pop {r4-r7, pc}
 
 .thumb_func

@@ -1,6 +1,6 @@
-"""Path A Out's DSP side (issues #81, #93): src/sharc/usb_monitor.asm in ssim (the meter's control function keeping the mode, the
-Send jacks' writer silenced in USB Only), the app parameter 'Output' and its writer (tools/patch_usbmon.py), its place in Block 3,
-the registry and build.py's steps."""
+"""Path A Out's DSP side (issues #81, #93): src/sharc/usb_monitor.asm in ssim (the Level gain's control function taking the mode
+out of USB Input Trim, the Send jacks' writer silenced in USB Only), what the transport relies on in the stock app, its place in
+Block 3, the registry and build.py's steps."""
 import importlib.util
 import os
 import re
@@ -12,32 +12,29 @@ import pytest
 
 import block3
 import patch_amp as pa
-import patch_click
-import patch_comp as pc
-import patch_gate as pg
 import patch_usbmon as pu
 import sasm
 import ssim
 
 ROOT = Path(__file__).resolve().parent.parent
 QUIET = dict(log=lambda *_: None)
-WRITER, CTRL = 0x90100, 0x90300           # stand-ins for the Send writer's stock process code and the meter's control function
+WRITER, CTRL = 0x90100, 0x90300           # stand-ins for the Send writer's stock process code and the gain's control function
 SRC, COPY = 0x7000, 0x7100                # the stand-in writer copies its 16-sample input (I1) to COPY
+VALUE = 0x5000                            # the value slot R8 points at
+f2u = lambda f: struct.unpack('<I', struct.pack('<f', f))[0]
+u2f = lambda u: struct.unpack('<f', struct.pack('<I', u))[0]
 
 
 # ---- the DSP code, in ssim
 
 def dsp():
     src = pu.dsp_asm(0xe7a00, 0xe5200)
-    for k, v in (('ORIG_2AAA', WRITER), ('ORIG_CTRL_25E8', CTRL)):
+    for k, v in (('ORIG_2AAA', WRITER), ('ORIG_CTRL_80', CTRL)):
         src, n = re.subn(r'(\.equ %s,\s*)0x[0-9a-fA-F]+' % k, r'\g<1>%#x' % v, src)
         assert n == 1, k
-    ret = '    I12 = DM(M7, I6);\n    JUMP (M14, I12) (DB);\n    NOP;\n    RFRAME;'
-    assert ret in src
-    src = src.replace(ret, '    RTS;')     # the C return needs the caller's frame
     src += f"""
 .section dm 0x6f00
-FAKE_CTRL: .space 1
+SEEN: .space 4
 .section pm {WRITER:#x}
     I4 = {COPY:#x};
     LCNTR = 16, DO fw UNTIL LCE;
@@ -46,7 +43,12 @@ fw:   DM(I4, 1) = R0;
     RTS;
 .section pm {CTRL:#x}
     R0 = 0x777;
-    DM(FAKE_CTRL) = R0;
+    DM(SEEN) = R0;
+    DM(SEEN + 1) = R4;
+    DM(SEEN + 2) = R8;
+    I4 = R8;
+    R0 = DM(0, I4);
+    DM(SEEN + 3) = R0;
     RTS;
 """
     secs, syms = sasm.assemble(src, 'usb_monitor_test')
@@ -55,14 +57,22 @@ fw:   DM(I4, 1) = R0;
     return s, syms
 
 
-def ctrl(s, syms, pid, value):
-    """The control function as the framework calls it: pid R4, a pointer to the value R8, the meter's state R12."""
-    s.wr(0x5000, value & 0xffffffff)
-    s.u[4], s.u[8], s.u[12], s.u[3] = pid, 0x5000, 0x6000, 0x1234
-    s.wr(syms['FAKE_CTRL'], 0)
-    s.call(syms['CTRL_25E8'])
-    assert s.u[3] == 0x1234
-    return s.rd(syms['FAKE_CTRL']) == 0x777       # handed to the stock function
+def ctrl(s, syms, pid, word):
+    """The control function as the framework calls it: pid R4, a pointer to the value R8, the gain's state R12 -> (pid, pointer,
+    value word) the stock function got, None when it was not called."""
+    s.wr(VALUE, word & 0xffffffff)
+    s.u[4], s.u[8], s.u[12], s.u[3] = pid, VALUE, 0x6000, 0x1234
+    s.wr(syms['SEEN'], 0)
+    s.call(syms['CTRL_80'])
+    assert (s.u[3], s.u[12]) == (0x1234, 0x6000)
+    if s.rd(syms['SEEN']) != 0x777:
+        return None
+    return tuple(s.rd(syms['SEEN'] + k) for k in (1, 2, 3))
+
+
+def code(mode, trim):
+    """What the M4 sends for a mode: trim + 1000 * (mode + 1)."""
+    return f2u(trim + 1000 * (mode + 1))
 
 
 def write(s, syms):
@@ -77,17 +87,17 @@ def write(s, syms):
 @pytest.mark.parametrize('mode', [0, 1, 3])
 def test_other_modes_write_the_send_jacks(mode):
     s, syms = dsp()
-    assert not ctrl(s, syms, pu.MODE_PID, mode)
+    ctrl(s, syms, 1, code(mode, 0.0))
     samples, i1 = write(s, syms)
     assert samples == list(range(1, 17)) and i1 == SRC
 
 
 def test_usb_only_writes_silence_to_the_send_jacks():
     s, syms = dsp()
-    ctrl(s, syms, pu.MODE_PID, 2)
+    ctrl(s, syms, 1, code(2, 0.0))
     samples, i1 = write(s, syms)
     assert samples == [0] * 16 and i1 == SRC, 'silence, and I1 back as it came'
-    ctrl(s, syms, pu.MODE_PID, 1)
+    ctrl(s, syms, 1, code(1, 0.0))
     assert write(s, syms)[0] == list(range(1, 17)), 'back to stock'
 
 
@@ -97,18 +107,23 @@ def test_the_mode_starts_stock():
     assert write(s, syms)[0] == list(range(1, 17))
 
 
-@pytest.mark.parametrize('value, kept', [(0, 0), (2, 2), (3, 3), (4, 0), (-1, 0), (0x7fffffff, 0)])
-def test_the_mode_word_holds_0_to_3(value, kept):
+@pytest.mark.parametrize('mode', range(pu.MODE_MAX + 1))
+@pytest.mark.parametrize('trim', [-60.0, -12.5, 0.0, 18.0])
+def test_the_mode_comes_out_and_the_trim_goes_on(mode, trim):
     s, syms = dsp()
-    ctrl(s, syms, pu.MODE_PID, value)
-    assert s.rd(syms['USB_MODE']) == kept
+    pid, ptr, word = ctrl(s, syms, 1, code(mode, trim))
+    assert s.rd(syms['USB_MODE']) == mode
+    assert (pid, ptr) == (1, VALUE) and u2f(word) == trim, 'the stock function gets the trim alone'
 
 
-@pytest.mark.parametrize('pid', [0, 1, 2, 99, 101])
-def test_other_pids_go_to_the_stock_control_function(pid):
+@pytest.mark.parametrize('pid, word', [(1, f2u(v)) for v in (0.0, -12.5, -120.0, 20.0, 500.0, 5000.0, -3000.0)]
+                         + [(p, code(2, 0.0)) for p in (0, 2, 3, 100)] + [(1, f2u(1e30)), (1, f2u(-1e30)), (2, 7)])
+def test_everything_else_reaches_the_stock_control_function_unchanged(pid, word):
+    """0x80 is in many blocks: any pid but 1, and pid 1 at or below 500 or above the last mode, goes on as it came."""
     s, syms = dsp()
-    assert ctrl(s, syms, pid, 2)
-    assert s.rd(syms['USB_MODE']) == 0
+    s.wr(syms['USB_MODE'], 1)
+    assert ctrl(s, syms, pid, word) == (pid, VALUE, word)
+    assert s.rd(syms['USB_MODE']) == 1, 'the mode as it was'
 
 
 def test_dsp_is_the_last_feature_in_block3():
@@ -122,7 +137,7 @@ def test_dsp_is_the_last_feature_in_block3():
     assert pu.mode_word(env) == dm, 'USB_MODE is the first data word'
 
 
-# ---- the firmware tools/patch_usbmon.py builds
+# ---- the firmware tools/patch_usbmon.py builds, and the stock app it relies on
 
 def stock_l6ia():
     stock = os.environ.get('HX_STOMP_HXF')
@@ -134,7 +149,7 @@ def stock_l6ia():
 @pytest.fixture(scope='module')
 def patched():
     data = stock_l6ia()
-    return data, pu.patch_usbmon(pu.patch_dsp(data, **QUIET), **QUIET)
+    return data, pu.patch_dsp(data, **QUIET)
 
 
 def ldr_blocks(data):
@@ -153,84 +168,60 @@ def ldr_blocks(data):
 
 
 @pytest.mark.firmware
-def test_the_send_writer_and_the_meter_enter_the_dsp_code(patched):
+def test_the_send_writer_and_the_gain_enter_the_dsp_code(patched):
     _, new = patched
     dm, pm = pu.dsp_place()
     _, syms = pa.sasm.assemble(pu.dsp_asm(dm, pm), 'usb_monitor.asm')
     rows = {b[0]: b for t, a, b in ldr_blocks(new) if t == 4 and len(b) == 8}
     assert rows[pu.SEND][4:6] == (0x60a5ed, syms['ENTRY_2AAA']), 'the writer\'s process code, its control function stock'
-    assert rows[pu.METER][4:6] == (syms['CTRL_25E8'], pu.METER_PROC), 'the meter\'s control function, its process code stock'
+    assert rows[pu.GAIN][4:6] == (syms['CTRL_80'], pu.GAIN_PROC), 'the gain\'s control function, its process code stock'
 
 
 @pytest.mark.firmware
-def test_the_app_gets_the_mode_parameter(patched):
+def test_only_entry2_changes(patched):
+    """Blob 1 cannot change at all (one word of it hangs the unit at boot): the transport needs no other entry."""
     data, new = patched
-    before = pa.parse_entry3_full(pa.get_entry_swapped(data, 3))['models'][0]
-    info = pa.parse_entry3_full(pa.get_entry_swapped(new, 3))
+    old, now = pa.l6ia.parse(data), pa.l6ia.parse(new)
+    assert len(old) == len(now)
+    for k, (a, b) in enumerate(zip(old, now)):
+        if k != 2:
+            assert data[a['payload_off']: a['payload_off'] + a['payload_len']] == \
+                new[b['payload_off']: b['payload_off'] + b['payload_len']], f'entry {k}'
+
+
+@pytest.mark.firmware
+def test_usb_input_trim_reaches_two_level_gains_as_it_comes():
+    """usbInGain0_1 (string 4209, slot 56): a float input node straight to writers [99] and [105], pid 1, members the root's 98 and
+    104 in blob 0, both 0x80; blob 1 does not override them."""
+    data = stock_l6ia()
+    info = pa.parse_entry3_full(pa.get_entry_swapped(data, 3))
     app = info['models'][0]
-    assert app['name'] == pu.APP
-    assert [p['name'] for p in app['params'][:-1]] == [p['name'] for p in before['params']]
-    p = app['params'][-1]
-    assert (p['name'], p['type'], p['slot'], p['meta']) == (pu.NAME, 2, 67, {})
-    assert struct.unpack('<2I', struct.pack('<2f', p['min'], p['max'])) == (0, pu.MODE_MAX)
-    assert info['strings'].index(pu.NAME) == 1247, 'the stock string the M4 looks the parameter up by'
-
-
-@pytest.mark.firmware
-def test_no_other_app_parameter_is_named_output(patched):
-    for data in patched:
-        app = pa.parse_entry3_full(pa.get_entry_swapped(data, 3))['models'][0]
-        assert [p['name'] for p in app['params']].count(pu.NAME) == (data is patched[1])
-
-
-@pytest.mark.firmware
-def test_the_parameter_writes_the_meter_as_the_mode_pid(patched):
-    _, new = patched
-    e4 = pa.get_entry_swapped(new, 4)
+    trim, = [p for p in app['params'] if p['name'] == 'usbInGain0_1']
+    assert info['strings'].index('usbInGain0_1') == 4209 and trim['slot'] == 56
+    e4 = pa.get_entry_swapped(data, 4)
     w4 = struct.unpack('<%dI' % (len(e4) // 4), e4)
-    b = pa.entry4_blob.blob(w4, 1)
+    b = pa.entry4_blob.blob(w4, app['blob_index'])
     pm = b[b[6]: b[6] + b[7]]
     nodes = [pm[pm[0] + 10 * k: pm[0] + 10 * k + 10] for k in range(pm[18])]
-    dt = [pm[pm[6] + 4 * k: pm[6] + 4 * k + 4] for k in range(pm[21])]
     ct = [pm[pm[4] + 4 * k: pm[4] + 4 * k + 4] for k in range(pm[20])]
-    node, = [r[0] for r in dt if r[2] == 67]
-    assert nodes[node][3] == pu.INT_OP
-    to, = [r[1] for r in ct if r[0] == node]
-    path, pid, n = pm[nodes[to][0]: nodes[to][0] + 3]
-    assert nodes[to][3] == 1 and (pid, n) == (pu.MODE_PID, 1)
-    assert b[path: path + 3] == list(pu.METER_PATH)
-    pins = [b[b[10] + 4 * k: b[10] + 4 * k + 4] for k in range(b[11])]
-    dflt, = [r for r in pins if r[1] == 67]
-    assert b[dflt[0]: dflt[0] + 2] == [1, 0] and b[dflt[2]: dflt[2] + 2] == [1, 0], 'a root default of 0'
-    assert not pa.pmap_slots_without_param(e4, 1, pa.parse_entry3_full(pa.get_entry_swapped(new, 3))['models'][0]['params'])
-
-
-@pytest.mark.firmware
-def test_other_models_and_blob0_are_unchanged(patched):
-    data, new = patched
-    old, now = (pa.parse_entry3_full(pa.get_entry_swapped(d, 3))['models'] for d in (data, new))
-    assert pc.models_view({'models': old[1:]}) == pc.models_view({'models': now[1:]})
-    e4s = [pa.get_entry_swapped(d, 4) for d in (data, new)]
-    w4s = [struct.unpack('<%dI' % (len(e) // 4), e) for e in e4s]
-    assert pa.entry4_blob.blob(w4s[0], 0) == pa.entry4_blob.blob(w4s[1], 0)
-
-
-def test_runs_after_the_gate_and_before_the_gr_knobs():
-    added, _ = patch_click.add_click(stock_l6ia(), **QUIET)
-    out = pc.patch_comp(pu.patch_usbmon(pg.patch_gate(added, **QUIET), **QUIET), **QUIET)
-    info = pa.parse_entry3_full(pa.get_entry_swapped(out, 3))
-    assert info['models'][0]['params'][-1]['name'] == pu.NAME
-    assert [p['name'] for p in pa.find_model(info, pc.COMP_MODELS[0][0])['params']][-3:] == [k[0] for k in pc.GR_KNOBS]
-
-
-def test_entry3_goes_back_to_its_stock_place():
-    """With NAM's add-model (its tables at the tail), the string section moves home first: Entry 3 stays under E3_MAX."""
-    added, _ = patch_click.add_click(stock_l6ia(), **QUIET)        # a model step leaves the tables at the tail
-    moved = pa.get_entry_swapped(added, 3)
-    assert struct.unpack_from('<I', moved, 12)[0] >= pc.STOCK_E3_END
-    back, _ = pc.e3_add_strings(moved, [pu.NAME], home=True)
-    assert struct.unpack_from('<I', back, 12)[0] == pc.STR_HOME
-    assert pc.models_view(pa.parse_entry3_full(moved)) == pc.models_view(pa.parse_entry3_full(back))
+    dt = [pm[pm[6] + 4 * k: pm[6] + 4 * k + 4] for k in range(pm[21])]
+    node, = [r[0] for r in dt if r[2] == 56]
+    assert nodes[node][3] == 0x0a, 'a float input node'
+    writes = set()
+    for to in [r[1] for r in ct if r[0] == node]:
+        assert nodes[to][3] == 1, 'nothing between the input and its writers'
+        p, pid = pm[nodes[to][0]: nodes[to][0] + 2]
+        writes.add((tuple(b[p + 1: p + 1 + b[p]]), pid))
+    assert writes == {((99,), 1), ((105,), 1)}
+    root = b[b[2]: b[2] + 4]
+    overridden = {b[root[2] + 4 * k] for k in range(root[3]) if b[root[2] + 4 * k + 1] != 0xffffffff}
+    assert not overridden & {99, 105}
+    b0 = pa.entry4_blob.blob(w4, 0)
+    n, at = b0[0xa], b0[0xb]
+    members = [b0[at + 20 * k: at + 20 * k + 20] for k in range(n)]
+    assert [m[0] for m in members] == list(range(n))
+    assert members[98][6] == members[104][6] == pu.GAIN, 'slot k is member k - 1'
+    assert members[82][6] == 0x600009, 'as blob 1 overrides slot 83 with the output block 0x60000a'
 
 
 def build_steps(tmp_path, monkeypatch, unit, env):

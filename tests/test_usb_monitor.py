@@ -1,5 +1,5 @@
 """tools/features/usb_monitor.py and src/m4/usb_monitor.s: the handlers in unicorn (path A's Main sent as Send while the setting says
-Send/USB or USB Only, everything else untouched; the setting sent after path A's destination as the app parameter 'Output'; a turn
+Send/USB or USB Only, everything else untouched; the setting sent after path A's destination inside USB Input Trim; a turn
 or a reset sending path A again only when the destination or the mode changes), and the firmware it builds (its setting in
 Ins/Outs, the virtual setting, the hooks)."""
 import struct
@@ -21,6 +21,7 @@ GET_VALUE = 0x28e1f844
 STOCK = 0x28e70000                          # stands in for the moved prologue of 0x28df5760
 ENGINE, SET_OUTPUT = 0x28d92a98, 0x28e03c68
 PARAM_FIND, PARAM_SEND = 0x28df35a0, 0x28df35e8
+TRIM_NAME, TRIM_ID, TRIM_TYPE = 4209, 3, 1          # usbInGain0_1, its Global Setting, a stand-in for its store's type
 DATA = 0x30000000                           # a context and an app for um_send to read
 CTX, APP, PCTX, INST, HANDLE = DATA, DATA + 0x100, DATA + 0x2000, 0x7777, 0x5150
 MAIN, SEND = 1, 6
@@ -36,7 +37,7 @@ class Monitor:
             _code['um'] = m4emu.assemble('src/m4/usb_monitor.s', MODS, IDS)
         code, self.sym = _code['um']
         self.m = m4emu.M4(code, MOD)
-        self.value = None
+        self.value, self.trim = None, -12.5
         self.m.stub(GET_VALUE, self.get_value)
         self.m.stub(STOCK, lambda m: m.reg('r0', 0x55))
         self.m.stub(ENGINE, lambda m: m.reg('r0', 0x2844adcc))
@@ -49,17 +50,25 @@ class Monitor:
         self.m.u32(APP + 0xac8, INST)
 
     def find(self, m):
-        assert (m.reg('r0'), m.reg('r1'), m.reg('r2')) == (PCTX, INST, 1247), 'the app parameter named by the stock string Output'
+        assert (m.reg('r0'), m.reg('r1'), m.reg('r2')) == (PCTX, INST, TRIM_NAME), 'USB Input Trim, usbInGain0_1'
         if self.has_param:
             m.u32(m.reg('r3'), HANDLE)
         m.reg('r0', 0 if self.has_param else -3)
 
     def param(self, m):
         assert (m.reg('r0'), m.reg('r1'), m.reg('r2')) == (PCTX, INST, HANDLE)
-        kind, value = struct.unpack('<BxxxI', m.read(m.reg('r3'), 8))
-        self.modes.append((kind, value))
+        kind, value = struct.unpack('<Bxxxf', m.read(m.reg('r3'), 8))
+        code = round(value / 1000)
+        self.modes.append((kind, code - 1, value - 1000 * code))
 
     def get_value(self, m):
+        if m.reg('r0') == TRIM_ID:
+            if self.trim is None:
+                m.reg('r0', -1)
+            else:
+                m.write(m.reg('r1'), struct.pack('<If', TRIM_TYPE, self.trim))
+                m.reg('r0', 0)
+            return
         assert m.reg('r0') == ID
         if self.value is None:
             m.reg('r0', -1)
@@ -113,7 +122,20 @@ def test_everything_else_goes_through(mon, path, dest):
 def test_the_mode_follows_path_a(mon, value):
     mon.value = value
     mon.send(CTX, APP, 0, MAIN)
-    assert mon.modes == [(2, value or 0)], 'the setting as an int, after the destination'
+    assert mon.modes == [(TRIM_TYPE, value or 0, -12.5)], 'the setting inside the trim, after the destination'
+
+
+def test_an_unset_trim_goes_as_0_db(mon):
+    mon.value, mon.trim = USB_ONLY, None
+    mon.send(CTX, APP, 0, MAIN)
+    assert mon.modes == [(0, USB_ONLY, 0.0)]
+
+
+@pytest.mark.parametrize('trim', [-60.0, 0.0, 18.0])
+def test_the_trim_rides_along(mon, trim):
+    mon.value, mon.trim = SEND_USB, trim
+    mon.send(CTX, APP, 0, MAIN)
+    assert mon.modes == [(TRIM_TYPE, SEND_USB, trim)], 'the trim the DSP hands on after taking the mode out'
 
 
 @pytest.mark.parametrize('path, dest', [(1, 0), (1, SEND)])
@@ -123,7 +145,15 @@ def test_path_b_sends_no_mode(mon, path, dest):
     assert mon.modes == []
 
 
-def test_no_mode_without_the_dsp_side(mon):
+def test_no_mode_when_the_stock_send_fails(mon):
+    mon.value = USB_ONLY
+    mon.m.stub(STOCK, lambda m: m.reg('r0', -3))
+    mon.m.reg('r12', STOCK | 1)
+    assert mon.m.call(MOD + mon.sym['um_send'], CTX, APP, 0, MAIN) == (-3) & 0xffffffff
+    assert mon.modes == [] and not mon.m.calls(PARAM_FIND), 'the app is not read when the stock send gave up'
+
+
+def test_no_mode_without_the_trim_parameter(mon):
     mon.value = USB_ONLY
     mon.has_param = False
     assert mon.send(CTX, APP, 0, MAIN)[3] == SEND
@@ -136,7 +166,7 @@ def test_send_usb_to_usb_only_sends_again(mon):
     mon.value = USB_ONLY
     assert mon.apply('um_changed', 0x3333, ID) == [(0x2844adcc, 9, MAIN)], 'same destination, another mode'
     mon.send(CTX, APP, 0, MAIN)
-    assert mon.modes[-1] == (2, USB_ONLY)
+    assert mon.modes[-1][1] == USB_ONLY
     assert mon.apply('um_page', 0x3333) == []
 
 
