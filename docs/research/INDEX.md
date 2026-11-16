@@ -33,6 +33,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [m4/dsp-cost.md](m4/dsp-cost.md) | per-model DSP costs, block records and block objects, block IDs and slots, the preset total and its 90% limit | anything about DSP load, or finding a block's object from its slot |
 | [m4/model-browser.md](m4/model-browser.md) | the model browser's view, rows, levels, categories and items | changing the model list, or adding a model to a category |
 | [m4/tempo-and-leds.md](m4/tempo-and-leds.md) | the tempo settings (IDs 14..16), the tap tempo screen, the footswitch LEDs and LED task, the stock beat, the µs clock | anything tempo-synced, or lighting the LEDs |
+| [m4/controls.md](m4/controls.md) | every front-panel control's key code, the stock shortcuts and button combinations (Save = VIEW + ACTION, Menu = PAGE◀ + PAGE▶, All Bypass, the tuner, footswitch-mode combos, action panels), and how to send each over USB | driving the UI from a script or a test, or reaching a screen the devtest doesn't |
 | [m4/footswitches.md](m4/footswitches.md) | footswitch functions, key events and holds, the event handler and key task, bypass assignment, controllers, MIDI CC bypass | changing what a footswitch does |
 | [m4/snapshots.md](m4/snapshots.md) | the snapshot manager and records, select and its callers, the snapshot footswitch mode, the snapshot icon | anything about snapshots |
 | [m4/presets.md](m4/presets.md) | the eMMC stores (presets, globals, IRs) and the preset file's layout | storing data in a preset, or reading preset files |

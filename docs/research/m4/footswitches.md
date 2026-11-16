@@ -28,4 +28,5 @@ Footswitch functions, key events and holds, the event handler, bypass assignment
   - **Driving a CC:** `0x28dde408(0x28125d30, 8, cc, value)` drives every assignment on that CC. The value is float bits in r3: below 0.5 bypasses, 1.0 turns the block on. That is the stock MIDI receive's path (`0x28d9b91a`, CC value / 127.0), and the footswitch toggle calls it from the event handler (`0x28dd123a`).
   - **Which CCs:** MIDI receive (`0x28d9b89c`) keeps CC 0..3, 32 and 49..81 for global functions. Every other CC, 102..106 included, goes to `0x28dde408`.
 
+The stock shortcuts and button combinations, and how to send them over USB: [controls.md](controls.md).
 Long press and the virtual footswitches FS6..FS10: [features/long-press.md](../features/long-press.md).

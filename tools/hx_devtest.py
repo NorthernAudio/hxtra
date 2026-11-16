@@ -167,11 +167,7 @@ class Unit:
 
     def both_pages(self, settle=SETTLE):
         """PAGE◀ and PAGE▶ at once: the Menu."""
-        i = self.input
-        i.send(hx_input.key('page_left', hx_input.PRESS), hx_input.key('page_right', hx_input.PRESS))
-        self.s.wait(hx_input.CLICK_S)
-        i.send(*[hx_input.key(b, t) for t in (hx_input.RELEASE, hx_input.RELEASED) for b in ('page_left', 'page_right')])
-        self.s.wait(settle)
+        self.press('page_left+page_right', settle)
 
     # -- where the UI is
 
