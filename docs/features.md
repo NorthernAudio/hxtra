@@ -14,6 +14,7 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [Long press](#long-press) | FS1–FS5 in Stomp footswitch mode · Global Settings > Footswitches, pages 2 to 5 | `HX_LONG_PRESS=1` |
 | [More snapshots](#more-snapshots) | The snapshot footswitches, with Footswitch Mode on Snapshot · no settings | `HX_MORE_SNAPSHOTS=1` |
 | [Metronome](#metronome) | Model browser: Looper > Metronome > Metronome · the block's knobs | `HX_CLICK=1` |
+| [USB monitoring](#usb-monitoring) | Path A's output to the computer instead of Main L/R · Global Settings > Ins/Outs, page 3 | `HX_USB_MONITOR=1` |
 | [GR meter](#gr-meter) | Home screen and the compressor's Edit view, lit by a compressor · knobs on six compressors | `HX_GR=1` |
 | [Boot screen](#boot-screen-hx-stomp-only) | The screen at power-on · set when you build | `--splash`, `--splash-text` |
 | [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | `HX_NAM_SLOTS=3`, `2`, `1`, `0` (off); unset, the most that fit |
@@ -26,7 +27,7 @@ HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 bu
 
 ## Custom settings
 
-The features' settings are in Global Settings, each feature in a section of its own after Displays (turn the knob right past Displays): **BPM Display**, then **Breathing Line**, each with its own icon by the title (see [Icons](icons.md), which also makes an icon library of every stock icon from your firmware file). The section strip at the top has room for the six stock sections only, so none of its icons is lit while you are in a feature's. A build with none of these features has no sections after Displays. Long press's settings are in **Footswitches** instead, after FS5 Function, and Tap LED color's in **Displays**, under Tap Tempo LED.
+The features' settings are in Global Settings, each feature in a section of its own after Displays (turn the knob right past Displays): **BPM Display**, then **Breathing Line**, each with its own icon by the title (see [Icons](icons.md), which also makes an icon library of every stock icon from your firmware file). The section strip at the top has room for the six stock sections only, so none of its icons is lit while you are in a feature's. A build with none of these features has no sections after Displays. Long press's settings are in **Footswitches** instead, after FS5 Function, Tap LED color's in **Displays**, under Tap Tempo LED, and USB monitoring's in **Ins/Outs**, on page 3.
 
 | Feature | Setting | Values | What it does |
 |---|---|---|---|
@@ -39,6 +40,7 @@ The features' settings are in Global Settings, each feature in a section of its 
 | Breathing line | **Color** | White, Red, Green, Blue, Fire, Ice, Sunset, Ocean, Aurora, Neon, **Rainbow** (default) | The line's colours. The gradients flow along the line: Fire is red, orange and yellow; Ice blue, cyan and white; Sunset purple, pink and orange; Ocean deep blue, blue and aqua; Aurora green, sky blue and violet; Neon magenta, indigo and cyan; Rainbow every hue. Where the motion dims the line, the colours dim with it. |
 | Breathing line | **Type** | Off, Steady, **Breathe** (default), Cylon, Comet, Heart, Sparkle | How it moves. Breathe slowly fades the whole line in and out. Cylon sweeps a wide light from end to end and back, slowing at the ends, with a trail behind it. Comet shoots a light across with a long tail. Heart beats lub-dub from the middle. Sparkle twinkles at random. Steady holds the full colour. Off gives back the stock line. |
 | Breathing line | **Speed** | 1 … 10, Tempo (default **4**) | One cycle takes 8 s at 1, 4 s at 4, 0.8 s at 10. Tempo follows the tempo (Global BPM or Preset BPM, as Tempo Select says): a beat a cycle for Heart, two for Breathe, Cylon and Comet, four for Steady, eight for Sparkle; with no tempo it runs at 4. |
+| USB monitoring | **Path A Out** | **Main L/R** (default), Send/USB | Where path A's Output block goes. Send/USB sends it to the computer on USB 3/4 instead of Main L/R, so a DAW monitors it; Main and the phones play only what comes back on USB 1/2. The Send jacks carry the same sound. In Global Settings > Ins/Outs, page 3, after the stock settings. |
 
 Every feature's settings are virtual settings: HXtra serves their IDs itself and keeps their values in spare records of the Global Settings store, which the HX Stomp saves with the rest. `tools/setting_ids.py` assigns each its ID and place. A setting no build has stored yet, or whose stored value is out of range, shows its default. Builds before virtual settings kept these settings on real IDs, so the first virtual build starts them on their defaults.
 
@@ -173,6 +175,16 @@ A click track in time with the tempo, as a block: add it from the model browser,
 
 - **The beat** starts when the block does, and a new tempo or Time counts from the last beat. Tapping the tempo doesn't yet move the beat onto your taps, and [BPM](#bpm)'s dot blinks with the TAP ring, not with the click.
 - **Presets** store the block as model 181, as the earlier builds that listed it under Modulation did, so presets made with them keep it.
+
+## USB monitoring
+
+The HX Stomp always plays what you play straight to its outputs and phones, and sends the same sound to the computer on USB 1/2: hardware monitoring. To monitor through a DAW instead (software monitoring: hearing your tone with the DAW's plugins on it), set **Path A Out** (Global Settings > Ins/Outs, page 3) to **Send/USB**. Path A's Output block then goes to the computer on USB 3/4 instead of to Main L/R, and Main and the phones play only what the computer sends back on USB 1/2. Record and monitor USB 3/4 in the DAW.
+
+- **Every preset** follows the setting: path A goes to Send/USB on each preset you load, and a turn of the setting switches at once. Path B's own output is not changed.
+- **The Send jacks** carry the same sound as USB 3/4: on the HX Stomp they are one output. Leave them unplugged, or expect the sound there too.
+- **Send and FX Loop blocks** add their send to that output, so the computer gets it with path A's sound. **Don't use Send/USB with an FX Loop block** (or the 4-cable method): path A's output would go out the Send jacks, through the loop and back in, and feed back.
+- **Saving a preset** with Send/USB on stores Send for path A. A stock HX Stomp refuses that value when it loads the preset and keeps path A on Main L/R.
+- The stock firmware can reach the same output only from path B: put a block on path B, move the merge to the end (its output is then Send L/R) and turn path A's Output Level down.
 
 ## GR meter
 
