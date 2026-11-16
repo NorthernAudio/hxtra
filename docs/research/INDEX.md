@@ -38,6 +38,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [m4/snapshots.md](m4/snapshots.md) | the snapshot manager and records, select and its callers, the snapshot footswitch mode, the snapshot icon | anything about snapshots |
 | [m4/presets.md](m4/presets.md) | the eMMC stores (presets, globals, IRs) and the preset file's layout | storing data in a preset, or reading preset files |
 | [m4/dsp-link.md](m4/dsp-link.md) | the SPI frames between the DSP and the M4, and sending DSP values in a frame's tail | getting a value from the DSP to the screen |
+| [m4/split-routing.md](m4/split-routing.md) | a preset's split and merge in the edit buffer, how they are applied, why an empty path B is refused, the routing switches (`splitToLower`, `joinToLower`) the M4 sends | changing what path B, the split or the merge do |
 | [m4/usb-editor.md](m4/usb-editor.md) | HX Edit's editor service on the M4: the command table, a command's request and reply, the reply functions, the free command numbers | adding a USB command, or reading the unit from a computer |
 
 ## The SHARC (DSP) side
@@ -45,6 +46,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | note | covers | read it when |
 |---|---|---|
 | [sharc/registry.md](sharc/registry.md) | the SHARC assembler and simulator, the primitive registry, wrapping a primitive (`--wrap-prim`), custom kernels, VISA code and the control-function ABI | writing DSP code, or intercepting a primitive or its parameters |
+| [sharc/visa.md](sharc/visa.md) | Entry 2's VISA code: where it loads, the parcel order, instruction lengths, the 16/32-bit forms, the compiled C calling convention; `visa_dis.py` | reading SHARC code outside the 48-bit PM block, or disassembling Entry 2 |
 | [sharc/model-blobs.md](sharc/model-blobs.md) | a model's parameters in Entry 3, Entry 4's parameter maps and node trees, the Entry 0 info row, tempo sync | adding a block parameter or a model |
 | [sharc/cores/gates.md](sharc/cores/gates.md) | the gate core `0x2720` and the return reader `0x2618`; the composite format (buffers, member records), sub-bindings and the node tree, op `0x2b`; why a new bound member kills a block; the FX Loop gate's wrapper | adding a gate or any member to a block, wrapping a primitive |
 | [sharc/usb-routing.md](sharc/usb-routing.md) | the app graph `HelixStomp_App`: input/output select, USB trim, phones and volume routing parameters; the M4's load-time rewrite of Output select; what reaches USB | anything about where audio goes: outputs, Send, USB channels, monitoring |

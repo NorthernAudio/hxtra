@@ -235,4 +235,4 @@ def test_build_registers_the_command_after_the_editors_beside_the_mirror():
 
 def test_the_web_page_does_not_offer_it():
     import m4cache
-    assert ui.FLAG not in m4cache.web_flags() + m4cache.web_options()
+    assert ui.FLAG not in m4cache.web_flags() + m4cache.web_options() + m4cache.web_dsp()
