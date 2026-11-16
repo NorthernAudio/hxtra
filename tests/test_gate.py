@@ -16,6 +16,7 @@ import pytest
 
 import features
 import m4cache
+import block3
 import nam_multi
 import patch_amp as pa
 import patch_click
@@ -196,15 +197,14 @@ def test_other_pids_go_to_the_stock_control_function():
     assert s.rd(syms['G_TAB']) == 0
 
 
-def test_dsp_sits_under_the_metronome_clear_of_nam_and_the_gr_meter():
-    dm, pm = pg.dsp_place()
+def test_dsp_sits_under_the_metronome_and_over_the_gr_meter():
+    env = {'HX_CLICK': '1', 'HX_FX_GATE': '1', 'HX_GR': '1'}
+    dm, pm = block3.place('HX_FX_GATE', env)
     n_dm, n_pm = pg.dsp_size()
-    lay = patch_click.nam_layout()
-    click = patch_click.pm_base(patch_click.kernel_size(), lay)
+    click = block3.place('HX_CLICK', env)[1]
     assert dm + n_dm == pg.nw(pm) and pm + n_pm <= click and pm % 2 == 0
-    assert dm >= lay.b3_to and dm >= patch_click.nam_layout(gr=True).b3_to
-    gr_dm, gr_pm = pc.dsp_place()
-    assert gr_dm < dm and pg.nw(gr_pm) < dm
+    gr_dm, gr_pm = block3.place('HX_GR', env)
+    assert gr_dm < dm and pg.nw(gr_pm) < dm and gr_dm >= block3.room(2)[0]
 
 
 # ---- the firmware tools/patch_gate.py builds
@@ -383,8 +383,8 @@ def test_after_the_metronome_and_before_the_gr_knobs():
 
 
 GATE_BUILT_MD5 = {
-    'HX_FX_GATE': 'e76a17025375ddc131d45f54871acfec',
-    'HX_FX_GATE HX_GR HX_CLICK HX_REAL_NAMES': 'dff2ee81c73ec988bc656c4c7d71418f',      # every DSP and model step, and an Entry 0 renamer
+    'HX_FX_GATE': 'ebd1781789d421012292d448222dc255',
+    'HX_FX_GATE HX_GR HX_CLICK HX_REAL_NAMES': '190ef11740b5949c28c54905ec8e44cc',      # every DSP and model step, and an Entry 0 renamer
 }
 
 
@@ -451,7 +451,7 @@ def test_web_worker_runs_the_gate_between_the_metronome_and_the_gr_knobs():
 
 def test_off_unless_asked_for():
     mods = features.load()
-    assert fx_gate.FLAG not in m4cache.web_flags() and fx_gate.FLAG in m4cache.web_options()
+    assert fx_gate.FLAG not in m4cache.web_flags() + m4cache.web_options() and fx_gate.FLAG in m4cache.web_dsp()
     assert fx_gate not in features.enabled(mods, {})
     assert fx_gate in features.enabled(mods, {'HX_FX_GATE': '1'})
     assert not hasattr(fx_gate, 'apply') and not hasattr(fx_gate, 'SETTINGS')

@@ -133,7 +133,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 </details>
 
-### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter
+### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter (optional, a DSP feature on the setup page)
 
 *New settings on all compressors except 3-Band Compressor*
 
@@ -210,7 +210,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 </details>
 
-### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome
+### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome (optional, a DSP feature on the setup page)
 
 *New block: Looper › Metronome*
 
@@ -241,7 +241,7 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 </details>
 
-### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate (optional, off unless you tick it on the setup page)
+### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate (optional, a DSP feature on the setup page)
 
 *Gate, Threshold and Decay knobs on the FX Loop and Return blocks*
 
@@ -382,7 +382,7 @@ One person chose every feature and decided how each should look, feel and behave
 <td valign="top">
 
 ### <img src="docs/assets/icons/faq-choose.svg" width="28" height="28" align="top" alt=""> Can I choose which features I get?
-The setup page builds every feature, plus Real block names and the FX Loop gate if you tick their boxes. To leave a feature out of the firmware altogether, [build it yourself](docs/building.md).
+Partly. On the setup page you pick the **DSP features**: how many NAM A2 Lite blocks (3, 2, 1 or none), the gain reduction meter, the Metronome and the FX Loop gate. They share the HX Stomp's spare DSP memory, so the page shows what's left as you tick, and fewer NAM blocks leave room for more of the others. Real block names is a box too. Every other feature is always in; to leave one of those out, [build it yourself](docs/building.md).
 
 &nbsp;
 

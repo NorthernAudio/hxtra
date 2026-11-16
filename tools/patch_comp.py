@@ -7,8 +7,8 @@ Each model in COMP_MODELS gets three more parameters after its own, in the three
            handing it to the compressor core as pid 100, 101, 102, which the DSP wrapper's control function keeps;
            and for each core an init record, pid 103, saying whether its output overwrites its first input or its second.
   Entry 0: the model's row in the UI Model Info Table counts the new parameters.
-  Entry 2: the DSP wrapper src/sharc/frame_probe.asm in Block 3, above NAM's two slots (build.py's GR_SLOTS), and each core of
-           WRAPS entering it.
+  Entry 2: the DSP wrapper src/sharc/frame_probe.asm in Block 3 where tools/block3.py places it, and each core of WRAPS
+           entering it.
 Run it after every step that adds models (add-model, add-fx-model, patch_click.py): those rebuild Entry 3's and Entry 4's tails
 from the models they added and would drop what this writes there.
 """
@@ -17,9 +17,9 @@ import os
 import struct
 import zlib
 
+import block3
 import patch_amp as pa
 import nam_multi
-import patch_click
 
 ASM = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src', 'sharc', 'frame_probe.asm')
 
@@ -333,20 +333,15 @@ def nw(pm):
     return nam_multi.NW3 + (pm - nam_multi.NW3) * 3 // 2
 
 
-def dsp_place():
-    """(DM base, PM base) of frame_probe.asm: its data right above NAM's slots, then its code, clear of the
-    Metronome's kernel under NAM's cold code (there in every build, so GR builds share one layout)."""
-    lay = patch_click.nam_layout(gr=True)
+def dsp_size():
+    """(data words, instructions) of frame_probe.asm."""
     secs, _ = pa.sasm.assemble(dsp_asm(nam_multi.B3, nam_multi.NW3), 'frame_probe.asm')
-    n_dm, n_pm = (sum(len(s.words) for s in secs if s.kind == k) for k in ('dm', 'pm'))
-    dm = lay.b3_to
-    pm = nam_multi.NW3 - (-(dm + n_dm - nam_multi.NW3) * 2 // 3)
-    pm += pm & 1
-    click = patch_click.pm_base(patch_click.kernel_size(), lay)
-    if nw(pm + n_pm + (n_pm & 1)) > nw(click):
-        raise SystemExit(f'the GR DSP code ({n_dm} words, {n_pm} instructions from {dm:#x}) does not fit under the '
-                         f'Metronome\'s kernel ({click:#x})')
-    return dm, pm
+    return tuple(sum(len(s.words) for s in secs if s.kind == k) for k in ('dm', 'pm'))
+
+
+def dsp_place():
+    """(DM base, PM base) of frame_probe.asm (tools/block3.py)."""
+    return block3.place('HX_GR')
 
 
 def patch_dsp(l6ia_bytes, log=print):

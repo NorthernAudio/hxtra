@@ -1,8 +1,10 @@
 """The gain-reduction meter on the Home screen and a compressor's Edit view (src/m4/gr_meter.s), set by each compressor block's own
 Mtr knobs (tools/patch_comp.py).
 
-No Global Settings: the knobs live in the blocks. The DSP side (src/sharc/frame_probe.asm) goes in with them, and NAM keeps two blocks."""
+No Global Settings: the knobs live in the blocks. The DSP side (src/sharc/frame_probe.asm) goes in with them, in Block 3 room that
+NAM's third slot would take (tools/block3.py)."""
 FLAG = 'HX_GR'
+WEB = 'dsp'
 ORDER = 90                          # before the breathing line, which reads SHOWN
 MODULE = 'src/m4/gr_meter.s'
 SHOWN = 20                          # data + 20 in the module: nonzero while the meter shows

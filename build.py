@@ -10,14 +10,15 @@ The input is Line 6's own firmware file for your unit, version 3.80.0
 repository: the build reads it, adds NAM A2 Lite and writes a new .hxf
 (default build/<unit>_v3.80.0_HXtra.hxf) for Line 6 Updater.
 
-NAM A2 Lite runs as up to three blocks at once (two with HX_GR=1), each playing its own capture
-from a User IR slot. The block's title shows the selected IR's name.
+NAM A2 Lite runs as up to three blocks at once, each playing its own capture from a User IR slot.
+On the HX Stomp, HX_NAM_SLOTS=3, 2, 1 or 0 sets how many (0: no NAM A2 Lite); unset, the most that
+leave room in Block 3 for the DSP features that are on (tools/block3.py: HX_GR=1 gives 2). The block's title shows the selected IR's name.
 Amp > NAM > NAM A2 Lite, ten knobs: Input, Treble, Output, Polarity, Bass,
 Mid, Model, Mid Freq, Q, High Cut (on the HX Effects: Distortion > Mono). The XL and HX Effects builds
 have not run on those units. See STEPS.
 
 Steps:
-  1. tools/sharc/nam_multi.py: the SHARC kernel, checked in the simulator
+  1. tools/sharc/nam_multi.py: the SHARC kernel (none with HX_NAM_SLOTS=0, which skips steps 2 and 3's kernel too), checked in the simulator
      against src/sharc/nam_a2.asm bit for bit, each block on its own capture
      (--no-check skips it, ~2 min)
   2. tools/patch_amp.py, STEPS[unit]: the model (each block with its own
@@ -55,7 +56,6 @@ STOCK_MD5 = {
 KERNEL = {"HX_Stomp": ["tools/sharc/nam_multi.py", "--mid-sweep"],
           "HX_Stomp_XL": ["tools/sharc/nam_multi.py", "--mid-sweep"],
           "HX_Effects": ["tools/sharc/nam_multi.py", "--mid-sweep", "--effects"]}
-GR_SLOTS = ["--slots", "2"]     # NAM's third slot is the room the GR meter's DSP code takes (tools/patch_comp.py)
 NAM_EQ = [
     ["remove-model", "--preset-id", "555"],
     ["add-fx-model", "--knobs", "eq", "--name", "HD2_DistNAMLite", "--display-name", "NAM A2 Lite",
@@ -66,13 +66,14 @@ NAM_EQ = [
 ]
 # model-int: NAM's Model as a whole number; the XL's formatter addresses are not known yet.
 STEPS = {"HX_Stomp": NAM_EQ + [["model-int"]], "HX_Stomp_XL": NAM_EQ, "HX_Effects": [["effects-eq"]]}
+# The largest Entry 3 an HX Stomp is known to load amps from; at 0xf3888 it drops every amp and preamp [verified on unit]
+E3_MAX = 0xf10f0
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def kernel(unit, gr=None):
-    """KERNEL[unit], with GR_SLOTS on an HX Stomp build with the GR meter (gr, else HX_GR)."""
-    gr = os.environ.get("HX_GR") if gr is None else gr
-    return KERNEL[unit] + (GR_SLOTS if gr and unit == "HX_Stomp" else [])
+def kernel(unit, slots=3):
+    """KERNEL[unit] for `slots` NAM slots (1..3)."""
+    return KERNEL[unit] + ([] if slots == 3 else ["--slots", str(slots)])
 
 
 def run(*args):
@@ -119,9 +120,16 @@ def main():
     titled = os.path.join(build, "nam_lite_title.l6ia")
     py = sys.executable
 
-    run(py, *kernel(unit), "-o", asm, *([] if "--no-check" in argv else ["--check"]))
+    slots = 3
+    if unit == "HX_Stomp":
+        sys.path.insert(0, os.path.join(HERE, "tools"))
+        import block3
+        slots = block3.slots()
+        print(f"NAM slots: {slots}")
+    if slots:
+        run(py, *kernel(unit, slots), "-o", asm, *([] if "--no-check" in argv else ["--check"]))
     src = stock
-    for k, step in enumerate(STEPS[unit]):
+    for k, step in enumerate(STEPS[unit] if slots else []):
         dst = os.path.join(build, f"nam_lite_{k}.l6ia")
         run(py, "tools/patch_amp.py", step[0], src, dst, *step[1:])
         if src != stock:
@@ -130,8 +138,13 @@ def main():
     base = src
     if unit == "HX_Stomp":
         run(py, "tools/patch_menu.py", base, titled, "--cwd", os.getcwd())
+        if base == stock:
+            base = os.path.join(build, "nam_lite_menu.l6ia")
         os.replace(titled, base)
-    run(py, "tools/patch_amp.py", "patch", base, image, "--asm", asm)
+    if slots:
+        run(py, "tools/patch_amp.py", "patch", base, image, "--asm", asm)
+    else:
+        os.replace(base, image)
     if os.environ.get("HX_CLICK") and unit == "HX_Stomp":
         run(py, "tools/patch_click.py", image, titled)
         os.replace(titled, image)
@@ -142,11 +155,12 @@ def main():
         # last: every step that adds a model rebuilds the Entry 3 and 4 tails the knobs live in
         run(py, "tools/patch_comp.py", image, titled)
         os.replace(titled, image)
-    report = run(py, "tools/l6ia_verify.py", image)
+    report = run(py, "tools/l6ia_verify.py", image, *(["--e3-max", hex(E3_MAX)] if unit == "HX_Stomp" else []))
     if "ALL OK" not in report:
-        sys.exit("build.py: the image failed its checksum check")
+        sys.exit("build.py: the image failed its check")
     run(py, "tools/hxf.py", "pack", image, out, "--donor", stock)
-    os.remove(base)
+    if slots:
+        os.remove(base)
     print(f"\nDone: {out}\nInstall it with Line 6 Updater (Choose File); see README.md first.")
 
 

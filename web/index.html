@@ -143,6 +143,19 @@
   .feat li:first-child { list-style: none; margin-left: -18px; }
   /* recorded with tools/hx_mirror.py; GitHub hosts them, as the recordings stay out of the repository */
   .demo { display: flex; gap: 6px; margin-top: 8px; }
+  #dsp, #other { display: grid; gap: 8px; }
+  #other { margin-top: 16px; }
+  #dsp[hidden], #other[hidden] { display: none; }
+  #dsp .sub { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .room p { margin: 4px 0 0; font: 13px/1.3 var(--font-mono); color: var(--muted); }
+  .room-bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .room-bar span { display: block; height: 100%; width: 0; background: var(--ok); transition: width .2s; }
+  .slots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .checks .slots label { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; }
+  .checks .slots input { margin: 0; }
+  .feat .cost { margin: 6px 0 0; font: 12.5px/1.3 var(--font-mono); color: var(--muted); }
+  .feat.full > label, .slots label.full { opacity: .5; }
+  .feat.full .cost { color: var(--bad); }
   .demo img, .demo video { flex: 0 1 calc(50% - 3px); min-width: 0; aspect-ratio: 4 / 3; border-radius: 6px; background: #0d1117; }
   .demo video { aspect-ratio: 1280 / 914; }
 
@@ -275,13 +288,41 @@
     <div class="step-head solo">
       <h2 id="hos" data-i18n="opt.title"></h2>
     </div>
-    <div class="checks" id="opts" hidden>
-      <div class="feat" data-option="HX_REAL_NAMES" hidden><label><input type="checkbox"> <span data-i18n="feat.names"></span></label>
-        <ul data-i18n="feat.namesS"></ul>
-        <div class="demo"><img src="https://github.com/user-attachments/assets/607728e6-773b-41ae-9619-5a30ca2f50ad" alt="" loading="lazy"></div>
+    <div id="dsp" hidden>
+      <h3 data-i18n="dsp.title"></h3>
+      <p class="sub" data-i18n="dsp.sub"></p>
+      <div class="room"><div class="room-bar"><span id="roomUsed"></span></div><p id="roomText"></p></div>
+      <div class="checks">
+        <div class="feat" id="nam"><span data-i18n="dsp.nam"></span>
+          <div class="slots" role="radiogroup" data-i18n-label="dsp.nam.label">
+            <label data-slots="3"><input type="radio" name="slots" value="3"> 3</label>
+            <label data-slots="2"><input type="radio" name="slots" value="2" checked> 2</label>
+            <label data-slots="1"><input type="radio" name="slots" value="1"> 1</label>
+            <label data-slots="0"><input type="radio" name="slots" value="0"> <span data-i18n="dsp.off"></span></label>
+          </div>
+          <ul data-i18n="dsp.namS"></ul>
+        </div>
+        <div class="feat" data-dsp="HX_GR" hidden><label><input type="checkbox" checked> <span data-i18n="feat.gr"></span></label>
+          <ul data-i18n="feat.grS"></ul>
+          <p class="cost"></p>
+        </div>
+        <div class="feat" data-dsp="HX_CLICK" hidden><label><input type="checkbox" checked> <span data-i18n="feat.click"></span></label>
+          <ul data-i18n="feat.clickS"></ul>
+          <p class="cost"></p>
+        </div>
+        <div class="feat" data-dsp="HX_FX_GATE" hidden><label><input type="checkbox" checked> <span data-i18n="feat.gate"></span></label>
+          <ul data-i18n="feat.gateS"></ul>
+          <p class="cost"></p>
+        </div>
       </div>
-      <div class="feat" data-option="HX_FX_GATE" hidden><label><input type="checkbox"> <span data-i18n="feat.gate"></span></label>
-        <ul data-i18n="feat.gateS"></ul>
+    </div>
+    <div id="other" hidden>
+      <h3 data-i18n="opt.other"></h3>
+      <div class="checks" id="opts">
+        <div class="feat" data-option="HX_REAL_NAMES" hidden><label><input type="checkbox"> <span data-i18n="feat.names"></span></label>
+          <ul data-i18n="feat.namesS"></ul>
+          <div class="demo"><img src="https://github.com/user-attachments/assets/607728e6-773b-41ae-9619-5a30ca2f50ad" alt="" loading="lazy"></div>
+        </div>
       </div>
     </div>
     <p class="tip" id="featNone" hidden data-i18n="feat.none"></p>
@@ -522,6 +563,20 @@ var EN = {
   "feat.namesS": "\n          <li>Renames all blocks to match the gear they were based on: e.g. Deez One Mod becomes Boss DS-1 Mod.</li>\n        ",
   "feat.gate": "<b>Noise gate in the FX Loop and Return blocks</b>",
   "feat.gateS": "\n          <li>Adds Gate, Threshold and Decay knobs to the FX Loop and Return blocks, like the Input block's gate, so a noisy pedal in the loop no longer takes a Noise Gate block.</li>\n          <li>Each of those blocks then uses 0.2% (mono) or 0.4% (stereo) more DSP.</li>\n        ",
+  "dsp.title": "DSP features",
+  "dsp.sub": "These run on the HX Stomp's DSP chip and share its spare memory. Pick fewer NAM blocks to make room for more of the others.",
+  "dsp.used": "DSP memory: {used} of {room} words used, {left} left",
+  "dsp.nam": "<b>NAM A2 Lite blocks</b>",
+  "dsp.nam.label": "NAM A2 Lite blocks",
+  "dsp.namS": "\n            <li>How many NAM A2 Lite blocks can play at once. Off leaves NAM A2 Lite out and frees the most memory.</li>\n          ",
+  "dsp.off": "Off",
+  "dsp.cost": "Uses {cost} words",
+  "dsp.full": "Needs {cost} words, {left} left: untick another feature or pick fewer NAM blocks.",
+  "feat.gr": "<b>Gain reduction meter</b>",
+  "feat.grS": "\n            <li>Shows how hard a compressor is working, on the Home screen and in its Edit view.</li>\n            <li>Adds Mtr Size, Mtr Pos and Mtr Dir knobs to six compressors; Mtr Size starts Off.</li>\n          ",
+  "feat.click": "<b>Metronome block</b>",
+  "feat.clickS": "\n            <li>Adds Looper › Metronome: a click on every beat of the preset's tempo, with Time, Level, Accent and Thru knobs.</li>\n          ",
+  "opt.other": "Other features",
   "feat.none": "This copy of the page has no feature code, so it builds NAM A2 Lite and the boot screen only. The page published with each HXtra release has it.",
   "nav.1": "Prepare",
   "nav.2": "Build",
@@ -858,7 +913,21 @@ var LANGS = {
     "feat.names": "<b>Nombres reales de los bloques</b>",
     "feat.namesS": "\n          <li>Cambia el nombre de todos los bloques por el del equipo en que se basan: p. ej., Deez One Mod pasa a ser Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Puerta de ruido en los bloques FX Loop y Return</b>",
-    "feat.gateS": "\n          <li>Añade los controles Gate, Threshold y Decay a los bloques FX Loop y Return, como la puerta del bloque Input, para que un pedal ruidoso en el bucle ya no ocupe un bloque Noise Gate.</li>\n          <li>Cada uno de esos bloques usa entonces un 0,2 % (mono) o un 0,4 % (estéreo) más de DSP.</li>\n        "
+    "feat.gateS": "\n          <li>Añade los controles Gate, Threshold y Decay a los bloques FX Loop y Return, como la puerta del bloque Input, para que un pedal ruidoso en el bucle ya no ocupe un bloque Noise Gate.</li>\n          <li>Cada uno de esos bloques usa entonces un 0,2 % (mono) o un 0,4 % (estéreo) más de DSP.</li>\n        ",
+    "dsp.title": "Funciones de DSP",
+    "dsp.sub": "Se ejecutan en el chip DSP de la HX Stomp y comparten su memoria libre. Elige menos bloques NAM para dejar sitio a más de las otras.",
+    "dsp.used": "Memoria DSP: {used} de {room} palabras usadas, quedan {left}",
+    "dsp.nam": "<b>Bloques NAM A2 Lite</b>",
+    "dsp.nam.label": "Bloques NAM A2 Lite",
+    "dsp.namS": "\n            <li>Cuántos bloques NAM A2 Lite pueden sonar a la vez. Ninguno deja fuera NAM A2 Lite y libera la mayor cantidad de memoria.</li>\n          ",
+    "dsp.off": "Ninguno",
+    "dsp.cost": "Usa {cost} palabras",
+    "dsp.full": "Necesita {cost} palabras y quedan {left}: desmarca otra función o elige menos bloques NAM.",
+    "feat.gr": "<b>Medidor de reducción de ganancia</b>",
+    "feat.grS": "\n            <li>Muestra cuánto está trabajando un compresor, en la pantalla de inicio y en su vista Edit.</li>\n            <li>Añade los controles Mtr Size, Mtr Pos y Mtr Dir a seis compresores; Mtr Size empieza en Off.</li>\n          ",
+    "feat.click": "<b>Bloque de metrónomo</b>",
+    "feat.clickS": "\n            <li>Añade Looper › Metronome: un clic en cada pulso del tempo del preset, con los controles Time, Level, Accent y Thru.</li>\n          ",
+    "opt.other": "Otras funciones"
   },
   "pt": {
     "lang": "Idioma",
@@ -1030,7 +1099,21 @@ var LANGS = {
     "feat.names": "<b>Nomes reais dos blocos</b>",
     "feat.namesS": "\n          <li>Renomeia todos os blocos com o nome do equipamento em que se basearam: p. ex., Deez One Mod vira Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Noise gate nos blocos FX Loop e Return</b>",
-    "feat.gateS": "\n          <li>Adiciona os controles Gate, Threshold e Decay aos blocos FX Loop e Return, como o gate do bloco Input, para que um pedal ruidoso no loop não ocupe mais um bloco Noise Gate.</li>\n          <li>Cada um desses blocos passa a usar 0,2% (mono) ou 0,4% (estéreo) a mais de DSP.</li>\n        "
+    "feat.gateS": "\n          <li>Adiciona os controles Gate, Threshold e Decay aos blocos FX Loop e Return, como o gate do bloco Input, para que um pedal ruidoso no loop não ocupe mais um bloco Noise Gate.</li>\n          <li>Cada um desses blocos passa a usar 0,2% (mono) ou 0,4% (estéreo) a mais de DSP.</li>\n        ",
+    "dsp.title": "Funções de DSP",
+    "dsp.sub": "Elas rodam no chip DSP da HX Stomp e dividem a memória livre dele. Escolha menos blocos NAM para abrir espaço para mais das outras.",
+    "dsp.used": "Memória DSP: {used} de {room} palavras usadas, restam {left}",
+    "dsp.nam": "<b>Blocos NAM A2 Lite</b>",
+    "dsp.nam.label": "Blocos NAM A2 Lite",
+    "dsp.namS": "\n            <li>Quantos blocos NAM A2 Lite podem tocar ao mesmo tempo. Nenhum deixa o NAM A2 Lite de fora e libera o máximo de memória.</li>\n          ",
+    "dsp.off": "Nenhum",
+    "dsp.cost": "Usa {cost} palavras",
+    "dsp.full": "Precisa de {cost} palavras e restam {left}: desmarque outra função ou escolha menos blocos NAM.",
+    "feat.gr": "<b>Medidor de redução de ganho</b>",
+    "feat.grS": "\n            <li>Mostra o quanto um compressor está trabalhando, na tela inicial e na sua tela Edit.</li>\n            <li>Adiciona os controles Mtr Size, Mtr Pos e Mtr Dir a seis compressores; Mtr Size começa em Off.</li>\n          ",
+    "feat.click": "<b>Bloco de metrônomo</b>",
+    "feat.clickS": "\n            <li>Adiciona Looper › Metronome: um clique em cada tempo do andamento do preset, com os controles Time, Level, Accent e Thru.</li>\n          ",
+    "opt.other": "Outras funções"
   },
   "fr": {
     "lang": "Langue",
@@ -1202,7 +1285,21 @@ var LANGS = {
     "feat.names": "<b>Vrais noms des blocs</b>",
     "feat.namesS": "\n          <li>Renomme tous les blocs d'après le matériel dont ils s'inspirent : p. ex. Deez One Mod devient Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Noise gate dans les blocs FX Loop et Return</b>",
-    "feat.gateS": "\n          <li>Ajoute les réglages Gate, Threshold et Decay aux blocs FX Loop et Return, comme le gate du bloc Input : une pédale bruyante dans la boucle n'occupe plus un bloc Noise Gate.</li>\n          <li>Chacun de ces blocs utilise alors 0,2 % (mono) ou 0,4 % (stéréo) de DSP en plus.</li>\n        "
+    "feat.gateS": "\n          <li>Ajoute les réglages Gate, Threshold et Decay aux blocs FX Loop et Return, comme le gate du bloc Input : une pédale bruyante dans la boucle n'occupe plus un bloc Noise Gate.</li>\n          <li>Chacun de ces blocs utilise alors 0,2 % (mono) ou 0,4 % (stéréo) de DSP en plus.</li>\n        ",
+    "dsp.title": "Fonctions DSP",
+    "dsp.sub": "Elles tournent sur la puce DSP du HX Stomp et se partagent sa mémoire libre. Choisissez moins de blocs NAM pour faire de la place aux autres.",
+    "dsp.used": "Mémoire DSP : {used} mots utilisés sur {room}, {left} restants",
+    "dsp.nam": "<b>Blocs NAM A2 Lite</b>",
+    "dsp.nam.label": "Blocs NAM A2 Lite",
+    "dsp.namS": "\n            <li>Combien de blocs NAM A2 Lite peuvent jouer en même temps. Aucun retire NAM A2 Lite et libère le plus de mémoire.</li>\n          ",
+    "dsp.off": "Aucun",
+    "dsp.cost": "Utilise {cost} mots",
+    "dsp.full": "Il faut {cost} mots, il en reste {left} : décochez une autre fonction ou choisissez moins de blocs NAM.",
+    "feat.gr": "<b>Indicateur de réduction de gain</b>",
+    "feat.grS": "\n            <li>Montre à quel point un compresseur travaille, sur l'écran d'accueil et dans sa vue Edit.</li>\n            <li>Ajoute les potentiomètres Mtr Size, Mtr Pos et Mtr Dir à six compresseurs ; Mtr Size est sur Off au départ.</li>\n          ",
+    "feat.click": "<b>Bloc métronome</b>",
+    "feat.clickS": "\n            <li>Ajoute Looper › Metronome : un clic à chaque temps du tempo du preset, avec les potentiomètres Time, Level, Accent et Thru.</li>\n          ",
+    "opt.other": "Autres fonctions"
   },
   "de": {
     "lang": "Sprache",
@@ -1374,7 +1471,21 @@ var LANGS = {
     "feat.names": "<b>Echte Blocknamen</b>",
     "feat.namesS": "\n          <li>Benennt alle Blöcke nach dem Gerät um, auf dem sie basieren: z. B. wird aus Deez One Mod Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Noise Gate in den FX-Loop- und Return-Blöcken</b>",
-    "feat.gateS": "\n          <li>Fügt den FX-Loop- und Return-Blöcken die Regler Gate, Threshold und Decay hinzu, wie beim Gate des Input-Blocks, sodass ein rauschendes Pedal im Loop keinen eigenen Noise-Gate-Block mehr braucht.</li>\n          <li>Jeder dieser Blöcke braucht dann 0,2 % (mono) oder 0,4 % (stereo) mehr DSP.</li>\n        "
+    "feat.gateS": "\n          <li>Fügt den FX-Loop- und Return-Blöcken die Regler Gate, Threshold und Decay hinzu, wie beim Gate des Input-Blocks, sodass ein rauschendes Pedal im Loop keinen eigenen Noise-Gate-Block mehr braucht.</li>\n          <li>Jeder dieser Blöcke braucht dann 0,2 % (mono) oder 0,4 % (stereo) mehr DSP.</li>\n        ",
+    "dsp.title": "DSP-Funktionen",
+    "dsp.sub": "Sie laufen auf dem DSP-Chip des HX Stomp und teilen sich seinen freien Speicher. Wähle weniger NAM-Blöcke, um Platz für mehr der anderen zu schaffen.",
+    "dsp.used": "DSP-Speicher: {used} von {room} Wörtern belegt, {left} frei",
+    "dsp.nam": "<b>NAM-A2-Lite-Blöcke</b>",
+    "dsp.nam.label": "NAM-A2-Lite-Blöcke",
+    "dsp.namS": "\n            <li>Wie viele NAM-A2-Lite-Blöcke gleichzeitig spielen können. Keine lässt NAM A2 Lite weg und gibt den meisten Speicher frei.</li>\n          ",
+    "dsp.off": "Keine",
+    "dsp.cost": "Belegt {cost} Wörter",
+    "dsp.full": "Braucht {cost} Wörter, {left} frei: Entferne den Haken bei einer anderen Funktion oder wähle weniger NAM-Blöcke.",
+    "feat.gr": "<b>Gain-Reduction-Anzeige</b>",
+    "feat.grS": "\n            <li>Zeigt, wie stark ein Kompressor arbeitet, auf dem Home-Bildschirm und in seiner Edit-Ansicht.</li>\n            <li>Fügt sechs Kompressoren die Regler Mtr Size, Mtr Pos und Mtr Dir hinzu; Mtr Size steht anfangs auf Off.</li>\n          ",
+    "feat.click": "<b>Metronom-Block</b>",
+    "feat.clickS": "\n            <li>Fügt Looper › Metronome hinzu: ein Klick auf jedem Schlag des Preset-Tempos, mit den Reglern Time, Level, Accent und Thru.</li>\n          ",
+    "opt.other": "Weitere Funktionen"
   },
   "it": {
     "lang": "Lingua",
@@ -1546,7 +1657,21 @@ var LANGS = {
     "feat.names": "<b>Nomi reali dei blocchi</b>",
     "feat.namesS": "\n          <li>Rinomina tutti i blocchi con il nome dell'apparecchio a cui si ispirano: ad es. Deez One Mod diventa Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Noise gate nei blocchi FX Loop e Return</b>",
-    "feat.gateS": "\n          <li>Aggiunge i controlli Gate, Threshold e Decay ai blocchi FX Loop e Return, come il gate del blocco Input, così un pedale rumoroso nel loop non occupa più un blocco Noise Gate.</li>\n          <li>Ognuno di questi blocchi usa poi lo 0,2% (mono) o lo 0,4% (stereo) di DSP in più.</li>\n        "
+    "feat.gateS": "\n          <li>Aggiunge i controlli Gate, Threshold e Decay ai blocchi FX Loop e Return, come il gate del blocco Input, così un pedale rumoroso nel loop non occupa più un blocco Noise Gate.</li>\n          <li>Ognuno di questi blocchi usa poi lo 0,2% (mono) o lo 0,4% (stereo) di DSP in più.</li>\n        ",
+    "dsp.title": "Funzioni DSP",
+    "dsp.sub": "Girano sul chip DSP dell'HX Stomp e ne condividono la memoria libera. Scegli meno blocchi NAM per fare spazio a più delle altre.",
+    "dsp.used": "Memoria DSP: {used} di {room} parole usate, ne restano {left}",
+    "dsp.nam": "<b>Blocchi NAM A2 Lite</b>",
+    "dsp.nam.label": "Blocchi NAM A2 Lite",
+    "dsp.namS": "\n            <li>Quanti blocchi NAM A2 Lite possono suonare insieme. Nessuno esclude NAM A2 Lite e libera più memoria.</li>\n          ",
+    "dsp.off": "Nessuno",
+    "dsp.cost": "Usa {cost} parole",
+    "dsp.full": "Servono {cost} parole, ne restano {left}: togli la spunta a un'altra funzione o scegli meno blocchi NAM.",
+    "feat.gr": "<b>Indicatore di riduzione del guadagno</b>",
+    "feat.grS": "\n            <li>Mostra quanto lavora un compressore, nella schermata Home e nella sua vista Edit.</li>\n            <li>Aggiunge le manopole Mtr Size, Mtr Pos e Mtr Dir a sei compressori; Mtr Size parte da Off.</li>\n          ",
+    "feat.click": "<b>Blocco metronomo</b>",
+    "feat.clickS": "\n            <li>Aggiunge Looper › Metronome: un clic su ogni battito del tempo del preset, con le manopole Time, Level, Accent e Thru.</li>\n          ",
+    "opt.other": "Altre funzioni"
   },
   "ja": {
     "lang": "言語",
@@ -1718,7 +1843,21 @@ var LANGS = {
     "feat.names": "<b>ブロックの実機名</b>",
     "feat.namesS": "\n          <li>すべてのブロックの名前を、元になった実機の名前に変えます。例：Deez One Mod は Boss DS-1 Mod に。</li>\n        ",
     "feat.gate": "<b>FX Loop・Return ブロックのノイズゲート</b>",
-    "feat.gateS": "\n          <li>FX Loop と Return ブロックに、Input ブロックのゲートと同じ Gate・Threshold・Decay のノブを追加します。ループ内のノイズの多いペダルのために Noise Gate ブロックを使う必要がなくなります。</li>\n          <li>これらのブロックはそれぞれ DSP を 0.2%（モノ）または 0.4%（ステレオ）多く使います。</li>\n        "
+    "feat.gateS": "\n          <li>FX Loop と Return ブロックに、Input ブロックのゲートと同じ Gate・Threshold・Decay のノブを追加します。ループ内のノイズの多いペダルのために Noise Gate ブロックを使う必要がなくなります。</li>\n          <li>これらのブロックはそれぞれ DSP を 0.2%（モノ）または 0.4%（ステレオ）多く使います。</li>\n        ",
+    "dsp.title": "DSP 機能",
+    "dsp.sub": "これらは HX Stomp の DSP チップ上で動き、空きメモリを分け合います。NAM ブロックを減らすと、ほかの機能を多く入れられます。",
+    "dsp.used": "DSP メモリ: {room} ワード中 {used} ワード使用、残り {left}",
+    "dsp.nam": "<b>NAM A2 Lite ブロック</b>",
+    "dsp.nam.label": "NAM A2 Lite ブロック",
+    "dsp.namS": "\n            <li>同時に鳴らせる NAM A2 Lite ブロックの数です。「なし」にすると NAM A2 Lite を入れず、メモリがいちばん空きます。</li>\n          ",
+    "dsp.off": "なし",
+    "dsp.cost": "{cost} ワード使用",
+    "dsp.full": "{cost} ワード必要ですが、残りは {left} です。ほかの機能のチェックを外すか、NAM ブロックを減らしてください。",
+    "feat.gr": "<b>ゲインリダクション・メーター</b>",
+    "feat.grS": "\n            <li>コンプレッサーのかかり具合を、ホーム画面とそのブロックの Edit 画面に表示します。</li>\n            <li>6 種類のコンプレッサーに Mtr Size、Mtr Pos、Mtr Dir のノブを追加します。Mtr Size の初期値は Off です。</li>\n          ",
+    "feat.click": "<b>メトロノーム・ブロック</b>",
+    "feat.clickS": "\n            <li>Looper › Metronome を追加します。プリセットのテンポの拍ごとにクリックが鳴り、Time、Level、Accent、Thru のノブがあります。</li>\n          ",
+    "opt.other": "その他の機能"
   },
   "zh": {
     "lang": "语言",
@@ -1890,7 +2029,21 @@ var LANGS = {
     "feat.names": "<b>模块的真实名称</b>",
     "feat.namesS": "\n          <li>将所有模块重命名为其原型设备的名称：例如 Deez One Mod 变为 Boss DS-1 Mod。</li>\n        ",
     "feat.gate": "<b>FX Loop 和 Return 模块内置噪声门</b>",
-    "feat.gateS": "\n          <li>为 FX Loop 和 Return 模块添加 Gate、Threshold 和 Decay 旋钮，与 Input 模块的噪声门相同，环路中有噪声的效果器不再需要占用一个 Noise Gate 模块。</li>\n          <li>这些模块每个会多占用 0.2%（单声道）或 0.4%（立体声）的 DSP。</li>\n        "
+    "feat.gateS": "\n          <li>为 FX Loop 和 Return 模块添加 Gate、Threshold 和 Decay 旋钮，与 Input 模块的噪声门相同，环路中有噪声的效果器不再需要占用一个 Noise Gate 模块。</li>\n          <li>这些模块每个会多占用 0.2%（单声道）或 0.4%（立体声）的 DSP。</li>\n        ",
+    "dsp.title": "DSP 功能",
+    "dsp.sub": "这些功能运行在 HX Stomp 的 DSP 芯片上，共用它的空闲内存。少选几个 NAM 模块，就能为其他功能腾出空间。",
+    "dsp.used": "DSP 内存：已用 {used} / {room} 字，剩余 {left}",
+    "dsp.nam": "<b>NAM A2 Lite 模块</b>",
+    "dsp.nam.label": "NAM A2 Lite 模块",
+    "dsp.namS": "\n            <li>可同时运行的 NAM A2 Lite 模块数量。选“无”则不加入 NAM A2 Lite，空出的内存最多。</li>\n          ",
+    "dsp.off": "无",
+    "dsp.cost": "占用 {cost} 字",
+    "dsp.full": "需要 {cost} 字，只剩 {left}：取消勾选其他功能，或选择更少的 NAM 模块。",
+    "feat.gr": "<b>增益衰减表</b>",
+    "feat.grS": "\n            <li>在主屏幕和压缩器的 Edit 界面显示压缩器的压缩程度。</li>\n            <li>为六款压缩器添加 Mtr Size、Mtr Pos 和 Mtr Dir 旋钮；Mtr Size 默认为 Off。</li>\n          ",
+    "feat.click": "<b>节拍器模块</b>",
+    "feat.clickS": "\n            <li>新增 Looper › Metronome：按预设速度的每一拍发出咔哒声，带 Time、Level、Accent 和 Thru 旋钮。</li>\n          ",
+    "opt.other": "其他功能"
   },
   "ko": {
     "lang": "언어",
@@ -2062,7 +2215,21 @@ var LANGS = {
     "feat.names": "<b>블록의 실제 이름</b>",
     "feat.namesS": "\n          <li>모든 블록의 이름을 원본 장비의 이름으로 바꿉니다. 예: Deez One Mod는 Boss DS-1 Mod가 됩니다.</li>\n        ",
     "feat.gate": "<b>FX Loop·Return 블록의 노이즈 게이트</b>",
-    "feat.gateS": "\n          <li>FX Loop와 Return 블록에 Input 블록의 게이트처럼 Gate, Threshold, Decay 노브를 추가합니다. 루프 안의 잡음이 많은 페달 때문에 Noise Gate 블록을 따로 쓸 필요가 없습니다.</li>\n          <li>이 블록들은 각각 DSP를 0.2%(모노) 또는 0.4%(스테레오) 더 사용합니다.</li>\n        "
+    "feat.gateS": "\n          <li>FX Loop와 Return 블록에 Input 블록의 게이트처럼 Gate, Threshold, Decay 노브를 추가합니다. 루프 안의 잡음이 많은 페달 때문에 Noise Gate 블록을 따로 쓸 필요가 없습니다.</li>\n          <li>이 블록들은 각각 DSP를 0.2%(모노) 또는 0.4%(스테레오) 더 사용합니다.</li>\n        ",
+    "dsp.title": "DSP 기능",
+    "dsp.sub": "이 기능들은 HX Stomp의 DSP 칩에서 돌아가며 남는 메모리를 나눠 씁니다. NAM 블록을 줄이면 다른 기능을 더 넣을 수 있습니다.",
+    "dsp.used": "DSP 메모리: {room}워드 중 {used}워드 사용, {left} 남음",
+    "dsp.nam": "<b>NAM A2 Lite 블록</b>",
+    "dsp.nam.label": "NAM A2 Lite 블록",
+    "dsp.namS": "\n            <li>동시에 재생할 수 있는 NAM A2 Lite 블록 수입니다. 없음을 고르면 NAM A2 Lite가 빠지고 메모리가 가장 많이 남습니다.</li>\n          ",
+    "dsp.off": "없음",
+    "dsp.cost": "{cost}워드 사용",
+    "dsp.full": "{cost}워드가 필요한데 {left}만 남았습니다. 다른 기능의 체크를 해제하거나 NAM 블록을 줄이세요.",
+    "feat.gr": "<b>게인 리덕션 미터</b>",
+    "feat.grS": "\n            <li>컴프레서가 얼마나 작동하는지 홈 화면과 해당 블록의 Edit 화면에 보여 줍니다.</li>\n            <li>컴프레서 6종에 Mtr Size, Mtr Pos, Mtr Dir 노브를 추가합니다. Mtr Size는 처음에 Off입니다.</li>\n          ",
+    "feat.click": "<b>메트로놈 블록</b>",
+    "feat.clickS": "\n            <li>Looper › Metronome을 추가합니다. 프리셋 템포의 박마다 클릭이 울리며 Time, Level, Accent, Thru 노브가 있습니다.</li>\n          ",
+    "opt.other": "기타 기능"
   },
   "ru": {
     "lang": "Язык",
@@ -2234,7 +2401,21 @@ var LANGS = {
     "feat.names": "<b>Настоящие названия блоков</b>",
     "feat.namesS": "\n          <li>Переименовывает все блоки по названиям приборов, на которых они основаны: например, Deez One Mod становится Boss DS-1 Mod.</li>\n        ",
     "feat.gate": "<b>Нойз-гейт в блоках FX Loop и Return</b>",
-    "feat.gateS": "\n          <li>Добавляет в блоки FX Loop и Return ручки Gate, Threshold и Decay, как у гейта блока Input, так что шумной педали в петле больше не нужен отдельный блок Noise Gate.</li>\n          <li>Каждый из этих блоков тогда использует на 0,2% (моно) или 0,4% (стерео) больше DSP.</li>\n        "
+    "feat.gateS": "\n          <li>Добавляет в блоки FX Loop и Return ручки Gate, Threshold и Decay, как у гейта блока Input, так что шумной педали в петле больше не нужен отдельный блок Noise Gate.</li>\n          <li>Каждый из этих блоков тогда использует на 0,2% (моно) или 0,4% (стерео) больше DSP.</li>\n        ",
+    "dsp.title": "Функции DSP",
+    "dsp.sub": "Они работают на DSP-чипе HX Stomp и делят его свободную память. Выберите меньше блоков NAM, чтобы освободить место для остальных.",
+    "dsp.used": "Память DSP: занято {used} из {room} слов, осталось {left}",
+    "dsp.nam": "<b>Блоки NAM A2 Lite</b>",
+    "dsp.nam.label": "Блоки NAM A2 Lite",
+    "dsp.namS": "\n            <li>Сколько блоков NAM A2 Lite могут звучать одновременно. «Нет» убирает NAM A2 Lite и освобождает больше всего памяти.</li>\n          ",
+    "dsp.off": "Нет",
+    "dsp.cost": "Занимает {cost} слов",
+    "dsp.full": "Нужно {cost} слов, осталось {left}: снимите отметку с другой функции или выберите меньше блоков NAM.",
+    "feat.gr": "<b>Индикатор компрессии (gain reduction)</b>",
+    "feat.grS": "\n            <li>Показывает, насколько сильно работает компрессор, на главном экране и в его окне Edit.</li>\n            <li>Добавляет шести компрессорам ручки Mtr Size, Mtr Pos и Mtr Dir; Mtr Size по умолчанию Off.</li>\n          ",
+    "feat.click": "<b>Блок метронома</b>",
+    "feat.clickS": "\n            <li>Добавляет Looper › Metronome: щелчок на каждую долю темпа пресета, с ручками Time, Level, Accent и Thru.</li>\n          ",
+    "opt.other": "Другие функции"
   }
 };
 // LANGS-END
@@ -2353,8 +2534,43 @@ var LANG_NAMES = {
   }
 
   // Every build has the release's features, whose M4 code (tools/m4cache.py) a checkout's page lacks, and the options ticked.
+  // The DSP features share the Block 3 room NAM A2 Lite's slots leave (tools/block3.py): the cache's "dsp" has the room for
+  // each slot count and each feature's cost, and a box or a slot count that would overflow it can't be picked.
   var features = [];
   var optBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-option]"));
+  var dspBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-dsp]"));
+  var slotRadios = Array.prototype.slice.call(document.querySelectorAll('input[name="slots"]'));
+  var dsp = null;
+  function ticked(boxes, attr) {
+    return boxes.filter(function (o) { return !o.hidden && o.querySelector("input").checked; })
+      .map(function (o) { return o.dataset[attr]; });
+  }
+  function slotsPicked() {
+    var r = slotRadios.filter(function (r) { return r.checked; })[0];
+    return r ? Number(r.value) : 3;
+  }
+  function dspDraw() {
+    if (!dsp) return;
+    var room = dsp.room[slotsPicked()];
+    var used = ticked(dspBoxes, "dsp").reduce(function (n, f) { return n + dsp.cost[f]; }, 0);
+    var left = room - used;
+    $("roomUsed").style.width = Math.min(100, 100 * used / room) + "%";
+    $("roomText").textContent = t("dsp.used", { used: used, room: room, left: left });
+    dspBoxes.forEach(function (o) {
+      var box = o.querySelector("input"), cost = dsp.cost[o.dataset.dsp];
+      box.disabled = !box.checked && cost > left;
+      o.classList.toggle("full", box.disabled);
+      o.querySelector(".cost").textContent = box.disabled ? t("dsp.full", { cost: cost, left: left }) : t("dsp.cost", { cost: cost });
+    });
+    slotRadios.forEach(function (r) {
+      r.disabled = !r.checked && dsp.room[r.value] < used;
+      r.parentNode.classList.toggle("full", r.disabled);
+    });
+  }
+  redraw.push(dspDraw);
+  dspBoxes.concat(slotRadios.map(function (r) { return r.parentNode; })).forEach(function (o) {
+    o.querySelector("input").addEventListener("change", dspDraw);
+  });
   var release = null;
   function relDraw() { if (release) $("release").textContent = t("rel", { release: release }); }
   redraw.push(relDraw);
@@ -2365,7 +2581,15 @@ var LANG_NAMES = {
     }).then(function (c) {
       features = c.features;
       optBoxes.forEach(function (o) { o.hidden = (c.options || []).indexOf(o.dataset.option) < 0; });
-      $("opts").hidden = $("options").hidden = optBoxes.every(function (o) { return o.hidden; });
+      $("other").hidden = optBoxes.every(function (o) { return o.hidden; });
+      dsp = c.dsp || null;
+      if (dsp) {
+        dspBoxes.forEach(function (o) { o.hidden = dsp.features.indexOf(o.dataset.dsp) < 0; });
+        slotRadios.forEach(function (r) { r.parentNode.hidden = dsp.slots.indexOf(Number(r.value)) < 0; });
+        dspDraw();
+      }
+      $("dsp").hidden = !dsp;
+      $("options").hidden = $("dsp").hidden && $("other").hidden;
       release = c.release;
       $("release").hidden = !release;
       relDraw();
@@ -2420,9 +2644,8 @@ var LANG_NAMES = {
         finish();
         fwShow("bad", ["fw.startTitle"], ["fw.startText", { err: e.message || "Worker error" }]);
       };
-      worker.postMessage({ stock: buf, features: features.concat(optBoxes.filter(function (o) {
-        return !o.hidden && o.querySelector("input").checked;
-      }).map(function (o) { return o.dataset.option; })) }, [buf]);
+      worker.postMessage({ stock: buf, features: features.concat(ticked(optBoxes, "option"), dsp ? ticked(dspBoxes, "dsp") : []),
+                           slots: dsp ? slotsPicked() : 3 }, [buf]);
     }, function () {
       finish();
       fwShow("bad", ["fw.readTitle"], ["fw.readText"]);
