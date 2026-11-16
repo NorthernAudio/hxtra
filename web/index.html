@@ -94,8 +94,9 @@
 
   nav.steps-nav { position: sticky; top: 0; z-index: 2; margin-inline: -4px; padding: 8px 4px; background: var(--bg); }
   nav.steps-nav ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  nav.steps-nav li { display: grid; }
   nav.steps-nav a {
-    display: grid; justify-items: center; gap: 4px; padding: 8px 4px; border-radius: 8px; text-decoration: none;
+    display: grid; justify-items: center; align-content: start; gap: 4px; padding: 8px 4px; border-radius: 8px; text-decoration: none;
     color: var(--muted); font-size: 12.5px; line-height: 1.2; text-align: center; border: 1px solid var(--line); background: var(--panel);
   }
   nav.steps-nav a:hover { border-color: var(--accent); color: var(--ink); }
@@ -104,6 +105,7 @@
     background: var(--accent-soft); color: var(--accent); font: 700 12px/1 var(--font-mono);
   }
   nav.steps-nav a.done .n { background: var(--ok-soft); color: var(--ok); }
+  nav.steps-nav a.off, section.step.off { opacity: .45; pointer-events: none; }
   @media (max-width: 560px) { nav.steps-nav .t { display: none; } }
 
   section.step {
@@ -587,8 +589,8 @@ var EN = {
   "nav.2": "Build",
   "nav.try": "Try",
   "nav.3": "Install",
-  "nav.4": "Convert captures",
-  "nav.5": "Play NAM",
+  "nav.4": "Convert NAM captures",
+  "nav.5": "Load NAM captures",
   "s1.title": "Get ready",
   "s1.c1": "I have an <b>HX Stomp</b>.",
   "s1.c1s": "HXtra is made for the HX Stomp ONLY. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack are UNSUPPORTED.",
@@ -761,8 +763,8 @@ var LANGS = {
     "nav.2": "Crear",
     "nav.try": "Probar",
     "nav.3": "Instalar",
-    "nav.4": "Convertir capturas",
-    "nav.5": "A tocar con NAM",
+    "nav.4": "Convertir capturas NAM",
+    "nav.5": "Cargar capturas NAM",
     "s1.title": "Prepárate",
     "s1.c1": "Tengo un <b>HX Stomp</b>.",
     "s1.c1s": "HXtra está hecho SOLO para el HX Stomp. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack son NO COMPATIBLES.",
@@ -948,8 +950,8 @@ var LANGS = {
     "nav.2": "Gerar",
     "nav.try": "Testar",
     "nav.3": "Instalar",
-    "nav.4": "Converter capturas",
-    "nav.5": "Tocar com NAM",
+    "nav.4": "Converter capturas NAM",
+    "nav.5": "Carregar capturas NAM",
     "s1.title": "Preparação",
     "s1.c1": "Tenho um <b>HX Stomp</b>.",
     "s1.c1s": "O HXtra foi feito SOMENTE para o HX Stomp. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack NÃO SÃO SUPORTADOS.",
@@ -1135,8 +1137,8 @@ var LANGS = {
     "nav.2": "Créer",
     "nav.try": "Essayer",
     "nav.3": "Installer",
-    "nav.4": "Convertir les captures",
-    "nav.5": "Jouer avec NAM",
+    "nav.4": "Convertir les captures NAM",
+    "nav.5": "Charger les captures NAM",
     "s1.title": "Préparation",
     "s1.c1": "J'ai un <b>HX Stomp</b>.",
     "s1.c1s": "HXtra est conçu UNIQUEMENT pour le HX Stomp. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack ne sont PAS PRIS EN CHARGE.",
@@ -1322,8 +1324,8 @@ var LANGS = {
     "nav.2": "Bauen",
     "nav.try": "Testen",
     "nav.3": "Installieren",
-    "nav.4": "Captures umwandeln",
-    "nav.5": "NAM spielen",
+    "nav.4": "NAM-Captures umwandeln",
+    "nav.5": "NAM-Captures laden",
     "s1.title": "Vorbereitung",
     "s1.c1": "Ich habe einen <b>HX Stomp</b>.",
     "s1.c1s": "HXtra ist NUR für den HX Stomp gemacht. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack werden NICHT UNTERSTÜTZT.",
@@ -1509,8 +1511,8 @@ var LANGS = {
     "nav.2": "Crea",
     "nav.try": "Prova",
     "nav.3": "Installa",
-    "nav.4": "Converti le catture",
-    "nav.5": "Suona con NAM",
+    "nav.4": "Converti le catture NAM",
+    "nav.5": "Carica le catture NAM",
     "s1.title": "Preparazione",
     "s1.c1": "Ho un <b>HX Stomp</b>.",
     "s1.c1s": "HXtra è fatto SOLO per l'HX Stomp. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack sono NON SUPPORTATI.",
@@ -1696,8 +1698,8 @@ var LANGS = {
     "nav.2": "ビルド",
     "nav.try": "試す",
     "nav.3": "インストール",
-    "nav.4": "キャプチャー変換",
-    "nav.5": "NAM を鳴らす",
+    "nav.4": "NAM キャプチャー変換",
+    "nav.5": "NAM キャプチャーの読み込み",
     "s1.title": "準備",
     "s1.c1": "<b>HX Stomp</b> を持っている。",
     "s1.c1s": "HXtra は HX Stomp 専用です。HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack は非対応です。",
@@ -1883,8 +1885,8 @@ var LANGS = {
     "nav.2": "制作",
     "nav.try": "试用",
     "nav.3": "安装",
-    "nav.4": "转换采样",
-    "nav.5": "弹奏 NAM",
+    "nav.4": "转换 NAM 采样",
+    "nav.5": "载入 NAM 采样",
     "s1.title": "准备工作",
     "s1.c1": "我有一台 <b>HX Stomp</b>。",
     "s1.c1s": "HXtra 仅适用于 HX Stomp。HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack 均不受支持。",
@@ -2070,8 +2072,8 @@ var LANGS = {
     "nav.2": "빌드",
     "nav.try": "시험",
     "nav.3": "설치",
-    "nav.4": "캡처 변환",
-    "nav.5": "NAM 연주",
+    "nav.4": "NAM 캡처 변환",
+    "nav.5": "NAM 캡처 불러오기",
     "s1.title": "준비",
     "s1.c1": "<b>HX Stomp</b>를 가지고 있어요.",
     "s1.c1s": "HXtra는 HX Stomp 전용입니다. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack는 지원되지 않습니다.",
@@ -2257,8 +2259,8 @@ var LANGS = {
     "nav.2": "Сборка",
     "nav.try": "Проба",
     "nav.3": "Установка",
-    "nav.4": "Конвертация захватов",
-    "nav.5": "Игра с NAM",
+    "nav.4": "Конвертация захватов NAM",
+    "nav.5": "Загрузка захватов NAM",
     "s1.title": "Подготовка",
     "s1.c1": "У меня <b>HX Stomp</b>.",
     "s1.c1s": "HXtra создана ТОЛЬКО для HX Stomp. HX Stomp XL, HX Effects, Helix Floor, Helix LT, Helix Rack НЕ ПОДДЕРЖИВАЮТСЯ.",
@@ -2588,6 +2590,8 @@ var LANG_NAMES = {
     });
     namOn.disabled = !namOn.checked && !fits.length;
     $("nam").classList.toggle("full", namOn.disabled);
+    // a build without NAM has no use for the capture steps
+    ["nav6", "nav7", "convert-captures", "play-nam"].forEach(function (id) { $(id).classList.toggle("off", !namOn.checked); });
   }
   redraw.push(dspDraw);
   dspBoxes.concat(slotRadios.map(function (r) { return r.parentNode; })).forEach(function (o) {
