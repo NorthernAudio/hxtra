@@ -95,7 +95,7 @@ python3 tools/hx_ctl.py load-preset cur.json
 python3 tools/hx_ctl.py --dry-run set-model --slot 0 --model-id 182    # prints, sends nothing
 ```
 
-`tools/hx_input.py` presses the unit's controls on a build with `HX_USB_INPUT=1`: `press fs2`, `hold fs1`, `turn knob3 -4`, `touch fs1`, `press view` (also `action`, `page_left`, `page_right`, `knob1`..`knob5`).
+`tools/hx_input.py` presses the unit's controls on a build with `HX_USB_INPUT=1`: `press fs2`, `hold fs1`, `turn knob3 -4`, `touch fs1`, `press view` (also `action`, `page_left`, `page_right`, `knob1`..`knob5`), and `press view+action` for controls pressed together. The stock button combinations (VIEW + ACTION to save, PAGE◀ + PAGE▶ for the Menu, and the rest) and how to send them are in [docs/research/m4/controls.md](docs/research/m4/controls.md).
 
 `tools/hx_dfu_reboot.py` restarts the running Stomp in update mode, as Line 6 Updater does (`--dry-run` prints the exchange). `tools/hx_ramrun.sh IMAGE` does the whole RAM run in one step.
 

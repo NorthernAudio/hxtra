@@ -14,7 +14,7 @@ The HX Stomp's footswitches, knobs and buttons pressed and turned from a compute
 ## Using it
 
 - Build with `HX_USB_INPUT=1` (with `HX_SCREEN_MIRROR=1` to see what it does) and run it from RAM. Close HX Edit: it uses the editor stream.
-- `python3 tools/hx_input.py press fs2`, `hold fs1 --seconds 1.5`, `turn knob3 -4`, `touch fs1`, `press view` (also `action`, `page_left`, `page_right`, `knob1`..`knob5`). Not the volume knob: it sets only the headphone level, with its own physical marker.
+- `python3 tools/hx_input.py press fs2`, `press view+action` (controls joined by `+` are pressed together), `hold fs1 --seconds 1.5`, `turn knob3 -4`, `touch fs1`, `press view` (also `action`, `page_left`, `page_right`, `knob1`..`knob5`). Not the volume knob: it sets only the headphone level, with its own physical marker.
 - From a script: `hx_input.Input(ctl)` with an `hx_ctl.HxCtl`, or `Input(s.ctl)` inside an `hx_mirror.Session`, whose ctl calls take turns with the frames.
 
 - A script that prints while an `hx_mirror.Session` runs loses lines: hx_ctl's quiet mode swaps `sys.stdout` around every frame's request. Write with `os.write(1, ...)` or to a file.
@@ -22,6 +22,7 @@ The HX Stomp's footswitches, knobs and buttons pressed and turned from a compute
 
 ## The UI as the tests drive it [verified on unit 2026-11-13, usb-button-inputs-2]
 
+- **Button combinations** (Save, Menu, All Bypass, the tuner, holds and touches) and how to send them: [m4/controls.md](../m4/controls.md).
 - **Menu**: PAGE◀ and PAGE▶ pressed together; its page 2 has Global EQ and Global Settings, opened by the knob below the tile (knob 2). On the Home screen alone, PAGE◀ and PAGE▶ step the footswitch mode.
 - **Knob code 3** (`knob4`) steps Global Settings' sections, and the Edit view's selected block. **Knob code 4** (`knob5`): its press opens the model browser on the selected block, and its turn moves the browser's cursor, which on a model list **changes the block at once** (a turn on an EQ block's list made it Parametric). The cursor is drawn bold, with ▶ on a category.
 - **Knob counts are finer than a value**: the USB In 1/2 trim moved about 0.067 dB a count (shown to 0.1), and a two-value list needed several counts. So a test turns a count at a time and reads the value back.

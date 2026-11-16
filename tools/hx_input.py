@@ -7,6 +7,7 @@ own controls queue theirs (src/m4/usb_input.s), so its UI cannot tell them apart
 
   hx_input.py press fs2                 # a click: pressed, then released (fs1..fs5, knob1..knob5, view, action, page_left,
                                         # page_right)
+  hx_input.py press view+action         # controls joined by + are pressed together and released together: Save
   hx_input.py hold fs1 [--seconds 1.5]  # held: the hold comes after 1 s, as the unit's own
   hx_input.py turn knob3 -4             # four clicks anticlockwise
   hx_input.py touch fs1 [--seconds 1]   # FS1..FS3's touch sensors
@@ -36,6 +37,11 @@ def event(cls, code, value=0):
     return bytes([cls, code, 0, 0]) + struct.pack('<i', value)
 
 
+def keys(names, typ, part='press'):
+    """The key events of the controls in names, joined by + when pressed together."""
+    return [key(n, typ, part) for n in names.split('+')]
+
+
 def key(name, typ, part='press'):
     """The key event of control name's press (or its touch) of type typ."""
     try:
@@ -59,21 +65,21 @@ class Input:
             self.ctl.send_events(b''.join(events[i:i + MAX]))
 
     def press(self, name, seconds=CLICK_S):
-        """A click of a footswitch, a knob or a button, released before its hold."""
+        """A click of a footswitch, a knob or a button, released before its hold; 'view+action' presses them together."""
         if seconds >= HOLD_S:
             return self.hold(name, seconds)
-        self.send(key(name, PRESS))
+        self.send(*keys(name, PRESS))
         self.sleep(seconds)
-        self.send(key(name, RELEASE), key(name, RELEASED))
+        self.send(*keys(name, RELEASE), *keys(name, RELEASED))
         self.sleep(GAP_S)
 
     def hold(self, name, seconds=1.5):
-        """Held for seconds (at least HOLD_S): pressed, its hold after HOLD_S, released."""
-        self.send(key(name, PRESS))
+        """Held for seconds (at least HOLD_S): pressed, its hold after HOLD_S, released; 'fs1+fs2' holds them together."""
+        self.send(*keys(name, PRESS))
         self.sleep(HOLD_S)
-        self.send(key(name, HOLD))
+        self.send(*keys(name, HOLD))
         self.sleep(max(0.0, seconds - HOLD_S))
-        self.send(key(name, RELEASE))
+        self.send(*keys(name, RELEASE))
         self.sleep(GAP_S)
 
     def turn(self, name, clicks):
@@ -85,10 +91,10 @@ class Input:
         self.sleep(GAP_S)
 
     def touch(self, name, seconds=CLICK_S):
-        """A foot on FS1..FS3's touch sensor for seconds."""
-        self.send(key(name, PRESS, 'touch'))
+        """A foot on FS1..FS3's touch sensor for seconds; 'fs1+fs2' touches both."""
+        self.send(*keys(name, PRESS, 'touch'))
         self.sleep(seconds)
-        self.send(key(name, RELEASE, 'touch'))
+        self.send(*keys(name, RELEASE, 'touch'))
         self.sleep(GAP_S)
 
 
