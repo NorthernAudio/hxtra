@@ -115,26 +115,28 @@ def test_page_lists_the_web_options():
 
 
 def page_dsp():
-    """The DSP features' boxes ({flag: ticked}) and the NAM slot counts (the one picked first) the page offers."""
+    """The DSP features' boxes ({flag: ticked}), the NAM slot counts (the one picked first) and whether NAM's box is ticked."""
     page = (ROOT / "web/index.html").read_text()
     boxes = dict(re.findall(r'<div class="feat" data-dsp="(\w+)" hidden><label><input type="checkbox"( checked)?> ', page))
     slots = re.findall(r'<input type="radio" name="slots" value="(\d)"( checked)?>', page)
-    return {f: bool(c) for f, c in boxes.items()}, sorted(((bool(c), int(v)) for v, c in slots), reverse=True)
+    nam = re.search(r'<div class="feat" id="nam"><label><input type="checkbox" id="namOn"( checked)?> ', page)
+    return {f: bool(c) for f, c in boxes.items()}, sorted(((bool(c), int(v)) for v, c in slots), reverse=True), bool(nam.group(1))
 
 
 def test_page_lists_the_dsp_features_and_slot_counts():
     import block3
-    boxes, slots = page_dsp()
+    # NAM's box unticked is 0 slots, the radios the rest
+    boxes, slots, _ = page_dsp()
     assert sorted(boxes) == sorted(m4cache.web_dsp())
-    assert sorted(v for _, v in slots) == sorted(block3.SLOTS)
+    assert sorted([v for _, v in slots] + [0]) == sorted(block3.SLOTS)
 
 
 def test_page_default_is_two_nam_slots_and_every_dsp_feature_and_fits():
     # Mr. Wiseman's default (issue #111): 2 NAM slots with the GR meter, the Metronome and the FX Loop gate
     import block3
-    boxes, slots = page_dsp()
+    boxes, slots, nam = page_dsp()
     picked = slots[0][1]
-    assert slots[0][0] and not slots[1][0] and picked == 2
+    assert nam and slots[0][0] and not slots[1][0] and picked == 2
     assert all(boxes.values())
     assert block3.fits(picked, [f for f, on in boxes.items() if on])
 
