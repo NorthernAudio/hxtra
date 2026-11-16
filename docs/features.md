@@ -17,9 +17,9 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [USB monitoring](#usb-monitoring) | Path A's output to the computer instead of Main L/R · Global Settings > Ins/Outs, page 3 | `HX_USB_MONITOR=1` |
 | [GR meter](#gr-meter) | Home screen and the compressor's Edit view, lit by a compressor · knobs on six compressors | `HX_GR=1` |
 | [Boot screen](#boot-screen-hx-stomp-only) | The screen at power-on · set when you build | `--splash`, `--splash-text` |
-| [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | always on |
+| [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | `HX_NAM_SLOTS=3`, `2`, `1`, `0` (off); unset, the most that fit |
 
-Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but Real block names and the FX Loop gate only when you tick their boxes. Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
+Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but some only when you tick their boxes: the **DSP features** (how many NAM A2 Lite blocks, the GR meter, the Metronome and the FX Loop gate; at first 2 NAM blocks and all three ticked) and Real block names. The DSP features share the DSP's spare memory, so the page shows what is left as you tick, and won't let you tick one that doesn't fit: fewer NAM blocks leave room for more of the others ([NAM A2 Lite](#nam-a2-lite)). Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
 
 ```sh
 HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
@@ -126,7 +126,7 @@ A noise gate built into the FX Loop and Return blocks, as the Input block has on
 | **Threshold** | −96 … 0 dB (default **−48**) | Below this level the returned signal is muted. |
 | **Decay** | 0.01 … 1 s (default **0.1**) | How fast the gate closes. |
 
-- **Off unless you ask:** a checkbox on the setup page, unticked, or `HX_FX_GATE=1` for `build.py`. HX Stomp only.
+- **On the setup page:** a box among the DSP features, ticked at first, or `HX_FX_GATE=1` for `build.py`. HX Stomp only.
 - **DSP:** each FX Loop and Return block costs about 0.2% more (0.4% stereo), whether its gate is on or off. A preset already at the limit with one of these blocks may not load.
 - **Stereo blocks** gate each side on its own, not linked.
 - **Presets** saved with the gate keep its knobs. Opening such a preset on stock firmware, or in HX Edit, is not tested yet.
@@ -201,7 +201,7 @@ A gain-reduction meter on the Home screen and in the compressor's Edit view, lit
 
 - **Which compressors:** Deluxe, LA Studio, Kinky, Ampeg Opto, Rochester and Red Squeeze.
 - **Edit view:** while one of these compressors is selected, the meter shows in its Edit view too, in the same place and size, so you can set the compressor up while you play. Its lit lights cover what is under them (the preset name at Top, the knob names at Bottom); unlit ones leave it showing. With two metered compressors in a preset, both Edit views show the one whose Mtr Size was set last.
-- **With NAM:** in a build with the GR meter, NAM A2 Lite runs up to two blocks instead of three.
+- **With NAM:** the meter's DSP code takes the room of NAM A2 Lite's third block, so a build with it has two NAM blocks at most.
 
 ## Boot screen (HX Stomp only)
 
@@ -226,6 +226,7 @@ From upstream [hx-stomp-nam-lite](https://github.com/nocaseguy/hx-stomp-nam-lite
 
 - **Where:** Amp > NAM, a block with ten knobs and a tone stack. It sits on Xenomorph Fuzz Mono's preset ID 555 (that stock model is removed), so HX Edit keeps NAM blocks, and presets made with either build open with the other.
 - **Older presets:** presets saved with an earlier NAM build (preset IDs 147 and 148) don't open NAM A2 Lite in this one: re-add the block in those presets.
+- **How many blocks:** up to 3 play at once, each its own capture; a further one passes its input through. On the setup page you pick 3, 2, 1 or Off among the DSP features, and fewer leave room for more of the others: 3 blocks leave room for the Metronome and the FX Loop gate, 2 for those and the GR meter. With `build.py`, `HX_NAM_SLOTS` sets it; unset, it's the most that leave room for the DSP features you turned on.
 - **Model** reads as the slot number, 4 rather than 4.0, on the HX Stomp. A value between slots (from a MIDI controller) reads as the slot that plays. The HX Stomp XL still reads 4.0.
 - **Captures:** none are included. You bring your own `.nam` files, and their licences are up to their authors.
 

@@ -42,24 +42,61 @@ def test_cached_module(tmp_path, monkeypatch):
 
 
 def test_web_flags_are_every_feature():
-    assert set(m4cache.web_flags()) == {"HX_TUNER", "HX_BPM", "HX_GR", "HX_DSP_METER", "HX_BREATHING_LINE", "HX_LONG_PRESS",
-                                        "HX_MORE_SNAPSHOTS", "HX_CLICK", "HX_TAP_COLOR", "HX_USB_MONITOR"}
+    assert set(m4cache.web_flags()) == {"HX_TUNER", "HX_BPM", "HX_DSP_METER", "HX_BREATHING_LINE", "HX_LONG_PRESS",
+                                        "HX_MORE_SNAPSHOTS", "HX_TAP_COLOR", "HX_USB_MONITOR"}
 
 
 def test_web_options_are_the_opt_in_features():
-    assert m4cache.web_options() == ["HX_FX_GATE", "HX_REAL_NAMES"]
+    assert m4cache.web_options() == ["HX_REAL_NAMES"]
 
 
-def test_make_pins_every_option_combination(monkeypatch):
+def test_web_dsp_are_the_features_sharing_block_3():
+    assert m4cache.web_dsp() == ["HX_GR", "HX_FX_GATE", "HX_CLICK"]
+
+
+def test_make_pins_every_combination_that_fits(monkeypatch):
+    import block3
     monkeypatch.delenv(m4asm.CACHE, raising=False)
     monkeypatch.setattr(m4cache, "web_flags", lambda: ["HX_B", "HX_A"])
-    monkeypatch.setattr(m4cache, "web_options", lambda: ["HX_X", "HX_Y"])
+    monkeypatch.setattr(m4cache, "web_options", lambda: ["HX_X"])
+    monkeypatch.setattr(m4cache, "web_dsp", lambda: ["HX_D", "HX_E"])
+    monkeypatch.setattr(block3, "SLOTS", (2, 0))
+    monkeypatch.setattr(block3, "cost", {"HX_D": 30, "HX_E": 40}.get)
+    monkeypatch.setattr(block3, "words", {2: 50, 0: 100}.get)
     monkeypatch.setattr(m4cache, "built_md5", lambda stock, flags: m4cache.combo_key(flags))
-    monkeypatch.setattr(m4cache, "modules", lambda stock, flags: {"flags": flags})
+    monkeypatch.setattr(m4cache, "modules", lambda stock, flags, nam=True: {f"{nam}": flags})
     cache = m4cache.make("stock.hxf", "v1")
-    assert cache["features"] == ["HX_B", "HX_A"] and cache["options"] == ["HX_X", "HX_Y"]
-    assert sorted(cache["md5"]["HX_Stomp"]) == ["HX_A+HX_B", "HX_A+HX_B+HX_X", "HX_A+HX_B+HX_X+HX_Y", "HX_A+HX_B+HX_Y"]
-    assert cache["modules"] == {"flags": ["HX_B", "HX_A", "HX_X", "HX_Y"]}
+    assert cache["features"] == ["HX_B", "HX_A"] and cache["options"] == ["HX_X"]
+    assert cache["dsp"] == {"features": ["HX_D", "HX_E"], "slots": [2, 0], "room": {"2": 50, "0": 100},
+                            "cost": {"HX_D": 30, "HX_E": 40}}
+    want = [["HX_A", "HX_B", f"HX_NAM_SLOTS={s}"] + d + o for s in (2, 0) for d in ([], ["HX_D"], ["HX_E"], ["HX_D", "HX_E"])
+            if not (s == 2 and len(d) == 2) for o in ([], ["HX_X"])]
+    assert sorted(cache["md5"]["HX_Stomp"]) == sorted(m4cache.combo_key(k) for k in want)
+    assert cache["modules"] == {"True": ["HX_B", "HX_A", "HX_X", "HX_D", "HX_E"], "False": ["HX_B", "HX_A", "HX_X", "HX_D", "HX_E"]}
+
+
+def test_built_md5_sets_valued_flags(monkeypatch, tmp_path):
+    seen = {}
+
+    def run(argv, env, **kw):
+        seen.update(env)
+        (tmp_path / "out.hxf").write_bytes(b"x")
+        return type("R", (), {"returncode": 0, "stdout": "ALL OK", "stderr": ""})()
+    monkeypatch.setattr(m4cache.subprocess, "run", run)
+    monkeypatch.setattr(m4cache.tempfile, "TemporaryDirectory", lambda: _Dir(tmp_path))
+    m4cache.built_md5("stock.hxf", ["HX_GR", "HX_NAM_SLOTS=0"])
+    assert seen["HX_GR"] == "1" and seen["HX_NAM_SLOTS"] == "0"
+
+
+class _Dir:
+    def __init__(self, path):
+        self.path = str(path)
+
+    def __enter__(self):
+        return self.path
+
+    def __exit__(self, *a):
+        return False
 
 
 def test_make_refuses_a_cache_build(monkeypatch):
