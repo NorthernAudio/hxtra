@@ -22,7 +22,8 @@ GET_VALUE, VIRT_SET = 0x28e1f844, 0x28700400
 HOME = 0x2812a0c8
 FS_FUNCTIONS, LED_MODES, FS_STATE_OBJ = 0x28128a74, 0x281f35f8, 0x28128a70
 FS_STATE, FS_PRESET, CUR_REF, DIR = 0x28d9607c, 0x28dd5454, 0x28df024c, 0x28df0634
-H_INIT, H_OPEN, H_CLOSE, FS_SEEK, FS_READ = 0x28def7b4, 0x28df006c, 0x28defde0, 0x28daa2d8, 0x28daa268
+H_INIT, H_OPEN, H_CLOSE, FS_SEEK, FS_READ, FS_SIZE = 0x28def7b4, 0x28df006c, 0x28defde0, 0x28daa2d8, 0x28daa268, 0x28daa3ec
+H_FILE = 0x18
 STREAM, WRITE_FN, SINK = 0x28700000, 0x28700200, 0x28700300
 TRAMPOLINE = 0x28700500
 PRESET, STOMP, SNAPSHOT = 13, 2, 14
@@ -67,6 +68,7 @@ class Preset:
         self.m.stub(H_CLOSE, lambda m: setattr(self, 'opened', None))
         self.m.stub(FS_SEEK, self._seek)
         self.m.stub(FS_READ, self._read)
+        self.m.stub(FS_SIZE, self._size)
         self.m.stub(WRITE_FN, lambda m: self.written.append(m.read(m.reg('r1'), m.reg('r2'))))
         self.m.u32(STREAM, SINK)
         self.m.u32(STREAM + 4, WRITE_FN | 1)
@@ -96,12 +98,16 @@ class Preset:
         if slot not in self.files:
             m.reg('r0', -5)
             return
-        self.opened = slot
-        m.u32(handle + 0xb4, len(self.files[slot]))
+        self.opened, self.handle = slot, handle
+        m.u32(handle + 0xb4, 0x2a2)             # another section's start, which the probe first took for the end
         m.reg('r0', slot)
 
+    def _size(self, m):
+        assert m.reg('r0') == self.handle + H_FILE, "the open handle's store file"
+        m.reg('r0', len(self.files[self.opened]))
+
     def _seek(self, m):
-        assert m.reg('r2') == 0 and self.opened is not None, 'from the start, an open file'
+        assert m.reg('r2') == 0 and m.reg('r0') == self.handle + H_FILE, "from the start, the open handle's store file"
         self.pos = m.reg('r1')
         m.reg('r0', 1)
 

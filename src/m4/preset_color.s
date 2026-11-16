@@ -18,8 +18,8 @@
 .equ H_CLOSE, 0x28defde1            @ (handle)
 .equ FS_SEEK, 0x28daa2d9            @ (file, offset, 0): from the start
 .equ FS_READ, 0x28daa269            @ (file, buffer, n) -> bytes read
+.equ FS_SIZE, 0x28daa3ed            @ (file) -> its length, the end the load's section 10 runs to
 .equ H_FILE, 0x18                   @ in a handle: the store file
-.equ H_END, 0xb4                    @ in a handle: the file's end
 .equ PRESET, 13                     @ the function Preset mode gives FS1..FS3
 .equ ICON, 0x3f4                    @ in the Home view: footswitch k's switch icon, image widgets 0x24 bytes apart
 .equ RED_ICON, 0x78                 @ Icon_SwitchRed, the current preset's
@@ -215,8 +215,10 @@ preset_colour_of:                   @ (preset) -> r0 its colour in its file, 1 R
     movs r5, #0
     cmp r0, #0
     blt preset_colour_done
-    ldr.w r1, [r6, #H_END]
-    subs r1, #8
+    add.w r0, r6, #H_FILE
+    ldr r3, =FS_SIZE
+    blx r3
+    subs r1, r0, #8
     add.w r0, r6, #H_FILE
     movs r2, #0
     ldr r3, =FS_SEEK
