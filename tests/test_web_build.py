@@ -151,11 +151,14 @@ def test_page_anchors_are_readable():
 
 
 def test_page_moves_old_anchors_to_their_names():
-    # #s1..#s6 from links shared before the steps were named go to the step's section
+    # #s1..#s6 from links shared before the steps were named go to the step's section, as numbered then
+    # (Select features, step 2 since #111, never had one)
     page = (ROOT / "web/index.html").read_text()
     old = dict(re.findall(r'(s\d): "([a-z-]+)"', re.search(r"var named = \{(.*?)\}", page).group(1)))
     nav = dict(re.findall(r'<a href="#([^"]+)" id="nav(\d)">', page))
-    assert old == {"s" + n: name for name, n in nav.items()}
+    assert old == {"s1": "get-ready", "s2": "build", "s3": "try-without-installing", "s4": "install", "s5": "convert-captures",
+                   "s6": "play-nam"}
+    assert set(old.values()) <= set(nav) and nav["options"] == "2"
 
 
 def test_site_root_keeps_the_anchor():

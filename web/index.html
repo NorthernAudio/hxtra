@@ -93,7 +93,7 @@
   }
 
   nav.steps-nav { position: sticky; top: 0; z-index: 2; margin-inline: -4px; padding: 8px 4px; background: var(--bg); }
-  nav.steps-nav ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+  nav.steps-nav ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
   nav.steps-nav a {
     display: grid; justify-items: center; gap: 4px; padding: 8px 4px; border-radius: 8px; text-decoration: none;
     color: var(--muted); font-size: 12.5px; line-height: 1.2; text-align: center; border: 1px solid var(--line); background: var(--panel);
@@ -274,11 +274,12 @@
   <nav class="steps-nav" data-i18n-label="nav.label">
     <ol>
       <li><a href="#get-ready" id="nav1"><span class="n">1</span><span class="t" data-i18n="nav.1"></span></a></li>
-      <li><a href="#build" id="nav2"><span class="n">2</span><span class="t" data-i18n="nav.2"></span></a></li>
-      <li><a href="#try-without-installing" id="nav3"><span class="n">3</span><span class="t" data-i18n="nav.try"></span></a></li>
-      <li><a href="#install" id="nav4"><span class="n">4</span><span class="t" data-i18n="nav.3"></span></a></li>
-      <li><a href="#convert-captures" id="nav5"><span class="n">5</span><span class="t" data-i18n="nav.4"></span></a></li>
-      <li><a href="#play-nam" id="nav6"><span class="n">6</span><span class="t" data-i18n="nav.5"></span></a></li>
+      <li><a href="#options" id="nav2"><span class="n">2</span><span class="t" data-i18n="nav.select"></span></a></li>
+      <li><a href="#build" id="nav3"><span class="n">3</span><span class="t" data-i18n="nav.2"></span></a></li>
+      <li><a href="#try-without-installing" id="nav4"><span class="n">4</span><span class="t" data-i18n="nav.try"></span></a></li>
+      <li><a href="#install" id="nav5"><span class="n">5</span><span class="t" data-i18n="nav.3"></span></a></li>
+      <li><a href="#convert-captures" id="nav6"><span class="n">6</span><span class="t" data-i18n="nav.4"></span></a></li>
+      <li><a href="#play-nam" id="nav7"><span class="n">7</span><span class="t" data-i18n="nav.5"></span></a></li>
     </ol>
   </nav>
 
@@ -315,8 +316,10 @@
     <p class="tip" data-i18n="s1.tip"></p>
   </section>
 
-  <section class="step" id="options" aria-labelledby="hos" hidden>
-    <div class="step-head solo">
+  <!-- 2 -->
+  <section class="step" id="options" aria-labelledby="hos">
+    <div class="step-head">
+      <span class="n">2</span>
       <h2 id="hos" data-i18n="opt.title"></h2>
     </div>
     <div id="dsp" hidden>
@@ -353,17 +356,16 @@
       <div class="checks" id="opts">
         <div class="feat" data-option="HX_REAL_NAMES" hidden><label><input type="checkbox"> <span data-i18n="feat.names"></span></label>
           <ul data-i18n="feat.namesS"></ul>
-          <div class="demo"><img src="https://github.com/user-attachments/assets/607728e6-773b-41ae-9619-5a30ca2f50ad" alt="" loading="lazy"></div>
         </div>
       </div>
     </div>
     <p class="tip" id="featNone" hidden data-i18n="feat.none"></p>
   </section>
 
-  <!-- 2 -->
+  <!-- 3 -->
   <section class="step" id="build" aria-labelledby="h2s">
     <div class="step-head">
-      <span class="n">2</span>
+      <span class="n">3</span>
       <h2 id="h2s" data-i18n="s2.title"></h2>
       <p data-i18n="s2.sub"></p>
     </div>
@@ -395,10 +397,10 @@
     <p style="color:var(--muted); font-size:14px" data-i18n="s2.note"></p>
   </section>
 
-  <!-- 3 -->
+  <!-- 4 -->
   <section class="step" id="try-without-installing" aria-labelledby="h3s">
     <div class="step-head">
-      <span class="n">3</span>
+      <span class="n">4</span>
       <h2 id="h3s" data-i18n="ram.title"></h2>
     </div>
 
@@ -427,10 +429,10 @@
       </div>
   </section>
 
-  <!-- 4 -->
+  <!-- 5 -->
   <section class="step" id="install" aria-labelledby="h4s">
     <div class="step-head">
-      <span class="n">4</span>
+      <span class="n">5</span>
       <h2 id="h4s" data-i18n="s3.title"></h2>
       <p data-i18n="s3.sub"></p>
     </div>
@@ -448,10 +450,10 @@
     <p class="tip" data-i18n="s3.tip"></p>
   </section>
 
-  <!-- 5 -->
+  <!-- 6 -->
   <section class="step" id="convert-captures" aria-labelledby="h5s">
     <div class="step-head">
-      <span class="n">5</span>
+      <span class="n">6</span>
       <h2 id="h5s" data-i18n="s4.title"></h2>
       <p data-i18n="s4.sub"></p>
     </div>
@@ -477,10 +479,10 @@
     <p class="tip" data-i18n="s4.tip"></p>
   </section>
 
-  <!-- 6 -->
+  <!-- 7 -->
   <section class="step" id="play-nam" aria-labelledby="h6s">
     <div class="step-head">
-      <span class="n">6</span>
+      <span class="n">7</span>
       <h2 id="h6s" data-i18n="s5.title"></h2>
       <p data-i18n="s5.sub"></p>
     </div>
@@ -581,6 +583,7 @@ var EN = {
   "opt.otherSub": "These do not take up any DSP.",
   "feat.none": "This copy of the page has no feature code, so it builds NAM A2 Lite and the boot screen only. The page published with each HXtra release has it.",
   "nav.1": "Prepare",
+  "nav.select": "Select features",
   "nav.2": "Build",
   "nav.try": "Try",
   "nav.3": "Install",
@@ -599,7 +602,7 @@ var EN = {
   "s2.title": "Build HXtra",
   "s2.sub": "This step builds HXtra from the stock firmware file and gives you the modified firmware file to install.",
   "s2.offTitle": "This step needs the page opened from a web address.",
-  "s2.off1": "You opened the page as a file on your computer, and browsers don't let a file page run the build. Open the online page instead: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. It does the same thing and still uploads nothing. (Steps 5 and 6 work either way.)",
+  "s2.off1": "You opened the page as a file on your computer, and browsers don't let a file page run the build. Open the online page instead: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. It does the same thing and still uploads nothing. (Steps 6 and 7 work either way.)",
   "s2.drop": "Drop your stock .hxf file here",
   "s2.dropSub": "or click to browse · about 45 MB · it stays on this computer",
   "s2.save": "Download firmware",
@@ -619,15 +622,15 @@ var EN = {
   "ram.continue": "Continue",
   "ram.log": "Technical details",
   "s3.title": "Install it with Line 6 Updater",
-  "s3.sub": "The same way as a normal Line 6 update, with your HXtra .hxf from step 2.",
+  "s3.sub": "The same way as a normal Line 6 update, with your HXtra .hxf from step 3.",
   "s3.install": "Install",
   "s3.li1": "<b>Close HX Edit</b>, if it's open. Line 6 Updater can't reach the HX Stomp while HX Edit is using it.",
   "s3.li2": "Connect the HX Stomp to the computer with USB and turn it on.",
   "s3.li3": "Open <b>Line 6 Updater</b>, sign in, and select your HX Stomp.",
-  "s3.li4": "Choose <b>Choose File</b> (not the normal update) and pick the file you downloaded in step 2:",
+  "s3.li4": "Choose <b>Choose File</b> (not the normal update) and pick the file you downloaded in step 3:",
   "s3.li5": "Let it finish. <b>Don't unplug or switch off the HX Stomp</b> while it updates. It restarts on its own when done. This process can take up to 20 minutes.",
   "s3.li6": "Check it worked. If the boot screen says <b>HXtra STOMP</b>, then congratulations, the setup is complete!",
-  "s3.li7": "Proceed to steps 5 and 6 only if using NAM.",
+  "s3.li7": "Proceed to steps 6 and 7 only if using NAM.",
   "s3.tip": "Having issues? Don't worry, go to <a href=\"#recovery\">Recovery</a>.",
   "s4.title": "Convert your NAM captures",
   "s4.sub": "The HX Stomp loads NAM captures from its User IR slots. This turns each <b>.nam</b> into a <b>.wav</b> that HX Edit can import there.",
@@ -640,7 +643,7 @@ var EN = {
   "s5.title": "Load a capture and play",
   "s5.sub": "Import the .wav files with HX Edit, then point the NAM A2 Lite block at them.",
   "s5.li1": "Open <b>HX Edit</b> with the HX Stomp connected, and open the <b>Impulses</b> list.",
-  "s5.li2": "Drag a <b>.wav</b> from step 5 onto a free slot. <b>Write down its number</b>, for example 5.",
+  "s5.li2": "Drag a <b>.wav</b> from step 6 onto a free slot. <b>Write down its number</b>, for example 5.",
   "s5.li3": "Add a block and pick <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
   "s5.li4": "Turn <span class=\"knob\" translate=\"no\">Model</span> (the first knob of page 3) to that slot number. You hear the capture.",
   "s5.thKnob": "Knob",
@@ -690,12 +693,12 @@ var EN = {
   "conv.chipTrim": "captured at {dbu} dBu",
   "conv.chipLoud": "normalised {db} dB",
   "conv.chipBy": "by {who}",
-  "conv.hxf": "That's a firmware file. Drop it in step 2, above.",
+  "conv.hxf": "That's a firmware file. Drop it in step 3, above.",
   "conv.unread": "The file could not be read.",
   "fw.namTitle": "That's a NAM capture, not firmware.",
-  "fw.namText": "Captures go in step 5, below. Here, drop Line 6's firmware file (it ends in .hxf).",
+  "fw.namText": "Captures go in step 6, below. Here, drop Line 6's firmware file (it ends in .hxf).",
   "fw.builtTitle": "That file is already built.",
-  "fw.builtText": "Drop the stock Line 6 file (HX_Stomp_v3.80.0_0x103966115.hxf), not one made here. To install the built file, go to step 4.",
+  "fw.builtText": "Drop the stock Line 6 file (HX_Stomp_v3.80.0_0x103966115.hxf), not one made here. To install the built file, go to step 5.",
   "rel": " · {release}",
   "fw.sizeTitle": "This doesn't look like an HX Stomp, XL or HX Effects firmware file.",
   "fw.sizeText": "“{name}” is {mb} MB; the stock file is about 45 MB (HX Effects: about 4 MB) and ends in .hxf.",
@@ -709,7 +712,7 @@ var EN = {
   "fw.p5": "Adding the kernel to the DSP program…",
   "fw.p6": "Checking every checksum and packing the file…",
   "fw.okTitle": "Verified: your {unit} firmware is ready.",
-  "fw.okText": "It is byte for byte the same as the build the project tested. Download it, then go to step 4.",
+  "fw.okText": "It is byte for byte the same as the build the project tested. Download it, then go to step 5.",
   "fw.oddTitle": "Built, but not the tested file.",
   "fw.oddText": "Every checksum passed, but the result differs from the tested build. This shouldn't happen; please report it before installing.",
   "fw.wrongTitle": "This isn't the right firmware file.",
@@ -721,7 +724,7 @@ var EN = {
   "fw.readTitle": "The file could not be read.",
   "fw.readText": "Choose it again; if it's on a USB stick or network drive, copy it to the computer first.",
   "ram.noUsb": "This browser can't reach USB devices. Use Chrome or Edge on a computer, with the page opened from its web address.",
-  "ram.needBuild": "Build the firmware in step 2 first.",
+  "ram.needBuild": "Build the firmware in step 3 first.",
   "ram.noPlan": "This build can't run from RAM: {err}",
   "ram.running": "Running from RAM…",
   "ram.s.pick": "Pick the HX Stomp in the browser's list.",
@@ -754,6 +757,7 @@ var LANGS = {
     "feat.none": "Esta copia de la página no incluye el código de las funciones, así que solo crea NAM A2 Lite y la pantalla de inicio. La página publicada con cada versión de HXtra sí lo incluye.",
     "opt.title": "Elige las funciones",
     "nav.1": "Preparación",
+    "nav.select": "Elige las funciones",
     "nav.2": "Crear",
     "nav.try": "Probar",
     "nav.3": "Instalar",
@@ -772,7 +776,7 @@ var LANGS = {
     "s2.title": "Crea HXtra",
     "s2.sub": "Este paso crea HXtra a partir del archivo de firmware original y te da el archivo de firmware modificado para instalar.",
     "s2.offTitle": "Este paso necesita abrir la página desde una dirección web.",
-    "s2.off1": "Has abierto la página como un archivo de tu ordenador, y los navegadores no dejan que una página local ejecute el proceso. Abre la página en línea: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Hace lo mismo y tampoco sube nada. (Los pasos 5 y 6 funcionan de las dos formas.)",
+    "s2.off1": "Has abierto la página como un archivo de tu ordenador, y los navegadores no dejan que una página local ejecute el proceso. Abre la página en línea: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Hace lo mismo y tampoco sube nada. (Los pasos 6 y 7 funcionan de las dos formas.)",
     "s2.drop": "Suelta aquí tu archivo .hxf original",
     "s2.dropSub": "o haz clic para buscarlo · unos 45 MB · no sale de este ordenador",
     "s2.save": "Descargar firmware",
@@ -792,15 +796,15 @@ var LANGS = {
     "ram.continue": "Continuar",
     "ram.log": "Detalles técnicos",
     "s3.title": "Instálalo con Line 6 Updater",
-    "s3.sub": "Igual que una actualización normal de Line 6, con tu .hxf de HXtra del paso 2.",
+    "s3.sub": "Igual que una actualización normal de Line 6, con tu .hxf de HXtra del paso 3.",
     "s3.install": "Instalar",
     "s3.li1": "<b>Cierra HX Edit</b> si está abierto. Line 6 Updater no puede conectar con el HX Stomp mientras HX Edit lo usa.",
     "s3.li2": "Conecta el HX Stomp al ordenador por USB y enciéndelo.",
     "s3.li3": "Abre <b>Line 6 Updater</b>, inicia sesión y selecciona tu HX Stomp.",
-    "s3.li4": "Elige <b>Choose File</b> (no la actualización normal) y selecciona el archivo que descargaste en el paso 2:",
+    "s3.li4": "Elige <b>Choose File</b> (no la actualización normal) y selecciona el archivo que descargaste en el paso 3:",
     "s3.li5": "Deja que termine. <b>No desconectes ni apagues el HX Stomp</b> mientras se actualiza. Se reinicia solo al acabar. Este proceso puede tardar hasta 20 minutos.",
     "s3.li6": "Comprueba que ha funcionado. Si la pantalla de inicio dice <b>HXtra STOMP</b>, ¡enhorabuena, la instalación está completa!",
-    "s3.li7": "Pasa a los pasos 5 y 6 solo si usas NAM.",
+    "s3.li7": "Pasa a los pasos 6 y 7 solo si usas NAM.",
     "s3.tip": "¿Tienes problemas? Tranquilo, ve a <a href=\"#recovery\">Recuperación</a>.",
     "s4.title": "Convierte tus capturas NAM",
     "s4.sub": "El HX Stomp carga las capturas NAM desde sus ranuras de User IR. Esto convierte cada <b>.nam</b> en un <b>.wav</b> que HX Edit puede importar ahí.",
@@ -813,7 +817,7 @@ var LANGS = {
     "s5.title": "Carga una captura y a tocar",
     "s5.sub": "Importa los archivos .wav con HX Edit y luego apunta el bloque NAM A2 Lite a ellos.",
     "s5.li1": "Abre <b>HX Edit</b> con el HX Stomp conectado y abre la lista <b>Impulses</b>.",
-    "s5.li2": "Arrastra un <b>.wav</b> del paso 5 a una ranura libre. <b>Apunta su número</b>, por ejemplo 5.",
+    "s5.li2": "Arrastra un <b>.wav</b> del paso 6 a una ranura libre. <b>Apunta su número</b>, por ejemplo 5.",
     "s5.li3": "Añade un bloque y elige <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Gira <span class=\"knob\" translate=\"no\">Model</span> (la primera perilla de la página 3) hasta ese número de ranura. Oirás la captura.",
     "s5.thKnob": "Perilla",
@@ -862,12 +866,12 @@ var LANGS = {
     "conv.chipTrim": "capturado a {dbu} dBu",
     "conv.chipLoud": "normalizado {db} dB",
     "conv.chipBy": "por {who}",
-    "conv.hxf": "Eso es un archivo de firmware. Suéltalo en el paso 2, más arriba.",
+    "conv.hxf": "Eso es un archivo de firmware. Suéltalo en el paso 3, más arriba.",
     "conv.unread": "No se pudo leer el archivo.",
     "fw.namTitle": "Eso es una captura NAM, no un firmware.",
-    "fw.namText": "Las capturas van en el paso 5, más abajo. Aquí, suelta el archivo de firmware de Line 6 (termina en .hxf).",
+    "fw.namText": "Las capturas van en el paso 6, más abajo. Aquí, suelta el archivo de firmware de Line 6 (termina en .hxf).",
     "fw.builtTitle": "Ese archivo ya está creado.",
-    "fw.builtText": "Suelta el archivo original de Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), no uno creado aquí. Para instalar el archivo creado, ve al paso 4.",
+    "fw.builtText": "Suelta el archivo original de Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), no uno creado aquí. Para instalar el archivo creado, ve al paso 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Esto no parece un archivo de firmware de HX Stomp, XL o HX Effects.",
     "fw.sizeText": "“{name}” ocupa {mb} MB; el archivo original ocupa unos 45 MB (HX Effects: unos 4 MB) y termina en .hxf.",
@@ -881,7 +885,7 @@ var LANGS = {
     "fw.p5": "Añadiendo el kernel al programa DSP…",
     "fw.p6": "Comprobando todas las sumas de verificación y empaquetando el archivo…",
     "fw.okTitle": "Verified: tu firmware para {unit} está listo.",
-    "fw.okText": "Es idéntico byte a byte a la versión que probó el proyecto. Descárgalo y ve al paso 4.",
+    "fw.okText": "Es idéntico byte a byte a la versión que probó el proyecto. Descárgalo y ve al paso 5.",
     "fw.oddTitle": "Creado, pero no es el archivo probado.",
     "fw.oddText": "Todas las sumas de verificación son correctas, pero el resultado difiere de la versión probada. Esto no debería pasar; avísanos antes de instalarlo.",
     "fw.wrongTitle": "Este no es el archivo de firmware correcto.",
@@ -893,7 +897,7 @@ var LANGS = {
     "fw.readTitle": "No se pudo leer el archivo.",
     "fw.readText": "Vuelve a elegirlo; si está en un USB o en una unidad de red, cópialo antes al ordenador.",
     "ram.noUsb": "Este navegador no puede acceder a dispositivos USB. Usa Chrome o Edge en un ordenador, con la página abierta desde su dirección web.",
-    "ram.needBuild": "Primero crea el firmware en el paso 2.",
+    "ram.needBuild": "Primero crea el firmware en el paso 3.",
     "ram.noPlan": "Esta versión no puede ejecutarse desde RAM: {err}",
     "ram.running": "Ejecutando desde RAM…",
     "ram.s.pick": "Elige el HX Stomp en la lista del navegador.",
@@ -940,6 +944,7 @@ var LANGS = {
     "feat.none": "Esta cópia da página não tem o código dos recursos, então gera só o NAM A2 Lite e a tela de abertura. A página publicada com cada versão do HXtra tem.",
     "opt.title": "Escolha os recursos",
     "nav.1": "Preparação",
+    "nav.select": "Escolha os recursos",
     "nav.2": "Gerar",
     "nav.try": "Testar",
     "nav.3": "Instalar",
@@ -958,7 +963,7 @@ var LANGS = {
     "s2.title": "Gere o HXtra",
     "s2.sub": "Esta etapa gera o HXtra a partir do arquivo de firmware original e entrega o arquivo de firmware modificado para instalar.",
     "s2.offTitle": "Este passo exige abrir a página por um endereço web.",
-    "s2.off1": "Você abriu a página como um arquivo no computador, e os navegadores não deixam uma página local rodar a geração. Abra a página online: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Ela faz a mesma coisa e também não envia nada. (Os passos 5 e 6 funcionam de qualquer jeito.)",
+    "s2.off1": "Você abriu a página como um arquivo no computador, e os navegadores não deixam uma página local rodar a geração. Abra a página online: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Ela faz a mesma coisa e também não envia nada. (Os passos 6 e 7 funcionam de qualquer jeito.)",
     "s2.drop": "Solte aqui seu arquivo .hxf original",
     "s2.dropSub": "ou clique para procurar · cerca de 45 MB · ele fica neste computador",
     "s2.save": "Baixar firmware",
@@ -978,15 +983,15 @@ var LANGS = {
     "ram.continue": "Continuar",
     "ram.log": "Detalhes técnicos",
     "s3.title": "Instale com o Line 6 Updater",
-    "s3.sub": "Do mesmo jeito que uma atualização normal da Line 6, com o seu .hxf do HXtra do passo 2.",
+    "s3.sub": "Do mesmo jeito que uma atualização normal da Line 6, com o seu .hxf do HXtra do passo 3.",
     "s3.install": "Instalar",
     "s3.li1": "<b>Feche o HX Edit</b>, se estiver aberto. O Line 6 Updater não acessa o HX Stomp enquanto o HX Edit o estiver usando.",
     "s3.li2": "Conecte o HX Stomp ao computador por USB e ligue-o.",
     "s3.li3": "Abra o <b>Line 6 Updater</b>, faça login e selecione seu HX Stomp.",
-    "s3.li4": "Clique em <b>Choose File</b> (escolher arquivo, não a atualização normal) e selecione o arquivo baixado no passo 2:",
+    "s3.li4": "Clique em <b>Choose File</b> (escolher arquivo, não a atualização normal) e selecione o arquivo baixado no passo 3:",
     "s3.li5": "Espere terminar. <b>Não desconecte nem desligue o HX Stomp</b> durante a atualização. Ele reinicia sozinho no final. Este processo pode levar até 20 minutos.",
     "s3.li6": "Confira se deu certo. Se a tela de abertura mostrar <b>HXtra STOMP</b>, parabéns, a configuração está completa!",
-    "s3.li7": "Siga para os passos 5 e 6 só se for usar NAM.",
+    "s3.li7": "Siga para os passos 6 e 7 só se for usar NAM.",
     "s3.tip": "Está com problemas? Calma, vá para <a href=\"#recovery\">Recuperação</a>.",
     "s4.title": "Converta suas capturas NAM",
     "s4.sub": "O HX Stomp carrega capturas NAM pelos slots de User IR. Aqui cada <b>.nam</b> vira um <b>.wav</b> que o HX Edit consegue importar lá.",
@@ -999,7 +1004,7 @@ var LANGS = {
     "s5.title": "Carregue uma captura e toque",
     "s5.sub": "Importe os arquivos .wav com o HX Edit e depois aponte o bloco NAM A2 Lite para eles.",
     "s5.li1": "Abra o <b>HX Edit</b> com o HX Stomp conectado e abra a lista <b>Impulses</b>.",
-    "s5.li2": "Arraste um <b>.wav</b> do passo 5 para um slot livre. <b>Anote o número dele</b>, por exemplo 5.",
+    "s5.li2": "Arraste um <b>.wav</b> do passo 6 para um slot livre. <b>Anote o número dele</b>, por exemplo 5.",
     "s5.li3": "Adicione um bloco e escolha <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Gire <span class=\"knob\" translate=\"no\">Model</span> (o primeiro knob da página 3) até o número desse slot. Pronto, você ouve a captura.",
     "s5.thKnob": "Knob",
@@ -1048,12 +1053,12 @@ var LANGS = {
     "conv.chipTrim": "capturado a {dbu} dBu",
     "conv.chipLoud": "normalizado {db} dB",
     "conv.chipBy": "por {who}",
-    "conv.hxf": "Isso é um arquivo de firmware. Solte-o no passo 2, acima.",
+    "conv.hxf": "Isso é um arquivo de firmware. Solte-o no passo 3, acima.",
     "conv.unread": "Não foi possível ler o arquivo.",
     "fw.namTitle": "Isso é uma captura NAM, não firmware.",
-    "fw.namText": "As capturas vão no passo 5, abaixo. Aqui, solte o arquivo de firmware da Line 6 (termina em .hxf).",
+    "fw.namText": "As capturas vão no passo 6, abaixo. Aqui, solte o arquivo de firmware da Line 6 (termina em .hxf).",
     "fw.builtTitle": "Esse arquivo já foi gerado.",
-    "fw.builtText": "Solte o arquivo original da Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), não um feito aqui. Para instalar o arquivo gerado, vá ao passo 4.",
+    "fw.builtText": "Solte o arquivo original da Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), não um feito aqui. Para instalar o arquivo gerado, vá ao passo 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Isso não parece um arquivo de firmware do HX Stomp, XL ou HX Effects.",
     "fw.sizeText": "“{name}” tem {mb} MB; o arquivo original tem cerca de 45 MB (HX Effects: cerca de 4 MB) e termina em .hxf.",
@@ -1067,7 +1072,7 @@ var LANGS = {
     "fw.p5": "Adicionando o kernel ao programa do DSP…",
     "fw.p6": "Conferindo todos os checksums e empacotando o arquivo…",
     "fw.okTitle": "Verified: seu firmware do {unit} está pronto.",
-    "fw.okText": "Ele é idêntico, byte a byte, à versão que o projeto testou. Baixe e depois vá ao passo 4.",
+    "fw.okText": "Ele é idêntico, byte a byte, à versão que o projeto testou. Baixe e depois vá ao passo 5.",
     "fw.oddTitle": "Gerado, mas não é o arquivo testado.",
     "fw.oddText": "Todos os checksums passaram, mas o resultado é diferente da versão testada. Isso não deveria acontecer; por favor, avise antes de instalar.",
     "fw.wrongTitle": "Este não é o arquivo de firmware certo.",
@@ -1079,7 +1084,7 @@ var LANGS = {
     "fw.readTitle": "Não foi possível ler o arquivo.",
     "fw.readText": "Escolha de novo; se ele estiver num pendrive ou drive de rede, copie para o computador primeiro.",
     "ram.noUsb": "Este navegador não acessa dispositivos USB. Use o Chrome ou o Edge num computador, com a página aberta pelo endereço web.",
-    "ram.needBuild": "Primeiro gere o firmware no passo 2.",
+    "ram.needBuild": "Primeiro gere o firmware no passo 3.",
     "ram.noPlan": "Esta versão não pode rodar da RAM: {err}",
     "ram.running": "Rodando da RAM…",
     "ram.s.pick": "Escolha o HX Stomp na lista do navegador.",
@@ -1126,6 +1131,7 @@ var LANGS = {
     "feat.none": "Cette copie de la page ne contient pas le code des fonctions : elle crée donc seulement NAM A2 Lite et l'écran de démarrage. La page publiée avec chaque version de HXtra l'a.",
     "opt.title": "Choisir les fonctions",
     "nav.1": "Préparation",
+    "nav.select": "Choisir les fonctions",
     "nav.2": "Créer",
     "nav.try": "Essayer",
     "nav.3": "Installer",
@@ -1144,7 +1150,7 @@ var LANGS = {
     "s2.title": "Créez HXtra",
     "s2.sub": "Cette étape crée HXtra à partir du fichier firmware d'origine et vous donne le fichier firmware modifié à installer.",
     "s2.offTitle": "Cette étape nécessite d'ouvrir la page depuis une adresse web.",
-    "s2.off1": "Vous avez ouvert la page comme un fichier sur votre ordinateur, et les navigateurs ne laissent pas une telle page lancer la création. Ouvrez plutôt la page en ligne : <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Elle fait exactement la même chose et n'envoie toujours rien. (Les étapes 5 et 6 fonctionnent dans les deux cas.)",
+    "s2.off1": "Vous avez ouvert la page comme un fichier sur votre ordinateur, et les navigateurs ne laissent pas une telle page lancer la création. Ouvrez plutôt la page en ligne : <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Elle fait exactement la même chose et n'envoie toujours rien. (Les étapes 6 et 7 fonctionnent dans les deux cas.)",
     "s2.drop": "Déposez ici votre fichier .hxf d'origine",
     "s2.dropSub": "ou cliquez pour parcourir · environ 45 MB · il reste sur cet ordinateur",
     "s2.save": "Télécharger le firmware",
@@ -1164,15 +1170,15 @@ var LANGS = {
     "ram.continue": "Continuer",
     "ram.log": "Détails techniques",
     "s3.title": "Installez-le avec Line 6 Updater",
-    "s3.sub": "Comme une mise à jour Line 6 classique, avec votre .hxf HXtra de l'étape 2.",
+    "s3.sub": "Comme une mise à jour Line 6 classique, avec votre .hxf HXtra de l'étape 3.",
     "s3.install": "Installer",
     "s3.li1": "<b>Fermez HX Edit</b> s'il est ouvert. Line 6 Updater ne peut pas accéder au HX Stomp tant que HX Edit l'utilise.",
     "s3.li2": "Branchez le HX Stomp à l'ordinateur en USB et allumez-le.",
     "s3.li3": "Ouvrez <b>Line 6 Updater</b>, connectez-vous et sélectionnez votre HX Stomp.",
-    "s3.li4": "Cliquez sur <b>Choose File</b> (et non sur la mise à jour normale) et choisissez le fichier téléchargé à l'étape 2 :",
+    "s3.li4": "Cliquez sur <b>Choose File</b> (et non sur la mise à jour normale) et choisissez le fichier téléchargé à l'étape 3 :",
     "s3.li5": "Laissez terminer. <b>Ne débranchez pas et n'éteignez pas le HX Stomp</b> pendant la mise à jour. Il redémarre tout seul à la fin. Cette opération peut prendre jusqu'à 20 minutes.",
     "s3.li6": "Vérifiez que ça a marché. Si l'écran de démarrage affiche <b>HXtra STOMP</b>, félicitations, l'installation est terminée !",
-    "s3.li7": "Passez aux étapes 5 et 6 uniquement si vous utilisez NAM.",
+    "s3.li7": "Passez aux étapes 6 et 7 uniquement si vous utilisez NAM.",
     "s3.tip": "Un problème ? Pas de panique, allez à <a href=\"#recovery\">Récupération</a>.",
     "s4.title": "Convertissez vos captures NAM",
     "s4.sub": "Le HX Stomp charge les captures NAM depuis ses emplacements User IR. Cette étape transforme chaque <b>.nam</b> en <b>.wav</b> que HX Edit peut y importer.",
@@ -1185,7 +1191,7 @@ var LANGS = {
     "s5.title": "Chargez une capture et jouez",
     "s5.sub": "Importez les fichiers .wav avec HX Edit, puis indiquez-les au bloc NAM A2 Lite.",
     "s5.li1": "Ouvrez <b>HX Edit</b> avec le HX Stomp connecté, puis la liste <b>Impulses</b>.",
-    "s5.li2": "Glissez un <b>.wav</b> de l'étape 5 sur un emplacement libre. <b>Notez son numéro</b>, par exemple 5.",
+    "s5.li2": "Glissez un <b>.wav</b> de l'étape 6 sur un emplacement libre. <b>Notez son numéro</b>, par exemple 5.",
     "s5.li3": "Ajoutez un bloc et choisissez <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Réglez <span class=\"knob\" translate=\"no\">Model</span> (le premier bouton de la page 3) sur ce numéro d'emplacement. Vous entendez la capture.",
     "s5.thKnob": "Bouton",
@@ -1234,12 +1240,12 @@ var LANGS = {
     "conv.chipTrim": "capturé à {dbu} dBu",
     "conv.chipLoud": "normalisé {db} dB",
     "conv.chipBy": "par {who}",
-    "conv.hxf": "C'est un fichier firmware. Déposez-le à l'étape 2, plus haut.",
+    "conv.hxf": "C'est un fichier firmware. Déposez-le à l'étape 3, plus haut.",
     "conv.unread": "Impossible de lire le fichier.",
     "fw.namTitle": "C'est une capture NAM, pas un firmware.",
-    "fw.namText": "Les captures se déposent à l'étape 5, plus bas. Ici, déposez le fichier firmware de Line 6 (il se termine par .hxf).",
+    "fw.namText": "Les captures se déposent à l'étape 6, plus bas. Ici, déposez le fichier firmware de Line 6 (il se termine par .hxf).",
     "fw.builtTitle": "Ce fichier a déjà été créé.",
-    "fw.builtText": "Déposez le fichier Line 6 d'origine (HX_Stomp_v3.80.0_0x103966115.hxf), pas un fichier créé ici. Pour installer le fichier créé, passez à l'étape 4.",
+    "fw.builtText": "Déposez le fichier Line 6 d'origine (HX_Stomp_v3.80.0_0x103966115.hxf), pas un fichier créé ici. Pour installer le fichier créé, passez à l'étape 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Ce n'est apparemment pas un fichier firmware HX Stomp, XL ou HX Effects.",
     "fw.sizeText": "« {name} » fait {mb} MB ; le fichier d'origine fait environ 45 MB (HX Effects : environ 4 MB) et se termine par .hxf.",
@@ -1253,7 +1259,7 @@ var LANGS = {
     "fw.p5": "Ajout du noyau au programme DSP…",
     "fw.p6": "Vérification des sommes de contrôle et assemblage du fichier…",
     "fw.okTitle": "Verified : votre firmware {unit} est prêt.",
-    "fw.okText": "Il est identique, octet pour octet, à la version testée par le projet. Téléchargez-le, puis passez à l'étape 4.",
+    "fw.okText": "Il est identique, octet pour octet, à la version testée par le projet. Téléchargez-le, puis passez à l'étape 5.",
     "fw.oddTitle": "Créé, mais différent du fichier testé.",
     "fw.oddText": "Toutes les sommes de contrôle sont bonnes, mais le résultat diffère de la version testée. Cela ne devrait pas arriver ; signalez-le avant d'installer.",
     "fw.wrongTitle": "Ce n'est pas le bon fichier firmware.",
@@ -1265,7 +1271,7 @@ var LANGS = {
     "fw.readTitle": "Impossible de lire le fichier.",
     "fw.readText": "Choisissez-le à nouveau ; s'il se trouve sur une clé USB ou un lecteur réseau, copiez-le d'abord sur l'ordinateur.",
     "ram.noUsb": "Ce navigateur n'accède pas aux appareils USB. Utilisez Chrome ou Edge sur un ordinateur, avec la page ouverte depuis son adresse web.",
-    "ram.needBuild": "Créez d'abord le firmware à l'étape 2.",
+    "ram.needBuild": "Créez d'abord le firmware à l'étape 3.",
     "ram.noPlan": "Cette version ne peut pas se lancer en RAM : {err}",
     "ram.running": "Lancement en RAM…",
     "ram.s.pick": "Choisissez le HX Stomp dans la liste du navigateur.",
@@ -1312,6 +1318,7 @@ var LANGS = {
     "feat.none": "Diese Kopie der Seite enthält keinen Funktionscode und baut daher nur NAM A2 Lite und den Startbildschirm. Die mit jedem HXtra-Release veröffentlichte Seite hat ihn.",
     "opt.title": "Funktionen auswählen",
     "nav.1": "Vorbereiten",
+    "nav.select": "Funktionen auswählen",
     "nav.2": "Bauen",
     "nav.try": "Testen",
     "nav.3": "Installieren",
@@ -1330,7 +1337,7 @@ var LANGS = {
     "s2.title": "HXtra bauen",
     "s2.sub": "Dieser Schritt baut HXtra aus der Original-Firmware-Datei und gibt dir die veränderte Firmware-Datei zum Installieren.",
     "s2.offTitle": "Für diesen Schritt muss die Seite über eine Webadresse geöffnet sein.",
-    "s2.off1": "Du hast die Seite als Datei auf deinem Computer geöffnet, und Browser lassen den Build auf so einer Seite nicht laufen. Öffne stattdessen die Online-Seite: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Sie macht genau dasselbe und lädt ebenfalls nichts hoch. (Schritt 5 und 6 funktionieren so oder so.)",
+    "s2.off1": "Du hast die Seite als Datei auf deinem Computer geöffnet, und Browser lassen den Build auf so einer Seite nicht laufen. Öffne stattdessen die Online-Seite: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Sie macht genau dasselbe und lädt ebenfalls nichts hoch. (Schritt 6 und 7 funktionieren so oder so.)",
     "s2.drop": "Zieh deine originale .hxf-Datei hierher",
     "s2.dropSub": "oder klicken zum Durchsuchen · etwa 45 MB · sie bleibt auf diesem Computer",
     "s2.save": "Firmware herunterladen",
@@ -1350,15 +1357,15 @@ var LANGS = {
     "ram.continue": "Weiter",
     "ram.log": "Technische Details",
     "s3.title": "Mit Line 6 Updater installieren",
-    "s3.sub": "Genau wie ein normales Line-6-Update, mit deiner HXtra-.hxf aus Schritt 2.",
+    "s3.sub": "Genau wie ein normales Line-6-Update, mit deiner HXtra-.hxf aus Schritt 3.",
     "s3.install": "Installieren",
     "s3.li1": "<b>Schließ HX Edit</b>, falls es offen ist. Line 6 Updater erreicht den HX Stomp nicht, solange HX Edit ihn benutzt.",
     "s3.li2": "Verbinde den HX Stomp per USB mit dem Computer und schalte ihn ein.",
     "s3.li3": "Öffne <b>Line 6 Updater</b>, melde dich an und wähle deinen HX Stomp aus.",
-    "s3.li4": "Klick auf <b>Choose File</b> (Datei auswählen, nicht das normale Update) und wähle die Datei, die du in Schritt 2 heruntergeladen hast:",
+    "s3.li4": "Klick auf <b>Choose File</b> (Datei auswählen, nicht das normale Update) und wähle die Datei, die du in Schritt 3 heruntergeladen hast:",
     "s3.li5": "Lass es durchlaufen. <b>Zieh den HX Stomp nicht ab und schalte ihn nicht aus</b>, während er aktualisiert. Danach startet er von selbst neu. Das kann bis zu 20 Minuten dauern.",
     "s3.li6": "Prüfen, ob es geklappt hat. Wenn der Startbildschirm <b>HXtra STOMP</b> zeigt, herzlichen Glückwunsch, die Einrichtung ist abgeschlossen!",
-    "s3.li7": "Weiter mit Schritt 5 und 6 nur, wenn du NAM nutzt.",
+    "s3.li7": "Weiter mit Schritt 6 und 7 nur, wenn du NAM nutzt.",
     "s3.tip": "Probleme? Keine Sorge, geh zur <a href=\"#recovery\">Wiederherstellung</a>.",
     "s4.title": "Deine NAM-Captures umwandeln",
     "s4.sub": "Der HX Stomp lädt NAM-Captures aus seinen User-IR-Slots. Hier wird jede <b>.nam</b> zu einer <b>.wav</b>, die HX Edit dort importieren kann.",
@@ -1371,7 +1378,7 @@ var LANGS = {
     "s5.title": "Capture laden und loslegen",
     "s5.sub": "Importiere die .wav-Dateien mit HX Edit und lass den NAM-A2-Lite-Block darauf zeigen.",
     "s5.li1": "Öffne <b>HX Edit</b> bei angeschlossenem HX Stomp und öffne die Liste <b>Impulses</b>.",
-    "s5.li2": "Zieh eine <b>.wav</b> aus Schritt 5 auf einen freien Slot. <b>Notier dir die Nummer</b>, zum Beispiel 5.",
+    "s5.li2": "Zieh eine <b>.wav</b> aus Schritt 6 auf einen freien Slot. <b>Notier dir die Nummer</b>, zum Beispiel 5.",
     "s5.li3": "Füg einen Block hinzu und wähle <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Dreh <span class=\"knob\" translate=\"no\">Model</span> (der erste Regler auf Seite 3) auf diese Slot-Nummer. Jetzt hörst du den Capture.",
     "s5.thKnob": "Regler",
@@ -1420,12 +1427,12 @@ var LANGS = {
     "conv.chipTrim": "aufgenommen bei {dbu} dBu",
     "conv.chipLoud": "normalisiert {db} dB",
     "conv.chipBy": "von {who}",
-    "conv.hxf": "Das ist eine Firmware-Datei. Zieh sie oben in Schritt 2.",
+    "conv.hxf": "Das ist eine Firmware-Datei. Zieh sie oben in Schritt 3.",
     "conv.unread": "Die Datei konnte nicht gelesen werden.",
     "fw.namTitle": "Das ist ein NAM-Capture, keine Firmware.",
-    "fw.namText": "Captures gehören in Schritt 5 weiter unten. Hier kommt die Firmware-Datei von Line 6 hin (sie endet auf .hxf).",
+    "fw.namText": "Captures gehören in Schritt 6 weiter unten. Hier kommt die Firmware-Datei von Line 6 hin (sie endet auf .hxf).",
     "fw.builtTitle": "Diese Datei ist bereits gebaut.",
-    "fw.builtText": "Zieh die originale Line-6-Datei hierher (HX_Stomp_v3.80.0_0x103966115.hxf), nicht eine hier erstellte. Um die gebaute Datei zu installieren, geh zu Schritt 4.",
+    "fw.builtText": "Zieh die originale Line-6-Datei hierher (HX_Stomp_v3.80.0_0x103966115.hxf), nicht eine hier erstellte. Um die gebaute Datei zu installieren, geh zu Schritt 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Das sieht nicht nach einer Firmware-Datei für HX Stomp, XL oder HX Effects aus.",
     "fw.sizeText": "„{name}“ ist {mb} MB groß; die Originaldatei hat etwa 45 MB (HX Effects: etwa 4 MB) und endet auf .hxf.",
@@ -1439,7 +1446,7 @@ var LANGS = {
     "fw.p5": "Der Kernel wird ins DSP-Programm eingefügt…",
     "fw.p6": "Alle Prüfsummen werden geprüft und die Datei wird gepackt…",
     "fw.okTitle": "Verified: Deine {unit}-Firmware ist fertig.",
-    "fw.okText": "Sie ist Byte für Byte identisch mit dem vom Projekt getesteten Build. Lade sie herunter und geh dann zu Schritt 4.",
+    "fw.okText": "Sie ist Byte für Byte identisch mit dem vom Projekt getesteten Build. Lade sie herunter und geh dann zu Schritt 5.",
     "fw.oddTitle": "Gebaut, aber nicht die getestete Datei.",
     "fw.oddText": "Alle Prüfsummen sind in Ordnung, aber das Ergebnis weicht vom getesteten Build ab. Das sollte nicht passieren; bitte melde es, bevor du installierst.",
     "fw.wrongTitle": "Das ist nicht die richtige Firmware-Datei.",
@@ -1451,7 +1458,7 @@ var LANGS = {
     "fw.readTitle": "Die Datei konnte nicht gelesen werden.",
     "fw.readText": "Wähl sie noch einmal aus; liegt sie auf einem USB-Stick oder Netzlaufwerk, kopier sie zuerst auf den Computer.",
     "ram.noUsb": "Dieser Browser kann nicht auf USB-Geräte zugreifen. Nimm Chrome oder Edge auf einem Computer, mit der Seite über ihre Webadresse geöffnet.",
-    "ram.needBuild": "Erstelle zuerst die Firmware in Schritt 2.",
+    "ram.needBuild": "Erstelle zuerst die Firmware in Schritt 3.",
     "ram.noPlan": "Diese Version kann nicht aus dem RAM starten: {err}",
     "ram.running": "Start aus dem RAM…",
     "ram.s.pick": "Wähle den HX Stomp in der Liste des Browsers.",
@@ -1498,6 +1505,7 @@ var LANGS = {
     "feat.none": "Questa copia della pagina non contiene il codice delle funzioni, quindi crea solo NAM A2 Lite e la schermata di avvio. La pagina pubblicata con ogni versione di HXtra lo contiene.",
     "opt.title": "Scegli le funzioni",
     "nav.1": "Preparazione",
+    "nav.select": "Scegli le funzioni",
     "nav.2": "Crea",
     "nav.try": "Prova",
     "nav.3": "Installa",
@@ -1516,7 +1524,7 @@ var LANGS = {
     "s2.title": "Crea HXtra",
     "s2.sub": "Questo passaggio crea HXtra a partire dal file firmware originale e ti dà il file firmware modificato da installare.",
     "s2.offTitle": "Questo passaggio richiede che la pagina sia aperta da un indirizzo web.",
-    "s2.off1": "Hai aperto la pagina come file sul tuo computer, e i browser non permettono a una pagina locale di eseguire la build. Apri invece la pagina online: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Fa esattamente la stessa cosa e non carica comunque nulla. (I passaggi 5 e 6 funzionano in entrambi i casi.)",
+    "s2.off1": "Hai aperto la pagina come file sul tuo computer, e i browser non permettono a una pagina locale di eseguire la build. Apri invece la pagina online: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Fa esattamente la stessa cosa e non carica comunque nulla. (I passaggi 6 e 7 funzionano in entrambi i casi.)",
     "s2.drop": "Trascina qui il tuo file .hxf originale",
     "s2.dropSub": "oppure fai clic per sfogliare · circa 45 MB · resta su questo computer",
     "s2.save": "Scarica il firmware",
@@ -1536,15 +1544,15 @@ var LANGS = {
     "ram.continue": "Continua",
     "ram.log": "Dettagli tecnici",
     "s3.title": "Installalo con Line 6 Updater",
-    "s3.sub": "Come un normale aggiornamento Line 6, con il tuo .hxf di HXtra del passo 2.",
+    "s3.sub": "Come un normale aggiornamento Line 6, con il tuo .hxf di HXtra del passo 3.",
     "s3.install": "Installa",
     "s3.li1": "<b>Chiudi HX Edit</b>, se è aperto. Line 6 Updater non riesce a comunicare con l'HX Stomp mentre HX Edit lo sta usando.",
     "s3.li2": "Collega l'HX Stomp al computer via USB e accendilo.",
     "s3.li3": "Apri <b>Line 6 Updater</b>, accedi e seleziona il tuo HX Stomp.",
-    "s3.li4": "Scegli <b>Choose File</b> (Scegli file, non l'aggiornamento normale) e seleziona il file scaricato al passaggio 2:",
+    "s3.li4": "Scegli <b>Choose File</b> (Scegli file, non l'aggiornamento normale) e seleziona il file scaricato al passaggio 3:",
     "s3.li5": "Lascialo finire. <b>Non scollegare né spegnere l'HX Stomp</b> durante l'aggiornamento. Si riavvia da solo alla fine. Questo processo può richiedere fino a 20 minuti.",
     "s3.li6": "Verifica che abbia funzionato. Se la schermata di avvio mostra <b>HXtra STOMP</b>, congratulazioni, la configurazione è completata!",
-    "s3.li7": "Passa ai passaggi 5 e 6 solo se usi NAM.",
+    "s3.li7": "Passa ai passaggi 6 e 7 solo se usi NAM.",
     "s3.tip": "Problemi? Niente panico, vai al <a href=\"#recovery\">Ripristino</a>.",
     "s4.title": "Converti le tue catture NAM",
     "s4.sub": "L'HX Stomp carica le catture NAM dai suoi slot User IR. Qui ogni <b>.nam</b> diventa un <b>.wav</b> che HX Edit può importare lì.",
@@ -1557,7 +1565,7 @@ var LANGS = {
     "s5.title": "Carica una cattura e suona",
     "s5.sub": "Importa i file .wav con HX Edit, poi indirizza il blocco NAM A2 Lite verso di essi.",
     "s5.li1": "Apri <b>HX Edit</b> con l'HX Stomp collegato e apri l'elenco <b>Impulses</b>.",
-    "s5.li2": "Trascina un <b>.wav</b> del passaggio 5 su uno slot libero. <b>Annota il suo numero</b>, ad esempio 5.",
+    "s5.li2": "Trascina un <b>.wav</b> del passaggio 6 su uno slot libero. <b>Annota il suo numero</b>, ad esempio 5.",
     "s5.li3": "Aggiungi un blocco e scegli <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Porta <span class=\"knob\" translate=\"no\">Model</span> (la prima manopola della pagina 3) su quel numero di slot. Sentirai la cattura.",
     "s5.thKnob": "Manopola",
@@ -1606,12 +1614,12 @@ var LANGS = {
     "conv.chipTrim": "catturato a {dbu} dBu",
     "conv.chipLoud": "normalizzato {db} dB",
     "conv.chipBy": "di {who}",
-    "conv.hxf": "Questo è un file firmware. Trascinalo nel passaggio 2, più in alto.",
+    "conv.hxf": "Questo è un file firmware. Trascinalo nel passaggio 3, più in alto.",
     "conv.unread": "Impossibile leggere il file.",
     "fw.namTitle": "Questa è una cattura NAM, non un firmware.",
-    "fw.namText": "Le catture vanno nel passaggio 5, più in basso. Qui trascina il file firmware di Line 6 (termina con .hxf).",
+    "fw.namText": "Le catture vanno nel passaggio 6, più in basso. Qui trascina il file firmware di Line 6 (termina con .hxf).",
     "fw.builtTitle": "Questo file è già stato creato.",
-    "fw.builtText": "Trascina il file Line 6 originale (HX_Stomp_v3.80.0_0x103966115.hxf), non uno creato qui. Per installare il file creato, vai al passaggio 4.",
+    "fw.builtText": "Trascina il file Line 6 originale (HX_Stomp_v3.80.0_0x103966115.hxf), non uno creato qui. Per installare il file creato, vai al passaggio 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Non sembra un file firmware di HX Stomp, XL o HX Effects.",
     "fw.sizeText": "“{name}” pesa {mb} MB; il file originale pesa circa 45 MB (HX Effects: circa 4 MB) e termina con .hxf.",
@@ -1625,7 +1633,7 @@ var LANGS = {
     "fw.p5": "Aggiunta del kernel al programma DSP…",
     "fw.p6": "Verifica di tutti i checksum e creazione del file…",
     "fw.okTitle": "Verified: il firmware per il tuo {unit} è pronto.",
-    "fw.okText": "È identico, byte per byte, alla build testata dal progetto. Scaricalo, poi vai al passaggio 4.",
+    "fw.okText": "È identico, byte per byte, alla build testata dal progetto. Scaricalo, poi vai al passaggio 5.",
     "fw.oddTitle": "Creato, ma non è il file testato.",
     "fw.oddText": "Tutti i checksum sono corretti, ma il risultato è diverso dalla build testata. Non dovrebbe succedere; segnalalo prima di installarlo.",
     "fw.wrongTitle": "Questo non è il file firmware giusto.",
@@ -1637,7 +1645,7 @@ var LANGS = {
     "fw.readTitle": "Impossibile leggere il file.",
     "fw.readText": "Sceglilo di nuovo; se si trova su una chiavetta USB o un'unità di rete, copialo prima sul computer.",
     "ram.noUsb": "Questo browser non accede ai dispositivi USB. Usa Chrome o Edge su un computer, con la pagina aperta dal suo indirizzo web.",
-    "ram.needBuild": "Prima crea il firmware al passo 2.",
+    "ram.needBuild": "Prima crea il firmware al passo 3.",
     "ram.noPlan": "Questa versione non può avviarsi dalla RAM: {err}",
     "ram.running": "Avvio dalla RAM…",
     "ram.s.pick": "Scegli l'HX Stomp nell'elenco del browser.",
@@ -1684,6 +1692,7 @@ var LANGS = {
     "feat.none": "このページには機能のコードが入っていないため、NAM A2 Lite と起動画面のみをビルドします。HXtra のリリースごとに公開されるページには入っています。",
     "opt.title": "機能を選ぶ",
     "nav.1": "準備",
+    "nav.select": "機能を選ぶ",
     "nav.2": "ビルド",
     "nav.try": "試す",
     "nav.3": "インストール",
@@ -1702,7 +1711,7 @@ var LANGS = {
     "s2.title": "HXtra を作成する",
     "s2.sub": "このステップでは、純正ファームウェアファイルから HXtra をビルドし、インストール用の改変済みファームウェアファイルを作成します。",
     "s2.offTitle": "この手順は、Web アドレスから開いたページでのみ使えます。",
-    "s2.off1": "このページをコンピューター上のファイルとして開いているため、ブラウザの制限でビルドを実行できません。オンライン版のページを開いてください:<a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>。動作は同じで、アップロードも一切ありません。(手順5と6はどちらでも使えます。)",
+    "s2.off1": "このページをコンピューター上のファイルとして開いているため、ブラウザの制限でビルドを実行できません。オンライン版のページを開いてください:<a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>。動作は同じで、アップロードも一切ありません。(手順6と7はどちらでも使えます。)",
     "s2.drop": "純正の .hxf ファイルをここにドロップ",
     "s2.dropSub": "またはクリックして参照 · 約45 MB · ファイルはこのコンピューターから出ません",
     "s2.save": "ファームウェアをダウンロード",
@@ -1722,15 +1731,15 @@ var LANGS = {
     "ram.continue": "続ける",
     "ram.log": "技術的な詳細",
     "s3.title": "Line 6 Updater でインストールする",
-    "s3.sub": "通常の Line 6 アップデートと同じ手順で、ステップ 2 の HXtra .hxf を使います。",
+    "s3.sub": "通常の Line 6 アップデートと同じ手順で、ステップ 3 の HXtra .hxf を使います。",
     "s3.install": "インストール",
     "s3.li1": "HX Edit が開いていれば<b>閉じてください</b>。HX Edit が使用中だと Line 6 Updater が HX Stomp に接続できません。",
     "s3.li2": "HX Stomp を USB でコンピューターに接続し、電源を入れます。",
     "s3.li3": "<b>Line 6 Updater</b> を開いてサインインし、HX Stomp を選択します。",
-    "s3.li4": "(通常のアップデートではなく)<b>Choose File</b>(ファイルを選択)を選び、手順2でダウンロードしたファイルを指定します:",
+    "s3.li4": "(通常のアップデートではなく)<b>Choose File</b>(ファイルを選択)を選び、手順3でダウンロードしたファイルを指定します:",
     "s3.li5": "完了するまで待ちます。アップデート中は <b>HX Stomp のケーブルを抜いたり電源を切ったりしないでください</b>。完了すると自動で再起動します。この処理には最大 20 分かかることがあります。",
     "s3.li6": "動作を確認する。起動画面に <b>HXtra STOMP</b> と表示されたら、おめでとうございます、セットアップは完了です!",
-    "s3.li7": "NAM を使う場合のみ、手順5と6に進んでください。",
+    "s3.li7": "NAM を使う場合のみ、手順6と7に進んでください。",
     "s3.tip": "うまくいかない? 心配いりません。<a href=\"#recovery\">復旧</a>へ進んでください。",
     "s4.title": "NAM キャプチャーを変換する",
     "s4.sub": "HX Stomp は NAM キャプチャーを User IR スロットから読み込みます。ここで各 <b>.nam</b> を、HX Edit でそこに読み込める <b>.wav</b> に変換します。",
@@ -1743,7 +1752,7 @@ var LANGS = {
     "s5.title": "キャプチャーを読み込んで演奏する",
     "s5.sub": "HX Edit で .wav ファイルを読み込み、NAM A2 Lite ブロックでそれを指定します。",
     "s5.li1": "HX Stomp を接続した状態で <b>HX Edit</b> を開き、<b>Impulses</b> リストを開きます。",
-    "s5.li2": "手順5の <b>.wav</b> を空きスロットにドラッグします。<b>その番号をメモしておきます</b>(例:5)。",
+    "s5.li2": "手順6の <b>.wav</b> を空きスロットにドラッグします。<b>その番号をメモしておきます</b>(例:5)。",
     "s5.li3": "ブロックを追加し、<span class=\"path\">Amp › NAM › NAM A2 Lite</span> を選びます。",
     "s5.li4": "<span class=\"knob\" translate=\"no\">Model</span>(ページ 3 の最初のノブ)をそのスロット番号に合わせると、キャプチャーの音が鳴ります。",
     "s5.thKnob": "ノブ",
@@ -1792,12 +1801,12 @@ var LANGS = {
     "conv.chipTrim": "{dbu} dBu でキャプチャー",
     "conv.chipLoud": "ラウドネス補正 {db} dB",
     "conv.chipBy": "作者:{who}",
-    "conv.hxf": "これはファームウェアファイルです。上の手順2にドロップしてください。",
+    "conv.hxf": "これはファームウェアファイルです。上の手順3にドロップしてください。",
     "conv.unread": "ファイルを読み込めませんでした。",
     "fw.namTitle": "これはファームウェアではなく NAM キャプチャーです。",
-    "fw.namText": "キャプチャーは下の手順5へ。ここには Line 6 のファームウェアファイル(末尾が .hxf)をドロップしてください。",
+    "fw.namText": "キャプチャーは下の手順6へ。ここには Line 6 のファームウェアファイル(末尾が .hxf)をドロップしてください。",
     "fw.builtTitle": "このファイルは作成済みのものです。",
-    "fw.builtText": "ここで作成したファイルではなく、Line 6 の純正ファイル(HX_Stomp_v3.80.0_0x103966115.hxf)をドロップしてください。作成済みファイルをインストールするには手順4へ進んでください。",
+    "fw.builtText": "ここで作成したファイルではなく、Line 6 の純正ファイル(HX_Stomp_v3.80.0_0x103966115.hxf)をドロップしてください。作成済みファイルをインストールするには手順5へ進んでください。",
     "rel": " · {release}",
     "fw.sizeTitle": "HX Stomp、XL、HX Effects のファームウェアファイルではないようです。",
     "fw.sizeText": "「{name}」は {mb} MB です。純正ファイルは約45 MB(HX Effects は約4 MB) で、末尾が .hxf です。",
@@ -1811,7 +1820,7 @@ var LANGS = {
     "fw.p5": "カーネルを DSP プログラムに追加中…",
     "fw.p6": "すべてのチェックサムを確認し、ファイルをまとめています…",
     "fw.okTitle": "Verified:{unit} 用ファームウェアの準備ができました。",
-    "fw.okText": "プロジェクトでテスト済みのビルドと1バイト単位で同一です。ダウンロードして、手順4へ進んでください。",
+    "fw.okText": "プロジェクトでテスト済みのビルドと1バイト単位で同一です。ダウンロードして、手順5へ進んでください。",
     "fw.oddTitle": "作成できましたが、テスト済みのファイルとは異なります。",
     "fw.oddText": "チェックサムはすべて合格しましたが、結果がテスト済みのビルドと一致しません。本来起こらないはずなので、インストールする前に報告してください。",
     "fw.wrongTitle": "正しいファームウェアファイルではありません。",
@@ -1823,7 +1832,7 @@ var LANGS = {
     "fw.readTitle": "ファイルを読み込めませんでした。",
     "fw.readText": "もう一度選択してください。USB メモリやネットワークドライブ上にある場合は、先にコンピューターにコピーしてください。",
     "ram.noUsb": "このブラウザは USB デバイスにアクセスできません。パソコンの Chrome か Edge で、Web アドレスからページを開いてください。",
-    "ram.needBuild": "先にステップ 2 でファームウェアを作成してください。",
+    "ram.needBuild": "先にステップ 3 でファームウェアを作成してください。",
     "ram.noPlan": "このビルドは RAM で起動できません：{err}",
     "ram.running": "RAM で起動中…",
     "ram.s.pick": "ブラウザの一覧で HX Stomp を選んでください。",
@@ -1870,6 +1879,7 @@ var LANGS = {
     "feat.none": "本页面副本不含功能代码，因此只制作 NAM A2 Lite 和开机画面。每个 HXtra 发布版随附的页面则包含这些功能。",
     "opt.title": "选择功能",
     "nav.1": "准备工作",
+    "nav.select": "选择功能",
     "nav.2": "制作",
     "nav.try": "试用",
     "nav.3": "安装",
@@ -1888,7 +1898,7 @@ var LANGS = {
     "s2.title": "制作 HXtra",
     "s2.sub": "这一步会用原厂固件文件制作 HXtra，并生成修改后的固件文件供你安装。",
     "s2.offTitle": "这一步需要通过网址打开本页。",
-    "s2.off1": "你是以本地文件的方式打开本页的，浏览器不允许这样的页面运行制作流程。请改为打开在线页面：<a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>。功能完全相同，同样不会上传任何东西。（第 5、6 步两种方式都能用。）",
+    "s2.off1": "你是以本地文件的方式打开本页的，浏览器不允许这样的页面运行制作流程。请改为打开在线页面：<a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>。功能完全相同，同样不会上传任何东西。（第 6、7 步两种方式都能用。）",
     "s2.drop": "把原厂 .hxf 文件拖到这里",
     "s2.dropSub": "或点击浏览 · 约 45 MB · 文件不会离开这台电脑",
     "s2.save": "下载固件",
@@ -1908,15 +1918,15 @@ var LANGS = {
     "ram.continue": "继续",
     "ram.log": "技术细节",
     "s3.title": "用 Line 6 Updater 安装",
-    "s3.sub": "和平时的 Line 6 更新一样，使用第 2 步生成的 HXtra .hxf。",
+    "s3.sub": "和平时的 Line 6 更新一样，使用第 3 步生成的 HXtra .hxf。",
     "s3.install": "安装",
     "s3.li1": "如果 HX Edit 开着，请先<b>关闭 HX Edit</b>。HX Edit 占用 HX Stomp 时，Line 6 Updater 无法连接。",
     "s3.li2": "用 USB 线把 HX Stomp 连到电脑并开机。",
     "s3.li3": "打开 <b>Line 6 Updater</b>，登录并选择你的 HX Stomp。",
-    "s3.li4": "点 <b>Choose File</b>（选择文件，不是普通更新），选中第 2 步下载的文件：",
+    "s3.li4": "点 <b>Choose File</b>（选择文件，不是普通更新），选中第 3 步下载的文件：",
     "s3.li5": "等它完成。更新过程中<b>不要拔线或关闭 HX Stomp</b>。完成后它会自动重启。此过程最多可能需要 20 分钟。",
     "s3.li6": "确认安装成功。如果开机画面显示 <b>HXtra STOMP</b>，那就恭喜你，设置完成了！",
-    "s3.li7": "只有使用 NAM 时，才需要继续第 5、6 步。",
+    "s3.li7": "只有使用 NAM 时，才需要继续第 6、7 步。",
     "s3.tip": "遇到问题？别担心，请前往<a href=\"#recovery\">恢复</a>。",
     "s4.title": "转换你的 NAM 采样",
     "s4.sub": "HX Stomp 从 User IR 槽位读取 NAM 采样。这里会把每个 <b>.nam</b> 转成 HX Edit 可以导入到那里的 <b>.wav</b>。",
@@ -1929,7 +1939,7 @@ var LANGS = {
     "s5.title": "加载采样，开弹",
     "s5.sub": "用 HX Edit 导入 .wav 文件，然后让 NAM A2 Lite 模块指向它们。",
     "s5.li1": "连接好 HX Stomp 后打开 <b>HX Edit</b>，打开 <b>Impulses</b> 列表。",
-    "s5.li2": "把第 5 步得到的 <b>.wav</b> 拖到一个空槽位上，<b>记下槽位编号</b>，比如 5。",
+    "s5.li2": "把第 6 步得到的 <b>.wav</b> 拖到一个空槽位上，<b>记下槽位编号</b>，比如 5。",
     "s5.li3": "添加一个模块，选择 <span class=\"path\">Amp › NAM › NAM A2 Lite</span>。",
     "s5.li4": "把 <span class=\"knob\" translate=\"no\">Model</span>（第 3 页的第一个旋钮）旋到该槽位编号，就能听到这个采样了。",
     "s5.thKnob": "旋钮",
@@ -1978,12 +1988,12 @@ var LANGS = {
     "conv.chipTrim": "采样电平 {dbu} dBu",
     "conv.chipLoud": "响度归一 {db} dB",
     "conv.chipBy": "作者：{who}",
-    "conv.hxf": "这是固件文件。请拖到上面的第 2 步。",
+    "conv.hxf": "这是固件文件。请拖到上面的第 3 步。",
     "conv.unread": "无法读取该文件。",
     "fw.namTitle": "这是 NAM 采样，不是固件。",
-    "fw.namText": "采样请放到下面的第 5 步。这里请拖入 Line 6 的固件文件（以 .hxf 结尾）。",
+    "fw.namText": "采样请放到下面的第 6 步。这里请拖入 Line 6 的固件文件（以 .hxf 结尾）。",
     "fw.builtTitle": "这个文件已经制作过了。",
-    "fw.builtText": "请拖入 Line 6 原厂文件（HX_Stomp_v3.80.0_0x103966115.hxf），而不是在这里生成的文件。要安装制作好的文件，请前往第 4 步。",
+    "fw.builtText": "请拖入 Line 6 原厂文件（HX_Stomp_v3.80.0_0x103966115.hxf），而不是在这里生成的文件。要安装制作好的文件，请前往第 5 步。",
     "rel": " · {release}",
     "fw.sizeTitle": "这看起来不是 HX Stomp、XL 或 HX Effects 的固件文件。",
     "fw.sizeText": "“{name}”大小为 {mb} MB；原厂文件约 45 MB（HX Effects 约 4 MB），且以 .hxf 结尾。",
@@ -1997,7 +2007,7 @@ var LANGS = {
     "fw.p5": "正在把内核加入 DSP 程序…",
     "fw.p6": "正在检查所有校验和并打包文件…",
     "fw.okTitle": "Verified：你的 {unit} 固件已就绪。",
-    "fw.okText": "它与项目测试过的版本逐字节完全相同。下载后前往第 4 步。",
+    "fw.okText": "它与项目测试过的版本逐字节完全相同。下载后前往第 5 步。",
     "fw.oddTitle": "已制作完成，但与测试过的文件不同。",
     "fw.oddText": "所有校验和都通过了，但结果与测试版本不一致。这本不该发生；安装前请先反馈此问题。",
     "fw.wrongTitle": "这不是正确的固件文件。",
@@ -2009,7 +2019,7 @@ var LANGS = {
     "fw.readTitle": "无法读取该文件。",
     "fw.readText": "请重新选择；如果文件在 U 盘或网络驱动器上，请先复制到电脑里。",
     "ram.noUsb": "此浏览器无法访问 USB 设备。请在电脑上使用 Chrome 或 Edge，并通过网址打开本页面。",
-    "ram.needBuild": "请先在第 2 步生成固件。",
+    "ram.needBuild": "请先在第 3 步生成固件。",
     "ram.noPlan": "此版本无法从 RAM 运行：{err}",
     "ram.running": "正在从 RAM 运行…",
     "ram.s.pick": "请在浏览器列表中选择 HX Stomp。",
@@ -2056,6 +2066,7 @@ var LANGS = {
     "feat.none": "이 페이지 사본에는 기능 코드가 없어서 NAM A2 Lite와 시작 화면만 빌드합니다. HXtra 릴리스마다 공개되는 페이지에는 들어 있습니다.",
     "opt.title": "기능 선택",
     "nav.1": "준비",
+    "nav.select": "기능 선택",
     "nav.2": "빌드",
     "nav.try": "시험",
     "nav.3": "설치",
@@ -2074,7 +2085,7 @@ var LANGS = {
     "s2.title": "HXtra 빌드하기",
     "s2.sub": "이 단계에서는 순정 펌웨어 파일로 HXtra를 빌드해, 설치할 수정된 펌웨어 파일을 만들어 드립니다.",
     "s2.offTitle": "이 단계는 웹 주소로 연 페이지에서만 됩니다.",
-    "s2.off1": "지금 페이지를 컴퓨터의 파일로 열었는데, 브라우저는 파일로 연 페이지에서 빌드를 실행하지 못하게 합니다. 대신 온라인 페이지를 여세요: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. 기능은 똑같고 역시 아무것도 업로드하지 않습니다. (5단계와 6단계는 어느 쪽이든 됩니다.)",
+    "s2.off1": "지금 페이지를 컴퓨터의 파일로 열었는데, 브라우저는 파일로 연 페이지에서 빌드를 실행하지 못하게 합니다. 대신 온라인 페이지를 여세요: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. 기능은 똑같고 역시 아무것도 업로드하지 않습니다. (6단계와 7단계는 어느 쪽이든 됩니다.)",
     "s2.drop": "순정 .hxf 파일을 여기에 놓으세요",
     "s2.dropSub": "또는 클릭해서 찾아보기 · 약 45 MB · 파일은 이 컴퓨터에만 남습니다",
     "s2.save": "펌웨어 다운로드",
@@ -2094,15 +2105,15 @@ var LANGS = {
     "ram.continue": "계속",
     "ram.log": "기술 정보",
     "s3.title": "Line 6 Updater로 설치하기",
-    "s3.sub": "평소 Line 6 업데이트와 같은 방법으로, 2단계에서 만든 HXtra .hxf를 사용합니다.",
+    "s3.sub": "평소 Line 6 업데이트와 같은 방법으로, 3단계에서 만든 HXtra .hxf를 사용합니다.",
     "s3.install": "설치",
     "s3.li1": "<b>HX Edit를 닫으세요</b>(열려 있다면). HX Edit가 HX Stomp를 쓰는 동안에는 Line 6 Updater가 연결할 수 없습니다.",
     "s3.li2": "HX Stomp를 USB로 컴퓨터에 연결하고 전원을 켜세요.",
     "s3.li3": "<b>Line 6 Updater</b>를 열고 로그인한 뒤 HX Stomp를 선택하세요.",
-    "s3.li4": "일반 업데이트가 아니라 <b>Choose File</b>(파일 선택)을 누르고, 2단계에서 내려받은 파일을 고르세요:",
+    "s3.li4": "일반 업데이트가 아니라 <b>Choose File</b>(파일 선택)을 누르고, 3단계에서 내려받은 파일을 고르세요:",
     "s3.li5": "끝날 때까지 기다리세요. 업데이트 중에는 <b>HX Stomp의 케이블을 뽑거나 전원을 끄지 마세요</b>. 완료되면 자동으로 재시작합니다. 이 과정은 최대 20분까지 걸릴 수 있습니다.",
     "s3.li6": "제대로 됐는지 확인. 시작 화면에 <b>HXtra STOMP</b>가 표시되면 축하합니다, 설정이 끝났습니다!",
-    "s3.li7": "NAM을 쓸 때만 5단계와 6단계로 넘어가세요.",
+    "s3.li7": "NAM을 쓸 때만 6단계와 7단계로 넘어가세요.",
     "s3.tip": "문제가 있나요? 걱정 마세요. <a href=\"#recovery\">복구</a>로 가세요.",
     "s4.title": "NAM 캡처 변환하기",
     "s4.sub": "HX Stomp는 User IR 슬롯에서 NAM 캡처를 불러옵니다. 여기서 각 <b>.nam</b>을 HX Edit로 그 슬롯에 넣을 수 있는 <b>.wav</b>로 바꿉니다.",
@@ -2115,7 +2126,7 @@ var LANGS = {
     "s5.title": "캡처 불러와서 연주하기",
     "s5.sub": "HX Edit로 .wav 파일을 가져온 다음, NAM A2 Lite 블록이 그 파일을 가리키게 하세요.",
     "s5.li1": "HX Stomp를 연결한 상태로 <b>HX Edit</b>를 열고 <b>Impulses</b> 목록을 여세요.",
-    "s5.li2": "5단계의 <b>.wav</b>를 빈 슬롯에 끌어다 놓으세요. <b>슬롯 번호를 적어 두세요</b>(예: 5).",
+    "s5.li2": "6단계의 <b>.wav</b>를 빈 슬롯에 끌어다 놓으세요. <b>슬롯 번호를 적어 두세요</b>(예: 5).",
     "s5.li3": "블록을 추가하고 <span class=\"path\">Amp › NAM › NAM A2 Lite</span>를 고르세요.",
     "s5.li4": "<span class=\"knob\" translate=\"no\">Model</span>(3페이지의 첫 번째 노브)을 그 슬롯 번호로 돌리세요. 캡처 소리가 납니다.",
     "s5.thKnob": "노브",
@@ -2164,12 +2175,12 @@ var LANGS = {
     "conv.chipTrim": "{dbu} dBu에서 캡처",
     "conv.chipLoud": "음량 정규화 {db} dB",
     "conv.chipBy": "제작: {who}",
-    "conv.hxf": "펌웨어 파일입니다. 위의 2단계에 놓으세요.",
+    "conv.hxf": "펌웨어 파일입니다. 위의 3단계에 놓으세요.",
     "conv.unread": "파일을 읽을 수 없습니다.",
     "fw.namTitle": "펌웨어가 아니라 NAM 캡처입니다.",
-    "fw.namText": "캡처는 아래 5단계에 놓으세요. 여기에는 Line 6 펌웨어 파일(.hxf로 끝남)을 놓으세요.",
+    "fw.namText": "캡처는 아래 6단계에 놓으세요. 여기에는 Line 6 펌웨어 파일(.hxf로 끝남)을 놓으세요.",
     "fw.builtTitle": "이미 빌드된 파일입니다.",
-    "fw.builtText": "여기서 만든 파일이 아니라 Line 6 순정 파일(HX_Stomp_v3.80.0_0x103966115.hxf)을 놓으세요. 빌드된 파일을 설치하려면 4단계로 가세요.",
+    "fw.builtText": "여기서 만든 파일이 아니라 Line 6 순정 파일(HX_Stomp_v3.80.0_0x103966115.hxf)을 놓으세요. 빌드된 파일을 설치하려면 5단계로 가세요.",
     "rel": " · {release}",
     "fw.sizeTitle": "HX Stomp, XL 또는 HX Effects 펌웨어 파일이 아닌 것 같습니다.",
     "fw.sizeText": "“{name}”은(는) {mb} MB입니다. 순정 파일은 약 45 MB (HX Effects는 약 4 MB)이고 .hxf로 끝납니다.",
@@ -2183,7 +2194,7 @@ var LANGS = {
     "fw.p5": "DSP 프로그램에 커널 추가 중…",
     "fw.p6": "모든 체크섬 확인 및 파일 패킹 중…",
     "fw.okTitle": "Verified: {unit} 펌웨어가 준비됐습니다.",
-    "fw.okText": "프로젝트에서 테스트한 빌드와 바이트 단위까지 똑같습니다. 다운로드한 뒤 4단계로 가세요.",
+    "fw.okText": "프로젝트에서 테스트한 빌드와 바이트 단위까지 똑같습니다. 다운로드한 뒤 5단계로 가세요.",
     "fw.oddTitle": "빌드는 됐지만 테스트된 파일과 다릅니다.",
     "fw.oddText": "모든 체크섬은 통과했지만 결과가 테스트된 빌드와 다릅니다. 있어서는 안 되는 일이니, 설치하기 전에 꼭 제보해 주세요.",
     "fw.wrongTitle": "올바른 펌웨어 파일이 아닙니다.",
@@ -2195,7 +2206,7 @@ var LANGS = {
     "fw.readTitle": "파일을 읽을 수 없습니다.",
     "fw.readText": "다시 선택해 보세요. USB 메모리나 네트워크 드라이브에 있다면 먼저 컴퓨터로 복사하세요.",
     "ram.noUsb": "이 브라우저는 USB 장치에 접근할 수 없습니다. 컴퓨터의 Chrome이나 Edge에서 웹 주소로 이 페이지를 여세요.",
-    "ram.needBuild": "먼저 2단계에서 펌웨어를 만드세요.",
+    "ram.needBuild": "먼저 3단계에서 펌웨어를 만드세요.",
     "ram.noPlan": "이 빌드는 RAM에서 실행할 수 없습니다: {err}",
     "ram.running": "RAM에서 실행 중…",
     "ram.s.pick": "브라우저 목록에서 HX Stomp를 고르세요.",
@@ -2242,6 +2253,7 @@ var LANGS = {
     "feat.none": "В этой копии страницы нет кода функций, поэтому она собирает только NAM A2 Lite и загрузочный экран. В странице, опубликованной с каждым релизом HXtra, он есть.",
     "opt.title": "Выбор функций",
     "nav.1": "Подготовка",
+    "nav.select": "Выбор функций",
     "nav.2": "Сборка",
     "nav.try": "Проба",
     "nav.3": "Установка",
@@ -2260,7 +2272,7 @@ var LANGS = {
     "s2.title": "Соберите HXtra",
     "s2.sub": "На этом шаге HXtra собирается из стокового файла прошивки, и вы получаете изменённый файл прошивки для установки.",
     "s2.offTitle": "Для этого шага страницу нужно открыть по веб-адресу.",
-    "s2.off1": "Вы открыли страницу как файл на компьютере, а браузеры не дают такой странице запускать сборку. Откройте онлайн-версию: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Она делает то же самое и тоже ничего не загружает. (Шаги 5 и 6 работают в любом случае.)",
+    "s2.off1": "Вы открыли страницу как файл на компьютере, а браузеры не дают такой странице запускать сборку. Откройте онлайн-версию: <a href=\"https://wisemandenny.github.io/hxtra/web/\">wisemandenny.github.io/hxtra</a>. Она делает то же самое и тоже ничего не загружает. (Шаги 6 и 7 работают в любом случае.)",
     "s2.drop": "Перетащите сюда стоковый файл .hxf",
     "s2.dropSub": "или нажмите, чтобы найти файл · около 45 MB · файл остаётся на этом компьютере",
     "s2.save": "Скачать прошивку",
@@ -2280,15 +2292,15 @@ var LANGS = {
     "ram.continue": "Продолжить",
     "ram.log": "Технические подробности",
     "s3.title": "Установите её через Line 6 Updater",
-    "s3.sub": "Так же, как обычное обновление Line 6, с вашим .hxf HXtra из шага 2.",
+    "s3.sub": "Так же, как обычное обновление Line 6, с вашим .hxf HXtra из шага 3.",
     "s3.install": "Установка",
     "s3.li1": "<b>Закройте HX Edit</b>, если он открыт. Line 6 Updater не видит HX Stomp, пока его использует HX Edit.",
     "s3.li2": "Подключите HX Stomp к компьютеру по USB и включите его.",
     "s3.li3": "Откройте <b>Line 6 Updater</b>, войдите в аккаунт и выберите свой HX Stomp.",
-    "s3.li4": "Нажмите <b>Choose File</b> (выбрать файл, а не обычное обновление) и выберите файл, скачанный на шаге 2:",
+    "s3.li4": "Нажмите <b>Choose File</b> (выбрать файл, а не обычное обновление) и выберите файл, скачанный на шаге 3:",
     "s3.li5": "Дождитесь окончания. <b>Не отключайте и не выключайте HX Stomp</b> во время обновления. По завершении он перезагрузится сам. Этот процесс может занять до 20 минут.",
     "s3.li6": "Проверьте, что всё получилось. Если на загрузочном экране написано <b>HXtra STOMP</b>, поздравляем, настройка завершена!",
-    "s3.li7": "Переходите к шагам 5 и 6, только если используете NAM.",
+    "s3.li7": "Переходите к шагам 6 и 7, только если используете NAM.",
     "s3.tip": "Возникли проблемы? Не волнуйтесь, перейдите к <a href=\"#recovery\">восстановлению</a>.",
     "s4.title": "Конвертируйте захваты NAM",
     "s4.sub": "HX Stomp загружает захваты NAM из своих слотов User IR. Здесь каждый <b>.nam</b> превращается в <b>.wav</b>, который HX Edit может туда импортировать.",
@@ -2301,7 +2313,7 @@ var LANGS = {
     "s5.title": "Загрузите захват и играйте",
     "s5.sub": "Импортируйте файлы .wav через HX Edit, затем укажите их блоку NAM A2 Lite.",
     "s5.li1": "Откройте <b>HX Edit</b> с подключённым HX Stomp и откройте список <b>Impulses</b>.",
-    "s5.li2": "Перетащите <b>.wav</b> из шага 5 в свободный слот. <b>Запишите его номер</b>, например 5.",
+    "s5.li2": "Перетащите <b>.wav</b> из шага 6 в свободный слот. <b>Запишите его номер</b>, например 5.",
     "s5.li3": "Добавьте блок и выберите <span class=\"path\">Amp › NAM › NAM A2 Lite</span>.",
     "s5.li4": "Поверните <span class=\"knob\" translate=\"no\">Model</span> (первая ручка на странице 3) на номер этого слота. Вы услышите захват.",
     "s5.thKnob": "Ручка",
@@ -2350,12 +2362,12 @@ var LANGS = {
     "conv.chipTrim": "снято при {dbu} дБu",
     "conv.chipLoud": "нормализовано {db} дБ",
     "conv.chipBy": "автор: {who}",
-    "conv.hxf": "Это файл прошивки. Перетащите его на шаге 2 выше.",
+    "conv.hxf": "Это файл прошивки. Перетащите его на шаге 3 выше.",
     "conv.unread": "Не удалось прочитать файл.",
     "fw.namTitle": "Это захват NAM, а не прошивка.",
-    "fw.namText": "Захваты — на шаге 5 ниже. Сюда перетащите файл прошивки Line 6 (с расширением .hxf).",
+    "fw.namText": "Захваты — на шаге 6 ниже. Сюда перетащите файл прошивки Line 6 (с расширением .hxf).",
     "fw.builtTitle": "Этот файл уже собран.",
-    "fw.builtText": "Перетащите стоковый файл Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), а не собранный здесь. Чтобы установить собранный файл, перейдите к шагу 4.",
+    "fw.builtText": "Перетащите стоковый файл Line 6 (HX_Stomp_v3.80.0_0x103966115.hxf), а не собранный здесь. Чтобы установить собранный файл, перейдите к шагу 5.",
     "rel": " · {release}",
     "fw.sizeTitle": "Это не похоже на файл прошивки HX Stomp, XL или HX Effects.",
     "fw.sizeText": "«{name}» весит {mb} MB; стоковый файл весит около 45 MB (HX Effects: около 4 MB) и имеет расширение .hxf.",
@@ -2369,7 +2381,7 @@ var LANGS = {
     "fw.p5": "Добавление ядра в программу DSP…",
     "fw.p6": "Проверка контрольных сумм и упаковка файла…",
     "fw.okTitle": "Verified: прошивка для {unit} готова.",
-    "fw.okText": "Она байт в байт совпадает со сборкой, протестированной проектом. Скачайте её и переходите к шагу 4.",
+    "fw.okText": "Она байт в байт совпадает со сборкой, протестированной проектом. Скачайте её и переходите к шагу 5.",
     "fw.oddTitle": "Собрано, но это не протестированный файл.",
     "fw.oddText": "Все контрольные суммы сошлись, но результат отличается от протестированной сборки. Такого быть не должно; пожалуйста, сообщите об этом до установки.",
     "fw.wrongTitle": "Это не тот файл прошивки.",
@@ -2381,7 +2393,7 @@ var LANGS = {
     "fw.readTitle": "Не удалось прочитать файл.",
     "fw.readText": "Выберите его снова; если он на флешке или сетевом диске, сначала скопируйте его на компьютер.",
     "ram.noUsb": "Этот браузер не может работать с USB-устройствами. Используйте Chrome или Edge на компьютере, открыв страницу по её веб-адресу.",
-    "ram.needBuild": "Сначала соберите прошивку на шаге 2.",
+    "ram.needBuild": "Сначала соберите прошивку на шаге 3.",
     "ram.noPlan": "Эту сборку нельзя запустить из RAM: {err}",
     "ram.running": "Запуск из RAM…",
     "ram.s.pick": "Выберите HX Stomp в списке браузера.",
@@ -2510,7 +2522,7 @@ var LANG_NAMES = {
   }
   boxes.forEach(function (b) { b.addEventListener("change", checkStep1); });
 
-  // ---- Step 2: the firmware build (firmware-worker.js) ---------------------------------------
+  // ---- Step 3: the firmware build (firmware-worker.js) ---------------------------------------
   var STEPS = 6;
   var built = null;           // { blob, file }
   var busy = false;
@@ -2607,11 +2619,13 @@ var LANG_NAMES = {
         dspDraw();
       }
       $("dsp").hidden = !dsp;
-      $("options").hidden = $("dsp").hidden && $("other").hidden;
+      $("featNone").hidden = !$("dsp").hidden || !$("other").hidden;
       release = c.release;
       $("release").hidden = !release;
       relDraw();
-    }, function () { $("featNone").hidden = $("options").hidden = false; });
+    }, function () { $("featNone").hidden = false; });
+  } else {
+    $("featNone").hidden = false;
   }
 
   function buildFirmware(files) {
@@ -2650,7 +2664,7 @@ var LANG_NAMES = {
           ramReady(m.ram);
           if (m.pinned) fwShow("ok", ["fw.okTitle", { unit: unit }], ["fw.okText"]);
           else fwShow("ok", ["fw.oddTitle"], ["fw.oddText"]);
-          markDone(2);
+          markDone(3);
         } else if (m.type === "error") {
           finish();
           fwLog("\n" + m.text + "\n");
@@ -2679,11 +2693,11 @@ var LANG_NAMES = {
   $("fwPick").addEventListener("change", function (e) { buildFirmware(e.target.files); e.target.value = ""; });
   dropZone($("fwDrop"), buildFirmware);
   $("fwSave").addEventListener("click", function () {
-    if (built) { saveBlob(built.blob, built.file); markDone(4); }
+    if (built) { saveBlob(built.blob, built.file); markDone(5); }
   });
   $("fwAgain").addEventListener("click", function () { $("fwStatus").hidden = true; shown = null; ramReady(null); $("fwPick").click(); });
 
-  // ---- Step 3: the RAM run (ramrun.js) -------------------------------------------------------
+  // ---- Step 4: the RAM run (ramrun.js) -------------------------------------------------------
   var ram = null;             // the build's RAM run: { regions, checks } | { error }
   var ramLoader = null;       // tools/ramboot/firmware-ramboot.dfu
   var ramBusy = false;
@@ -2694,7 +2708,7 @@ var LANG_NAMES = {
     ram = plan;
     var noRam = !!(plan && !plan.regions && !plan.error);   // an HX Effects build: no RAM run
     $("try-without-installing").hidden = noRam;
-    $("nav3").parentElement.hidden = noRam;
+    $("nav4").parentElement.hidden = noRam;
     if (plan && plan.regions) {
       plan.regions.forEach(function (r) { r.bytes = new Uint8Array(r.bytes); });
       if (!ramLoader && hasUsb) {
@@ -2761,7 +2775,7 @@ var LANG_NAMES = {
     }).then(function () {
       ramBusy = false;
       ramShow("ok", ["ram.okTitle"], ["ram.okText"]);
-      markDone(3);
+      markDone(4);
     }, function (e) {
       ramBusy = false;
       $("ramNext").hidden = true;
@@ -2773,7 +2787,7 @@ var LANG_NAMES = {
   $("ramGo").addEventListener("click", runFromRam);
   ramReady(null);
 
-  // ---- Step 5: the capture converter (nam2ir-core.js) ----------------------------------------
+  // ---- Step 6: the capture converter (nam2ir-core.js) ----------------------------------------
   var items = [];                 // { file, ok, wav, info, error: [key] | message }
   var list = $("list"), empty = $("empty");
 
@@ -2789,7 +2803,7 @@ var LANG_NAMES = {
     $("count").textContent = items.length ? t("count.some", { good: good, n: items.length }) : t("count.none");
     $("all").hidden = good < 2;
     $("clear").hidden = !items.length;
-    if (good) markDone(5);
+    if (good) markDone(6);
 
     items.forEach(function (it, i) {
       var row = el("div", "row" + (it.ok ? "" : " bad"));
