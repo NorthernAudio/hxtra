@@ -68,6 +68,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/fx-gate.md](features/fx-gate.md) | the FX Loop gate (#69): decisions, the two designs and the boots, builds and their MD5s, what the unit has not checked | working on the gate in the FX Loop and Return blocks |
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
+| [features/preset-color.md](features/preset-color.md) | Preset LED Color: the current preset's ring and icon in Preset mode, the stock Preset LED case and Home builder | working on Preset mode's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |
 | [features/usb-monitor.md](features/usb-monitor.md) | USB monitoring: Path A Out in Ins/Outs, the owned destination send, applying a change at once, USB Only's mode riding on USB Input Trim | working on USB monitoring, or on path A's output |
 | [features/screen-mirror.md](features/screen-mirror.md) | the screen on a computer: the command, the frame coding, the Mac viewer and recorder | working on the screen mirror, or recording a demo |
