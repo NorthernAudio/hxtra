@@ -46,6 +46,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [sharc/registry.md](sharc/registry.md) | the SHARC assembler and simulator, the primitive registry, wrapping a primitive (`--wrap-prim`), custom kernels, VISA code and the control-function ABI | writing DSP code, or intercepting a primitive or its parameters |
 | [sharc/model-blobs.md](sharc/model-blobs.md) | a model's parameters in Entry 3, Entry 4's parameter maps and node trees, the Entry 0 info row, tempo sync | adding a block parameter or a model |
 | [sharc/cores/gates.md](sharc/cores/gates.md) | the gate core `0x2720` and the return reader `0x2618`; the composite format (buffers, member records), sub-bindings and the node tree, op `0x2b`; why a new bound member kills a block; the FX Loop gate's wrapper | adding a gate or any member to a block, wrapping a primitive |
+| [sharc/usb-routing.md](sharc/usb-routing.md) | the app graph `HelixStomp_App`: input/output select, USB trim, phones and volume routing parameters; the M4's load-time rewrite of Output select; what reaches USB | anything about where audio goes: outputs, Send, USB channels, monitoring |
 | [sharc/cores/compressors.md](sharc/cores/compressors.md) | the compressor cores `0x271a`, `0x2719`, `0x2710`: which block uses which, wiring, pids, init values, the Deluxe core's loop | metering or changing a compressor |
 
 ## Features
@@ -65,6 +66,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |
+| [features/usb-monitor.md](features/usb-monitor.md) | USB monitoring: Path A Out in Ins/Outs, the owned destination send, applying a change at once | working on USB monitoring, or on path A's output |
 | [features/screen-mirror.md](features/screen-mirror.md) | the screen on a computer: the command, the frame coding, the Mac viewer and recorder | working on the screen mirror, or recording a demo |
 | [features/usb-input.md](features/usb-input.md) | footswitches, knobs and buttons pressed from a computer: the command, the key queue, `tools/hx_input.py` | driving the unit from a script or a test |
 
