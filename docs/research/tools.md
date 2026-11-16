@@ -20,6 +20,7 @@ The repository's tools and the build switches. Status tags as in [conventions.md
 | `tools/emoji_png.swift` | Renders one emoji (Apple Color Emoji, macOS) to a PNG for `tools/splash_emoji.py`. |
 | `tools/m4asm.py` | Assemble a Thumb-2 `.s` with clang (`HX_CLANG`, Apple's Command Line Tools or `PATH`): its `.text` and symbols; refuses relocations. |
 | `tools/sharc/sasm.py`, `ssim.py` | SHARC assembler and simulator. |
+| `tools/sharc/visa_dis.py` | SHARC disassembler for Entry 2: 48-bit ISA in PM (`--pm`) and VISA at short-word addresses ([sharc/visa.md](sharc/visa.md)). |
 | `tools/hxf_ram.py`, `tools/ramboot/` | Run an image from RAM over USB. |
 | `src/sharc/frame_probe.asm` | DSP-side wrapper and frame-tail writer of the GR meter, beside the NAM kernel. |
 | `src/m4/gr_meter.s` | M4 receive hook, Home constructor and paint hooks, and the Edit view's two paints: the ten-light GR meter and its Position, Direction and Thickness settings. |
