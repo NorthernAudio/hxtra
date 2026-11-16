@@ -157,6 +157,24 @@ def test_a_hold_gives_its_hold_after_a_second_and_no_release_before_it():
     assert [e for kind, e in log if kind == 'send'][1] == bytes([1, 12, 0, 0, 5, 0, 0, 0]), 'a press as long as a hold is one'
 
 
+def test_controls_joined_by_a_plus_are_pressed_together_then_released_together():
+    def k(code, typ):
+        return bytes([1, code, 0, 0, typ, 0, 0, 0])
+    i, log = fake_input()
+    i.press('view+action')
+    assert log == [('send', k(5, 1) + k(6, 1)), ('sleep', hi.CLICK_S), ('send', k(5, 2) + k(6, 2) + k(5, 3) + k(6, 3)),
+                   ('sleep', hi.GAP_S)]
+    i, log = fake_input()
+    i.hold('fs1+fs2', 1.5)
+    assert log == [('send', k(12, 1) + k(13, 1)), ('sleep', 1.0), ('send', k(12, 5) + k(13, 5)), ('sleep', 0.5),
+                   ('send', k(12, 2) + k(13, 2)), ('sleep', hi.GAP_S)]
+    i, log = fake_input()
+    i.touch('fs1+fs3')
+    assert [e for kind, e in log if kind == 'send'] == [k(9, 1) + k(11, 1), k(9, 2) + k(11, 2)]
+    with pytest.raises(ValueError, match='knob9 has no press'):
+        i.press('view+knob9')
+
+
 def test_each_control_has_its_key_or_knob_event():
     assert {n: hi.key(n, 1)[:2] for n in ('fs1', 'fs5', 'knob1', 'knob5', 'view', 'action', 'page_left', 'page_right')} == {
         'fs1': b'\x01\x0c', 'fs5': b'\x01\x10', 'knob1': b'\x01\x00', 'knob5': b'\x01\x04', 'view': b'\x01\x05',
