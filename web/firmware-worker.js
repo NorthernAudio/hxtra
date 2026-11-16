@@ -112,6 +112,7 @@ var SOURCES = [
   "src/m4/metronome.s",
   "src/m4/more_snapshots.s",
   "src/m4/preset_color.s",
+  "src/m4/preset_keys.s",
   "src/m4/screen_mirror.s",
   "src/m4/strip.s",
   "src/m4/tap_color.s",
