@@ -32,12 +32,12 @@ IN1, OUT, IN3, PMW = 0x7000, 0x7100, 0x7200, 0x7300     # the core's buffers (I1
 SCALE = 0.25                                            # the stand-in core: I2 = I1 * SCALE
 
 
-def probe():
-    """(sim, symbol lookup) of frame_probe.asm, with a stand-in core and control function and the scan over one frame."""
+def probe(span=256):
+    """(sim, symbol lookup) of frame_probe.asm, with a stand-in core and control function and the scan over `span` words from FRAME."""
     src = pc.dsp_asm(0xe4850, 0xc4ef8)
     for k, v in (('ORIG', CORE), ('ORIG_2719', CORE), ('ORIG_CTRL_271A', CTRL), ('ORIG_CTRL_2719', CTRL),
-                 ('ORIG_CTRL_2710', CTRL), ('SCAN_A', FRAME), ('SCAN_B', FRAME + 256), ('SCAN_C', FRAME + 256),
-                 ('SCAN_D', FRAME + 256)):
+                 ('ORIG_CTRL_2710', CTRL), ('SCAN_A', FRAME), ('SCAN_B', FRAME + span), ('SCAN_C', FRAME + span),
+                 ('SCAN_D', FRAME + span)):
         src, n = re.subn(r'(\.equ %s,\s*)0x[0-9a-fA-F]+' % k, r'\g<1>%#x' % v, src)
         assert n == 1, k
     ret = 'fc_ret:\n    I12 = DM(M7, I6);\n    JUMP (M14, I12) (DB);\n    NOP;\n    RFRAME;'
@@ -158,43 +158,94 @@ def test_probe_deluxe_reads_the_core_gain():
     assert u2f(s.rd(FRAME + 217)) == 1.0
 
 
-def test_probe_kinky_meter_uses_its_attack_and_release():
-    """Kinky Comp Attack (pid 2) and Release (3) in ms become the window's coefficients: words 252 and 251."""
+def test_probe_kinky_meter_uses_its_release():
+    """Kinky Comp Release (pid 3) in ms becomes the window's coefficient, word 251; Attack (pid 2) only reaches the core."""
     s, sym = probe()
     knobs(s, sym, 'CTRL_2710', 0x96000, 0, 0, 20)
     ctrl(s, sym, 'CTRL_2710', 0x96000, 2, f2u(10.0))
+    assert s.rd(sym('FAKE_CTRL')) == 0x777, 'Attack reaches the stock control function'
+    s.wr(sym('FAKE_CTRL'), 0)
     ctrl(s, sym, 'CTRL_2710', 0x96000, 3, f2u(100.0))
-    assert s.rd(sym('FAKE_CTRL')) == 0x777, 'Attack and Release reach the stock control function'
+    assert s.rd(sym('FAKE_CTRL')) == 0x777, 'Release reaches the stock control function'
     for _ in range(64):
         block(s, sym, 'ENTRY_2710', 0x96000, 0.5)
-    att, rel = 1 - 2 * math.pi / 48 / 10, 1 - 2 * math.pi / 48 / 100
+    rel = 1 - 2 * math.pi / 48 / 100
     assert u2f(s.rd(FRAME + 251)) == pytest.approx(rel ** 1024, rel=1e-3)
-    assert u2f(s.rd(FRAME + 252)) == pytest.approx(att ** 512, rel=1e-2)
+    assert s.rd(FRAME + 252) == 0, 'word 252 is no longer written'
 
 
-
-def test_probe_opto_meter_takes_la_attack_without_one():
-    """The Ampeg Opto Comp's knobs send its core only Release (pid 3): Attack stays the LA Studio Comp's 10 ms."""
+def test_probe_opto_meter_takes_its_release():
+    """The Ampeg Opto Comp's knobs send its core Release (pid 3): the meter's coefficient follows it."""
     s, sym = probe()
     knobs(s, sym, 'CTRL_2710', 0x96000, 0, 0, 20)
     ctrl(s, sym, 'CTRL_2710', 0x96000, 3, f2u(100.0))
     for _ in range(64):
         block(s, sym, 'ENTRY_2710', 0x96000, 0.5)
-    att, rel = u2f(s.rd(sym('LA_ATT'))), 1 - 2 * math.pi / 48 / 100
+    rel = 1 - 2 * math.pi / 48 / 100
     assert u2f(s.rd(FRAME + 251)) == pytest.approx(rel ** 1024, rel=1e-3)
-    assert u2f(s.rd(FRAME + 252)) == pytest.approx(att ** 512, rel=1e-2)
 
 
-
-def test_probe_red_squeeze_meter_takes_la_times_without_any():
-    """No Red Squeeze knob reaches its core: Attack and Release stay the LA Studio Comp's 10 ms and 500 ms."""
+def test_probe_red_squeeze_meter_takes_la_release_without_any():
+    """No Red Squeeze knob reaches its core: Release stays the LA Studio Comp's 500 ms."""
     s, sym = probe()
     knobs(s, sym, 'CTRL_2710', 0x96000, 0, 0, 20)
     for _ in range(64):
         block(s, sym, 'ENTRY_2710', 0x96000, 0.5)
-    att, rel = u2f(s.rd(sym('LA_ATT'))), u2f(s.rd(sym('LA_REL')))
+    rel = u2f(s.rd(sym('LA_REL')))
     assert u2f(s.rd(FRAME + 251)) == pytest.approx(rel ** 1024, rel=1e-3)
-    assert u2f(s.rd(FRAME + 252)) == pytest.approx(att ** 512, rel=1e-2)
+
+
+def test_probe_writes_only_the_words_the_m4_reads():
+    """Frame words 200, 216..218, 250 and 251 (src/m4/gr_meter.s's); the rest of the tail is left as it was."""
+    s, sym = probe()
+    for k in range(1, 255):
+        s.wr(FRAME + k, 0x5A5A0000 + k)
+    knobs(s, sym, 'CTRL_2719', 0x96000, 2, 1, 20)
+    for _ in range(64):
+        block(s, sym, 'ENTRY_2719', 0x96000, 0.5)
+    written = {200, 216, 217, 218, 250, 251}
+    assert all(s.rd(FRAME + k) == 0x5A5A0000 + k for k in range(1, 255) if k not in written)
+    assert s.rd(FRAME + 200) == 0x600DF00D and s.rd(FRAME + 250) == 1
+
+
+def test_probe_keeps_only_whole_frames():
+    """A first word without its last word 255 on is no frame: neither listed nor written."""
+    s, sym = probe(span=1024)
+    s.wr(FRAME + 512, 0xFACEF00D)                         # no D00FECAF at +255
+    s.wr(FRAME + 600, 0xF00DFACE)                         # the halfword-swapped frame, closed
+    s.wr(FRAME + 600 + 255, 0xECAFD00F)
+    knobs(s, sym, 'CTRL_2719', 0x96000, 0, 0, 20)
+    for _ in range(64):
+        block(s, sym, 'ENTRY_2719', 0x96000, 0.5)
+    assert s.rd(sym('FP_N')) == 2
+    assert s.rd(FRAME + 200) == 0x600DF00D and s.rd(FRAME + 600 + 200) == 0xF00D600D
+    assert s.rd(FRAME + 512 + 200) == 0
+
+
+def test_probe_full_core_table_replaces_entries_in_turn():
+    s, sym = probe()
+    for k in range(18):
+        ctrl(s, sym, 'CTRL_271A', 0x90000 + k, 100, 1)
+    states = [s.rd(sym('CORES') + 6 * e) for e in range(16)]
+    assert states == [0x90010, 0x90011] + [0x90000 + k for k in range(2, 16)]
+
+
+def test_probe_output_in_i1_for_a_core_that_says_so():
+    """pid 103 = 1: the core's output overwrites its first input, so B is I1 after the call."""
+    s, sym = probe()
+    knobs(s, sym, 'CTRL_2719', 0x96000, 0, 0, 20)
+    ctrl(s, sym, 'CTRL_2719', 0x96000, 103, 1)
+    for _ in range(64):
+        block(s, sym, 'ENTRY_2719', 0x96000, 0.5)
+    assert u2f(s.rd(FRAME + 217)) == pytest.approx(0.5)  # the stand-in core leaves I1 as it was
+
+
+def test_dsp_stays_small():
+    """The GR meter's room in Block 3 (normal words): other DSP features need what is left."""
+    secs, _ = sasm.assemble(pc.dsp_asm(*pc.dsp_place()), 'frame_probe.asm')
+    n_dm, n_pm = (sum(len(x.words) for x in secs if x.kind == k) for k in ('dm', 'pm'))
+    assert n_dm + (n_pm + (n_pm & 1)) * 3 // 2 <= 800
+
 
 # ---- --wrap-prim
 
@@ -420,8 +471,8 @@ def test_comp_patch_refuses_a_second_run(comp_patched):
 # ---- the whole GR build, pinned as tests/test_firmware.py pins the default one
 
 GR_BUILT_MD5 = {
-    'HX_GR': '4dc65712867ca6663160bc755bb26a47',
-    'HX_GR HX_CLICK': '521a6594ff6b571fa5760c1456fd037d',    # patch_click.py adds a model, which would drop knobs written before it
+    'HX_GR': '2131fbb1187aa6c35d39a2c9697019d1',
+    'HX_GR HX_CLICK': 'b1591056ed1d2020743766c34702e6c8',    # patch_click.py adds a model, which would drop knobs written before it
 }
 
 

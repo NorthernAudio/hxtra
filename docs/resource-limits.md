@@ -22,7 +22,7 @@ The HX Stomp has two processors. The **M4** (LPC4350, the CPU) runs the screen, 
 | DSP time per preset | M4 admits up to 90%; 15% always taken | blocks in a preset | verified offline |
 | M4 code space (segment 6) | **1.73 MB** before the RAM-run hook at `0x29000000`; ~3.1 MB installed (4 MiB image cap) | caves, relocated tables | verified offline |
 | Global Settings IDs | **5** int IDs (63, 74, 78, 120, 132) | settings | verified on unit |
-| DSP → M4 frame words | words 200..252 used by the GR meter | values measured on the DSP | verified on unit |
+| DSP → M4 frame words | words 200, 216..218, 250, 251 used by the GR meter; 201..215, 219..249 and 252 free | values measured on the DSP | verified on unit |
 
 ## Checklist for a new feature
 
