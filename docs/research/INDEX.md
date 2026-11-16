@@ -45,6 +45,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 |---|---|---|
 | [sharc/registry.md](sharc/registry.md) | the SHARC assembler and simulator, the primitive registry, wrapping a primitive (`--wrap-prim`), custom kernels, VISA code and the control-function ABI | writing DSP code, or intercepting a primitive or its parameters |
 | [sharc/model-blobs.md](sharc/model-blobs.md) | a model's parameters in Entry 3, Entry 4's parameter maps and node trees, the Entry 0 info row, tempo sync | adding a block parameter or a model |
+| [sharc/cores/gates.md](sharc/cores/gates.md) | the gate core `0x2720` and the return reader `0x2618`; the composite format (buffers, member records), sub-bindings and the node tree, op `0x2b`; why a new bound member kills a block; the FX Loop gate's wrapper | adding a gate or any member to a block, wrapping a primitive |
 | [sharc/cores/compressors.md](sharc/cores/compressors.md) | the compressor cores `0x271a`, `0x2719`, `0x2710`: which block uses which, wiring, pids, init values, the Deluxe core's loop | metering or changing a compressor |
 
 ## Features
@@ -60,6 +61,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/tuner-page.md](features/tuner-page.md) | the tuner settings view and the page HXtra adds to it | changing the tuner's settings view |
 | [features/long-press.md](features/long-press.md) | holds per footswitch, FS6..FS10 on CC 20..24, CC text, the footswitch probes | working on long press, or footswitch holds |
 | [features/more-snapshots.md](features/more-snapshots.md) | bank B (snapshots 4..6), the bank marker, saving and the preset file key, next and previous across the banks | working on more snapshots |
+| [features/fx-gate.md](features/fx-gate.md) | the FX Loop gate (#69): decisions, the two designs and the boots, builds and their MD5s, what the unit has not checked | working on the gate in the FX Loop and Return blocks |
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |

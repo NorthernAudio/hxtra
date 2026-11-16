@@ -68,6 +68,7 @@ var SOURCES = [
   "tools/effects.py",
   "tools/patch_menu.py",
   "tools/patch_click.py",
+  "tools/patch_gate.py",
   "tools/patch_comp.py",
   "tools/m4asm.py",
   "tools/image_store.py",
@@ -80,6 +81,7 @@ var SOURCES = [
   "tools/features/bpm.py",
   "tools/features/breathing_line.py",
   "tools/features/dsp_meter.py",
+  "tools/features/fx_gate.py",
   "tools/features/gr.py",
   "tools/features/long_press.py",
   "tools/features/metronome.py",
@@ -115,6 +117,7 @@ var SOURCES = [
   "src/m4/virtual_settings.s",
   "src/sharc/click.asm",
   "src/sharc/frame_probe.asm",
+  "src/sharc/fx_gate.asm",
 ];
 // The release's M4 code for the features (tools/m4cache.py); a page from a checkout has none, and offers no features.
 var CACHE = "m4cache.json";
@@ -227,6 +230,11 @@ async function build(stock, flags) {
       step(5, "Adding the kernel to the DSP program…",
            ["tools/patch_click.py", "build/nam_lite.l6ia", "build/nam_lite_click.l6ia"]);
       p.FS.rename("/repo/build/nam_lite_click.l6ia", "/repo/build/nam_lite.l6ia");
+    }
+    if (flags.indexOf("HX_FX_GATE") >= 0) {
+      step(5, "Adding the kernel to the DSP program…",
+           ["tools/patch_gate.py", "build/nam_lite.l6ia", "build/nam_lite_gate.l6ia"]);
+      p.FS.rename("/repo/build/nam_lite_gate.l6ia", "/repo/build/nam_lite.l6ia");
     }
     if (gr) {           // last, as in build.py: every step that adds a model rebuilds the tails its knobs live in
       step(5, "Adding the kernel to the DSP program…",

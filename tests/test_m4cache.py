@@ -47,7 +47,7 @@ def test_web_flags_are_every_feature():
 
 
 def test_web_options_are_the_opt_in_features():
-    assert m4cache.web_options() == ["HX_REAL_NAMES"]
+    assert m4cache.web_options() == ["HX_FX_GATE", "HX_REAL_NAMES"]
 
 
 def test_make_pins_every_option_combination(monkeypatch):
