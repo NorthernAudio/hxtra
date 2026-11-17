@@ -1,7 +1,7 @@
 @ dsp_meter.s - the per-block DSP usage meter: each block in the Edit view's signal-flow row shows its share of the DSP in per cent, in black,
 @ and the top right corner shows their sum against what blocks may use (90% less the firmware's fixed 15%), as used/75,
-@ as Global Settings > DSP Usage Display > Total asks: Off, Small (3x5 digits at 2x) or Large (a text widget of our own on the block title's baseline).
-@ DSP Usage Display > Meter picks where the numbers show: Both, Browser (the model browser only), Blocks (the Edit view only) or Off.
+@ as Global Settings > DSP Usage Display > Total Usage asks: Off, Small (3x5 digits at 2x) or Large (a text widget of our own on the block title's baseline).
+@ DSP Usage Display > Block Usage picks where the numbers show: Both, Browser (the model browser only), Blocks (the Edit view only) or Off.
 @ The Edit view's top half (0x281282f8) has eight block slots, image widgets at view+0x4a4+0x24k, hidden when empty.
 @ DSP costs are the firmware's own, in hundredths of a per cent (the preset total adds 1500 and must stay within 9000).
 @ The model browser (0x281299d0) lists five models a page, each with its category's icon: dsp_browser centres each model's cost in white between its icon and name,
@@ -10,9 +10,9 @@
 .syntax unified
 .thumb
 .include "hxtra.inc"
-.equ METER_NO_BLOCKS, 1             @ DSP Usage Display > Meter: Both 0, Browser 1, Blocks 2, Off 3
+.equ METER_NO_BLOCKS, 1             @ DSP Usage Display > Block Usage: Both 0, Browser 1, Blocks 2, Off 3
 .equ METER_NO_BROWSER, 2
-.equ TOTAL_OFF, 0                   @ DSP > Total
+.equ TOTAL_OFF, 0                   @ Total Usage
 .equ TOTAL_SMALL, 1
 .equ TOTAL_LARGE, 2
 .equ SMALL_SCALE, 2
@@ -27,7 +27,7 @@
 dsp_paint:                          @ r0 the framebuffer, r1 the Edit view's top half, after its stock paint
     push {r4-r7, lr}
     sub sp, #44                     @ 0 the eight slots' DSP costs (-1 for none), 32 the blocks' sum in per cent (-1 for none),
-                                    @ 36 DSP > Meter, 40 DSP > Total
+                                    @ 36 Block Usage, 40 Total Usage
     mov r4, r0
     mov r5, r1
     movs r6, #0
@@ -113,7 +113,7 @@ slots_done:
 dsp_browser:                        @ r0 the framebuffer, r1 the model browser, after its stock paint
     push {r4-r8, lr}
     sub sp, #24                     @ 0 the browser level, 4 a model's browser item, then its cost, 8 the blocks' sum,
-                                    @ 12 DSP > Total, 16 DSP > Meter
+                                    @ 12 Total Usage, 16 Block Usage
     mov r4, r0
     mov r5, r1
     bl blocks_total
@@ -280,7 +280,7 @@ label:                              @ r0 a browser row, r1 a number 0..999, r2 i
     add sp, #12
     pop {r5, r6, pc}
 
-read_settings:                      @ -> r0 DSP > Meter, r1 DSP > Total
+read_settings:                      @ -> r0 Block Usage, r1 Total Usage
     push {r4, lr}
     movs r0, #SETTING_DSP_METER_TOTAL
     movs r1, #SETTING_DSP_METER_TOTAL_MAX
@@ -294,7 +294,7 @@ read_settings:                      @ -> r0 DSP > Meter, r1 DSP > Total
     mov r1, r4
     pop {r4, pc}
 
-total:                              @ r0 the blocks' sum in per cent (-1 for none), r1 DSP > Total, r4 the framebuffer
+total:                              @ r0 the blocks' sum in per cent (-1 for none), r1 Total Usage, r4 the framebuffer
     push {r3-r7, lr}                @ under the widget lock
     mov r6, r0
     mov r5, r1

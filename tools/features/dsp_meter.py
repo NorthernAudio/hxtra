@@ -1,8 +1,8 @@
 """DSP meter: each block in the Edit view shows its share of the DSP in per cent, and the top right corner the blocks' total as used/75;
 the model browser shows each listed model's share between its icon and name.
 
-Global Settings > DSP Usage Display: Meter (Both, Browser, Blocks, Off) picks where the numbers show, in the Edit view's blocks, the
-model browser, both or neither; Total (Off, Small, Large) the corner's
+Global Settings > DSP Usage Display: Block Usage (Both, Browser, Blocks, Off) picks where the numbers show, in the Edit view's blocks, the
+model browser, both or neither; Total Usage (Off, Small, Large) the corner's
 used/75: Off leaves the corner to the title (a long preset name runs into it), Small draws it in the meter's 3x5 digits at 2x,
 Large in the title's font, as before these settings."""
 from features import Setting
@@ -10,8 +10,8 @@ from features import Setting
 FLAG = 'HX_DSP_METER'
 TITLE = 'DSP Usage Display'
 SETTINGS = (
-    Setting('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off')),     # bit 0 hides the blocks', bit 1 the browser's
-    Setting('total', b'Total', (b'Off', b'Small', b'Large')),
+    Setting('meter', b'Usage\nBlock', (b'Both', b'Browser', b'Blocks', b'Off')),     # bit 0 hides the blocks', bit 1 the browser's
+    Setting('total', b'Usage\nTotal', (b'Off', b'Small', b'Large')),
 )
 
 EDIT_PAINT_LIT, EDIT_PAINT = 0x28d96da0, 0x28dc27f9     # the Edit view top half's paint function (block slots), as registered
