@@ -47,7 +47,7 @@ def test_settings():
         ('meter', (b'Both', b'Browser', b'Blocks', b'Off'), 0), ('total', (b'Off', b'Small', b'Large'), 0)]
     v = {e[0]: e[:5] for e in setting_ids.VIRTUAL}
     assert v[0xd1] == (0xd1, 107, 0, 4, None) and 'dsp_meter.disp' not in IDS
-    assert v[0xe0] == (0xe0, 107, 4, 4, 'dsp_meter.meter') and v[0xe1] == (0xe1, 107, 8, 4, 'dsp_meter.total')
+    assert v[0xe3] == (0xe3, 107, 4, 4, 'dsp_meter.meter') and v[0xe4] == (0xe4, 107, 8, 4, 'dsp_meter.total')
 
 
 class Meter:
