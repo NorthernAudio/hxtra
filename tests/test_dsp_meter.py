@@ -34,20 +34,22 @@ FONT = {                            # what the glyphs must look like, independen
     '/': ('..#', '..#', '.#.', '#..', '#..'),
 }
 GLYPH = {tuple(rows): ch for ch, rows in FONT.items()}
-METER, TOTAL = IDS['dsp_meter.meter'], IDS['dsp_meter.total']
-BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Usage Display > Meter
+EDIT_BLOCKS, MODEL_BROWSER, TOTAL = IDS['dsp_meter.blocks'], IDS['dsp_meter.browser'], IDS['dsp_meter.total']
+ON, OFF = 0, 1                      # Edit Blocks, Model Browser
 T_SMALL, T_LARGE, T_OFF = 0, 1, 2   # DSP > Total
 WHITE, BLACK = 0xffffff, 0
 
 
 def test_settings():
-    """DSP > Meter (Both, Browser, Blocks, Off) and DSP > Total (Small, Large, Off), both 0 when unset; they sit in 107 past the retired DSP Display,
+    """Model Browser and Edit Blocks (On, Off) and Total (Small, Large, Off), all 0 when unset; they sit in 107 past the retired DSP Display,
     whose field stays, as units may hold a value in it."""
     assert [(s.key, s.label, s.values, s.default) for s in dsp_meter.SETTINGS] == [
-        ('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off'), 0), ('total', b'Total', (b'Small', b'Large', b'Off'), 0)]
+        ('browser', b'Browser\nModel', (b'On', b'Off'), 0), ('blocks', b'Blocks\nEdit', (b'On', b'Off'), 0),
+        ('total', b'Total', (b'Small', b'Large', b'Off'), 0)]
     v = {e[0]: e[:5] for e in setting_ids.VIRTUAL}
     assert v[0xd1] == (0xd1, 107, 0, 4, None) and 'dsp_meter.disp' not in IDS
-    assert v[0xe3] == (0xe3, 107, 4, 4, 'dsp_meter.meter') and v[0xe4] == (0xe4, 107, 8, 4, 'dsp_meter.total')
+    assert v[0xe3] == (0xe3, 107, 4, 4, 'dsp_meter.blocks') and v[0xe4] == (0xe4, 107, 8, 4, 'dsp_meter.total')
+    assert v[0xe5] == (0xe5, 107, 12, 4, 'dsp_meter.browser')
 
 
 class Meter:
@@ -681,8 +683,8 @@ def test_large_to_small_hides_the_widget_and_draws_the_digits(meter):
     assert m.drawn == [None] and small(m) == [('23/75', 278, 316, 232)]
 
 
-def test_meter_off_hides_the_block_numbers_but_not_the_total(meter):
-    meter.settings[METER] = OFF
+def test_edit_blocks_off_hides_the_block_numbers_but_not_the_total(meter):
+    meter.settings[EDIT_BLOCKS] = OFF
     m = one_block(meter, 2345)
     assert m.numbers() == [] and m.total() == '23/75'
 
@@ -693,20 +695,20 @@ def test_settings_are_read_outside_both_locks(meter, total):
     meter.m.log.clear()
     one_block(meter, 2345)
     order = [at for at, _ in meter.m.log if at in (pm.GET_VALUE, WIDGET_LOCK, DSP_LOCK, DSP_UNLOCK)]
-    assert order == [DSP_LOCK, DSP_UNLOCK, pm.GET_VALUE, pm.GET_VALUE, WIDGET_LOCK]
+    assert order == [DSP_LOCK, DSP_UNLOCK] + [pm.GET_VALUE] * 3 + [WIDGET_LOCK]
 
 
-def test_browser_meter_off_shows_no_model_labels(browser):
+def test_model_browser_off_shows_no_model_labels(browser):
     browser.lists[(2, 0)] = [2345] * 5
-    browser.settings[METER] = OFF
+    browser.settings[MODEL_BROWSER] = OFF
     m = browser.paint()
     assert m.numbers() == [] and 'count' not in m.events and m.total() == '0/75'
 
 
-def test_browser_meter_off_wipes_labels_already_drawn(browser):
+def test_model_browser_off_wipes_labels_already_drawn(browser):
     browser.lists[(2, 0)] = [2345] * 5
     browser.paint()
-    browser.settings[METER] = OFF
+    browser.settings[MODEL_BROWSER] = OFF
     m = browser.paint()
     assert m.fills == [wipe(r) for r in range(5)] and m.numbers() == []
 
@@ -718,14 +720,16 @@ def test_browser_total_small(browser):
     assert ('23/75', 278, 316, 232) in small(m) and m.drawn == []
 
 
-@pytest.mark.parametrize('meter_value, shown', [(BOTH, ['23']), (BROWSER_ONLY, []), (BLOCKS_ONLY, ['23']), (OFF, [])])
-def test_meter_picks_whether_the_edit_view_shows_numbers(meter, meter_value, shown):
-    meter.settings[METER] = meter_value
-    assert one_block(meter, 2345).numbers() == shown
+@pytest.mark.parametrize('blocks_on', [ON, OFF])
+@pytest.mark.parametrize('browser_on', [ON, OFF])
+def test_edit_blocks_alone_picks_whether_the_edit_view_shows_numbers(meter, blocks_on, browser_on):
+    meter.settings.update({EDIT_BLOCKS: blocks_on, MODEL_BROWSER: browser_on})
+    assert one_block(meter, 2345).numbers() == (['23'] if blocks_on == ON else [])
 
 
-@pytest.mark.parametrize('meter_value, shown', [(BOTH, True), (BROWSER_ONLY, True), (BLOCKS_ONLY, False), (OFF, False)])
-def test_meter_picks_whether_the_browser_shows_numbers(browser, meter_value, shown):
+@pytest.mark.parametrize('blocks_on', [ON, OFF])
+@pytest.mark.parametrize('browser_on', [ON, OFF])
+def test_model_browser_alone_picks_whether_the_browser_shows_numbers(browser, blocks_on, browser_on):
     browser.lists[(2, 0)] = [2345] * 5
-    browser.settings[METER] = meter_value
-    assert browser.paint().numbers() == (['23'] * 5 if shown else [])
+    browser.settings.update({EDIT_BLOCKS: blocks_on, MODEL_BROWSER: browser_on})
+    assert browser.paint().numbers() == (['23'] * 5 if browser_on == ON else [])

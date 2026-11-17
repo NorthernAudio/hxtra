@@ -1,8 +1,8 @@
 """DSP meter: each block in the Edit view shows its share of the DSP in per cent, and the top right corner the blocks' total as used/75;
 the model browser shows each listed model's share between its icon and name.
 
-Global Settings > DSP Usage Display: Meter (Both, Browser, Blocks, Off) picks where the numbers show, in the Edit view's blocks, the
-model browser, both or neither; Total (Small, Large, Off) the corner's
+Global Settings > DSP Usage Display: Model Browser and Edit Blocks (On, Off) turn the numbers on or off in the model browser and
+the Edit view's blocks; Total (Small, Large, Off) the corner's
 used/75: Small, the default, draws it in the meter's 3x5 digits at 2x, Large in the title's font, as before these settings,
 Off not at all, leaving the corner to the title."""
 from features import Setting
@@ -10,7 +10,8 @@ from features import Setting
 FLAG = 'HX_DSP_METER'
 TITLE = 'DSP Usage Display'
 SETTINGS = (
-    Setting('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off')),     # bit 0 hides the blocks', bit 1 the browser's
+    Setting('browser', b'Browser\nModel', (b'On', b'Off')),     # On first: 0 is what a unit that set 0xd1 reads here
+    Setting('blocks', b'Blocks\nEdit', (b'On', b'Off')),
     Setting('total', b'Total', (b'Small', b'Large', b'Off')),     # Small first: 0 is what a unit that set 0xd1 reads here
 )
 
