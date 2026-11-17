@@ -35,7 +35,7 @@ FONT = {                            # what the glyphs must look like, independen
 }
 GLYPH = {tuple(rows): ch for ch, rows in FONT.items()}
 METER, TOTAL = IDS['dsp_meter.meter'], IDS['dsp_meter.total']
-BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Meter > Meter
+BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Usage Display > Meter
 T_OFF, T_SMALL, T_LARGE = 0, 1, 2   # DSP > Total
 WHITE, BLACK = 0xffffff, 0
 
@@ -574,11 +574,11 @@ def test_browser_items_are_priced_as_the_model_table_says():
 
 @pytest.mark.firmware
 def test_build_has_the_dsp_settings():
-    """Meter and Total under their own DSP Meter section: the virtual settings engine hooks GET_VALUE."""
+    """Meter and Total under their own DSP Usage Display section: the virtual settings engine hooks GET_VALUE."""
     e0 = built_e0({'HX_DSP_METER': '1'})
     fn, stock = pm.VIRTUAL_HOOKS['get']
     assert reader(e0)(fn, len(stock)) != stock
-    assert b'DSP Meter' in e0 and b'Display\nDSP' not in e0
+    assert b'DSP Usage Display' in e0 and b'Display\nDSP' not in e0
 
 
 @pytest.mark.firmware

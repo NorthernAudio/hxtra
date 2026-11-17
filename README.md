@@ -123,7 +123,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 ### <img src="docs/assets/icons/dsp-usage.svg" width="32" height="32" align="top" alt=""> DSP meter
 
-*Global Settings › DSP Meter*
+*Global Settings › DSP Usage Display*
 
 - Each block shows its share of the DSP, in the Edit view and in the model browser, and the top right corner the total.
 - **Meter** (Both, Browser, Blocks, Off): where the shares show: the Edit view's blocks and the model browser, the browser only, the blocks only, or neither.
