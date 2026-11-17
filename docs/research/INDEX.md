@@ -33,10 +33,12 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [m4/dsp-cost.md](m4/dsp-cost.md) | per-model DSP costs, block records and block objects, block IDs and slots, the preset total and its 90% limit | anything about DSP load, or finding a block's object from its slot |
 | [m4/model-browser.md](m4/model-browser.md) | the model browser's view, rows, levels, categories and items | changing the model list, or adding a model to a category |
 | [m4/tempo-and-leds.md](m4/tempo-and-leds.md) | the tempo settings (IDs 14..16), the tap tempo screen, the footswitch LEDs and LED task, the stock beat, the µs clock | anything tempo-synced, or lighting the LEDs |
+| [m4/controls.md](m4/controls.md) | every front-panel control's key code, the stock shortcuts and button combinations (Save = VIEW + ACTION, Menu = PAGE◀ + PAGE▶, All Bypass, the tuner, footswitch-mode combos, action panels), and how to send each over USB | driving the UI from a script or a test, or reaching a screen the devtest doesn't |
 | [m4/footswitches.md](m4/footswitches.md) | footswitch functions, key events and holds, the event handler and key task, bypass assignment, controllers, MIDI CC bypass | changing what a footswitch does |
 | [m4/snapshots.md](m4/snapshots.md) | the snapshot manager and records, select and its callers, the snapshot footswitch mode, the snapshot icon | anything about snapshots |
 | [m4/presets.md](m4/presets.md) | the eMMC stores (presets, globals, IRs) and the preset file's layout | storing data in a preset, or reading preset files |
 | [m4/dsp-link.md](m4/dsp-link.md) | the SPI frames between the DSP and the M4, and sending DSP values in a frame's tail | getting a value from the DSP to the screen |
+| [m4/split-routing.md](m4/split-routing.md) | a preset's split and merge in the edit buffer, how they are applied, why an empty path B is refused, the routing switches (`splitToLower`, `joinToLower`) the M4 sends | changing what path B, the split or the merge do |
 | [m4/usb-editor.md](m4/usb-editor.md) | HX Edit's editor service on the M4: the command table, a command's request and reply, the reply functions, the free command numbers | adding a USB command, or reading the unit from a computer |
 
 ## The SHARC (DSP) side
@@ -44,7 +46,10 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | note | covers | read it when |
 |---|---|---|
 | [sharc/registry.md](sharc/registry.md) | the SHARC assembler and simulator, the primitive registry, wrapping a primitive (`--wrap-prim`), custom kernels, VISA code and the control-function ABI | writing DSP code, or intercepting a primitive or its parameters |
+| [sharc/visa.md](sharc/visa.md) | Entry 2's VISA code: where it loads, the parcel order, instruction lengths, the 16/32-bit forms, the compiled C calling convention; `visa_dis.py` | reading SHARC code outside the 48-bit PM block, or disassembling Entry 2 |
 | [sharc/model-blobs.md](sharc/model-blobs.md) | a model's parameters in Entry 3, Entry 4's parameter maps and node trees, the Entry 0 info row, tempo sync | adding a block parameter or a model |
+| [sharc/cores/gates.md](sharc/cores/gates.md) | the gate core `0x2720` and the return reader `0x2618`; the composite format (buffers, member records), sub-bindings and the node tree, op `0x2b`; why a new bound member kills a block; the FX Loop gate's wrapper | adding a gate or any member to a block, wrapping a primitive |
+| [sharc/usb-routing.md](sharc/usb-routing.md) | the app graph `HelixStomp_App`: input/output select, USB trim, phones and volume routing parameters; the M4's load-time rewrite of Output select; what reaches USB; blob 1 cannot change; how parameter maps turn values into DSP calls; the app's members in blob 0 | anything about where audio goes: outputs, Send, USB channels, monitoring; before touching blob 1 or the app's parameters |
 | [sharc/cores/compressors.md](sharc/cores/compressors.md) | the compressor cores `0x271a`, `0x2719`, `0x2710`: which block uses which, wiring, pids, init values, the Deluxe core's loop | metering or changing a compressor |
 
 ## Features
@@ -60,10 +65,14 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/tuner-page.md](features/tuner-page.md) | the tuner settings view and the page HXtra adds to it | changing the tuner's settings view |
 | [features/long-press.md](features/long-press.md) | holds per footswitch, FS6..FS10 on CC 20..24, CC text, the footswitch probes | working on long press, or footswitch holds |
 | [features/more-snapshots.md](features/more-snapshots.md) | bank B (snapshots 4..6), the bank marker, saving and the preset file key, next and previous across the banks | working on more snapshots |
+| [features/fx-gate.md](features/fx-gate.md) | the FX Loop gate (#69): decisions, the two designs and the boots, builds and their MD5s, what the unit has not checked | working on the gate in the FX Loop and Return blocks |
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
+| [features/preset-color.md](features/preset-color.md) | Preset LED Color: the current preset's ring and icon in Preset mode, the stock Preset LED case and Home builder | working on Preset mode's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |
+| [features/usb-monitor.md](features/usb-monitor.md) | USB monitoring: Path A Out in Ins/Outs, the owned destination send, applying a change at once, USB Only's mode riding on USB Input Trim | working on USB monitoring, or on path A's output |
 | [features/screen-mirror.md](features/screen-mirror.md) | the screen on a computer: the command, the frame coding, the Mac viewer and recorder | working on the screen mirror, or recording a demo |
+| [features/usb-input.md](features/usb-input.md) | footswitches, knobs and buttons pressed from a computer: the command, the key queue, `tools/hx_input.py` | driving the unit from a script or a test |
 
 ## Other docs
 

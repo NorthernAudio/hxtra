@@ -3,6 +3,7 @@ pins the same built MD5s, and loads every file the build reads; with HX_STOMP_HX
 copy of the repository builds the features from a release's M4 code (tools/m4cache.py) as
 the repository does with clang."""
 import ast
+import importlib.util
 import json
 import os
 import re
@@ -51,8 +52,19 @@ def js_value(name):
 
 
 def test_build_steps_as_build_py():
-    for name in ("KERNEL", "GR_SLOTS", "STEPS"):
+    for name in ("KERNEL", "STEPS"):
         assert js_value(name) == py_dict("build.py", name), name
+    assert int(re.search(r"var E3_MAX = (\w+);", WORKER).group(1), 0) == py_dict("build.py", "E3_MAX")
+
+
+def test_kernel_slots_as_build_py():
+    # build.py's kernel(unit, slots): "--slots" for fewer than 3, nothing for 3
+    assert 'KERNEL[unit].concat(slots === 3 ? [] : ["--slots", String(slots)]' in WORKER
+    spec = importlib.util.spec_from_file_location("hxtra_build", ROOT / "build.py")
+    build = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(build)
+    assert build.kernel("HX_Stomp", 3) == build.KERNEL["HX_Stomp"]
+    assert build.kernel("HX_Stomp", 2) == build.KERNEL["HX_Stomp"] + ["--slots", "2"]
 
 
 def test_built_md5_as_firmware_test():
@@ -70,6 +82,7 @@ def test_sources_cover_the_build():
             "tools/sharc/nam_multi.py", "tools/sharc/nam_multi_kernel.asm",
             *(f"tools/features/{f.name}" for f in (ROOT / "tools/features").glob("*.py")),
             "tools/patch_click.py", "build.py", "src/sharc/click.asm",      # the Metronome: patch_click.py reads both
+            "tools/patch_gate.py", "src/sharc/fx_gate.asm",                 # the gate in the FX Loop and Return blocks
             "tools/patch_comp.py", "src/sharc/frame_probe.asm"}             # the GR meter's knobs and DSP code
     for d in ("tools", "tools/sharc"):
         for f in listed:
@@ -101,6 +114,33 @@ def test_page_lists_the_web_options():
     assert sorted(boxes) == sorted(m4cache.web_options())
 
 
+def page_dsp():
+    """The DSP features' boxes ({flag: ticked}), the NAM slot counts (the one picked first) and whether NAM's box is ticked."""
+    page = (ROOT / "web/index.html").read_text()
+    boxes = dict(re.findall(r'<div class="feat" data-dsp="(\w+)" hidden><label><input type="checkbox"( checked)?> ', page))
+    slots = re.findall(r'<input type="radio" name="slots" value="(\d)"( checked)?>', page)
+    nam = re.search(r'<div class="feat" id="nam"><label><input type="checkbox" id="namOn"( checked)?> ', page)
+    return {f: bool(c) for f, c in boxes.items()}, sorted(((bool(c), int(v)) for v, c in slots), reverse=True), bool(nam.group(1))
+
+
+def test_page_lists_the_dsp_features_and_slot_counts():
+    import block3
+    # NAM's box unticked is 0 slots, the radios the rest
+    boxes, slots, _ = page_dsp()
+    assert sorted(boxes) == sorted(m4cache.web_dsp())
+    assert sorted([v for _, v in slots] + [0]) == sorted(block3.SLOTS)
+
+
+def test_page_default_is_two_nam_slots_and_every_dsp_feature_and_fits():
+    # Mr. Wiseman's default (issue #111): 2 NAM slots with the GR meter, the Metronome and the FX Loop gate
+    import block3
+    boxes, slots, nam = page_dsp()
+    picked = slots[0][1]
+    assert nam and slots[0][0] and not slots[1][0] and picked == 2
+    assert all(boxes.values())
+    assert block3.fits(picked, [f for f, on in boxes.items() if on])
+
+
 def test_page_anchors_are_readable():
     # every section a link can land on is named in words, and each step's nav link points at one
     page = (ROOT / "web/index.html").read_text()
@@ -111,11 +151,14 @@ def test_page_anchors_are_readable():
 
 
 def test_page_moves_old_anchors_to_their_names():
-    # #s1..#s6 from links shared before the steps were named go to the step's section
+    # #s1..#s6 from links shared before the steps were named go to the step's section, as numbered then
+    # (Select features, step 2 since #111, never had one)
     page = (ROOT / "web/index.html").read_text()
     old = dict(re.findall(r'(s\d): "([a-z-]+)"', re.search(r"var named = \{(.*?)\}", page).group(1)))
     nav = dict(re.findall(r'<a href="#([^"]+)" id="nav(\d)">', page))
-    assert old == {"s" + n: name for name, n in nav.items()}
+    assert old == {"s1": "get-ready", "s2": "build", "s3": "try-without-installing", "s4": "install", "s5": "convert-captures",
+                   "s6": "play-nam"}
+    assert set(old.values()) <= set(nav) and nav["options"] == "2"
 
 
 def test_site_root_keeps_the_anchor():
@@ -125,20 +168,21 @@ def test_site_root_keeps_the_anchor():
 
 
 @pytest.mark.firmware
-def test_page_copy_builds_features_from_the_cache(tmp_path):
+@pytest.mark.parametrize("nam", [True, False])
+def test_page_copy_builds_features_from_the_cache(tmp_path, nam):
     stock = os.environ.get("HX_STOMP_HXF")
     if not stock:
         pytest.skip("HX_STOMP_HXF is not set")
-    flags = ["HX_BPM", "HX_LONG_PRESS"]           # a section of its own, and settings in a stock category
+    flags = ["HX_BPM", "HX_LONG_PRESS", "HX_GR"]      # a section of its own, settings in a stock category, Entry 3's strings
     cache = tmp_path / "m4cache.json"
-    cache.write_text(json.dumps({"modules": m4cache.modules(stock, flags)}))
+    cache.write_text(json.dumps({"modules": {**m4cache.modules(stock, flags), **m4cache.modules(stock, flags, nam=False)}}))
     page = tmp_path / "repo"
     for p in listed_sources():
         (page / p).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / p, page / p)
     env = {k: v for k, v in os.environ.items() if not k.startswith("HX_")}
     env.update({f: "1" for f in flags})
-    base = m4cache.nam_base(stock, str(tmp_path))      # what build.py, and the page, give patch_menu.py
+    base = m4cache.nam_base(stock, str(tmp_path)) if nam else stock     # what build.py, and the page, give patch_menu.py
     out = {}
     for name, root, extra in (("clang", ROOT, {}), ("cache", page, {"HX_M4_CACHE": str(cache)})):
         out[name] = tmp_path / f"{name}.l6ia"

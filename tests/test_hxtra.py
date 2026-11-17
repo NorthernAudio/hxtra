@@ -323,5 +323,5 @@ def test_a_feature_category_and_footswitches_pages_together():
 @pytest.mark.firmware
 def test_menu_must_name_a_stock_category():
     demo = fake('demo', MENU='Tempo', SETTINGS=(Setting('a', b'A', (b'0', b'1')),))
-    with pytest.raises(SystemExit, match='MENU is True, False or one of Footswitches'):
+    with pytest.raises(SystemExit, match='MENU is True, False or one of Ins/Outs, Footswitches'):
         menu_entry0(stock_e0(), [demo], {}, dict(setting_ids.by_name(), **{'demo.a': 0xcc}))

@@ -7,17 +7,20 @@ Everything HXtra adds to the HX Stomp, where to find it, and every setting. The 
 | [Tuner settings](#tuner-settings) | The tuner's own settings, on a third page: open the tuner and page right past Trails, Offsets and String 6 | `HX_TUNER=1` |
 | [BPM](#bpm) | Home screen: the tempo at the top left, the beat dot beside the preset number · Global Settings > BPM Display | `HX_BPM=1` |
 | [Tap LED color](#tap-led-color) | The TAP footswitch: its ring, and its icon and label on the Home screen · Global Settings > Displays, under Tap Tempo LED | `HX_TAP_COLOR=1` |
+| [Preset LED color](#preset-led-color) | Each preset's footswitch in Preset footswitch mode, in its own colour: its ring, and its icon on the Home screen · Global Settings > Displays, page 2 | `HX_PRESET_COLOR=1` |
 | [DSP usage display](#dsp-usage-display) | Edit view and model browser: each block's or model's share, the total at the top right · no settings | `HX_DSP_METER=1` |
 | [Breathing line](#breathing-line) | Home screen: the line between the signal flow and the knobs · Global Settings > Breathing Line | `HX_BREATHING_LINE=1` |
 | [Real block names](#real-block-names) | Model browser and Edit view: each block's title · no settings | `HX_REAL_NAMES=1` |
+| [FX Loop gate](#fx-loop-gate) | The FX Loop and Return blocks: three more knobs, Gate, Threshold and Decay | `HX_FX_GATE=1` |
 | [Long press](#long-press) | FS1–FS5 in Stomp footswitch mode · Global Settings > Footswitches, pages 2 to 5 | `HX_LONG_PRESS=1` |
 | [More snapshots](#more-snapshots) | The snapshot footswitches, with Footswitch Mode on Snapshot · no settings | `HX_MORE_SNAPSHOTS=1` |
 | [Metronome](#metronome) | Model browser: Looper > Metronome > Metronome · the block's knobs | `HX_CLICK=1` |
-| [GR meter](#gr-meter) | Home screen, lit by a compressor · knobs on six compressors | `HX_GR=1` |
+| [USB monitoring](#usb-monitoring) | Path A's output to the computer instead of Main L/R · Global Settings > Ins/Outs, page 3 · a DSP feature on the setup page | `HX_USB_MONITOR=1` |
+| [GR meter](#gr-meter) | Home screen and the compressor's Edit view, lit by a compressor · knobs on six compressors | `HX_GR=1` |
 | [Boot screen](#boot-screen-hx-stomp-only) | The screen at power-on · set when you build | `--splash`, `--splash-text` |
-| [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | always on |
+| [NAM A2 Lite](#nam-a2-lite) | Model browser: Amp > NAM | `HX_NAM_SLOTS=3`, `2`, `1`, `0` (off); unset, the most that fit |
 
-Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but Real block names only when you tick its box. Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
+Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but some only when you tick their boxes: the **DSP features** (how many NAM A2 Lite blocks, the GR meter, the Metronome and the FX Loop gate; at first 2 NAM blocks and all three ticked) and Real block names. The DSP features share the DSP's spare memory, so the page shows what is left as you tick, and won't let you tick one that doesn't fit: fewer NAM blocks leave room for more of the others ([NAM A2 Lite](#nam-a2-lite)). Each is off in a plain `build.py` build until its switch is set (an environment variable, or a `build.py` option), and switches combine:
 
 ```sh
 HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
@@ -25,7 +28,7 @@ HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 bu
 
 ## Custom settings
 
-The features' settings are in Global Settings, each feature in a section of its own after Displays (turn the knob right past Displays): **BPM Display**, then **Breathing Line**, each with its own icon by the title (see [Icons](icons.md), which also makes an icon library of every stock icon from your firmware file). The section strip at the top has room for the six stock sections only, so none of its icons is lit while you are in a feature's. A build with none of these features has no sections after Displays. Long press's settings are in **Footswitches** instead, after FS5 Function, and Tap LED color's in **Displays**, under Tap Tempo LED.
+The features' settings are in Global Settings, each feature in a section of its own after Displays (turn the knob right past Displays): **BPM Display**, then **Breathing Line**, each with its own icon by the title (see [Icons](icons.md), which also makes an icon library of every stock icon from your firmware file). The section strip at the top has room for the six stock sections only, so none of its icons is lit while you are in a feature's. A build with none of these features has no sections after Displays. Long press's settings are in **Footswitches** instead, after FS5 Function, Tap LED color's in **Displays**, under Tap Tempo LED, Preset LED color's on a second Displays page, and USB monitoring's in **Ins/Outs**, on page 3.
 
 | Feature | Setting | Values | What it does |
 |---|---|---|---|
@@ -33,11 +36,14 @@ The features' settings are in Global Settings, each feature in a section of its 
 | BPM | **Color** | **White** (default), Gray, Red, Orange, Yellow, Green, Cyan, Blue, Purple, Tempo | The tempo's and the dot's colour. Tempo follows the TAP footswitch's colour (Tap LED Color; stock red in a build without it) |
 | BPM | **Dot Position** | **Left** (default), Right, Both, Off | Where the beat dot sits, beside the preset number. Off hides the dot; with Font Size Off too the BPM display is off and the TAP ring blinks as stock |
 | Tap LED color | **Tap LED Color** | **Red** (default), DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random | The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label. In Global Settings > Displays, under Tap Tempo LED. |
+| Preset LED color | **Preset LED** | **Red** (default), DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White | In Preset footswitch mode, the colour of a preset without its own while it is selected: its ring, and its switch icon on the Home screen. In Global Settings > Displays, page 2. |
+| Preset LED color | **This Preset** | **None** (default), Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White | The current preset's own colour, saved with the preset. In Preset footswitch mode its ring and icon are lit in it while it is selected and dimmed while it is not. In Global Settings > Displays, page 2. |
 | Long press | **FS1 Hold Function** … **FS5 Hold Function** | Off, Tuner, FS4, FS5, FS6 … FS10 (defaults FS6 … FS10) | What holding that footswitch for 1 s does. FS4 and FS5 are external switches. In Global Settings > Footswitches, pages 2 and 3, after FS5 Function. |
-| Long press | **FS6 Function** … **FS10 Function** | Tuner, Stomp 6 … 10, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode>, <FS Mode, AllBypas, TogglEXP (default Stomp) | What that virtual footswitch does, as FS3 … FS5 Function do for the real ones, with Tuner in place of TAP/Tunr. In Global Settings > Footswitches, pages 4 and 5. |
+| Long press | **FS6 Function** … **FS10 Function** | Tuner, Stomp 6 … 10, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode>, <FS Mode, AllBypas, TogglEXP, GlobalEQ (default Stomp) | What that virtual footswitch does, as FS3 … FS5 Function do for the real ones, with Tuner in place of TAP/Tunr, and GlobalEQ added. In Global Settings > Footswitches, pages 4 and 5. |
 | Breathing line | **Color** | White, Red, Green, Blue, Fire, Ice, Sunset, Ocean, Aurora, Neon, **Rainbow** (default) | The line's colours. The gradients flow along the line: Fire is red, orange and yellow; Ice blue, cyan and white; Sunset purple, pink and orange; Ocean deep blue, blue and aqua; Aurora green, sky blue and violet; Neon magenta, indigo and cyan; Rainbow every hue. Where the motion dims the line, the colours dim with it. |
 | Breathing line | **Type** | Off, Steady, **Breathe** (default), Cylon, Comet, Heart, Sparkle | How it moves. Breathe slowly fades the whole line in and out. Cylon sweeps a wide light from end to end and back, slowing at the ends, with a trail behind it. Comet shoots a light across with a long tail. Heart beats lub-dub from the middle. Sparkle twinkles at random. Steady holds the full colour. Off gives back the stock line. |
 | Breathing line | **Speed** | 1 … 10, Tempo (default **4**) | One cycle takes 8 s at 1, 4 s at 4, 0.8 s at 10. Tempo follows the tempo (Global BPM or Preset BPM, as Tempo Select says): a beat a cycle for Heart, two for Breathe, Cylon and Comet, four for Steady, eight for Sparkle; with no tempo it runs at 4. |
+| USB monitoring | **Path A Out** | **Main L/R** (default), Send/USB, USB Only, Main+Snd | Where path A's Output block goes. Send/USB sends it to the computer on USB 3/4 instead of Main L/R, so a DAW monitors it; Main and the phones play only what comes back on USB 1/2. The Send jacks carry the same sound. USB Only sends it to the computer alone, the Send jacks silent. Main+Snd keeps it on Main L/R and copies Main to the Send jacks and USB 3/4 too. In Global Settings > Ins/Outs, page 3, after the stock settings. |
 
 Every feature's settings are virtual settings: HXtra serves their IDs itself and keeps their values in spare records of the Global Settings store, which the HX Stomp saves with the rest. `tools/setting_ids.py` assigns each its ID and place. A setting no build has stored yet, or whose stored value is out of range, shows its default. Builds before virtual settings kept these settings on real IDs, so the first virtual build starts them on their defaults.
 
@@ -80,6 +86,16 @@ The TAP footswitch's ring blinks red with the tempo, and its icon and label on t
 - **External MIDI clock:** the ring keeps the stock colour it blinks with then. **Tap Tempo LED** still decides whether the ring blinks at all.
 - **BPM Display's Color Tempo** gives the tempo and the beat dot the TAP footswitch's colour, the ring's current one with Rainbow and Random.
 
+## Preset LED color
+
+In Preset footswitch mode the HX Stomp lights the current preset's ring red, with a red switch icon on the Home screen, and leaves the other two presets' rings off. HXtra gives each preset a colour of its own, from the same palette as Tap LED color.
+
+- **This Preset** (Global Settings > Displays, page 2) sets the current preset's colour. Save the preset to keep it: the colour is stored in the preset itself, so it goes with the preset when you move, export or restore it.
+- **Selected**, a preset's ring and icon are lit in its colour. **Not selected**, a preset with a colour shows it dimmed (the shade the HX Stomp uses for a bypassed block of that colour), so you can see which footswitch holds which preset.
+- **A preset without a colour** is lit in **Preset LED**'s colour (red by default, as stock) while it is selected, and off while it is not.
+- **A change** shows when you go back to the Home screen.
+- **Other modes** keep the stock colours: Stomp mode's rings are the blocks' colours, Snapshot mode's the snapshots'.
+
 ## DSP usage display
 
 <!-- demo: dsp-usage -->
@@ -118,6 +134,21 @@ Just for fun: the line across the middle of the Home screen, between the signal 
 - **The selected part of the line** is still thicker, as on the stock line, and **Off** gives the stock line back.
 - **Settings** (Global Settings > Breathing Line): Color, Type and Speed. See [Custom settings](#custom-settings).
 
+## FX Loop gate
+
+A noise gate built into the FX Loop and Return blocks, as the Input block has one, so a noisy pedal in the loop doesn't take a Noise Gate block of its own ([#69](https://github.com/wisemandenny/hxtra/issues/69)). It gates what comes back from the loop, before the block's Return level and Mix; the dry signal and the Send are not gated.
+
+| Knob | Values | What it does |
+|---|---|---|
+| **Gate** | **Off** (default), On | Turns the gate on. Off, the block sounds as on stock firmware. |
+| **Threshold** | −96 … 0 dB (default **−48**) | Below this level the returned signal is muted. |
+| **Decay** | 0.01 … 1 s (default **0.1**) | How fast the gate closes. |
+
+- **On the setup page:** a box among the DSP features, ticked at first, or `HX_FX_GATE=1` for `build.py`. HX Stomp only.
+- **DSP:** each FX Loop and Return block costs about 0.2% more (0.4% stereo), whether its gate is on or off. A preset already at the limit with one of these blocks may not load.
+- **Stereo blocks** gate each side on its own, not linked.
+- **Presets** saved with the gate keep its knobs. Opening such a preset on stock firmware, or in HX Edit, is not tested yet.
+
 ## Long press
 
 <!-- demo: long-press -->
@@ -128,7 +159,7 @@ In Stomp footswitch mode, each of FS1–FS5 can have a Hold action (Global Setti
 - **Tuner** opens the tuner, as holding TAP does.
 - **FS4, FS5** press that footswitch, as an external switch would.
 - **FS6 … FS10** are virtual footswitches. Each toggles the blocks you assign to it: in a block's Bypass Assign, set MIDI In to FS6 … FS10 (the first five steps up from Off; the knob's label reads FootswIn while it's on one). The assignment is saved in the preset, and parameters assigned to the same footswitch through Controller Assign follow it too. They are MIDI CC 20–24 underneath, which is how HX Edit and other MIDI gear see them.
-- **FS6 Function … FS10 Function** give a virtual footswitch the same choices FS3 … FS5 Function give a real one, with **Tuner** (opens the tuner) in place of TAP/Tunr, since a hold has no use for a tap. **Stomp**, the default, toggles its blocks as above. The others do what that function does on a press and release of a real footswitch: **Bank Up/Dn** opens the bank in Preset mode, **PresetUp/Dn** and **SnpshtUp/Dn** step the preset or snapshot, **FS Mode> / <FS Mode** step the footswitch mode, **AllBypas** bypasses everything, and **TogglEXP** switches EXP 1/2 and toggles the virtual footswitch's blocks. Holds act only in Stomp mode, so after a function that leaves it (FS Mode, Bank), come back with a real footswitch or the menu. A MIDI CC 20–24 from outside still toggles the blocks, whatever the function.
+- **FS6 Function … FS10 Function** give a virtual footswitch the same choices FS3 … FS5 Function give a real one, with **Tuner** (opens the tuner) in place of TAP/Tunr, since a hold has no use for a tap. **Stomp**, the default, toggles its blocks as above. The others do what that function does on a press and release of a real footswitch: **Bank Up/Dn** opens the bank in Preset mode, **PresetUp/Dn** and **SnpshtUp/Dn** step the preset or snapshot, **FS Mode> / <FS Mode** step the footswitch mode, **AllBypas** bypasses everything, and **TogglEXP** switches EXP 1/2 and toggles the virtual footswitch's blocks. **GlobalEQ**, which no real footswitch offers, opens Global EQ for room or stage correction; it does nothing while the tuner is open. While Global EQ is open, however you got there, a press of any footswitch goes back to Home, as one leaves the tuner, and toggles nothing. Holds act only in Stomp mode, so after a function that leaves it (FS Mode, Bank), come back with a real footswitch or the menu. A MIDI CC 20–24 from outside still toggles the blocks, whatever the function.
 - A switch with Hold **Off**, a momentary switch, and the Preset and Snapshot footswitch modes work as stock.
 
 ## More snapshots
@@ -163,21 +194,35 @@ A click track in time with the tempo, as a block: add it from the model browser,
 - **The beat** starts when the block does, and a new tempo or Time counts from the last beat. Tapping the tempo doesn't yet move the beat onto your taps, and [BPM](#bpm)'s dot blinks with the TAP ring, not with the click.
 - **Presets** store the block as model 181, as the earlier builds that listed it under Modulation did, so presets made with them keep it.
 
+## USB monitoring
+
+The HX Stomp always plays what you play straight to its outputs and phones, and sends the same sound to the computer on USB 1/2: hardware monitoring. To monitor through a DAW instead (software monitoring: hearing your tone with the DAW's plugins on it), set **Path A Out** (Global Settings > Ins/Outs, page 3) to **Send/USB**. Path A's Output block then goes to the computer on USB 3/4 instead of to Main L/R, and Main and the phones play only what the computer sends back on USB 1/2. Record and monitor USB 3/4 in the DAW.
+
+- **Every preset** follows the setting: path A goes to Send/USB on each preset you load, and a turn of the setting switches at once. Path B's own output is not changed.
+- **The Send jacks** carry the same sound as USB 3/4: on the HX Stomp they are one output. Leave them unplugged, or expect the sound there too.
+- **Send and FX Loop blocks** add their send to that output, so the computer gets it with path A's sound. **Don't use Send/USB with an FX Loop block** (or the 4-cable method): path A's output would go out the Send jacks, through the loop and back in, and feed back.
+- **USB Only** sends path A to the computer alone. The Send jacks stay silent, so nothing goes out of them at all: not path A, and not the send of any Send or FX Loop block either. That makes it safe with an FX Loop block in the preset (nothing can feed back), but the loop gets no signal. Choose it when you only monitor through the DAW.
+- **Main+Snd** keeps path A on Main L/R and sends what Main plays to the Send jacks and USB 3/4 as well, at 0 dB, without a split or a block of its own: for a second amp, a front-of-house feed or recording the whole chain. Anything a Send or FX Loop block sends is added to it. With the Volume knob on the phones only (Global Settings > Ins/Outs), the knob doesn't change it. **Don't use Main+Snd with an FX Loop block** either: Main carries the loop's return, which would go back out the Send jacks and feed back.
+- **USB Only and Main+Snd** work in the DSP (`src/sharc/usb_monitor.asm`, `src/sharc/main_send.asm`), so USB monitoring is a DSP feature on the setup page: 414 words of Block 3.
+- **Saving a preset** with Send/USB or USB Only on stores Send for path A. A stock HX Stomp refuses that value when it loads the preset and keeps path A on Main L/R.
+- The stock firmware can reach the same output only from path B: put a block on path B, move the merge to the end (its output is then Send L/R) and turn path A's Output Level down.
+
 ## GR meter
 
 <!-- demo: gr-meter -->
 https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
-A gain-reduction meter on the Home screen, lit by the compressor you turn it on in, so you can see how hard it is working. HX Stomp only.
+A gain-reduction meter on the Home screen and in the compressor's Edit view, lit by the compressor you turn it on in, so you can see how hard it is working. HX Stomp only.
 
 | Knob | Values | What it does |
 |---|---|---|
-| **Mtr Thk** | 0 … 20 (default **0**, off) | The meter's thickness in pixels; 0 turns it off. |
-| **Mtr Pos** | **Middle** (default), Top, Left, Bottom, Right | Where on the Home screen the meter lights up. Middle takes the place of the line across the middle. |
+| **Mtr Size** | Off, S, M, L, XL (default **Off**) | The meter's thickness: 5, 10, 15 or 20 pixels. A preset saved with an older build's Mtr Thk opens at S for 1 px, M for 2, L for 3 and XL for 4 or more. |
+| **Mtr Pos** | **Middle** (default), Top, Left, Bottom, Right | Where on the Home screen and the Edit view the meter lights up. Middle takes the place of the line across the middle. |
 | **Mtr Dir** | **Normal** (default), Reverse | Normal fills left to right or top to bottom; Reverse the other way. |
 
 - **Which compressors:** Deluxe, LA Studio, Kinky, Ampeg Opto, Rochester and Red Squeeze.
-- **With NAM:** in a build with the GR meter, NAM A2 Lite runs up to two blocks instead of three.
+- **Edit view:** while one of these compressors is selected, the meter shows in its Edit view too, in the same place and size, so you can set the compressor up while you play. Its lit lights cover what is under them (the preset name at Top, the knob names at Bottom); unlit ones leave it showing. With two metered compressors in a preset, both Edit views show the one whose Mtr Size was set last.
+- **With NAM:** the meter's DSP code takes the room of NAM A2 Lite's third block, so a build with it has two NAM blocks at most.
 
 ## Boot screen (HX Stomp only)
 
@@ -202,6 +247,7 @@ From upstream [hx-stomp-nam-lite](https://github.com/nocaseguy/hx-stomp-nam-lite
 
 - **Where:** Amp > NAM, a block with ten knobs and a tone stack. It sits on Xenomorph Fuzz Mono's preset ID 555 (that stock model is removed), so HX Edit keeps NAM blocks, and presets made with either build open with the other.
 - **Older presets:** presets saved with an earlier NAM build (preset IDs 147 and 148) don't open NAM A2 Lite in this one: re-add the block in those presets.
+- **How many blocks:** up to 3 play at once, each its own capture; a further one passes its input through. On the setup page you pick 3, 2, 1 or Off among the DSP features, and fewer leave room for more of the others: 3 blocks leave room for the Metronome and the FX Loop gate, 2 for those and the GR meter. With `build.py`, `HX_NAM_SLOTS` sets it; unset, it's the most that leave room for the DSP features you turned on.
 - **Model** reads as the slot number, 4 rather than 4.0, on the HX Stomp. A value between slots (from a MIDI controller) reads as the slot that plays. The HX Stomp XL still reads 4.0.
 - **Captures:** none are included. You bring your own `.nam` files, and their licences are up to their authors.
 
