@@ -35,17 +35,16 @@ FONT = {                            # what the glyphs must look like, independen
 }
 GLYPH = {tuple(rows): ch for ch, rows in FONT.items()}
 METER, TOTAL = IDS['dsp_meter.meter'], IDS['dsp_meter.total']
-BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Usage Display > Block Usage
-T_OFF, T_SMALL, T_LARGE = 0, 1, 2   # Total Usage
+BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Usage Display > Meter
+T_OFF, T_SMALL, T_LARGE = 0, 1, 2   # DSP > Total
 WHITE, BLACK = 0xffffff, 0
 
 
 def test_settings():
-    """Block Usage (Both, Browser, Blocks, Off) and Total Usage (Off, Small, Large), both 0 when unset; they sit in 107 past the retired DSP Display,
+    """DSP > Meter (On, Off) and DSP > Total (Off, Small, Large), both 0 when unset; they sit in 107 past the retired DSP Display,
     whose field stays, as units may hold a value in it."""
     assert [(s.key, s.label, s.values, s.default) for s in dsp_meter.SETTINGS] == [
-        ('meter', b'Usage\nBlock', (b'Both', b'Browser', b'Blocks', b'Off'), 0),
-        ('total', b'Usage\nTotal', (b'Off', b'Small', b'Large'), 0)]
+        ('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off'), 0), ('total', b'Total', (b'Off', b'Small', b'Large'), 0)]
     v = {e[0]: e[:5] for e in setting_ids.VIRTUAL}
     assert v[0xd1] == (0xd1, 107, 0, 4, None) and 'dsp_meter.disp' not in IDS
     assert v[0xe3] == (0xe3, 107, 4, 4, 'dsp_meter.meter') and v[0xe4] == (0xe4, 107, 8, 4, 'dsp_meter.total')
@@ -575,7 +574,7 @@ def test_browser_items_are_priced_as_the_model_table_says():
 
 @pytest.mark.firmware
 def test_build_has_the_dsp_settings():
-    """Block Usage and Total Usage under their own DSP Usage Display section: the virtual settings engine hooks GET_VALUE."""
+    """Meter and Total under their own DSP Usage Display section: the virtual settings engine hooks GET_VALUE."""
     e0 = built_e0({'HX_DSP_METER': '1'})
     fn, stock = pm.VIRTUAL_HOOKS['get']
     assert reader(e0)(fn, len(stock)) != stock
@@ -603,7 +602,7 @@ def test_builds_alongside_bpm():
     assert read(stub, len(head) - 12) == head[:-12]
 
 
-# Block Usage and Total Usage
+# DSP > Meter and DSP > Total
 PAINTS = ('text visible', 'text erase', 'text draw', 'text text')    # what can put pixels on, or take them off, the title
 
 

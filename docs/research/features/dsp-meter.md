@@ -6,11 +6,11 @@ Each block in the Edit view shows its DSP cost in whole per cent, and the top ri
 
 How it got here, image by image: [dsp-meter-log.md](dsp-meter-log.md). The costs it shows: [m4/dsp-cost.md](../m4/dsp-cost.md).
 
-## Block Usage and Total Usage settings [verified offline, unicorn; on unit from RAM, 2026-11-14: Total Usage Off, Small and Large, and Block Usage Browser (the browser's numbers shown, the blocks' hidden); Block Usage's Blocks value offline only]
+## Meter and Total settings [verified offline, unicorn; on unit from RAM, 2026-11-14: Total Off, Small and Large, and Meter Browser (the browser's numbers shown, the blocks' hidden); Meter's Blocks value offline only]
 
-Global Settings › DSP Usage Display: **Block Usage** (virtual `0xe3`, container 107 bits 4..7: Both, Browser, Blocks, Off; bit 0 hides the Edit view's numbers, bit 1 the browser's) and **Total Usage** (`0xe4`, 107 bits 8..11: Off, Small, Large). Both fields sit past the retired DSP Display field `0xd1` (bits 0..3), which units may still hold a value in. Both read 0 when unset, so a unit that never set them shows the numbers everywhere and no total.
+Global Settings › DSP Usage Display: **Meter** (virtual `0xe3`, container 107 bits 4..7: Both, Browser, Blocks, Off; bit 0 hides the Edit view's numbers, bit 1 the browser's) and **Total** (`0xe4`, 107 bits 8..11: Off, Small, Large). Both fields sit past the retired DSP Display field `0xd1` (bits 0..3), which units may still hold a value in. Both read 0 when unset, so a unit that never set them shows the numbers everywhere and no total.
 
 - Both paints read the two settings with `hxtra_setting_get` before taking either lock (`read_settings`), as the GR meter does.
 - **Off** never calls the total widget's visibility, erase or draw: a hidden widget erased every paint would black out the title's pixels under its last text, which is the overlap this setting is for. Leaving Large hides and erases the widget once (`large_shown`).
 - **Small** is the 3x5 glyph total of the images before `a759ce1`, at 2x, right-aligned at x 316 with its top at y 232, plus a `/` glyph. It is framebuffer only, so each paint first wipes the widest total's room (46x10 at x 270, y 222) when the last paint drew one (`small_drawn`), and a change to Off or Large wipes it once.
-- Block Usage's Off (or Browser/Blocks) leaves the browser's names at x 60, where the build moves them; the name list's x is set once, by its constructor.
+- Meter's Off (or Browser/Blocks) leaves the browser's names at x 60, where the build moves them; the name list's x is set once, by its constructor.
