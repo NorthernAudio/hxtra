@@ -69,7 +69,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <!-- demo: tuner -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/7decba81-b026-4fb5-95f9-6c8899b2e47c" width="100%" alt="The tuner: Activate set to Press, so one press opens it, then Lock On and its knobs no longer change">
 
@@ -85,14 +85,14 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <!-- demo: bpm -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture> tapping TAP</summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture> tapping TAP</summary>
 
 <img src="https://github.com/user-attachments/assets/62783af2-506f-4878-80ed-e2705acba51c" width="100%" alt="Tapping TAP: the tempo and its beat dot follow">
 
 </details>
 
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture> the settings</summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture> the settings</summary>
 
 <img src="https://github.com/user-attachments/assets/4579e864-8a7d-46fd-a764-ec5cd102b6e9" width="100%" alt="Global Settings, BPM Display: Font Size, Color and Dot Position">
 
@@ -108,14 +108,14 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <!-- demo: breathing-line -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture> on the unit</summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture> on the unit</summary>
 
 <img src="https://github.com/user-attachments/assets/d492b0aa-1151-42c6-b84a-27f6fd36e5d8" width="100%" alt="Breathing Line types, colours and speeds on the Home screen, on the unit">
 
 </details>
 
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture> the screen alone</summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture> the screen alone</summary>
 
 <img src="https://github.com/user-attachments/assets/dd1085e1-c51d-4377-8dee-26b8ce5e1423" width="100%" alt="The same, the screen alone: Steady, Breathe, Cylon, Heart, Sparkle, then Aurora, Ice, Fire and Tempo">
 
@@ -132,7 +132,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <!-- demo: dsp-usage -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/fb8644f3-b5ab-4803-b3be-fefcfb23c7b3" width="100%" alt="Browsing bass amps: the DSP total previews each model, then the added block shows its share">
 
@@ -150,7 +150,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <!-- demo: gr-meter -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
@@ -165,7 +165,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - **MIDI**: **underneath, FS6 … FS10 are MIDI CC 20 … 24.** HX Edit shows them that way, and a MIDI controller sending those CCs switches them as well.
 
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/f0261c29-ef31-4527-8d96-21ef176b67aa" width="100%" alt="A block's Bypass Assign: MIDI In set to the virtual footswitch FS6, then holding FS2 toggles it">
 
@@ -181,7 +181,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 <!-- demo: long-press -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/50a6ecf0-6d87-4556-8ffd-035e4b40987b" width="100%" alt="Tapping and holding FS2, holding FS1 for the tuner, then the Hold and FS6 to FS10 Function settings">
 
@@ -195,7 +195,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 <!-- demo: snapshots -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/8ce9d86c-cffb-491e-9c47-0430a02a4af7" width="100%" alt="Snapshots 1 to 3, the lit footswitch again for 4 to 6, and again back to 1 to 3">
 
@@ -209,7 +209,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 <!-- demo: tap-color -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/29f1b0a3-fa13-4d40-bfb0-cb426b15079d" width="100%" alt="Tap LED Color: red, green, blue, then Rainbow walking the colour wheel, and BPM Display Color Tempo following it">
 
@@ -233,7 +233,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 <!-- demo: metronome -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
@@ -253,7 +253,7 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 <!-- demo: real-names -->
 <details>
-<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" align="middle" alt="Watch demo"></picture></summary>
+<summary><picture><img src="docs/assets/icons/watch-demo.svg" width="108" height="28" align="middle" alt="Watch demo"></picture></summary>
 
 <img src="https://github.com/user-attachments/assets/607728e6-773b-41ae-9619-5a30ca2f50ad" width="100%" alt="The model browser's Distortion list by real names: Xotic EP Booster, Klon Centaur, Ibanez TS808">
 
