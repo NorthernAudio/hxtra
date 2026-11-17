@@ -138,7 +138,7 @@
     </tr>
     <tr>
     <td><a href="#real-block-names">Real Block Names</a></td>
-    <td>Renames all blocks to match the gear they were based on: e.g. Deez One Mod becomes Boss DS-1 Mod. Off unless you tick it on the setup page.</td>
+    <td>Renames all blocks to match the gear they were based on: e.g. Deez One Mod becomes Boss DS-1 Mod.</td>
     <td>Model browser and Edit view</td>
     </tr>
     <tr>
@@ -402,7 +402,6 @@
     </div>
     <p>Line 6 names its models after the gear they're based on with a twist (Deez One Mod, US Double Nrm). With Real block names, the model browser and the Edit view title each block by that gear instead: Boss DS-1 Mod, Twin Reverb Nrm. The names come from <a href="https://helixhelp.com/models">helixhelp.com/models</a>' "based on", at most 16 characters.</p>
 <ul>
-<li><strong>Off unless you ask:</strong> a checkbox on the setup page, unticked, or <code>HX_REAL_NAMES=1</code> for <code>build.py</code>.</li>
 <li><strong>What keeps its name:</strong> Line 6 originals, utility blocks and titles that are already real.</li>
 <li><strong>Presets</strong> keep the same model IDs, so a preset is the same with or without real names, and opens on stock firmware as usual.</li>
 </ul>
@@ -438,7 +437,6 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>On the setup page:</strong> a box among the DSP features, ticked at first, or <code>HX_FX_GATE=1</code> for <code>build.py</code>. HX Stomp only.</li>
 <li><strong>DSP:</strong> each FX Loop and Return block costs about 0.2% more (0.4% stereo), whether its gate is on or off. A preset already at the limit with one of these blocks may not load.</li>
 <li><strong>Stereo blocks</strong> gate each side on its own, not linked.</li>
 <li><strong>Presets</strong> saved with the gate keep its knobs. Opening such a preset on stock firmware, or in HX Edit, is not tested yet.</li>

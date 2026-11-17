@@ -100,7 +100,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#dsp-usage-display"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter
 
 *New settings on all compressors except 3-Band Compressor*
 
@@ -155,7 +155,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 - **This Preset** (None, Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the current preset's own colour, kept when you save the preset. In Preset footswitch mode its ring and its switch icon on the Home screen are lit in that colour while it is selected, and dimmed while it is not.
 - **Preset LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the colour of a preset without its own while it is selected. Such a preset's ring stays off while it is not, as stock.
 
-### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome
 
 *New block: Looper › Metronome*
 
@@ -172,7 +172,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 - **Path A Out** (Main L/R, Send/USB, USB Only, Main+Snd): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so with Send/USB the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop). **USB Only** sends it to the computer alone: the Send jacks stay silent, for path A and for every Send and FX Loop block too, so nothing can feed back. **Main+Snd** keeps path A on Main L/R and sends the same sound to the Send jacks and USB 3/4 at 0 dB, with no split and no block used: don't use it with an FX Loop either.
 
-### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names (optional, off unless you tick it on the setup page)
+### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names
 
 *No settings*
 
@@ -180,7 +180,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#real-block-names"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate
 
 *Gate, Threshold and Decay knobs on the FX Loop and Return blocks*
 
