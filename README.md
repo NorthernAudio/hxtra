@@ -60,7 +60,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <sub>*Demos were recorded from a real HX Stomp's screen, along with its audio and button presses, then overlaid on a simulated HX Stomp.*</sub>
 
-### <img src="docs/assets/icons/tuner.svg" width="28" height="28" align="top" alt=""> Tuner settings
+### <img src="docs/assets/icons/tuner.svg" width="28" height="28" align="top" alt=""> Extra tuner settings
 
 *On the tuner's own third page*
 
@@ -69,7 +69,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#tuner-settings"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/bpm.svg" width="40" height="28" align="top" alt=""> BPM display
+### <img src="docs/assets/icons/bpm.svg" width="40" height="28" align="top" alt=""> BPM Display
 
 *Global Settings › BPM Display*
 
@@ -79,7 +79,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#bpm"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/breathing-line.svg" width="28" height="28" align="top" alt=""> Breathing line
+### <img src="docs/assets/icons/breathing-line.svg" width="28" height="28" align="top" alt=""> Breathing Line
 
 *Global Settings › Breathing Line*
 
@@ -89,7 +89,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#breathing-line"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/dsp-usage.svg" width="32" height="32" align="top" alt=""> DSP meter
+### <img src="docs/assets/icons/dsp-usage.svg" width="32" height="32" align="top" alt=""> DSP Usage Display
 
 *Global Settings › DSP Usage Display*
 
@@ -100,7 +100,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#dsp-usage-display"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter
+### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Compressor Gain Reduction Meter
 
 *New settings on all compressors except 3-Band Compressor*
 
@@ -112,7 +112,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#gr-meter"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Virtual footswitches
+### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Virtual Footswitches (FS6-10)
 
 *Global Settings › Footswitches*
 
@@ -122,7 +122,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#virtual-footswitches"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Footswitch long press
+### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Foot Switch Long Press
 
 *Global Settings › Footswitches*
 
@@ -132,7 +132,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#long-press"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/snapshots.svg" width="104" height="32" align="top" alt=""> More snapshots
+### <img src="docs/assets/icons/snapshots.svg" width="104" height="32" align="top" alt=""> More Snapshots (4-6)
 
 - Six snapshots per preset: press the lit snapshot footswitch again to flip between snapshots 1–3 and 4–6.
 - Once a preset has snapshots 4–6, next and previous snapshot (SnpshtUp, SnpshtDn, MIDI CC 69) step through all six: next on 3 goes to 4, and next on 6 back to 1.
@@ -140,7 +140,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#more-snapshots"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/tap-color.svg" width="28" height="28" align="top" alt=""> Tap LED color
+### <img src="docs/assets/icons/tap-color.svg" width="28" height="28" align="top" alt=""> TAP LED Color
 
 *Global Settings › Displays*
 
@@ -148,7 +148,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#tap-led-color"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/preset-color.svg" width="28" height="28" align="top" alt=""> Preset LED color
+### <img src="docs/assets/icons/preset-color.svg" width="28" height="28" align="top" alt=""> Preset Mode LED Color
 
 *Global Settings › Displays, page 2*
 
@@ -166,13 +166,13 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#metronome"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/usb-monitor.svg" width="28" height="28" align="top" alt=""> USB monitoring
+### <img src="docs/assets/icons/usb-monitor.svg" width="28" height="28" align="top" alt=""> USB & Send Routing
 
 *Global Settings › Ins/Outs, page 3*
 
 - **Path A Out** (Main L/R, Send/USB, USB Only, Main+Snd): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so with Send/USB the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop). **USB Only** sends it to the computer alone: the Send jacks stay silent, for path A and for every Send and FX Loop block too, so nothing can feed back. **Main+Snd** keeps path A on Main L/R and sends the same sound to the Send jacks and USB 3/4 at 0 dB, with no split and no block used: don't use it with an FX Loop either.
 
-### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names
+### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real Block Names
 
 *No settings*
 
@@ -180,7 +180,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#real-block-names"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate
+### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop Noise Gate
 
 *Gate, Threshold and Decay knobs on the FX Loop and Return blocks*
 
