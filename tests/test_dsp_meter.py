@@ -36,15 +36,15 @@ FONT = {                            # what the glyphs must look like, independen
 GLYPH = {tuple(rows): ch for ch, rows in FONT.items()}
 METER, TOTAL = IDS['dsp_meter.meter'], IDS['dsp_meter.total']
 BOTH, BROWSER_ONLY, BLOCKS_ONLY, OFF = 0, 1, 2, 3     # DSP Usage Display > Meter
-T_OFF, T_SMALL, T_LARGE = 0, 1, 2   # DSP > Total
+T_SMALL, T_LARGE, T_OFF = 0, 1, 2   # DSP > Total
 WHITE, BLACK = 0xffffff, 0
 
 
 def test_settings():
-    """DSP > Meter (On, Off) and DSP > Total (Off, Small, Large), both 0 when unset; they sit in 107 past the retired DSP Display,
+    """DSP > Meter (Both, Browser, Blocks, Off) and DSP > Total (Small, Large, Off), both 0 when unset; they sit in 107 past the retired DSP Display,
     whose field stays, as units may hold a value in it."""
     assert [(s.key, s.label, s.values, s.default) for s in dsp_meter.SETTINGS] == [
-        ('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off'), 0), ('total', b'Total', (b'Off', b'Small', b'Large'), 0)]
+        ('meter', b'Meter', (b'Both', b'Browser', b'Blocks', b'Off'), 0), ('total', b'Total', (b'Small', b'Large', b'Off'), 0)]
     v = {e[0]: e[:5] for e in setting_ids.VIRTUAL}
     assert v[0xd1] == (0xd1, 107, 0, 4, None) and 'dsp_meter.disp' not in IDS
     assert v[0xe3] == (0xe3, 107, 4, 4, 'dsp_meter.meter') and v[0xe4] == (0xe4, 107, 8, 4, 'dsp_meter.total')
@@ -619,8 +619,15 @@ def small_wipes(m):
     return [f for f in m.fills if f == (316 - 46, 232 - 10, 46, 10, BLACK, 0)]
 
 
-def test_unset_total_is_off_and_leaves_the_corner_alone(meter):
+def test_unset_total_is_small(meter):
     meter.settings = {}
+    m = one_block(meter, 2345)
+    assert m.numbers() == ['23'] and small(m) == [('23/75', 316 - (5 * 8 - 2), 316, 232)] and m.drawn == []
+    assert painted(m) == [], 'Small never shows or erases the widget'
+
+
+def test_total_off_leaves_the_corner_alone(meter):
+    meter.settings = {TOTAL: T_OFF}
     m = one_block(meter, 2345)
     assert m.numbers() == ['23'] and small(m) == [] and m.drawn == []
     assert painted(m) == [], 'Off never shows or erases the widget, so nothing blacks out the title'

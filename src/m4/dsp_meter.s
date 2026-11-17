@@ -1,6 +1,6 @@
 @ dsp_meter.s - the per-block DSP usage meter: each block in the Edit view's signal-flow row shows its share of the DSP in per cent, in black,
 @ and the top right corner shows their sum against what blocks may use (90% less the firmware's fixed 15%), as used/75,
-@ as Global Settings > DSP Usage Display > Total asks: Off, Small (3x5 digits at 2x) or Large (a text widget of our own on the block title's baseline).
+@ as Global Settings > DSP Usage Display > Total asks: Small (3x5 digits at 2x), Large (a text widget of our own on the block title's baseline) or Off.
 @ DSP Usage Display > Meter picks where the numbers show: Both, Browser (the model browser only), Blocks (the Edit view only) or Off.
 @ The Edit view's top half (0x281282f8) has eight block slots, image widgets at view+0x4a4+0x24k, hidden when empty.
 @ DSP costs are the firmware's own, in hundredths of a per cent (the preset total adds 1500 and must stay within 9000).
@@ -12,9 +12,9 @@
 .include "hxtra.inc"
 .equ METER_NO_BLOCKS, 1             @ DSP Usage Display > Meter: Both 0, Browser 1, Blocks 2, Off 3
 .equ METER_NO_BROWSER, 2
-.equ TOTAL_OFF, 0                   @ DSP > Total
-.equ TOTAL_SMALL, 1
-.equ TOTAL_LARGE, 2
+.equ TOTAL_SMALL, 0                 @ DSP > Total
+.equ TOTAL_LARGE, 1
+.equ TOTAL_OFF, 2
 .equ SMALL_SCALE, 2
 .equ SMALL_TOP, 232                 @ the 3x5 digits' top, where the glyph total sat before the text widget
 .equ SMALL_GLYPHS, 6                @ the most a total takes: 999/75

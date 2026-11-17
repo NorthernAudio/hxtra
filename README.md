@@ -127,7 +127,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 - Each block shows its share of the DSP, in the Edit view and in the model browser, and the top right corner the total.
 - **Meter** (Both, Browser, Blocks, Off): where the shares show: the Edit view's blocks and the model browser, the browser only, the blocks only, or neither.
-- **Total** (Off, Small, Large): the total in the top right corner. Off, the default, leaves the corner to the title, so a long preset name isn't covered; Small draws it in the meter's small digits; Large in the title's font.
+- **Total** (Small, Large, Off): the total in the top right corner. Small, the default, draws it in the meter's small digits; Large in the title's font; Off leaves the corner to the title, so a long preset name isn't covered.
 
 <!-- demo: dsp-usage -->
 <details>
