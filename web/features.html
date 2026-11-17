@@ -53,21 +53,12 @@
   .eyebrow { font: 600 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
   .eyebrow a { color: inherit; text-decoration: none; }
   h1 { margin: 0; font-size: clamp(28px, 5vw, 38px); line-height: 1.12; letter-spacing: -.01em; }
-  .lede { margin: 0; color: var(--muted); max-width: 66ch; font-size: 17px; }
   .note { margin: 0; color: var(--muted); font-size: 13.5px; font-style: italic; }
 
-  nav.jump { position: sticky; top: 0; z-index: 2; margin-inline: -4px; padding: 8px 4px; background: var(--bg); }
-  nav.jump ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
-  nav.jump a {
-    display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; white-space: nowrap;
-    border: 1px solid var(--line); background: var(--panel); color: var(--muted); font-size: 13px; text-decoration: none;
-  }
-  nav.jump a:hover { border-color: var(--accent); color: var(--ink); }
-  nav.jump img { height: 16px; width: auto; }
 
   section.card {
     background: var(--panel); border: 1px solid var(--line); border-radius: var(--r);
-    padding: 22px 22px 24px; display: grid; gap: 14px; scroll-margin-top: 64px; min-width: 0;
+    padding: 22px 22px 24px; display: grid; gap: 14px; scroll-margin-top: 16px; min-width: 0;
   }
   section.card:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
   @media (max-width: 520px) { section.card { padding: 18px 16px 20px; } }
@@ -96,121 +87,80 @@
   <header>
     <span class="eyebrow"><a href="./">HXtra</a></span>
     <h1>Features</h1>
-    <p class="lede">Everything HXtra adds to the HX Stomp, where to find it, and every setting. The <a href="./">setup page</a> builds all of these into one firmware; with <a href="https://github.com/wisemandenny/hxtra/blob/main/docs/building.md"><code>build.py</code></a> you choose them with switches.</p>
     <p class="note">Demos were recorded from a real HX Stomp's screen, along with its audio and button presses, then overlaid on a simulated HX Stomp.</p>
   </header>
 
-  <nav class="jump" aria-label="Features">
-    <ul>
-      <li><a href="#tuner-settings"><img src="../docs/assets/icons/tuner.svg" alt="">Tuner settings</a></li>
-      <li><a href="#bpm"><img src="../docs/assets/icons/bpm.svg" alt="">BPM</a></li>
-      <li><a href="#tap-led-color"><img src="../docs/assets/icons/tap-color.svg" alt="">Tap LED color</a></li>
-      <li><a href="#preset-led-color"><img src="../docs/assets/icons/preset-color.svg" alt="">Preset LED color</a></li>
-      <li><a href="#dsp-usage-display"><img src="../docs/assets/icons/dsp-usage.svg" alt="">DSP usage display</a></li>
-      <li><a href="#real-block-names"><img src="../docs/assets/icons/real-names.svg" alt="">Real block names</a></li>
-      <li><a href="#breathing-line"><img src="../docs/assets/icons/breathing-line.svg" alt="">Breathing line</a></li>
-      <li><a href="#fx-loop-gate"><img src="../docs/assets/icons/fx-gate.svg" alt="">FX Loop gate</a></li>
-      <li><a href="#long-press"><img src="../docs/assets/icons/long-press.svg" alt="">Long press</a></li>
-      <li><a href="#more-snapshots"><img src="../docs/assets/icons/snapshots.svg" alt="">More snapshots</a></li>
-      <li><a href="#metronome"><img src="../docs/assets/icons/metronome.svg" alt="">Metronome</a></li>
-      <li><a href="#usb-monitoring"><img src="../docs/assets/icons/usb-monitor.svg" alt="">USB monitoring</a></li>
-      <li><a href="#gr-meter"><img src="../docs/assets/icons/gr-meter.svg" alt="">GR meter</a></li>
-      <li><a href="#boot-screen-hx-stomp-only"><img src="../docs/assets/icons/boot-screen.svg" alt="">Boot screen</a></li>
-      <li><a href="#nam-a2-lite"><img src="../docs/assets/icons/nam.svg" alt="">NAM A2 Lite</a></li>
-    </ul>
-  </nav>
-
   <section class="card" id="overview">
-    <h2>Every feature</h2>
     <div class="tbl"><table>
     <thead>
     <tr>
     <th>Feature</th>
     <th>Where it is on the HX Stomp</th>
-    <th>Switch</th>
     </tr>
     </thead>
     <tbody>
     <tr>
     <td><a href="#tuner-settings">Tuner settings</a></td>
     <td>The tuner's own settings, on a third page: open the tuner and page right past Trails, Offsets and String 6</td>
-    <td><code>HX_TUNER=1</code></td>
     </tr>
     <tr>
     <td><a href="#bpm">BPM</a></td>
     <td>Home screen: the tempo at the top left, the beat dot beside the preset number · Global Settings &gt; BPM Display</td>
-    <td><code>HX_BPM=1</code></td>
     </tr>
     <tr>
     <td><a href="#tap-led-color">Tap LED color</a></td>
     <td>The TAP footswitch: its ring, and its icon and label on the Home screen · Global Settings &gt; Displays, under Tap Tempo LED</td>
-    <td><code>HX_TAP_COLOR=1</code></td>
     </tr>
     <tr>
     <td><a href="#preset-led-color">Preset LED color</a></td>
     <td>Each preset's footswitch in Preset footswitch mode, in its own colour: its ring, and its icon on the Home screen · Global Settings &gt; Displays, page 2</td>
-    <td><code>HX_PRESET_COLOR=1</code></td>
     </tr>
     <tr>
     <td><a href="#dsp-usage-display">DSP usage display</a></td>
     <td>Edit view and model browser: each block's or model's share, the total at the top right · no settings</td>
-    <td><code>HX_DSP_METER=1</code></td>
     </tr>
     <tr>
     <td><a href="#breathing-line">Breathing line</a></td>
     <td>Home screen: the line between the signal flow and the knobs · Global Settings &gt; Breathing Line</td>
-    <td><code>HX_BREATHING_LINE=1</code></td>
     </tr>
     <tr>
     <td><a href="#real-block-names">Real block names</a></td>
     <td>Model browser and Edit view: each block's title · no settings</td>
-    <td><code>HX_REAL_NAMES=1</code></td>
     </tr>
     <tr>
     <td><a href="#fx-loop-gate">FX Loop gate</a></td>
     <td>The FX Loop and Return blocks: three more knobs, Gate, Threshold and Decay</td>
-    <td><code>HX_FX_GATE=1</code></td>
     </tr>
     <tr>
     <td><a href="#long-press">Long press</a></td>
     <td>FS1–FS5 in Stomp footswitch mode · Global Settings &gt; Footswitches, pages 2 to 5</td>
-    <td><code>HX_LONG_PRESS=1</code></td>
     </tr>
     <tr>
     <td><a href="#more-snapshots">More snapshots</a></td>
     <td>The snapshot footswitches, with Footswitch Mode on Snapshot · no settings</td>
-    <td><code>HX_MORE_SNAPSHOTS=1</code></td>
     </tr>
     <tr>
     <td><a href="#metronome">Metronome</a></td>
     <td>Model browser: Looper &gt; Metronome &gt; Metronome · the block's knobs</td>
-    <td><code>HX_CLICK=1</code></td>
     </tr>
     <tr>
     <td><a href="#usb-monitoring">USB monitoring</a></td>
     <td>Path A's output to the computer instead of Main L/R · Global Settings &gt; Ins/Outs, page 3 · a DSP feature on the setup page</td>
-    <td><code>HX_USB_MONITOR=1</code></td>
     </tr>
     <tr>
     <td><a href="#gr-meter">GR meter</a></td>
     <td>Home screen and the compressor's Edit view, lit by a compressor · knobs on six compressors</td>
-    <td><code>HX_GR=1</code></td>
     </tr>
     <tr>
     <td><a href="#boot-screen-hx-stomp-only">Boot screen</a></td>
     <td>The screen at power-on · set when you build</td>
-    <td><code>--splash</code>, <code>--splash-text</code></td>
     </tr>
     <tr>
     <td><a href="#nam-a2-lite">NAM A2 Lite</a></td>
     <td>Model browser: Amp &gt; NAM</td>
-    <td><code>HX_NAM_SLOTS=3</code>, <code>2</code>, <code>1</code>, <code>0</code> (off); unset, the most that fit</td>
     </tr>
     </tbody>
     </table></div>
-    <p>Every feature here has run on an HX Stomp from RAM before it was released. The setup page builds them all, but some only when you tick their boxes: the <strong>DSP features</strong> (how many NAM A2 Lite blocks, the GR meter, the Metronome and the FX Loop gate; at first 2 NAM blocks and all three ticked) and Real block names. The DSP features share the DSP's spare memory, so the page shows what is left as you tick, and won't let you tick one that doesn't fit: fewer NAM blocks leave room for more of the others (<a href="#nam-a2-lite">NAM A2 Lite</a>). Each is off in a plain <code>build.py</code> build until its switch is set (an environment variable, or a <code>build.py</code> option), and switches combine:</p>
-    <pre><code class="language-sh">HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_MORE_SNAPSHOTS=1 HX_TAP_COLOR=1 python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
-    </code></pre>
   </section>
 
   <section class="card feat" id="custom-settings">
