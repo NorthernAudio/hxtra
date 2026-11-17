@@ -126,6 +126,7 @@ var SOURCES = [
   "src/sharc/frame_probe.asm",
   "src/sharc/fx_gate.asm",
   "src/sharc/usb_monitor.asm",
+  "src/sharc/main_send.asm",
 ];
 // The release's M4 code for the features (tools/m4cache.py); a page from a checkout has none, and offers no features.
 var CACHE = "m4cache.json";

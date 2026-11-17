@@ -2,7 +2,7 @@
 @ the Send jacks and USB 3/4 to the computer, so a DAW can monitor the processed sound while Main and the phones play only what it
 @ sends back on USB 1/2. USB Only also silences the Send jacks: the setting rides to the DSP inside USB Input Trim, sent after each
 @ send of path A's destination as trim + 1000 * (mode + 1), which the DSP splits again (src/sharc/usb_monitor.asm, its mode word;
-@ tools/patch_usbmon.py). The swap happens where the destination goes to the DSP, so every preset follows the setting.
+@ tools/patch_usbmon.py). Main+Snd keeps path A on Main; the DSP adds Main into the Send jacks (src/sharc/main_send.asm). The swap happens where the destination goes to the DSP, so every preset follows the setting.
 .syntax unified
 .thumb
 .include "hxtra.inc"
@@ -134,7 +134,7 @@ um_apply:                           @ sends path A's destination again when it i
 um_apply_done:
     pop {r4, r5, r6, pc}
 
-um_wanted:                          @ -> r0 path A's destination for a preset's Main: SEND for Send/USB and USB Only, else MAIN
+um_wanted:                          @ -> r0 path A's destination for a preset's Main: SEND for Send/USB and USB Only, else MAIN (Main+Snd too)
     push {r3, lr}
     bl um_setting
     subs r0, #1

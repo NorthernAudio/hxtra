@@ -25,7 +25,7 @@ TRIM_NAME, TRIM_ID, TRIM_TYPE = 4209, 3, 1          # usbInGain0_1, its Global S
 DATA = 0x30000000                           # a context and an app for um_send to read
 CTX, APP, PCTX, INST, HANDLE = DATA, DATA + 0x100, DATA + 0x2000, 0x7777, 0x5150
 MAIN, SEND = 1, 6
-SEND_USB, USB_ONLY = 1, 2
+SEND_USB, USB_ONLY, MAIN_SEND = 1, 2, 3
 _code = {}
 
 
@@ -101,12 +101,12 @@ def test_feature_setting():
     s, = um.SETTINGS
     assert um.FLAG == 'HX_USB_MONITOR' and um.MENU == 'Ins/Outs'
     assert pm.STOCK_CATEGORIES['Ins/Outs'] == (0, 0x28e3b55c)
-    assert s.values == (b'Main L/R', b'Send/USB', b'USB Only') and s.default == 0 and um.WEB == 'dsp'
+    assert s.values == (b'Main L/R', b'Send/USB', b'USB Only', b'Main+Snd') and s.default == 0 and um.WEB == 'dsp'
     assert all(len(v) <= 8 for v in s.values)
     assert (ID, 112, 0, 2) in [(v, c, b, n) for v, c, b, n, who, _ in setting_ids.VIRTUAL if who == 'usb_monitor.path_a']
 
 
-@pytest.mark.parametrize('value, sent', [(None, MAIN), (0, MAIN), (SEND_USB, SEND), (USB_ONLY, SEND)])
+@pytest.mark.parametrize('value, sent', [(None, MAIN), (0, MAIN), (SEND_USB, SEND), (USB_ONLY, SEND), (MAIN_SEND, MAIN)])
 def test_path_a_main_follows_the_setting(mon, value, sent):
     mon.value = value
     assert mon.send(CTX, APP, 0, MAIN) == (CTX, APP, 0, sent)
@@ -118,7 +118,7 @@ def test_everything_else_goes_through(mon, path, dest):
     assert mon.send(CTX, APP, path, dest) == (CTX, APP, path, dest)
 
 
-@pytest.mark.parametrize('value', [None, 0, SEND_USB, USB_ONLY])
+@pytest.mark.parametrize('value', [None, 0, SEND_USB, USB_ONLY, MAIN_SEND])
 def test_the_mode_follows_path_a(mon, value):
     mon.value = value
     mon.send(CTX, APP, 0, MAIN)
@@ -168,6 +168,15 @@ def test_send_usb_to_usb_only_sends_again(mon):
     mon.send(CTX, APP, 0, MAIN)
     assert mon.modes[-1][1] == USB_ONLY
     assert mon.apply('um_page', 0x3333) == []
+
+
+def test_main_to_main_send_sends_again(mon):
+    mon.value = 0
+    mon.send(CTX, APP, 0, MAIN)
+    mon.value = MAIN_SEND
+    assert mon.apply('um_changed', 0x3333, ID) == [(0x2844adcc, 9, MAIN)], 'same destination, another mode'
+    assert mon.send(CTX, APP, 0, MAIN)[3] == MAIN
+    assert mon.modes[-1][1] == MAIN_SEND
 
 
 def test_a_turn_sends_path_a_again(mon):
