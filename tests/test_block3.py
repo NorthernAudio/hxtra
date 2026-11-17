@@ -63,7 +63,7 @@ def test_room_ends_at_an_even_instruction():
 
 
 def test_costs_are_whole_instruction_pairs():
-    assert {f: block3.cost(f) for f in EVERY} == {'HX_CLICK': 213, 'HX_FX_GATE': 291, 'HX_GR': 789, 'HX_USB_MONITOR': 90}
+    assert {f: block3.cost(f) for f in EVERY} == {'HX_CLICK': 213, 'HX_FX_GATE': 291, 'HX_GR': 789, 'HX_USB_MONITOR': 414}
     for f in EVERY:
         n_dm, n_pm = block3.size(f)
         assert block3.cost(f) % 3 == 0 and block3.cost(f) >= n_dm + n_pm * 3 // 2

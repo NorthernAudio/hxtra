@@ -168,13 +168,16 @@ def ldr_blocks(data):
 
 
 @pytest.mark.firmware
-def test_the_send_writer_and_the_gain_enter_the_dsp_code(patched):
+def test_the_writers_and_the_gain_enter_the_dsp_code(patched):
     _, new = patched
     dm, pm = pu.dsp_place()
     _, syms = pa.sasm.assemble(pu.dsp_asm(dm, pm), 'usb_monitor.asm')
     rows = {b[0]: b for t, a, b in ldr_blocks(new) if t == 4 and len(b) == 8}
     assert rows[pu.SEND][4:6] == (0x60a5ed, syms['ENTRY_2AAA']), 'the writer\'s process code, its control function stock'
     assert rows[pu.GAIN][4:6] == (syms['CTRL_80'], pu.GAIN_PROC), 'the gain\'s control function, its process code stock'
+    assert rows[pu.MAIN][4:6] == (0x60a5ed, syms['ENTRY_2AA8']), 'the Main writer\'s process code (Main+Snd), its control stock'
+    assert rows[pu.PHONES][4:6] == (0x60a5ed, syms['ENTRY_2AAB']), 'the phones writer\'s process code, its control stock'
+    assert rows[pu.USB_OUT][4:6] == (0x60a5ed, syms['ENTRY_2AAC']), 'USB out\'s process code (USB 3/4), its control stock'
 
 
 @pytest.mark.firmware
