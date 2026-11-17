@@ -140,11 +140,17 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#more-snapshots"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
+### <img src="docs/assets/icons/tap-command.svg" width="28" height="28" align="top" alt=""> Tap Command
+
+*Menu › Command Center, on FS1 … FS5*
+
+- **Tap** (a Command for an FS slot, after Hotkey): the footswitch taps the tempo as TAP does, only in the presets where you put it, and its ring blinks the tempo. The footswitch must be a Stomp switch (Global Settings › Footswitches for FS3 … FS5). On stock firmware the footswitch doesn't tap.
+
 ### <img src="docs/assets/icons/tap-color.svg" width="28" height="28" align="top" alt=""> TAP LED Color
 
 *Global Settings › Displays*
 
-- **Tap LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random): the colour of the TAP footswitch's blinking LED ring, and the icon and label of TAP/TUNER on the Home screen. Rainbow fades the ring a small step through the rainbow on each beat; Random picks a new colour at each beat. Both keep the label white.
+- **Tap LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random, Off): the colour of the TAP footswitch's blinking LED ring, and the icon and label of TAP/TUNER on the Home screen. Rainbow fades the ring a small step through the rainbow on each beat; Random picks a new colour at each beat. Both keep the label white. Off stops the blink: it takes the place of the stock Tap Tempo LED setting.
 
 <a href="https://wisemandenny.github.io/hxtra/web/features.html#tap-led-color"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
