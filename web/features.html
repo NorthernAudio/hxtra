@@ -57,6 +57,10 @@
   .group > h2, .group > .note { margin: 0; }
   .group > h2 { font-size: 28px; margin-top: 12px; }
   .group > .note { margin-top: -12px; }
+  .settings { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); min-width: 0; }
+  .settings > * { margin: 0; }
+  .settings h3 { font: 600 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .settings .where { font-weight: 600; }
   .note { margin: 0; color: var(--muted); font-size: 13.5px; font-style: italic; }
 
 
@@ -199,95 +203,6 @@
     </table></div>
   </section>
 
-  <section class="card feat" id="custom-settings">
-    <h2>Feature settings</h2>
-    <p class="note">Turn the knob right past 'Displays' to find new global settings.</p>
-<div class="tbl"><table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Setting</th>
-<th>Values</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BPM Display</td>
-<td><strong>Font Size</strong></td>
-<td>XL, <strong>L</strong>, M, S, Off</td>
-<td>The tempo's size. XL is digits only: no <code>X</code> with MIDI clock and nothing with no tempo. Off hides the tempo</td>
-</tr>
-<tr>
-<td>BPM Display</td>
-<td><strong>Color</strong></td>
-<td><strong>White</strong>, Gray, Red, Orange, Yellow, Green, Cyan, Blue, Purple, Tempo</td>
-<td>The tempo's and the dot's colour. Tempo follows the TAP footswitch's colour (Tap LED Color; stock red in a build without it)</td>
-</tr>
-<tr>
-<td>BPM Display</td>
-<td><strong>Dot Position</strong></td>
-<td><strong>Left</strong>, Right, Both, Off</td>
-<td>Where the beat dot sits, beside the preset number. Off hides the dot; with Font Size Off too the BPM display is off and the TAP ring blinks as stock</td>
-</tr>
-<tr>
-<td>Breathing Line</td>
-<td><strong>Color</strong></td>
-<td>White, Red, Green, Blue, Fire, Ice, Sunset, Ocean, Aurora, Neon, <strong>Rainbow</strong></td>
-<td>The line's colours. The gradients flow along the line: Fire is red, orange and yellow; Ice blue, cyan and white; Sunset purple, pink and orange; Ocean deep blue, blue and aqua; Aurora green, sky blue and violet; Neon magenta, indigo and cyan; Rainbow every hue. Where the motion dims the line, the colours dim with it.</td>
-</tr>
-<tr>
-<td>Breathing Line</td>
-<td><strong>Type</strong></td>
-<td>Off, Steady, <strong>Breathe</strong>, Cylon, Comet, Heart, Sparkle</td>
-<td>How it moves. Breathe slowly fades the whole line in and out. Cylon sweeps a wide light from end to end and back, slowing at the ends, with a trail behind it. Comet shoots a light across with a long tail. Heart beats lub-dub from the middle. Sparkle twinkles at random. Steady holds the full colour. Off gives back the stock line.</td>
-</tr>
-<tr>
-<td>Breathing Line</td>
-<td><strong>Speed</strong></td>
-<td>1, 2, 3, <strong>4</strong>, 5 … 10, Tempo</td>
-<td>One cycle takes 8 s at 1, 4 s at 4, 0.8 s at 10. Tempo follows the tempo (Global BPM or Preset BPM, as Tempo Select says): a beat a cycle for Heart, two for Breathe, Cylon and Comet, four for Steady, eight for Sparkle; with no tempo it runs at 4.</td>
-</tr>
-<tr>
-<td>Foot Switch Long Press</td>
-<td><strong>FS1 Hold Function</strong> … <strong>FS5 Hold Function</strong></td>
-<td>Off, Tuner, FS4, FS5, <strong>FS6 … FS10</strong></td>
-<td>What holding that footswitch for 1 s does. FS4 and FS5 are external switches. By default FS1 holds FS6, and so on up to FS5 and FS10. In Global Settings &gt; Footswitches, pages 2 and 3, after FS5 Function.</td>
-</tr>
-<tr>
-<td>Preset Mode LED Color</td>
-<td><strong>Preset LED</strong></td>
-<td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White</td>
-<td>In Preset footswitch mode, the colour of a preset without its own while it is selected: its ring, and its switch icon on the Home screen. In Global Settings &gt; Displays, page 2.</td>
-</tr>
-<tr>
-<td>Preset Mode LED Color</td>
-<td><strong>This Preset</strong></td>
-<td><strong>None</strong>, Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White</td>
-<td>The current preset's own colour, saved with the preset. In Preset footswitch mode its ring and icon are lit in it while it is selected and dimmed while it is not. In Global Settings &gt; Displays, page 2.</td>
-</tr>
-<tr>
-<td>TAP LED Color</td>
-<td><strong>Tap LED Color</strong></td>
-<td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random</td>
-<td>The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label. In Global Settings &gt; Displays, under Tap Tempo LED.</td>
-</tr>
-<tr>
-<td>USB &amp; Send Routing</td>
-<td><strong>Path A Out</strong></td>
-<td><strong>Main L/R</strong>, Send/USB, USB Only, Main+Snd</td>
-<td>Where path A's Output block goes. Send/USB sends it to the computer on USB 3/4 instead of Main L/R, so a DAW monitors it; Main and the phones play only what comes back on USB 1/2. The Send jacks carry the same sound. USB Only sends it to the computer alone, the Send jacks silent. Main+Snd keeps it on Main L/R and copies Main to the Send jacks and USB 3/4 too. In Global Settings &gt; Ins/Outs, page 3, after the stock settings.</td>
-</tr>
-<tr>
-<td>Virtual Footswitches (FS6-10)</td>
-<td><strong>FS6 Function</strong> … <strong>FS10 Function</strong></td>
-<td>Tuner, <strong>Stomp 6 … 10</strong>, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode&gt;, &lt;FS Mode, AllBypas, TogglEXP, GlobalEQ</td>
-<td>What that virtual footswitch does, as FS3 … FS5 Function do for the real ones, with Tuner in place of TAP/Tunr, and GlobalEQ added. In Global Settings &gt; Footswitches, pages 4 and 5.</td>
-</tr>
-</tbody>
-</table></div>
-  </section>
-
   <section class="group" id="demos">
     <h2>Demos</h2>
     <p class="note">Demos were recorded from a real HX Stomp's screen, along with its audio and button presses, then overlaid on a simulated HX Stomp.</p>
@@ -302,8 +217,37 @@
   <ul>
   <li><strong>The tempo</strong> is the one the HX Stomp is using, the global or the preset's as Tempo Select says, as a whole number. It shows <code>X</code> after it while the tempo comes from MIDI clock (the tempo screen's Extrnl), and <code>--</code> with no tempo.</li>
   <li><strong>The dot</strong> keeps the beat in every footswitch mode, and with Tap Tempo LED off too: the ring then stays dark while the dot blinks.</li>
-  <li><strong>Settings</strong> (Global Settings &gt; BPM Display): Font Size, Color (the tempo's and the dot's; Tempo takes the TAP footswitch's colour) and Dot Position (left of the preset number, right of it, or both). Off on Font Size hides the tempo and on Dot Position the dot; both Off turns the display off without a rebuild. See <a href="#custom-settings">Feature settings</a>.</li>
-  </ul>
+    </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; BPM Display</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Font Size</strong></td>
+        <td>XL, <strong>L</strong>, M, S, Off</td>
+        <td>The tempo's size. XL is digits only: no <code>X</code> with MIDI clock and nothing with no tempo. Off hides the tempo</td>
+        </tr>
+        <tr>
+        <td><strong>Color</strong></td>
+        <td><strong>White</strong>, Gray, Red, Orange, Yellow, Green, Cyan, Blue, Purple, Tempo</td>
+        <td>The tempo's and the dot's colour. Tempo follows the TAP footswitch's colour (Tap LED Color; stock red in a build without it)</td>
+        </tr>
+        <tr>
+        <td><strong>Dot Position</strong></td>
+        <td><strong>Left</strong>, Right, Both, Off</td>
+        <td>Where the beat dot sits, beside the preset number. Off hides the dot; with Font Size Off too the BPM display is off and the TAP ring blinks as stock</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="breathing-line">
@@ -317,8 +261,37 @@
   <ul>
   <li><strong>Where it shows:</strong> on the Home screen only. Other screens stay stock, and the line stops animating while you're on them.</li>
   <li><strong>The selected part of the line</strong> is still thicker, as on the stock line, and <strong>Off</strong> gives the stock line back.</li>
-  <li><strong>Settings</strong> (Global Settings &gt; Breathing Line): Color, Type and Speed. See <a href="#custom-settings">Feature settings</a>.</li>
-  </ul>
+    </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Breathing Line</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Color</strong></td>
+        <td>White, Red, Green, Blue, Fire, Ice, Sunset, Ocean, Aurora, Neon, <strong>Rainbow</strong></td>
+        <td>The line's colours. The gradients flow along the line: Fire is red, orange and yellow; Ice blue, cyan and white; Sunset purple, pink and orange; Ocean deep blue, blue and aqua; Aurora green, sky blue and violet; Neon magenta, indigo and cyan; Rainbow every hue. Where the motion dims the line, the colours dim with it.</td>
+        </tr>
+        <tr>
+        <td><strong>Type</strong></td>
+        <td>Off, Steady, <strong>Breathe</strong>, Cylon, Comet, Heart, Sparkle</td>
+        <td>How it moves. Breathe slowly fades the whole line in and out. Cylon sweeps a wide light from end to end and back, slowing at the ends, with a trail behind it. Comet shoots a light across with a long tail. Heart beats lub-dub from the middle. Sparkle twinkles at random. Steady holds the full colour. Off gives back the stock line.</td>
+        </tr>
+        <tr>
+        <td><strong>Speed</strong></td>
+        <td>1, 2, 3, <strong>4</strong>, 5 … 10, Tempo</td>
+        <td>One cycle takes 8 s at 1, 4 s at 4, 0.8 s at 10. Tempo follows the tempo (Global BPM or Preset BPM, as Tempo Select says): a beat a cycle for Heart, two for Breathe, Cylon and Comet, four for Steady, eight for Sparkle; with no tempo it runs at 4.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="gr-meter">
@@ -328,37 +301,41 @@
         <figure><video src="https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995" width="1280" height="914" controls preload="metadata" playsinline></video></figure>
       </div>
       <p>A gain-reduction meter on the Home screen and in the compressor's Edit view, lit by the compressor you turn it on in, so you can see how hard it is working. HX Stomp only.</p>
-  <div class="tbl"><table>
-  <thead>
-  <tr>
-  <th>Knob</th>
-  <th>Values</th>
-  <th>What it does</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td><strong>Mtr Size</strong></td>
-  <td>Off, S, M, L, XL (default <strong>Off</strong>)</td>
-  <td>The meter's thickness: 5, 10, 15 or 20 pixels. A preset saved with an older build's Mtr Thk opens at S for 1 px, M for 2, L for 3 and XL for 4 or more.</td>
-  </tr>
-  <tr>
-  <td><strong>Mtr Pos</strong></td>
-  <td><strong>Middle</strong> (default), Top, Left, Bottom, Right</td>
-  <td>Where on the Home screen and the Edit view the meter lights up. Middle takes the place of the line across the middle.</td>
-  </tr>
-  <tr>
-  <td><strong>Mtr Dir</strong></td>
-  <td><strong>Normal</strong> (default), Reverse</td>
-  <td>Normal fills left to right or top to bottom; Reverse the other way.</td>
-  </tr>
-  </tbody>
-  </table></div>
   <ul>
   <li><strong>Which compressors:</strong> Deluxe, LA Studio, Kinky, Ampeg Opto, Rochester and Red Squeeze.</li>
   <li><strong>Edit view:</strong> while one of these compressors is selected, the meter shows in its Edit view too, in the same place and size, so you can set the compressor up while you play. Its lit lights cover what is under them (the preset name at Top, the knob names at Bottom); unlit ones leave it showing. With two metered compressors in a preset, both Edit views show the one whose Mtr Size was set last.</li>
   <li><strong>With NAM:</strong> the meter's DSP code takes the room of NAM A2 Lite's third block, so a build with it has two NAM blocks at most.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">The compressor's Mtr Size, Mtr Pos and Mtr Dir knobs, on every compressor but the 3-Band Comp</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Knob</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Mtr Size</strong></td>
+        <td><strong>Off</strong>, S, M, L, XL</td>
+        <td>The meter's thickness: 5, 10, 15 or 20 pixels. A preset saved with an older build's Mtr Thk opens at S for 1 px, M for 2, L for 3 and XL for 4 or more.</td>
+        </tr>
+        <tr>
+        <td><strong>Mtr Pos</strong></td>
+        <td><strong>Middle</strong>, Top, Left, Bottom, Right</td>
+        <td>Where on the Home screen and the Edit view the meter lights up. Middle takes the place of the line across the middle.</td>
+        </tr>
+        <tr>
+        <td><strong>Mtr Dir</strong></td>
+        <td><strong>Normal</strong>, Reverse</td>
+        <td>Normal fills left to right or top to bottom; Reverse the other way.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="dsp-usage-display">
@@ -369,13 +346,37 @@
       </div>
       <p>In the Edit view, each block in the signal-flow row shows its share of the DSP in per cent, in black on the block. The top right corner shows the blocks' total out of 75, e.g. <code>47/75</code>.</p>
   <p>In the model browser, each model shows the share it would take, in white between its icon and its name, and the top right corner shows the total as in the Edit view.</p>
-  <p>Global Settings › DSP Usage Display has three settings:</p>
-  <ul>
-  <li><strong>Model Browser</strong> (On, Off): the shares in the model browser, On by default. The browser's model names stay where the meter moved them, with room for the shares, even when it is Off.</li>
-  <li><strong>Edit Blocks</strong> (On, Off): the shares on the Edit view's blocks, On by default.</li>
-  <li><strong>Total</strong> (Small, Large, Off): the total in the top right corner. <strong>Small</strong>, the default, draws it in the meter's 3x5 digits at 2x, about half the title's height, in the same corner, so a long name can still run into it. <strong>Large</strong> draws it in the title's font, as before these settings. <strong>Off</strong> draws nothing there, so a long preset name or block title isn't covered.</li>
-  </ul>
   <p>75 is what blocks may use: the firmware's preset limit of 90%, less the 15% it always keeps. The numbers are the firmware's own fixed cost of each model, the same ones it uses to decide whether a block fits, not a measured load.</p>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; DSP Usage Display</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Model Browser</strong></td>
+        <td><strong>On</strong>, Off</td>
+        <td>The shares in the model browser. The browser's model names stay where the meter moved them, with room for the shares, even when it is Off.</td>
+        </tr>
+        <tr>
+        <td><strong>Edit Blocks</strong></td>
+        <td><strong>On</strong>, Off</td>
+        <td>The shares on the Edit view's blocks.</td>
+        </tr>
+        <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>Small</strong>, Large, Off</td>
+        <td>The total in the top right corner. <strong>Small</strong> draws it in the meter's 3x5 digits at 2x, about half the title's height, in the same corner, so a long name can still run into it. <strong>Large</strong> draws it in the title's font, as before these settings. <strong>Off</strong> draws nothing there, so a long preset name or block title isn't covered.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="tuner-settings">
@@ -385,28 +386,32 @@
         <figure><img src="https://github.com/user-attachments/assets/7decba81-b026-4fb5-95f9-6c8899b2e47c" width="480" height="360" alt="The tuner: Activate set to Press, so one press opens it, then Lock On and its knobs no longer change" loading="lazy"></figure>
       </div>
       <p>With <code>HX_TUNER=1</code>, the tuner's own settings get a page of their own, third: page right past Trails, Offsets and String 6. The string pages (Strings 5–3, then 2 and 1) follow it: few players use the per-string offsets, so the page comes before them. Its knobs set them as the stock pages' knobs do: turn to change, press to go back to the default.</p>
-  <div class="tbl"><table>
-  <thead>
-  <tr>
-  <th>Knob</th>
-  <th>Values</th>
-  <th>What it does</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td><strong>Activate</strong> (Tuner Activation)</td>
-  <td><strong>Hold</strong> (default), <strong>Press</strong></td>
-  <td>A footswitch assigned TAP/Tunr normally taps the tempo, and holding it opens the tuner. On <strong>Press</strong>, pressing it opens the tuner at once and the tempo is no longer tapped. It follows the assignment, so it works on whichever footswitch has TAP/Tunr.</td>
-  </tr>
-  <tr>
-  <td><strong>Lock</strong> (Lock Tuner Settings)</td>
-  <td><strong>Off</strong> (default), <strong>On</strong></td>
-  <td>On stops the tuner's other settings (Output, Refrnc, Type, Trails, Offsets) from changing: knob turns and the knob presses that reset an item to its default are ignored. Paging still works, and this page's knobs still turn, so Lock can be turned off where it was turned on.</td>
-  </tr>
-  </tbody>
-  </table></div>
-  <p>Both keep their values (setting IDs 29 and 104) from builds that had them in Global Settings &gt; HXtra.</p>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">The tuner's settings, page 3 (page right past Trails, Offsets and String 6)</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Knob</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Activate</strong> (Tuner Activation)</td>
+        <td><strong>Hold</strong>, Press</td>
+        <td>A footswitch assigned TAP/Tunr normally taps the tempo, and holding it opens the tuner. On <strong>Press</strong>, pressing it opens the tuner at once and the tempo is no longer tapped. It follows the assignment, so it works on whichever footswitch has TAP/Tunr.</td>
+        </tr>
+        <tr>
+        <td><strong>Lock</strong> (Lock Tuner Settings)</td>
+        <td><strong>Off</strong>, On</td>
+        <td>On stops the tuner's other settings (Output, Refrnc, Type, Trails, Offsets) from changing: knob turns and the knob presses that reset an item to its default are ignored. Paging still works, and this page's knobs still turn, so Lock can be turned off where it was turned on.</td>
+        </tr>
+        </tbody>
+        </table></div>
+        <p>Both keep their values (setting IDs 29 and 104) from builds that had them in Global Settings &gt; HXtra.</p>
+      </div>
     </section>
 
     <section class="card feat" id="long-press">
@@ -422,42 +427,66 @@
   <li><strong>FS6 … FS10</strong> switch a virtual footswitch: see <a href="#virtual-footswitches">Virtual Footswitches (FS6-10)</a>.</li>
   <li>A switch with Hold <strong>Off</strong>, a momentary switch, and the Preset and Snapshot footswitch modes work as stock.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Footswitches, pages 2 and 3</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>FS1 Hold Function</strong> … <strong>FS5 Hold Function</strong></td>
+        <td>Off, Tuner, FS4, FS5, <strong>FS6 … FS10</strong></td>
+        <td>What holding that footswitch for 1 s does. FS4 and FS5 are external switches. By default FS1 holds FS6, and so on up to FS5 and FS10.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="fx-loop-gate">
       <h2><img class="ico" src="../docs/assets/icons/fx-gate.svg" width="28" height="28" alt="">FX Loop Noise Gate</h2>
       <p>A noise gate built into the FX Loop and Return blocks, as the Input block has one, so a noisy pedal in the loop doesn't take a Noise Gate block of its own (<a href="https://github.com/wisemandenny/hxtra/issues/69">#69</a>). It gates what comes back from the loop, before the block's Return level and Mix; the dry signal and the Send are not gated.</p>
-  <div class="tbl"><table>
-  <thead>
-  <tr>
-  <th>Knob</th>
-  <th>Values</th>
-  <th>What it does</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td><strong>Gate</strong></td>
-  <td><strong>Off</strong> (default), On</td>
-  <td>Turns the gate on. Off, the block sounds as on stock firmware.</td>
-  </tr>
-  <tr>
-  <td><strong>Threshold</strong></td>
-  <td>−96 … 0 dB (default <strong>−48</strong>)</td>
-  <td>Below this level the returned signal is muted.</td>
-  </tr>
-  <tr>
-  <td><strong>Decay</strong></td>
-  <td>0.01 … 1 s (default <strong>0.1</strong>)</td>
-  <td>How fast the gate closes.</td>
-  </tr>
-  </tbody>
-  </table></div>
   <ul>
   <li><strong>DSP:</strong> each FX Loop and Return block costs about 0.2% more (0.4% stereo), whether its gate is on or off. A preset already at the limit with one of these blocks may not load.</li>
   <li><strong>Stereo blocks</strong> gate each side on its own, not linked.</li>
   <li><strong>Presets</strong> saved with the gate keep its knobs. Opening such a preset on stock firmware, or in HX Edit, is not tested yet.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">The block's Gate, Threshold and Decay knobs</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Knob</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Gate</strong></td>
+        <td><strong>Off</strong>, On</td>
+        <td>Turns the gate on. Off, the block sounds as on stock firmware.</td>
+        </tr>
+        <tr>
+        <td><strong>Threshold</strong></td>
+        <td>−96 … <strong>−48</strong> … 0 dB</td>
+        <td>Below this level the returned signal is muted.</td>
+        </tr>
+        <tr>
+        <td><strong>Decay</strong></td>
+        <td>0.01 … <strong>0.1</strong> … 1 s</td>
+        <td>How fast the gate closes.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="metronome">
@@ -467,41 +496,45 @@
         <figure><video src="https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933" width="1280" height="914" controls preload="metadata" playsinline></video></figure>
       </div>
       <p>A click track in time with the tempo, as a block: add it from the model browser, Looper &gt; Metronome &gt; Metronome, anywhere in the signal flow. It is a mono effect block, listed under Looper so it's easy to find; it isn't a looper. In the signal flow it is teal, lit when on and dim when off, and its icon is a metronome.</p>
-  <div class="tbl"><table>
-  <thead>
-  <tr>
-  <th>Knob</th>
-  <th>Values</th>
-  <th>What it does</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td><strong>Time</strong></td>
-  <td>a note value, synced to the tempo (<strong>1/4</strong> by default), as a delay's Time</td>
-  <td>The beat: 100 ms to 8 s.</td>
-  </tr>
-  <tr>
-  <td><strong>Level</strong></td>
-  <td>−60 … +6 dB (default <strong>−14</strong>)</td>
-  <td>The click's volume.</td>
-  </tr>
-  <tr>
-  <td><strong>Accent</strong></td>
-  <td><strong>Off</strong> (default), 2 … 12</td>
-  <td>Every nth beat is a downbeat, a higher click (2 kHz instead of 1 kHz).</td>
-  </tr>
-  <tr>
-  <td><strong>Thru</strong></td>
-  <td>Off, <strong>On</strong> (default)</td>
-  <td>On passes your signal with the click under it; Off gives the click alone.</td>
-  </tr>
-  </tbody>
-  </table></div>
   <ul>
   <li><strong>The beat</strong> starts when the block does, and a new tempo or Time counts from the last beat. Tapping the tempo doesn't yet move the beat onto your taps, and <a href="#bpm">BPM Display</a>'s dot blinks with the TAP ring, not with the click.</li>
   <li><strong>Presets</strong> store the block as model 181, as the earlier builds that listed it under Modulation did, so presets made with them keep it.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">The block's Time, Level, Accent and Thru knobs</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Knob</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Time</strong></td>
+        <td><strong>1/4</strong> and the other note values, synced to the tempo as a delay's Time</td>
+        <td>The beat: 100 ms to 8 s.</td>
+        </tr>
+        <tr>
+        <td><strong>Level</strong></td>
+        <td>−60 … <strong>−14</strong> … +6 dB</td>
+        <td>The click's volume.</td>
+        </tr>
+        <tr>
+        <td><strong>Accent</strong></td>
+        <td><strong>Off</strong>, 2 … 12</td>
+        <td>Every nth beat is a downbeat, a higher click (2 kHz instead of 1 kHz).</td>
+        </tr>
+        <tr>
+        <td><strong>Thru</strong></td>
+        <td>Off, <strong>On</strong></td>
+        <td>On passes your signal with the click under it; Off gives the click alone.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="more-snapshots">
@@ -520,6 +553,10 @@
   <li><strong>MIDI CC 69:</strong> values 0–2 select snapshots 1–3 and values 3–5 select snapshots 4–6, whichever bank you're in. Selecting 4–6 on a preset that has none yet makes them as a flip does. Sending the lit snapshot's own value does what Reselect Snapshot says, as stock.</li>
   <li><strong>What else changes:</strong> pressing the lit snapshot footswitch no longer does what Reselect Snapshot says. HX Edit's snapshot buttons work within the bank you're in.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">No settings</p>
+      </div>
     </section>
 
     <section class="card feat" id="nam-a2-lite">
@@ -529,10 +566,16 @@
   <li><strong>Where:</strong> Amp &gt; NAM, a block with ten knobs and a tone stack. It sits on Xenomorph Fuzz Mono's preset ID 555 (that stock model is removed), so HX Edit keeps NAM blocks, and presets made with either build open with the other.</li>
   <li><strong>Older presets:</strong> presets saved with an earlier NAM build (preset IDs 147 and 148) don't open NAM A2 Lite in this one: re-add the block in those presets.</li>
   <li><strong>How many blocks:</strong> up to 3 play at once, each its own capture; a further one passes its input through. On the setup page you pick 3, 2, 1 or Off among the DSP features, and fewer leave room for more of the others: 3 blocks leave room for the Metronome and the FX Loop gate, 2 for those and the GR meter. With <code>build.py</code>, <code>HX_NAM_SLOTS</code> sets it; unset, it's the most that leave room for the DSP features you turned on.</li>
-  <li><strong>Model</strong> reads as the slot number, 4 rather than 4.0, on the HX Stomp. A value between slots (from a MIDI controller) reads as the slot that plays. The HX Stomp XL still reads 4.0.</li>
   <li><strong>Captures:</strong> none are included. You bring your own <code>.nam</code> files, and their licences are up to their authors.</li>
   </ul>
   <p>Upstream's <a href="https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md">CHANGELOG.md</a> has the NAM changes.</p>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">The block's knobs</p>
+        <ul>
+        <li><strong>Model</strong> reads as the slot number, 4 rather than 4.0, on the HX Stomp. A value between slots (from a MIDI controller) reads as the slot that plays. The HX Stomp XL still reads 4.0.</li>
+        </ul>
+      </div>
     </section>
 
     <section class="card feat" id="preset-led-color">
@@ -545,6 +588,31 @@
   <li><strong>A change</strong> shows when you go back to the Home screen.</li>
   <li><strong>Other modes</strong> keep the stock colours: Stomp mode's rings are the blocks' colours, Snapshot mode's the snapshots'.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Displays, page 2</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Preset LED</strong></td>
+        <td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White</td>
+        <td>In Preset footswitch mode, the colour of a preset without its own while it is selected: its ring, and its switch icon on the Home screen.</td>
+        </tr>
+        <tr>
+        <td><strong>This Preset</strong></td>
+        <td><strong>None</strong>, Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White</td>
+        <td>The current preset's own colour, saved with the preset. In Preset footswitch mode its ring and icon are lit in it while it is selected and dimmed while it is not.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="real-block-names">
@@ -558,6 +626,10 @@
   <li><strong>What keeps its name:</strong> Line 6 originals, utility blocks and titles that are already real.</li>
   <li><strong>Presets</strong> keep the same model IDs, so a preset is the same with or without real names, and opens on stock firmware as usual.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">No settings</p>
+      </div>
     </section>
 
     <section class="card feat" id="tap-led-color">
@@ -575,6 +647,26 @@
   <li><strong>External MIDI clock:</strong> the ring keeps the stock colour it blinks with then. <strong>Tap Tempo LED</strong> still decides whether the ring blinks at all.</li>
   <li><strong>BPM Display's Color Tempo</strong> gives the tempo and the beat dot the TAP footswitch's colour, the ring's current one with Rainbow and Random.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Displays, under Tap Tempo LED</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Tap LED Color</strong></td>
+        <td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random</td>
+        <td>The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="usb-monitoring">
@@ -590,6 +682,26 @@
   <li><strong>Saving a preset</strong> with Send/USB or USB Only on stores Send for path A. A stock HX Stomp refuses that value when it loads the preset and keeps path A on Main L/R.</li>
   <li>The stock firmware can reach the same output only from path B: put a block on path B, move the merge to the end (its output is then Send L/R) and turn path A's Output Level down.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Ins/Outs, page 3</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Path A Out</strong></td>
+        <td><strong>Main L/R</strong>, Send/USB, USB Only, Main+Snd</td>
+        <td>Where path A's Output block goes. Send/USB sends it to the computer on USB 3/4 instead of Main L/R, so a DAW monitors it; Main and the phones play only what comes back on USB 1/2. The Send jacks carry the same sound. USB Only sends it to the computer alone, the Send jacks silent. Main+Snd keeps it on Main L/R and copies Main to the Send jacks and USB 3/4 too.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
 
     <section class="card feat" id="virtual-footswitches">
@@ -603,6 +715,26 @@
   <li><strong>FS6 … FS10</strong> are virtual footswitches. Each toggles the blocks you assign to it: in a block's Bypass Assign, set MIDI In to FS6 … FS10 (the first five steps up from Off; the knob's label reads FootswIn while it's on one). The assignment is saved in the preset, and parameters assigned to the same footswitch through Controller Assign follow it too. They are MIDI CC 20–24 underneath, which is how HX Edit and other MIDI gear see them.</li>
   <li><strong>FS6 Function … FS10 Function</strong> give a virtual footswitch the same choices FS3 … FS5 Function give a real one, with <strong>Tuner</strong> (opens the tuner) in place of TAP/Tunr, since a hold has no use for a tap. <strong>Stomp</strong>, the default, toggles its blocks as above. The others do what that function does on a press and release of a real footswitch: <strong>Bank Up/Dn</strong> opens the bank in Preset mode, <strong>PresetUp/Dn</strong> and <strong>SnpshtUp/Dn</strong> step the preset or snapshot, <strong>FS Mode&gt; / &lt;FS Mode</strong> step the footswitch mode, <strong>AllBypas</strong> bypasses everything, and <strong>TogglEXP</strong> switches EXP 1/2 and toggles the virtual footswitch's blocks. <strong>GlobalEQ</strong>, which no real footswitch offers, opens Global EQ for room or stage correction; it does nothing while the tuner is open. While Global EQ is open, however you got there, a press of any footswitch goes back to Home, as one leaves the tuner, and toggles nothing. Holds act only in Stomp mode, so after a function that leaves it (FS Mode, Bank), come back with a real footswitch or the menu. A MIDI CC 20–24 from outside still toggles the blocks, whatever the function.</li>
   </ul>
+      <div class="settings">
+        <h3>Settings</h3>
+        <p class="where">Global Settings &gt; Footswitches, pages 4 and 5</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th>Setting</th>
+        <th>Values</th>
+        <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>FS6 Function</strong> … <strong>FS10 Function</strong></td>
+        <td>Tuner, <strong>Stomp 6 … 10</strong>, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode&gt;, &lt;FS Mode, AllBypas, TogglEXP, GlobalEQ</td>
+        <td>What that virtual footswitch does, as FS3 … FS5 Function do for the real ones, with Tuner in place of TAP/Tunr, and GlobalEQ added.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
     </section>
   </section>
 

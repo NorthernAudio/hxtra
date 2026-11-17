@@ -43,3 +43,11 @@ def test_every_demo_slot_has_sized_media():
     for slot in slots:
         media = re.findall(r"<(?:img|video) [^>]*>", slot)
         assert media and all(re.search(r'width="\d+" height="\d+"', m) for m in media)
+
+
+def test_every_feature_card_ends_with_its_settings():
+    cards = re.findall(r'<section class="card feat" id="[\w-]+">(.*?)</section>', page(), re.S)
+    assert cards
+    for card in cards:
+        settings = card.rfind('<div class="settings">')
+        assert settings >= 0 and "<table>" not in card[:settings]
