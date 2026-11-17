@@ -87,6 +87,7 @@ How it was tested: same image and run as above. Main Out L went into input 1 of 
 - **Output A = Send is software monitoring.** The processed sound reaches only the computer (USB 3/4) and the Send jacks. Main and the phones stay at their noise floor, and the computer's playback on USB 1/2 still reaches both, exactly as with Main. This answers issue #81.
 - **The stock route does the same**: path A's Output level at -120 dB, a block on path B, and Output B = Send. Only the even split's 6 dB is lost. It costs a block and a split, but needs no HXtra.
 - The phones read lower than Main L only because of their own volume and the Volt's gain. Each column is compared with its own noise floor.
+- **Caution:** on 2026-11-16 the Volt's inputs turned out to be the other way round (input 1 the phones, input 2 Main; see "Which writer is which"). If they were already so here, the last two columns are swapped: Main at -58.9 with the guitar, the phones at -7.4.
 
 ## Send and FX Loop blocks share the Send bus [verified on unit, 2026-11-16]
 
@@ -180,22 +181,23 @@ How it was tested: the USB Monitor build (image `997d079e…`, boot usb-monitor-
   - USB outputs `0x2aac` ch 4 and 5: USB 5/6 to the computer, the dry Main inputs.
 
   No composite in blob 0 holds a jack-output writer (`0x2aa8`/`0x2aaa`/`0x2aab`). Their instances sit in the app's top composite, which blob 0 does not hold.
-- **Which writer is which** [verified on unit, 2026-11-16, post-send's probe image post-send-5, payload `d05c1900…`]:
+- **Which writer is which** [verified on unit, 2026-11-16, post-send's probe images post-send-5 (payload `d05c1900…`) and post-send-6 (`8f1dba83…`); Main and phones corrected by post-send-7]:
   - The probe muted, then toned (3 kHz square), each (jack writer, ch) in turn. A preset had Main and Send both carrying plucks from USB 5/6 (path B on Send).
-  - USB was recorded with Send L → Return L to USB 7/8, and a Volt 4 recorded Main Out L (input 1) and the phones (input 2, TRS into a mono input: the tip).
+  - USB was recorded with Send L → Return L to USB 7/8, and a Volt 4 recorded the phones (input 1) and Main (input 2). The probes took them the other way round (input 1 Main, input 2 the phones), which swapped Main and the phones in the first version of this table. post-send-7 settled it: with Volume Knob Controls on Phones, the knob moved input 1 by 44 dB and left input 2 as it was, and Mr. Wiseman confirmed the cables.
   - Each output answered to exactly one key, in tone and in mute:
 
   | output | writer | ch | call order in a block |
   |---|---|---|---|
-  | phones (tip) | `0x2aa8` (SP4A, port 5) | 1 (ch 0 is the other side) | 1st, 2nd (ch 0, ch 1) |
+  | Main L (input 2) | `0x2aa8` (SP4A, port 5) | 1 (ch 0 is Main R) | 1st, 2nd (ch 0, ch 1) |
   | Send L | `0x2aaa` (SP4B, port 6) | 0 | 3rd |
   | Send R | `0x2aaa` (SP4B, port 6) | 1 | 4th |
-  | Main R | `0x2aab` (SP6A, port 7) | 0 | 5th |
-  | Main L | `0x2aab` (SP6A, port 7) | 1 | 6th |
+  | phones (one side; input 1) | `0x2aab` (SP6A, port 7) | 0 | 5th |
+  | phones (the other side) | `0x2aab` (SP6A, port 7) | 1 | 6th |
 
-  - Main R and the call order come from post-send's second probe (post-send-6, payload `8f1dba83…`). Main R's mute dropped Main R on the Volt by 36.1 dB. The call order is each writer instance's place among the jack writers in a block, written digitally to USB 6.
+  - The call order comes from post-send-6. Muting `0x2aab` ch 0 dropped input 1 (the phones) by 36.1 dB. The call order is each writer instance's place among the jack writers in a block, written digitally to USB 6.
   - Only those six jack-writer instances run. Send R follows because `0x2aaa` has just the two instances and ch 0 is Send L.
-  - The Send writer runs before the Main writer in every block, so code in Main's writer can add into the Send words in the same block.
+  - In every block Main is written first, then Send, then the phones. So code in the phones' writer can add Main (kept by Main's writer) into the Send words in the same block: Main+Snd, `src/sharc/main_send.asm`.
+  - Main's ch 1 is Main L: input 2 answered to ch 1, and its cable comes from Main L (Mr. Wiseman, 2026-11-16).
   - The SP4A ch 7 dip in the first probe was the plucks (post-send's RMS shows none).
   - **Open:** in post-send-6's take, USB 7/8 to the computer was digital zero for the whole take, stock steps included. Its `0x2aac` wrapper changes ch 4 and 5. post-send-5 (ch 5 only) had the Return on 7/8. A take on plain `next` would rule the probe in or out.
 - So **a USB-only output = Path A on Send, with the `0x2aaa` (SP4B) writer's ch 0 and 1 instances writing silence.** USB 3/4 (`0x2aac` ch 2, 3) still carries the Send bus.
