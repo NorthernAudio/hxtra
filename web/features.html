@@ -90,7 +90,7 @@
 <body>
 <div class="wrap">
   <header>
-    <span class="eyebrow"><a href="./">HXtra</a></span>
+    <span class="eyebrow"><a href="./">HXtra</a><span id="release" hidden></span></span>
     <h1>Feature tour</h1>
   </header>
 
@@ -608,5 +608,12 @@
 
   <footer><a href="./">Build and install HXtra on the setup page</a> · <a href="https://github.com/wisemandenny/hxtra">HXtra on GitHub</a></footer>
 </div>
+<script>
+/* The release's m4cache.json, published beside web/, names the version. */
+fetch("../m4cache.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (c) {
+  var el = document.getElementById("release");
+  if (c.release) { el.textContent = " · " + c.release; el.hidden = false; }
+}, function () {});
+</script>
 </body>
 </html>
