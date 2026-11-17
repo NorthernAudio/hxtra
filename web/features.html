@@ -165,8 +165,8 @@
   </section>
 
   <section class="card feat" id="custom-settings">
-    <h2>Custom settings</h2>
-    <p>The features' settings are in Global Settings, each feature in a section of its own after Displays (turn the knob right past Displays): <strong>BPM Display</strong>, then <strong>Breathing Line</strong>, each with its own icon by the title (see <a href="https://github.com/wisemandenny/hxtra/blob/main/docs/icons.md">Icons</a>, which also makes an icon library of every stock icon from your firmware file). The section strip at the top has room for the six stock sections only, so none of its icons is lit while you are in a feature's. A build with none of these features has no sections after Displays. Foot Switch Long Press's and Virtual Footswitches' settings are in <strong>Footswitches</strong> instead, after FS5 Function, TAP LED Color's in <strong>Displays</strong>, under Tap Tempo LED, Preset Mode LED Color's on a second Displays page, and USB &amp; Send Routing's in <strong>Ins/Outs</strong>, on page 3.</p>
+    <h2>Feature settings</h2>
+    <p>Turn the knob right past 'Displays' to find new global settings.</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -251,7 +251,6 @@
 </tr>
 </tbody>
 </table></div>
-<p>Every feature's settings are virtual settings: HXtra serves their IDs itself and keeps their values in spare records of the Global Settings store, which the HX Stomp saves with the rest. <code>tools/setting_ids.py</code> assigns each its ID and place. A setting no build has stored yet, or whose stored value is out of range, shows its default. Builds before virtual settings kept these settings on real IDs, so the first virtual build starts them on their defaults.</p>
   </section>
 
   <section class="card feat" id="tuner-settings">
@@ -296,7 +295,7 @@
 <ul>
 <li><strong>The tempo</strong> is the one the HX Stomp is using, the global or the preset's as Tempo Select says, as a whole number. It shows <code>X</code> after it while the tempo comes from MIDI clock (the tempo screen's Extrnl), and <code>--</code> with no tempo.</li>
 <li><strong>The dot</strong> keeps the beat in every footswitch mode, and with Tap Tempo LED off too: the ring then stays dark while the dot blinks.</li>
-<li><strong>Settings</strong> (Global Settings &gt; BPM Display): Font Size, Color (the tempo's and the dot's; Tempo takes the TAP footswitch's colour) and Dot Position (left of the preset number, right of it, or both). Off on Font Size hides the tempo and on Dot Position the dot; both Off turns the display off without a rebuild. See <a href="#custom-settings">Custom settings</a>.</li>
+<li><strong>Settings</strong> (Global Settings &gt; BPM Display): Font Size, Color (the tempo's and the dot's; Tempo takes the TAP footswitch's colour) and Dot Position (left of the preset number, right of it, or both). Off on Font Size hides the tempo and on Dot Position the dot; both Off turns the display off without a rebuild. See <a href="#custom-settings">Feature settings</a>.</li>
 </ul>
   </section>
 
@@ -328,7 +327,7 @@
 <ul>
 <li><strong>Where it shows:</strong> on the Home screen only. Other screens stay stock, and the line stops animating while you're on them.</li>
 <li><strong>The selected part of the line</strong> is still thicker, as on the stock line, and <strong>Off</strong> gives the stock line back.</li>
-<li><strong>Settings</strong> (Global Settings &gt; Breathing Line): Color, Type and Speed. See <a href="#custom-settings">Custom settings</a>.</li>
+<li><strong>Settings</strong> (Global Settings &gt; Breathing Line): Color, Type and Speed. See <a href="#custom-settings">Feature settings</a>.</li>
 </ul>
   </section>
 
