@@ -67,13 +67,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 - **Tuner button** (Hold, Press): "Hold" opens the tuner when you hold TAP (stock behavior); "Press" opens it with a press, and TAP no longer taps the tempo.
 - **Tuner lock** (Off, On): On locks the tuner's other settings (Output, Reference, Type, Trails, Offsets).
 
-<!-- demo: tuner -->
-<details>
-<summary>Demo</summary>
-
-<img src="https://github.com/user-attachments/assets/7decba81-b026-4fb5-95f9-6c8899b2e47c" width="100%" alt="The tuner: Activate set to Press, so one press opens it, then Lock On and its knobs no longer change">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#tuner-settings"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/bpm.svg" width="40" height="28" align="top" alt=""> BPM display
 
@@ -83,20 +77,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 - **Color** (White, Gray, Red, Orange, Yellow, Green, Cyan, Blue, Purple, Tempo): the tempo text's and the beat dot's colour. Tempo follows the TAP footswitch's colour (Tap LED Color).
 - **Dot position** (Left, Right, Both, Off): where the beat dot blinks with TAP, beside the preset number. Off hides it; with both Off the BPM display is off.
 
-<!-- demo: bpm -->
-<details>
-<summary>Tap demo</summary>
-
-<img src="https://github.com/user-attachments/assets/62783af2-506f-4878-80ed-e2705acba51c" width="100%" alt="Tapping TAP: the tempo and its beat dot follow">
-
-</details>
-
-<details>
-<summary>Settings demo</summary>
-
-<img src="https://github.com/user-attachments/assets/4579e864-8a7d-46fd-a764-ec5cd102b6e9" width="100%" alt="Global Settings, BPM Display: Font Size, Color and Dot Position">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#bpm"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/breathing-line.svg" width="28" height="28" align="top" alt=""> Breathing line
 
@@ -106,20 +87,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 - **Type** (Off, Steady, Breathe, Cylon, Comet, Heart, Sparkle): how it moves; Off gives back the stock line.
 - **Speed** (1–10, Tempo): the speed of the animation. 1 = 8s/cycle, 10 = 0.8s/cycle; Tempo follows the tempo.
 
-<!-- demo: breathing-line -->
-<details>
-<summary>Unit demo</summary>
-
-<img src="https://github.com/user-attachments/assets/d492b0aa-1151-42c6-b84a-27f6fd36e5d8" width="100%" alt="Breathing Line types, colours and speeds on the Home screen, on the unit">
-
-</details>
-
-<details>
-<summary>Screen-only demo</summary>
-
-<img src="https://github.com/user-attachments/assets/dd1085e1-c51d-4377-8dee-26b8ce5e1423" width="100%" alt="The same, the screen alone: Steady, Breathe, Cylon, Heart, Sparkle, then Aurora, Ice, Fire and Tempo">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#breathing-line"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/dsp-usage.svg" width="32" height="32" align="top" alt=""> DSP meter
 
@@ -130,15 +98,9 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 - **Edit Blocks** (On, Off): the shares on the Edit view's blocks.
 - **Total** (Small, Large, Off): the total in the top right corner. Small, the default, draws it in the meter's small digits; Large in the title's font; Off leaves the corner to the title, so a long preset name isn't covered.
 
-<!-- demo: dsp-usage -->
-<details>
-<summary>Demo</summary>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#dsp-usage-display"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-<img src="https://github.com/user-attachments/assets/fb8644f3-b5ab-4803-b3be-fefcfb23c7b3" width="100%" alt="Browsing bass amps: the DSP total previews each model, then the added block shows its share">
-
-</details>
-
-### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/gr-meter.svg" width="28" height="28" align="top" alt=""> Gain reduction meter
 
 *New settings on all compressors except 3-Band Compressor*
 
@@ -148,13 +110,7 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 The meter also shows while you edit the compressor, so you can dial in Threshold, Ratio, Attack and Release while you play.
 
-<!-- demo: gr-meter -->
-<details>
-<summary>Demo</summary>
-
-https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#gr-meter"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Virtual footswitches
 
@@ -164,12 +120,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - **Parameters**: assign one to the same FS in Controller Assign, and it follows the footswitch too.
 - **MIDI**: **underneath, FS6 … FS10 are MIDI CC 20 … 24.** HX Edit shows them that way, and a MIDI controller sending those CCs switches them as well.
 
-<details>
-<summary>Demo</summary>
-
-<img src="https://github.com/user-attachments/assets/f0261c29-ef31-4527-8d96-21ef176b67aa" width="100%" alt="A block's Bypass Assign: MIDI In set to the virtual footswitch FS6, then holding FS2 toggles it">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#virtual-footswitches"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Footswitch long press
 
@@ -179,13 +130,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - **FS6 … FS10 Function** (Tuner, Stomp, Bank Up, Bank Dn, PresetUp, PresetDn, SnpshtUp, SnpshtDn, FS Mode&gt;, &lt;FS Mode, AllBypas, TogglEXP, GlobalEQ): what that virtual footswitch does, as FS3 … FS5 Function do for the real ones. Stomp, the default, toggles its blocks; GlobalEQ opens Global EQ, and any footswitch press goes back to Home.
 - **Switch a virtual footswitch**: hold the footswitch whose Hold is set to that FS. By default, holding FS1 switches FS6, and so on up to FS5 and FS10.
 
-<!-- demo: long-press -->
-<details>
-<summary>Demo</summary>
-
-<img src="https://github.com/user-attachments/assets/50a6ecf0-6d87-4556-8ffd-035e4b40987b" width="100%" alt="Tapping and holding FS2, holding FS1 for the tuner, then the Hold and FS6 to FS10 Function settings">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#long-press"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/snapshots.svg" width="104" height="32" align="top" alt=""> More snapshots
 
@@ -193,13 +138,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - Once a preset has snapshots 4–6, next and previous snapshot (SnpshtUp, SnpshtDn, MIDI CC 69) step through all six: next on 3 goes to 4, and next on 6 back to 1.
 - MIDI CC 69 selects any of the six directly: values 0–2 for snapshots 1–3, 3–5 for 4–6.
 
-<!-- demo: snapshots -->
-<details>
-<summary>Demo</summary>
-
-<img src="https://github.com/user-attachments/assets/8ce9d86c-cffb-491e-9c47-0430a02a4af7" width="100%" alt="Snapshots 1 to 3, the lit footswitch again for 4 to 6, and again back to 1 to 3">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#more-snapshots"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/tap-color.svg" width="28" height="28" align="top" alt=""> Tap LED color
 
@@ -207,13 +146,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 
 - **Tap LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random): the colour of the TAP footswitch's blinking LED ring, and the icon and label of TAP/TUNER on the Home screen. Rainbow fades the ring a small step through the rainbow on each beat; Random picks a new colour at each beat. Both keep the label white.
 
-<!-- demo: tap-color -->
-<details>
-<summary>Demo</summary>
-
-<img src="https://github.com/user-attachments/assets/29f1b0a3-fa13-4d40-bfb0-cb426b15079d" width="100%" alt="Tap LED Color: red, green, blue, then Rainbow walking the colour wheel, and BPM Display Color Tempo following it">
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#tap-led-color"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/preset-color.svg" width="28" height="28" align="top" alt=""> Preset LED color
 
@@ -222,7 +155,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - **This Preset** (None, Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the current preset's own colour, kept when you save the preset. In Preset footswitch mode its ring and its switch icon on the Home screen are lit in that colour while it is selected, and dimmed while it is not.
 - **Preset LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the colour of a preset without its own while it is selected. Such a preset's ring stays off while it is not, as stock.
 
-### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome
 
 *New block: Looper › Metronome*
 
@@ -231,13 +164,7 @@ https://github.com/user-attachments/assets/50b5cd91-f578-4252-a1df-4b73d8ca1995
 - **Accent** (Off, 2 … 12): every nth beat is a downbeat, a higher click.
 - **Thru** (Off, On): On plays your signal with the click under it; Off plays the click alone.
 
-<!-- demo: metronome -->
-<details>
-<summary>Demo</summary>
-
-https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
-
-</details>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#metronome"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/usb-monitor.svg" width="28" height="28" align="top" alt=""> USB monitoring
 
@@ -245,21 +172,15 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 - **Path A Out** (Main L/R, Send/USB, USB Only, Main+Snd): Send/USB sends path A's output to the computer on USB 3/4 instead of to Main L/R, so you hear your tone through your DAW, with its plugins, instead of straight from the HX Stomp. Main and the phones then play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so with Send/USB the Send jacks carry the same sound, and any Send or FX Loop block in the preset adds its send to it: don't use Send/USB with an FX Loop in the preset (the output would feed back through the loop). **USB Only** sends it to the computer alone: the Send jacks stay silent, for path A and for every Send and FX Loop block too, so nothing can feed back. **Main+Snd** keeps path A on Main L/R and sends the same sound to the Send jacks and USB 3/4 at 0 dB, with no split and no block used: don't use it with an FX Loop either.
 
-### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names (optional, off unless you tick it on the setup page)
+### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real block names
 
 *No settings*
 
 - Renames all blocks to match the gear they were based on: e.g. Deez One Mod becomes Boss DS-1 Mod.
 
-<!-- demo: real-names -->
-<details>
-<summary>Demo</summary>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#real-block-names"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
-<img src="https://github.com/user-attachments/assets/607728e6-773b-41ae-9619-5a30ca2f50ad" width="100%" alt="The model browser's Distortion list by real names: Xotic EP Booster, Klon Centaur, Ibanez TS808">
-
-</details>
-
-### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate (optional, a DSP feature on the setup page)
+### <img src="docs/assets/icons/fx-gate.svg" width="28" height="28" align="top" alt=""> FX Loop gate
 
 *Gate, Threshold and Decay knobs on the FX Loop and Return blocks*
 
@@ -272,7 +193,7 @@ https://github.com/user-attachments/assets/f25be41c-3ab0-45a1-87fa-99cd50194933
 
 <div align="center">
 
-<a href="docs/features.md"><img src="docs/assets/feature-guide.svg" alt="Read the feature guide" width="45%"></a>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html"><img src="docs/assets/feature-guide.svg" alt="Read the feature guide" width="45%"></a>
 
 </div>
 

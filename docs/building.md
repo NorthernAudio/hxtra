@@ -33,12 +33,52 @@ The build is deterministic. The default HX Stomp build (no switches) has MD5 `19
 
 A default build changes only 5 of the 15 parts of the firmware: the main application, the DSP program, the model list, the DSP graph library and the image store (the boot picture; emoji in the boot text also change the font table). **The bootloader is never touched**, which is what keeps [recovery](https://wisemandenny.github.io/hxtra/web/#recovery) possible.
 
-To add features, set their switches: see [Features](features.md). The Metronome, the FX Loop gate and the GR meter put code on the DSP, in the room NAM A2 Lite's blocks leave (`python3 tools/block3.py` prints it): `HX_NAM_SLOTS=3`, `2`, `1` or `0` sets how many NAM blocks can play at once (`0`: no NAM A2 Lite, which skips steps 1, 2 and 4), and unset, `build.py` takes the most that leave room for the features you turned on. A build whose DSP features don't fit beside `HX_NAM_SLOTS` stops with what they take and what is left. For example, every feature but the boot picture:
+To add features, set their switches (the [features page](https://wisemandenny.github.io/hxtra/web/features.html) describes each feature):
+
+| Feature | Switch |
+|---|---|
+| [Extra tuner settings](https://wisemandenny.github.io/hxtra/web/features.html#tuner-settings) | `HX_TUNER=1` |
+| [BPM Display](https://wisemandenny.github.io/hxtra/web/features.html#bpm) | `HX_BPM=1` |
+| [DSP Usage Display](https://wisemandenny.github.io/hxtra/web/features.html#dsp-usage-display) | `HX_DSP_METER=1` |
+| [Breathing Line](https://wisemandenny.github.io/hxtra/web/features.html#breathing-line) | `HX_BREATHING_LINE=1` |
+| [More Snapshots (4-6)](https://wisemandenny.github.io/hxtra/web/features.html#more-snapshots) | `HX_MORE_SNAPSHOTS=1` |
+| [TAP LED Color](https://wisemandenny.github.io/hxtra/web/features.html#tap-led-color) | `HX_TAP_COLOR=1` |
+| [Preset Mode LED Color](https://wisemandenny.github.io/hxtra/web/features.html#preset-led-color) | `HX_PRESET_COLOR=1` |
+| [Real Block Names](https://wisemandenny.github.io/hxtra/web/features.html#real-block-names) | `HX_REAL_NAMES=1` |
+| [FX Loop Noise Gate](https://wisemandenny.github.io/hxtra/web/features.html#fx-loop-gate) | `HX_FX_GATE=1` |
+| [Foot Switch Long Press](https://wisemandenny.github.io/hxtra/web/features.html#long-press) | `HX_LONG_PRESS=1` |
+| [Virtual Footswitches (FS6-10)](https://wisemandenny.github.io/hxtra/web/features.html#virtual-footswitches) | `HX_LONG_PRESS=1`, with Foot Switch Long Press |
+| [Metronome](https://wisemandenny.github.io/hxtra/web/features.html#metronome) | `HX_CLICK=1` |
+| [USB & Send Routing](https://wisemandenny.github.io/hxtra/web/features.html#usb-monitoring) | `HX_USB_MONITOR=1` |
+| [Compressor Gain Reduction Meter](https://wisemandenny.github.io/hxtra/web/features.html#gr-meter) | `HX_GR=1` |
+| [NAM A2 Lite](https://wisemandenny.github.io/hxtra/web/features.html#nam-a2-lite) | `HX_NAM_SLOTS=3`, `2`, `1`, `0` (off); unset, the most that fit |
+| [Boot screen](#boot-screen) | `--splash`, `--splash-text` |
+
+Switches combine. The Metronome, the FX Loop gate and the GR meter put code on the DSP, in the room NAM A2 Lite's blocks leave (`python3 tools/block3.py` prints it): `HX_NAM_SLOTS=3`, `2`, `1` or `0` sets how many NAM blocks can play at once (`0`: no NAM A2 Lite, which skips steps 1, 2 and 4), and unset, `build.py` takes the most that leave room for the features you turned on. A build whose DSP features don't fit beside `HX_NAM_SLOTS` stops with what they take and what is left. For example, every feature but the boot picture:
 
 ```sh
 HX_TUNER=1 HX_BPM=1 HX_DSP_METER=1 HX_BREATHING_LINE=1 HX_LONG_PRESS=1 HX_MORE_SNAPSHOTS=1 HX_CLICK=1 HX_GR=1 HX_TAP_COLOR=1 HX_PRESET_COLOR=1 HX_REAL_NAMES=1 \
   python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
 ```
+
+## Boot screen
+
+HX Stomp only.
+
+```sh
+python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf --splash my_picture.jpg --splash-text "HXS OS v0.1"
+```
+
+- Without `--splash`, the boot picture is the stock one with "HX STOMP" relabelled "HXtra STOMP" (`tools/splash_hxtra.py`). It's made from the firmware's own pixels at build time, so the repo holds no Line 6 artwork.
+- `--splash` takes any picture macOS can open (PNG, JPEG, HEIC, ...) at any size. The screen is **320x240**; a 320x240 PNG is used exactly as it is, and anything else is converted to it with macOS's `sips`: scaled to cover the screen and cropped at the centre, or with `--splash-fit fit`, scaled to fit inside it on black. Off macOS, give a 320x240 PNG.
+- The loading bar crosses the picture about halfway down, and the text sits on it in the bottom 40 rows, in grey (`0xb1b1b1`), so keep the bottom darkish.
+- The boot text reads "v1.1.0", the HXtra version, in place of "Firmware 3.80.0". `--splash-text` replaces it with up to 23 characters: ASCII, and emoji, each of which counts as one, e.g. `--splash-text "HXS OS v0.1 🎸"`.
+- Each emoji becomes a colour glyph of the line's font, 18 px tall, level with the capitals. On macOS it's rendered from Apple Color Emoji; `--splash-glyph 🎸=guitar.png` (repeatable) gives your own picture instead, and off macOS it's required. A line with emoji is drawn white, not grey, as the firmware shows a glyph's own colours only on a white line.
+- The boot screen is an HXtra feature (`tools/features/splash.py`). The flags set its inputs `HX_SPLASH`, `HX_SPLASH_FIT`, `HX_SPLASH_TEXT` and `HX_SPLASH_GLYPHS`, which work as environment variables too, as the other features' flags do.
+- `python3 tools/splash_topo.py out.png [--seed N]` draws a neon contour-map picture to start from; `python3 tools/patch_splash.py export firmware.hxf out.png` saves the picture an image has now.
+- The bootloader shows its own copy of the stock picture for a moment at power-on, before the firmware starts; that copy is not changed.
+
+This also changes the image store (part 8 of the 15), and with emoji, the font table (part 7).
 
 ## Build in the browser
 
