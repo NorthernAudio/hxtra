@@ -198,10 +198,16 @@
     <td>-</td>
     </tr>
     <tr>
+    <td><a href="#tap-command" data-i18n="tap-command.name">Tap Command</a></td>
+    <td data-i18n="tap-command.desc">Tap tempo only in the presets that want it: a Tap command in the Command Center, saved with the preset, turns FS1–FS5 into a tap tempo switch whose ring blinks the tempo.</td>
+    <td data-i18n="tap-command.floc">Menu &gt; Command Center, on an FS slot</td>
+    <td>-</td>
+    </tr>
+    <tr>
     <td><a href="#tap-led-color" data-i18n="tap-led-color.name">TAP LED Color</a></td>
     <td data-i18n="tap-led-color.desc">The colour of the TAP footswitch's blinking LED ring, and of TAP/TUNER's icon and label on the Home screen. Rainbow steps through the rainbow on each beat; Random picks a new colour at each beat.</td>
     <td data-i18n="tap-led-color.floc">The TAP footswitch, and its icon and label on the Home screen</td>
-    <td data-i18n="tap-led-color.where">Global Settings &gt; Displays, under Tap Tempo LED</td>
+    <td data-i18n="tap-led-color.where">Global Settings &gt; Displays, in Tap Tempo LED's place</td>
     </tr>
     <tr>
     <td><a href="#usb-monitoring" data-i18n="usb-monitoring.name">USB &amp; Send Routing</a></td>
@@ -648,24 +654,41 @@
       </div>
     </section>
 
+    <section class="card feat" id="tap-command">
+      <h2><img class="ico" src="../docs/assets/icons/tap-command.svg" width="28" height="28" alt=""><span data-i18n="tap-command.name">Tap Command</span></h2>
+      <p data-i18n="tap-command.p1">On a stock HX Stomp, tap tempo is a global footswitch function: FS3's TAP/TUNER, or FS4/FS5 set to TAP, in every preset. HXtra adds a <strong>Tap</strong> command to the Command Center, which is saved with each preset, so a footswitch taps the tempo only in the presets where you put it.</p>
+  <ul>
+  <li data-i18n="tap-command.li1"><strong>Setting it up:</strong> the footswitch has to be a Stomp switch. FS1 and FS2 always are; for FS3, FS4 or FS5 set its function to Stomp in Global Settings &gt; Footswitches. Then, in the preset, open Menu &gt; Command Center, select the footswitch's slot and turn Command to <strong>Tap</strong> (after Hotkey). Save the preset to keep it.</li>
+  <li data-i18n="tap-command.li2"><strong>Pressing it</strong> taps the tempo exactly as the TAP footswitch does. Holding it doesn't tap.</li>
+  <li data-i18n="tap-command.li3"><strong>Its ring</strong> (FS1–FS3) blinks the tempo as the TAP ring does, in Tap LED Color's colour when that feature is in your build. Tap LED Color's Off stops it blinking (in a build without Tap LED Color, the stock Tap Tempo LED does). FS4 and FS5 have no ring.</li>
+  <li data-i18n="tap-command.li4"><strong>Changing snapshots</strong> never taps.</li>
+  <li data-i18n="tap-command.li5"><strong>The Home screen label</strong> reads Tap, as a footswitch with another command reads that command's name; Customize in the Command Center renames it.</li>
+  <li data-i18n="tap-command.li6"><strong>On stock firmware</strong> a preset with a Tap command opens as usual, and the footswitch doesn't tap.</li>
+  </ul>
+      <div class="settings">
+        <h3 data-i18n="settings">Settings</h3>
+        <p class="where" data-i18n="tap-command.where">No settings: the command is in Menu &gt; Command Center</p>
+      </div>
+    </section>
+
     <section class="card feat" id="tap-led-color">
       <h2><img class="ico" src="../docs/assets/icons/tap-color.svg" width="28" height="28" alt=""><span data-i18n="tap-led-color.name">TAP LED Color</span></h2>
       <!-- demo: tap-color -->
       <div class="demos">
         <figure><img src="https://github.com/user-attachments/assets/29f1b0a3-fa13-4d40-bfb0-cb426b15079d" width="480" height="360" alt="Tap LED Color: red, green, blue, then Rainbow walking the colour wheel, and BPM Display Color Tempo following it" data-i18n-alt="tap-led-color.alt1" loading="lazy"></figure>
       </div>
-      <p data-i18n="tap-led-color.p1">The TAP footswitch's ring blinks red with the tempo, and its icon and label on the Home screen are red. Tap LED Color (Global Settings &gt; Displays, under Tap Tempo LED) picks another colour for all three, from the colours the HX Stomp gives its other footswitches.</p>
+      <p data-i18n="tap-led-color.p1">The TAP footswitch's ring blinks red with the tempo, and its icon and label on the Home screen are red. Tap LED Color (Global Settings &gt; Displays, in Tap Tempo LED's place) picks another colour for all three, from the colours the HX Stomp gives its other footswitches.</p>
   <ul>
   <li data-i18n="tap-led-color.li1"><strong>The colours</strong> are the stock footswitch palette: each ring colour is the one the HX Stomp lights for a block of that colour, and each icon the stock switch icon of that colour.</li>
   <li data-i18n="tap-led-color.li2"><strong>Rainbow</strong> moves the ring a small step round the colour wheel at each beat: 42 shades blended from the palette's Red, DkOrange, Yellow, Green, Blue and Violet, back to Red, about 21 s round at 120 BPM.</li>
   <li data-i18n="tap-led-color.li3"><strong>Random</strong> lights the ring in a random colour of the palette at each beat, never the same twice running.</li>
   <li data-i18n="tap-led-color.li4">With Rainbow and Random, the icon and label stay White, and a tap or a preset change re-lights the ring in its current colour without moving on.</li>
-  <li data-i18n="tap-led-color.li5"><strong>External MIDI clock:</strong> the ring keeps the stock colour it blinks with then. <strong>Tap Tempo LED</strong> still decides whether the ring blinks at all.</li>
+  <li data-i18n="tap-led-color.li5"><strong>External MIDI clock:</strong> the ring keeps the stock colour it blinks with then. <strong>Off</strong> stops the blink: Tap LED Color takes the stock Tap Tempo LED's place in Displays and sets it, and a unit that had Tap Tempo LED Off starts on Off.</li>
   <li data-i18n="tap-led-color.li6"><strong>BPM Display's Color Tempo</strong> gives the tempo and the beat dot the TAP footswitch's colour, the ring's current one with Rainbow and Random.</li>
   </ul>
       <div class="settings">
         <h3 data-i18n="settings">Settings</h3>
-        <p class="where" data-i18n="tap-led-color.where">Global Settings &gt; Displays, under Tap Tempo LED</p>
+        <p class="where" data-i18n="tap-led-color.where">Global Settings &gt; Displays, in Tap Tempo LED's place</p>
         <div class="tbl"><table>
         <thead>
         <tr>
@@ -677,8 +700,8 @@
         <tbody>
         <tr>
         <td><strong>Tap LED Color</strong></td>
-        <td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random</td>
-        <td data-i18n="tap-led-color.what1">The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label.</td>
+        <td><strong>Red</strong>, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White, Rainbow, Random, Off</td>
+        <td data-i18n="tap-led-color.what1">The TAP footswitch's colour: its ring as it blinks the tempo, and its switch icon and TAP/TUNER label on the Home screen. Rainbow steps the ring round the colour wheel at each beat; Random picks a new colour at each beat. Both keep a white label. Off stops the blink.</td>
         </tr>
         </tbody>
         </table></div>
@@ -811,10 +834,13 @@ var LANGS = {
     "real-block-names.name": "Nombres reales de los bloques",
     "real-block-names.desc": "Cambia el nombre de todos los bloques por el del equipo en que se basan: p. ej., Deez One Mod pasa a ser Boss DS-1 Mod.",
     "real-block-names.floc": "Navegador de modelos y vista Edit",
+    "tap-command.name": "Comando Tap",
+    "tap-command.desc": "Tap tempo solo en los presets que lo necesitan: un comando Tap en el Command Center, guardado con el preset, convierte FS1–FS5 en un interruptor de tap tempo cuyo anillo parpadea con el tempo.",
+    "tap-command.floc": "Menu &gt; Command Center, en una ranura FS",
     "tap-led-color.name": "Color del LED de TAP",
     "tap-led-color.desc": "El color del anillo LED parpadeante del footswitch TAP, y del icono y la etiqueta TAP/TUNER en la pantalla de inicio. Rainbow recorre el arcoíris en cada pulso; Random elige un color nuevo en cada pulso.",
     "tap-led-color.floc": "El footswitch TAP, y su icono y etiqueta en la pantalla de inicio",
-    "tap-led-color.where": "Global Settings &gt; Displays, bajo Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, en el lugar de Tap Tempo LED",
     "usb-monitoring.name": "Enrutamiento de USB y Send",
     "usb-monitoring.desc": "Adónde va la salida del path A: al ordenador por USB 3/4, para oír tu sonido a través de tu DAW y sus plugins (Send/USB, USB Only), o a Main L/R y además a las salidas Send y a USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "La salida del path A: Main L/R, las salidas Send y USB 3/4",
@@ -916,15 +942,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 da a sus modelos el nombre del equipo en que se basan, con un giro (Deez One Mod, US Double Nrm). Con Nombres reales de los bloques, el navegador de modelos y la vista Edit titulan cada bloque con el nombre de ese equipo: Boss DS-1 Mod, Twin Reverb Nrm. Los nombres salen del \"based on\" de <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, con 16 caracteres como máximo.",
     "real-block-names.li1": "<strong>Qué conserva su nombre:</strong> los originales de Line 6, los bloques de utilidad y los títulos que ya son reales.",
     "real-block-names.li2": "<strong>Los presets</strong> mantienen los mismos IDs de modelo, así que un preset es igual con o sin nombres reales, y se abre con el firmware original como siempre.",
+    "tap-command.p1": "En un HX Stomp original, el tap tempo es una función global de footswitch: el TAP/TUNER de FS3, o FS4/FS5 ajustados a TAP, en todos los presets. HXtra añade un comando <strong>Tap</strong> al Command Center, que se guarda con cada preset, así que un footswitch marca el tempo solo en los presets donde lo pongas.",
+    "tap-command.li1": "<strong>Configuración:</strong> el footswitch tiene que ser un interruptor Stomp. FS1 y FS2 siempre lo son; para FS3, FS4 o FS5, ajusta su función a Stomp en Global Settings &gt; Footswitches. Luego, en el preset, abre Menu &gt; Command Center, selecciona la ranura del footswitch y gira Command hasta <strong>Tap</strong> (después de Hotkey). Guarda el preset para conservarlo.",
+    "tap-command.li2": "<strong>Al pulsarlo</strong> marca el tempo exactamente como el footswitch TAP. Mantenerlo pulsado no marca el tempo.",
+    "tap-command.li3": "<strong>Su anillo</strong> (FS1–FS3) parpadea con el tempo como el anillo de TAP, en el color de Tap LED Color si esa función está en tu build. Off en Tap LED Color detiene el parpadeo (en un build sin Tap LED Color, lo hace el Tap Tempo LED original). FS4 y FS5 no tienen anillo.",
+    "tap-command.li4": "<strong>Cambiar de snapshot</strong> nunca marca el tempo.",
+    "tap-command.li5": "<strong>La etiqueta de la pantalla de inicio</strong> muestra Tap, igual que un footswitch con otro comando muestra el nombre de ese comando; Customize en el Command Center le cambia el nombre.",
+    "tap-command.li6": "<strong>Con el firmware original</strong> un preset con un comando Tap se abre como siempre, y el footswitch no marca el tempo.",
+    "tap-command.where": "Sin ajustes: el comando está en Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color: rojo, verde, azul, luego Rainbow recorriendo la rueda de color, y Color Tempo de BPM Display siguiéndolo",
-    "tap-led-color.p1": "El anillo del footswitch TAP parpadea en rojo con el tempo, y su icono y su etiqueta en la pantalla de inicio son rojos. Tap LED Color (Global Settings &gt; Displays, bajo Tap Tempo LED) elige otro color para los tres, de entre los colores que el HX Stomp da a sus otros footswitches.",
+    "tap-led-color.p1": "El anillo del footswitch TAP parpadea en rojo con el tempo, y su icono y su etiqueta en la pantalla de inicio son rojos. Tap LED Color (Global Settings &gt; Displays, en el lugar de Tap Tempo LED) elige otro color para los tres, de entre los colores que el HX Stomp da a sus otros footswitches.",
     "tap-led-color.li1": "<strong>Los colores</strong> son la paleta original de los footswitches: cada color de anillo es el que el HX Stomp enciende para un bloque de ese color, y cada icono es el icono de interruptor original de ese color.",
     "tap-led-color.li2": "<strong>Rainbow</strong> avanza el anillo un pequeño paso por la rueda de color en cada pulso: 42 tonos mezclados a partir de Red, DkOrange, Yellow, Green, Blue y Violet de la paleta, de vuelta a Red, unos 21 s por vuelta a 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> enciende el anillo con un color aleatorio de la paleta en cada pulso, nunca el mismo dos veces seguidas.",
     "tap-led-color.li4": "Con Rainbow y Random, el icono y la etiqueta quedan en White, y un toque o un cambio de preset vuelve a encender el anillo con su color actual sin avanzar.",
-    "tap-led-color.li5": "<strong>Reloj MIDI externo:</strong> el anillo mantiene el color original con el que parpadea en ese caso. <strong>Tap Tempo LED</strong> sigue decidiendo si el anillo parpadea o no.",
+    "tap-led-color.li5": "<strong>Reloj MIDI externo:</strong> el anillo mantiene el color original con el que parpadea en ese caso. <strong>Off</strong> detiene el parpadeo: Tap LED Color ocupa en Displays el lugar del Tap Tempo LED original y lo ajusta, y una unidad que tenía Tap Tempo LED en Off empieza en Off.",
     "tap-led-color.li6": "<strong>Color Tempo de BPM Display</strong> da al tempo y al punto de pulso el color del footswitch TAP, el color actual del anillo con Rainbow y Random.",
-    "tap-led-color.what1": "El color del footswitch TAP: su anillo cuando parpadea con el tempo, y su icono de interruptor y la etiqueta TAP/TUNER en la pantalla de inicio. Rainbow lleva el anillo por la rueda de color en cada pulso; Random elige un color nuevo en cada pulso. Ambos mantienen la etiqueta en blanco.",
+    "tap-led-color.what1": "El color del footswitch TAP: su anillo cuando parpadea con el tempo, y su icono de interruptor y la etiqueta TAP/TUNER en la pantalla de inicio. Rainbow lleva el anillo por la rueda de color en cada pulso; Random elige un color nuevo en cada pulso. Ambos mantienen la etiqueta en blanco. Off detiene el parpadeo.",
     "usb-monitoring.p1": "El HX Stomp siempre lleva lo que tocas directamente a sus salidas y auriculares, y envía el mismo sonido al ordenador por USB 1/2: monitorización por hardware. Para monitorizar a través de un DAW (monitorización por software: oír tu sonido con los plugins del DAW), pon <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, página 3) en <strong>Send/USB</strong>. El bloque Output del path A va entonces al ordenador por USB 3/4 en lugar de a Main L/R, y Main y los auriculares solo suenan con lo que el ordenador devuelve por USB 1/2. Graba y monitoriza USB 3/4 en el DAW.",
     "usb-monitoring.li1": "<strong>Todos los presets</strong> siguen el ajuste: el path A va a Send/USB en cada preset que cargues, y al cambiar el ajuste se conmuta al instante. La salida propia del path B no cambia.",
     "usb-monitoring.li2": "<strong>Las salidas Send</strong> llevan el mismo sonido que USB 3/4: en el HX Stomp son una misma salida. Déjalas desconectadas, o cuenta con que el sonido salga también por ahí.",
@@ -996,10 +1030,13 @@ var LANGS = {
     "real-block-names.name": "Nomes reais dos blocos",
     "real-block-names.desc": "Renomeia todos os blocos com o nome do equipamento em que se basearam: p. ex., Deez One Mod vira Boss DS-1 Mod.",
     "real-block-names.floc": "Navegador de modelos e tela Edit",
+    "tap-command.name": "Comando Tap",
+    "tap-command.desc": "Tap tempo só nos presets que precisam: um comando Tap no Command Center, salvo com o preset, transforma FS1–FS5 em um botão de tap tempo cujo anel pisca no andamento.",
+    "tap-command.floc": "Menu &gt; Command Center, em um slot FS",
     "tap-led-color.name": "Cor do LED do TAP",
     "tap-led-color.desc": "A cor do anel de LED piscante do footswitch TAP e do ícone e do rótulo do TAP/TUNER na tela inicial. Rainbow percorre o arco-íris a cada batida; Random escolhe uma cor nova a cada batida.",
     "tap-led-color.floc": "O footswitch TAP, e o ícone e o rótulo dele na tela inicial",
-    "tap-led-color.where": "Global Settings &gt; Displays, abaixo de Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, no lugar de Tap Tempo LED",
     "usb-monitoring.name": "Roteamento para USB e Send",
     "usb-monitoring.desc": "Para onde vai a saída do path A: para o computador pelo USB 3/4, para você ouvir seu timbre pela DAW e pelos plugins dela (Send/USB, USB Only), ou para Main L/R e também para as saídas Send e o USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "A saída do path A: Main L/R, as saídas Send e o USB 3/4",
@@ -1101,15 +1138,23 @@ var LANGS = {
     "real-block-names.p1": "A Line 6 dá aos modelos nomes inspirados no equipamento em que se baseiam, com uma variação (Deez One Mod, US Double Nrm). Com Nomes reais dos blocos, o navegador de modelos e a tela Edit dão a cada bloco o nome desse equipamento: Boss DS-1 Mod, Twin Reverb Nrm. Os nomes vêm de <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, no campo \"based on\", com no máximo 16 caracteres.",
     "real-block-names.li1": "<strong>O que mantém o nome:</strong> os modelos originais da Line 6, os blocos utilitários e os títulos que já são reais.",
     "real-block-names.li2": "<strong>Presets</strong> mantêm os mesmos IDs de modelo, então um preset é igual com ou sem nomes reais e abre no firmware original normalmente.",
+    "tap-command.p1": "Num HX Stomp original, o tap tempo é uma função global de footswitch: o TAP/TUNER do FS3, ou FS4/FS5 configurados como TAP, em todos os presets. O HXtra adiciona um comando <strong>Tap</strong> ao Command Center, que é salvo com cada preset, então um footswitch marca o andamento só nos presets em que você o colocar.",
+    "tap-command.li1": "<strong>Configuração:</strong> o footswitch precisa ser um botão Stomp. FS1 e FS2 sempre são; para FS3, FS4 ou FS5, configure a função dele como Stomp em Global Settings &gt; Footswitches. Depois, no preset, abra Menu &gt; Command Center, selecione o slot do footswitch e gire Command até <strong>Tap</strong> (depois de Hotkey). Salve o preset para mantê-lo.",
+    "tap-command.li2": "<strong>Pressioná-lo</strong> marca o andamento exatamente como o footswitch TAP. Segurá-lo não marca o andamento.",
+    "tap-command.li3": "<strong>O anel dele</strong> (FS1–FS3) pisca no andamento como o anel do TAP, na cor do Tap LED Color quando esse recurso está na sua build. Off em Tap LED Color para o piscar (numa build sem Tap LED Color, quem faz isso é o Tap Tempo LED original). FS4 e FS5 não têm anel.",
+    "tap-command.li4": "<strong>Trocar de snapshot</strong> nunca marca o andamento.",
+    "tap-command.li5": "<strong>O rótulo da tela inicial</strong> mostra Tap, assim como um footswitch com outro comando mostra o nome desse comando; Customize no Command Center muda o nome.",
+    "tap-command.li6": "<strong>No firmware original</strong> um preset com um comando Tap abre normalmente, e o footswitch não marca o andamento.",
+    "tap-command.where": "Sem ajustes: o comando fica em Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color: vermelho, verde, azul, depois Rainbow percorrendo o círculo cromático, e BPM Display Color Tempo acompanhando",
-    "tap-led-color.p1": "O anel do footswitch TAP pisca em vermelho no andamento, e o ícone e o rótulo dele na tela inicial são vermelhos. Tap LED Color (Global Settings &gt; Displays, abaixo de Tap Tempo LED) escolhe outra cor para os três, entre as cores que o HX Stomp dá aos outros footswitches.",
+    "tap-led-color.p1": "O anel do footswitch TAP pisca em vermelho no andamento, e o ícone e o rótulo dele na tela inicial são vermelhos. Tap LED Color (Global Settings &gt; Displays, no lugar de Tap Tempo LED) escolhe outra cor para os três, entre as cores que o HX Stomp dá aos outros footswitches.",
     "tap-led-color.li1": "<strong>As cores</strong> são a paleta original dos footswitches: cada cor de anel é a que o HX Stomp acende para um bloco daquela cor, e cada ícone é o ícone de footswitch original daquela cor.",
     "tap-led-color.li2": "<strong>Rainbow</strong> avança o anel um pequeno passo pelo círculo cromático a cada batida: 42 tons misturados a partir de Red, DkOrange, Yellow, Green, Blue e Violet da paleta, voltando ao Red, cerca de 21 s por volta a 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> acende o anel numa cor aleatória da paleta a cada batida, nunca a mesma duas vezes seguidas.",
     "tap-led-color.li4": "Com Rainbow e Random, o ícone e o rótulo ficam em White, e um toque ou uma troca de preset reacende o anel na cor atual sem avançar.",
-    "tap-led-color.li5": "<strong>MIDI clock externo:</strong> o anel mantém a cor original com que pisca nesse caso. <strong>Tap Tempo LED</strong> continua decidindo se o anel pisca ou não.",
+    "tap-led-color.li5": "<strong>MIDI clock externo:</strong> o anel mantém a cor original com que pisca nesse caso. <strong>Off</strong> para o piscar: Tap LED Color ocupa em Displays o lugar do Tap Tempo LED original e o ajusta, e uma unidade que tinha Tap Tempo LED em Off começa em Off.",
     "tap-led-color.li6": "<strong>O Color Tempo do BPM Display</strong> dá ao andamento e ao ponto de batida a cor do footswitch TAP, a cor atual do anel com Rainbow e Random.",
-    "tap-led-color.what1": "A cor do footswitch TAP: o anel enquanto pisca no andamento, e o ícone de footswitch e o rótulo TAP/TUNER na tela inicial. Rainbow avança o anel pelo círculo cromático a cada batida; Random escolhe uma cor nova a cada batida. Os dois mantêm o rótulo branco.",
+    "tap-led-color.what1": "A cor do footswitch TAP: o anel enquanto pisca no andamento, e o ícone de footswitch e o rótulo TAP/TUNER na tela inicial. Rainbow avança o anel pelo círculo cromático a cada batida; Random escolhe uma cor nova a cada batida. Os dois mantêm o rótulo branco. Off para o piscar.",
     "usb-monitoring.p1": "O HX Stomp sempre toca o que você toca direto nas saídas e nos fones, e manda o mesmo som ao computador pelo USB 1/2: monitoramento por hardware. Para monitorar pela DAW (monitoramento por software: ouvir seu timbre com os plugins da DAW), ajuste <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, página 3) para <strong>Send/USB</strong>. O bloco Output do path A passa então a ir para o computador pelo USB 3/4 em vez de Main L/R, e Main e os fones tocam só o que o computador devolve pelo USB 1/2. Grave e monitore o USB 3/4 na DAW.",
     "usb-monitoring.li1": "<strong>Todos os presets</strong> seguem o ajuste: o path A vai para Send/USB em cada preset que você carrega, e mudar o ajuste vale na hora. A saída do path B não muda.",
     "usb-monitoring.li2": "<strong>As saídas Send</strong> levam o mesmo som que o USB 3/4: no HX Stomp elas são uma única saída. Deixe-as desconectadas, ou conte com o som saindo nelas também.",
@@ -1181,10 +1226,13 @@ var LANGS = {
     "real-block-names.name": "Vrais noms des blocs",
     "real-block-names.desc": "Renomme tous les blocs d'après le matériel dont ils s'inspirent : p. ex. Deez One Mod devient Boss DS-1 Mod.",
     "real-block-names.floc": "Navigateur de modèles et vue Edit",
+    "tap-command.name": "Commande Tap",
+    "tap-command.desc": "Le tap tempo seulement dans les presets qui en ont besoin : une commande Tap dans le Command Center, enregistrée avec le preset, fait de FS1–FS5 un footswitch de tap tempo dont l'anneau clignote au tempo.",
+    "tap-command.floc": "Menu &gt; Command Center, sur un emplacement FS",
     "tap-led-color.name": "Couleur de la LED TAP",
     "tap-led-color.desc": "La couleur de l'anneau LED clignotant du footswitch TAP, ainsi que de l'icône et de l'étiquette TAP/TUNER sur l'écran d'accueil. Rainbow avance d'un pas dans l'arc-en-ciel à chaque temps ; Random choisit une nouvelle couleur à chaque temps.",
     "tap-led-color.floc": "Le footswitch TAP, ainsi que son icône et son étiquette sur l'écran d'accueil",
-    "tap-led-color.where": "Global Settings &gt; Displays, sous Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, à la place de Tap Tempo LED",
     "usb-monitoring.name": "Routage USB &amp; Send",
     "usb-monitoring.desc": "La destination de la sortie du path A : l'ordinateur sur USB 3/4, pour entendre votre son à travers votre DAW et ses plugins (Send/USB, USB Only), ou Main L/R ainsi que les sorties Send et USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "La sortie du path A : Main L/R, les sorties Send et USB 3/4",
@@ -1286,15 +1334,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 nomme ses modèles d'après le matériel dont ils s'inspirent, avec une variante (Deez One Mod, US Double Nrm). Avec Vrais noms des blocs, le navigateur de modèles et le titre de la vue Edit désignent chaque bloc par ce matériel : Boss DS-1 Mod, Twin Reverb Nrm. Les noms viennent de la mention « based on » de <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, en 16 caractères au plus.",
     "real-block-names.li1": "<strong>Ce qui garde son nom :</strong> les créations originales de Line 6, les blocs utilitaires et les titres déjà réels.",
     "real-block-names.li2": "<strong>Les presets</strong> gardent les mêmes ID de modèle : un preset est donc identique avec ou sans les vrais noms, et s'ouvre normalement sur le firmware d'origine.",
+    "tap-command.p1": "Sur un HX Stomp d'origine, le tap tempo est une fonction globale de footswitch : le TAP/TUNER de FS3, ou FS4/FS5 réglés sur TAP, dans tous les presets. HXtra ajoute une commande <strong>Tap</strong> au Command Center, qui est enregistré avec chaque preset : un footswitch ne tape le tempo que dans les presets où vous l'avez mise.",
+    "tap-command.li1": "<strong>Mise en place :</strong> le footswitch doit être un footswitch Stomp. FS1 et FS2 le sont toujours ; pour FS3, FS4 ou FS5, réglez sa fonction sur Stomp dans Global Settings &gt; Footswitches. Ensuite, dans le preset, ouvrez Menu &gt; Command Center, sélectionnez l'emplacement du footswitch et tournez Command jusqu'à <strong>Tap</strong> (après Hotkey). Enregistrez le preset pour la garder.",
+    "tap-command.li2": "<strong>Un appui</strong> tape le tempo exactement comme le footswitch TAP. Le maintenir enfoncé ne tape pas le tempo.",
+    "tap-command.li3": "<strong>Son anneau</strong> (FS1–FS3) clignote au tempo comme l'anneau de TAP, dans la couleur de Tap LED Color si cette fonction est dans votre build. Off dans Tap LED Color arrête le clignotement (dans un build sans Tap LED Color, c'est le Tap Tempo LED d'origine). FS4 et FS5 n'ont pas d'anneau.",
+    "tap-command.li4": "<strong>Changer de snapshot</strong> ne tape jamais le tempo.",
+    "tap-command.li5": "<strong>L'étiquette de l'écran d'accueil</strong> affiche Tap, comme un footswitch avec une autre commande affiche le nom de cette commande ; Customize dans le Command Center la renomme.",
+    "tap-command.li6": "<strong>Sur le firmware d'origine</strong>, un preset avec une commande Tap s'ouvre normalement, et le footswitch ne tape pas le tempo.",
+    "tap-command.where": "Aucun réglage : la commande est dans Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color : rouge, vert, bleu, puis Rainbow qui parcourt la roue chromatique, et Color sur Tempo dans BPM Display qui la suit",
-    "tap-led-color.p1": "L'anneau du footswitch TAP clignote en rouge avec le tempo, et son icône et son étiquette sur l'écran d'accueil sont rouges. Tap LED Color (Global Settings &gt; Displays, sous Tap Tempo LED) choisit une autre couleur pour les trois, parmi celles que le HX Stomp donne à ses autres footswitchs.",
+    "tap-led-color.p1": "L'anneau du footswitch TAP clignote en rouge avec le tempo, et son icône et son étiquette sur l'écran d'accueil sont rouges. Tap LED Color (Global Settings &gt; Displays, à la place de Tap Tempo LED) choisit une autre couleur pour les trois, parmi celles que le HX Stomp donne à ses autres footswitchs.",
     "tap-led-color.li1": "<strong>Les couleurs</strong> sont la palette d'origine des footswitchs : chaque couleur d'anneau est celle que le HX Stomp allume pour un bloc de cette couleur, et chaque icône est l'icône de footswitch d'origine de cette couleur.",
     "tap-led-color.li2": "<strong>Rainbow</strong> fait avancer l'anneau d'un petit pas sur la roue chromatique à chaque temps : 42 nuances mélangées à partir des Red, DkOrange, Yellow, Green, Blue et Violet de la palette, puis retour à Red, soit un tour en 21 s environ à 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> allume l'anneau dans une couleur aléatoire de la palette à chaque temps, jamais la même deux fois de suite.",
     "tap-led-color.li4": "Avec Rainbow et Random, l'icône et l'étiquette restent en White, et un tap ou un changement de preset rallume l'anneau dans sa couleur actuelle sans avancer.",
-    "tap-led-color.li5": "<strong>Horloge MIDI externe :</strong> l'anneau garde alors la couleur d'origine avec laquelle il clignote. <strong>Tap Tempo LED</strong> décide toujours si l'anneau clignote ou non.",
+    "tap-led-color.li5": "<strong>Horloge MIDI externe :</strong> l'anneau garde alors la couleur d'origine avec laquelle il clignote. <strong>Off</strong> arrête le clignotement : Tap LED Color prend dans Displays la place du Tap Tempo LED d'origine et le règle, et un appareil qui avait Tap Tempo LED sur Off démarre sur Off.",
     "tap-led-color.li6": "<strong>Color sur Tempo dans BPM Display</strong> donne au tempo et au point de pulsation la couleur du footswitch TAP, soit la couleur actuelle de l'anneau avec Rainbow et Random.",
-    "tap-led-color.what1": "La couleur du footswitch TAP : son anneau quand il bat le tempo, ainsi que son icône de footswitch et son étiquette TAP/TUNER sur l'écran d'accueil. Rainbow fait avancer l'anneau sur la roue chromatique à chaque temps ; Random choisit une nouvelle couleur à chaque temps. Les deux gardent une étiquette blanche.",
+    "tap-led-color.what1": "La couleur du footswitch TAP : son anneau quand il bat le tempo, ainsi que son icône de footswitch et son étiquette TAP/TUNER sur l'écran d'accueil. Rainbow fait avancer l'anneau sur la roue chromatique à chaque temps ; Random choisit une nouvelle couleur à chaque temps. Les deux gardent une étiquette blanche. Off arrête le clignotement.",
     "usb-monitoring.p1": "Le HX Stomp envoie toujours ce que vous jouez directement à ses sorties et au casque, et envoie le même son à l'ordinateur sur USB 1/2 : c'est l'écoute matérielle. Pour écouter plutôt à travers un DAW (écoute logicielle : entendre votre son avec les plugins du DAW), réglez <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, page 3) sur <strong>Send/USB</strong>. Le bloc Output du path A va alors à l'ordinateur sur USB 3/4 au lieu de Main L/R, et Main et le casque ne jouent que ce que l'ordinateur renvoie sur USB 1/2. Enregistrez et écoutez USB 3/4 dans le DAW.",
     "usb-monitoring.li1": "<strong>Chaque preset</strong> suit le réglage : le path A va sur Send/USB dans chaque preset chargé, et tourner le réglage bascule immédiatement. La sortie propre du path B n'est pas modifiée.",
     "usb-monitoring.li2": "<strong>Les sorties Send</strong> transportent le même son que USB 3/4 : sur le HX Stomp, c'est une seule et même sortie. Laissez-les débranchées, ou attendez-vous à y avoir le son aussi.",
@@ -1366,10 +1422,13 @@ var LANGS = {
     "real-block-names.name": "Echte Blocknamen",
     "real-block-names.desc": "Benennt alle Blöcke nach dem Gerät um, auf dem sie basieren: z. B. wird aus Deez One Mod Boss DS-1 Mod.",
     "real-block-names.floc": "Modell-Browser und Edit-Ansicht",
+    "tap-command.name": "Tap-Befehl",
+    "tap-command.desc": "Tap Tempo nur in den Presets, die es brauchen: Ein Tap-Befehl im Command Center, mit dem Preset gespeichert, macht FS1–FS5 zu einem Tap-Tempo-Schalter, dessen Ring im Tempo blinkt.",
+    "tap-command.floc": "Menu &gt; Command Center, auf einem FS-Platz",
     "tap-led-color.name": "Farbe der TAP-LED",
     "tap-led-color.desc": "Die Farbe des blinkenden LED-Rings des TAP-Fußschalters sowie von Symbol und Beschriftung von TAP/TUNER auf dem Home-Bildschirm. Rainbow wandert bei jedem Schlag durch den Regenbogen; Random wählt bei jedem Schlag eine neue Farbe.",
     "tap-led-color.floc": "Der TAP-Fußschalter sowie sein Symbol und seine Beschriftung auf dem Home-Bildschirm",
-    "tap-led-color.where": "Global Settings &gt; Displays, unter Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, an der Stelle von Tap Tempo LED",
     "usb-monitoring.name": "USB- &amp; Send-Routing",
     "usb-monitoring.desc": "Wohin der Ausgang von Path A geht: über USB 3/4 an den Computer, damit du deinen Sound durch deine DAW und ihre Plugins hörst (Send/USB, USB Only), oder an Main L/R und zusätzlich an die Send-Ausgänge und USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "Der Ausgang von Path A: Main L/R, die Send-Ausgänge und USB 3/4",
@@ -1471,15 +1530,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 benennt seine Modelle nach dem Gerät, auf dem sie basieren, aber leicht verfremdet (Deez One Mod, US Double Nrm). Mit „Echte Blocknamen“ benennen der Modell-Browser und der Titel der Edit-Ansicht jeden Block stattdessen nach diesem Gerät: Boss DS-1 Mod, Twin Reverb Nrm. Die Namen stammen aus dem „based on“ von <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, höchstens 16 Zeichen lang.",
     "real-block-names.li1": "<strong>Was seinen Namen behält:</strong> Line-6-Originale, Utility-Blöcke und Titel, die schon echt sind.",
     "real-block-names.li2": "<strong>Presets</strong> behalten dieselben Modell-IDs, ein Preset ist also mit oder ohne echte Namen dasselbe und öffnet sich wie gewohnt mit Original-Firmware.",
+    "tap-command.p1": "Auf einem originalen HX Stomp ist Tap Tempo eine globale Fußschalter-Funktion: TAP/TUNER auf FS3 oder FS4/FS5 auf TAP gestellt, in jedem Preset. HXtra fügt dem Command Center einen <strong>Tap</strong>-Befehl hinzu, und das Command Center wird mit jedem Preset gespeichert: Ein Fußschalter tappt das Tempo also nur in den Presets, in die du ihn legst.",
+    "tap-command.li1": "<strong>Einrichten:</strong> Der Fußschalter muss ein Stomp-Schalter sein. FS1 und FS2 sind es immer; für FS3, FS4 oder FS5 stellst du seine Funktion in Global Settings &gt; Footswitches auf Stomp. Dann öffnest du im Preset Menu &gt; Command Center, wählst den Platz des Fußschalters und drehst Command auf <strong>Tap</strong> (nach Hotkey). Speichere das Preset, um ihn zu behalten.",
+    "tap-command.li2": "<strong>Ein Druck</strong> tappt das Tempo genau wie der TAP-Fußschalter. Gedrückt halten tappt nicht.",
+    "tap-command.li3": "<strong>Sein Ring</strong> (FS1–FS3) blinkt im Tempo wie der TAP-Ring, in der Farbe von Tap LED Color, wenn diese Funktion in deinem Build ist. Off in Tap LED Color stoppt das Blinken (in einem Build ohne Tap LED Color tut das die originale Einstellung Tap Tempo LED). FS4 und FS5 haben keinen Ring.",
+    "tap-command.li4": "<strong>Ein Snapshot-Wechsel</strong> tappt nie.",
+    "tap-command.li5": "<strong>Die Beschriftung auf dem Home-Bildschirm</strong> lautet Tap, so wie ein Fußschalter mit einem anderen Befehl dessen Namen zeigt; Customize im Command Center benennt sie um.",
+    "tap-command.li6": "<strong>Mit Original-Firmware</strong> öffnet sich ein Preset mit einem Tap-Befehl wie gewohnt, und der Fußschalter tappt nicht.",
+    "tap-command.where": "Keine Einstellungen: Der Befehl ist in Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color: Rot, Grün, Blau, dann Rainbow, das das Farbrad durchläuft, und Color Tempo der BPM-Anzeige, das ihm folgt",
-    "tap-led-color.p1": "Der Ring des TAP-Fußschalters blinkt rot im Tempo, und sein Symbol und seine Beschriftung auf dem Home-Bildschirm sind rot. Tap LED Color (Global Settings &gt; Displays, unter Tap Tempo LED) wählt eine andere Farbe für alle drei, aus den Farben, die der HX Stomp seinen anderen Fußschaltern gibt.",
+    "tap-led-color.p1": "Der Ring des TAP-Fußschalters blinkt rot im Tempo, und sein Symbol und seine Beschriftung auf dem Home-Bildschirm sind rot. Tap LED Color (Global Settings &gt; Displays, an der Stelle von Tap Tempo LED) wählt eine andere Farbe für alle drei, aus den Farben, die der HX Stomp seinen anderen Fußschaltern gibt.",
     "tap-led-color.li1": "<strong>Die Farben</strong> sind die originale Fußschalter-Palette: Jede Ringfarbe ist die, in der der HX Stomp den Ring für einen Block dieser Farbe leuchten lässt, und jedes Symbol das originale Schaltersymbol dieser Farbe.",
     "tap-led-color.li2": "<strong>Rainbow</strong> bewegt den Ring bei jedem Schlag einen kleinen Schritt weiter über das Farbrad: 42 Farbtöne, gemischt aus Red, DkOrange, Yellow, Green, Blue und Violet der Palette und zurück zu Red, etwa 21 s pro Runde bei 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> lässt den Ring bei jedem Schlag in einer zufälligen Farbe der Palette leuchten, nie zweimal hintereinander in derselben.",
     "tap-led-color.li4": "Bei Rainbow und Random bleiben Symbol und Beschriftung White, und ein Tap oder Preset-Wechsel lässt den Ring in seiner aktuellen Farbe neu aufleuchten, ohne weiterzuwandern.",
-    "tap-led-color.li5": "<strong>Externe MIDI-Clock:</strong> Der Ring behält dann die Originalfarbe, in der er blinkt. <strong>Tap Tempo LED</strong> entscheidet weiterhin, ob der Ring überhaupt blinkt.",
+    "tap-led-color.li5": "<strong>Externe MIDI-Clock:</strong> Der Ring behält dann die Originalfarbe, in der er blinkt. <strong>Off</strong> stoppt das Blinken: Tap LED Color nimmt in Displays den Platz der originalen Einstellung Tap Tempo LED ein und stellt sie, und ein Gerät, bei dem Tap Tempo LED auf Off stand, beginnt mit Off.",
     "tap-led-color.li6": "<strong>Color Tempo der BPM-Anzeige</strong> gibt dem Tempo und dem Beat-Punkt die Farbe des TAP-Fußschalters, bei Rainbow und Random die aktuelle Farbe des Rings.",
-    "tap-led-color.what1": "Die Farbe des TAP-Fußschalters: sein Ring, während er das Tempo blinkt, sowie sein Schaltersymbol und die Beschriftung TAP/TUNER auf dem Home-Bildschirm. Rainbow bewegt den Ring bei jedem Schlag über das Farbrad; Random wählt bei jedem Schlag eine neue Farbe. Bei beiden bleibt die Beschriftung weiß.",
+    "tap-led-color.what1": "Die Farbe des TAP-Fußschalters: sein Ring, während er das Tempo blinkt, sowie sein Schaltersymbol und die Beschriftung TAP/TUNER auf dem Home-Bildschirm. Rainbow bewegt den Ring bei jedem Schlag über das Farbrad; Random wählt bei jedem Schlag eine neue Farbe. Bei beiden bleibt die Beschriftung weiß. Off stoppt das Blinken.",
     "usb-monitoring.p1": "Der HX Stomp gibt, was du spielst, immer direkt an seinen Ausgängen und Kopfhörern aus und schickt denselben Klang über USB 1/2 an den Computer: Hardware-Monitoring. Um stattdessen über eine DAW abzuhören (Software-Monitoring: deinen Sound mit den Plugins der DAW hören), stell <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, Seite 3) auf <strong>Send/USB</strong>. Der Output-Block von Path A geht dann über USB 3/4 an den Computer statt an Main L/R, und Main und Kopfhörer spielen nur, was der Computer über USB 1/2 zurückschickt. Nimm in der DAW USB 3/4 auf und hör es dort ab.",
     "usb-monitoring.li1": "<strong>Jedes Preset</strong> folgt der Einstellung: Path A geht bei jedem geladenen Preset an Send/USB, und eine Änderung der Einstellung schaltet sofort um. Der eigene Ausgang von Path B bleibt unverändert.",
     "usb-monitoring.li2": "<strong>Die Send-Ausgänge</strong> führen denselben Klang wie USB 3/4: Auf dem HX Stomp sind sie ein und derselbe Ausgang. Lass sie unbelegt oder rechne damit, dass der Klang auch dort herauskommt.",
@@ -1551,10 +1618,13 @@ var LANGS = {
     "real-block-names.name": "Nomi reali dei blocchi",
     "real-block-names.desc": "Rinomina tutti i blocchi con il nome dell'apparecchio a cui si ispirano: ad es. Deez One Mod diventa Boss DS-1 Mod.",
     "real-block-names.floc": "Browser dei modelli e vista Edit",
+    "tap-command.name": "Comando Tap",
+    "tap-command.desc": "Il tap tempo solo nei preset che lo vogliono: un comando Tap nel Command Center, salvato con il preset, trasforma FS1–FS5 in un footswitch di tap tempo il cui anello lampeggia a tempo.",
+    "tap-command.floc": "Menu &gt; Command Center, su uno slot FS",
     "tap-led-color.name": "Colore LED di TAP",
     "tap-led-color.desc": "Il colore dell'anello LED lampeggiante del footswitch TAP, e dell'icona e dell'etichetta di TAP/TUNER nella schermata Home. Rainbow percorre l'arcobaleno a ogni battito; Random sceglie un colore nuovo a ogni battito.",
     "tap-led-color.floc": "Il footswitch TAP, con la sua icona e la sua etichetta nella schermata Home",
-    "tap-led-color.where": "Global Settings &gt; Displays, sotto Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, al posto di Tap Tempo LED",
     "usb-monitoring.name": "Instradamento USB &amp; Send",
     "usb-monitoring.desc": "Dove va l'uscita del path A: al computer su USB 3/4, così senti il tuo suono attraverso la DAW e i suoi plugin (Send/USB, USB Only), oppure su Main L/R e anche alle uscite Send e su USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "L'uscita del path A: Main L/R, le uscite Send e USB 3/4",
@@ -1656,15 +1726,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 chiama i suoi modelli come l'apparecchio a cui si ispirano, con una variazione (Deez One Mod, US Double Nrm). Con Nomi reali dei blocchi, il browser dei modelli e la vista Edit intitolano ogni blocco con il nome di quell'apparecchio: Boss DS-1 Mod, Twin Reverb Nrm. I nomi vengono dal \"based on\" di <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, al massimo 16 caratteri.",
     "real-block-names.li1": "<strong>Cosa mantiene il suo nome:</strong> gli originali Line 6, i blocchi di utilità e i titoli che sono già reali.",
     "real-block-names.li2": "<strong>I preset</strong> mantengono gli stessi ID modello, quindi un preset è identico con o senza nomi reali, e si apre sul firmware originale come al solito.",
+    "tap-command.p1": "Su un HX Stomp originale il tap tempo è una funzione globale dei footswitch: il TAP/TUNER di FS3, o FS4/FS5 impostati su TAP, in ogni preset. HXtra aggiunge un comando <strong>Tap</strong> al Command Center, che viene salvato con ogni preset, così un footswitch batte il tempo solo nei preset in cui lo metti.",
+    "tap-command.li1": "<strong>Impostazione:</strong> il footswitch deve essere un interruttore Stomp. FS1 e FS2 lo sono sempre; per FS3, FS4 o FS5 imposta la sua funzione su Stomp in Global Settings &gt; Footswitches. Poi, nel preset, apri Menu &gt; Command Center, seleziona lo slot del footswitch e gira Command fino a <strong>Tap</strong> (dopo Hotkey). Salva il preset per conservarlo.",
+    "tap-command.li2": "<strong>Premerlo</strong> batte il tempo esattamente come il footswitch TAP. Tenerlo premuto non batte il tempo.",
+    "tap-command.li3": "<strong>Il suo anello</strong> (FS1–FS3) lampeggia a tempo come l'anello di TAP, nel colore di Tap LED Color se quella funzione è nella tua build. Off in Tap LED Color ferma il lampeggio (in una build senza Tap LED Color lo fa il Tap Tempo LED originale). FS4 e FS5 non hanno anello.",
+    "tap-command.li4": "<strong>Cambiare snapshot</strong> non batte mai il tempo.",
+    "tap-command.li5": "<strong>L'etichetta nella schermata Home</strong> mostra Tap, come un footswitch con un altro comando mostra il nome di quel comando; Customize nel Command Center la rinomina.",
+    "tap-command.li6": "<strong>Sul firmware originale</strong> un preset con un comando Tap si apre come al solito, e il footswitch non batte il tempo.",
+    "tap-command.where": "Nessuna impostazione: il comando è in Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color: rosso, verde, blu, poi Rainbow che percorre la ruota dei colori, e Color Tempo di BPM Display che lo segue",
-    "tap-led-color.p1": "L'anello del footswitch TAP lampeggia in rosso a tempo, e la sua icona e la sua etichetta nella schermata Home sono rosse. Tap LED Color (Global Settings &gt; Displays, sotto Tap Tempo LED) sceglie un altro colore per tutti e tre, tra i colori che l'HX Stomp dà agli altri footswitch.",
+    "tap-led-color.p1": "L'anello del footswitch TAP lampeggia in rosso a tempo, e la sua icona e la sua etichetta nella schermata Home sono rosse. Tap LED Color (Global Settings &gt; Displays, al posto di Tap Tempo LED) sceglie un altro colore per tutti e tre, tra i colori che l'HX Stomp dà agli altri footswitch.",
     "tap-led-color.li1": "<strong>I colori</strong> sono quelli della tavolozza originale dei footswitch: ogni colore dell'anello è quello che l'HX Stomp accende per un blocco di quel colore, e ogni icona è l'icona originale dell'interruttore di quel colore.",
     "tap-led-color.li2": "<strong>Rainbow</strong> sposta l'anello di un piccolo passo lungo la ruota dei colori a ogni battito: 42 tonalità sfumate tra Red, DkOrange, Yellow, Green, Blue e Violet della tavolozza, fino a tornare a Red, circa 21 s per un giro a 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> accende l'anello in un colore casuale della tavolozza a ogni battito, mai lo stesso due volte di fila.",
     "tap-led-color.li4": "Con Rainbow e Random, l'icona e l'etichetta restano White, e un tap o un cambio di preset riaccende l'anello nel suo colore attuale senza avanzare.",
-    "tap-led-color.li5": "<strong>MIDI clock esterno:</strong> l'anello mantiene il colore originale con cui lampeggia in quel caso. <strong>Tap Tempo LED</strong> decide comunque se l'anello lampeggia o no.",
+    "tap-led-color.li5": "<strong>MIDI clock esterno:</strong> l'anello mantiene il colore originale con cui lampeggia in quel caso. <strong>Off</strong> ferma il lampeggio: Tap LED Color prende in Displays il posto del Tap Tempo LED originale e lo imposta, e un'unità che aveva Tap Tempo LED su Off parte da Off.",
     "tap-led-color.li6": "<strong>Color Tempo di BPM Display</strong> dà al tempo e al punto del battito il colore del footswitch TAP, quello attuale dell'anello con Rainbow e Random.",
-    "tap-led-color.what1": "Il colore del footswitch TAP: il suo anello mentre lampeggia a tempo, e la sua icona dell'interruttore e l'etichetta TAP/TUNER nella schermata Home. Rainbow sposta l'anello lungo la ruota dei colori a ogni battito; Random sceglie un colore nuovo a ogni battito. Entrambi mantengono l'etichetta bianca.",
+    "tap-led-color.what1": "Il colore del footswitch TAP: il suo anello mentre lampeggia a tempo, e la sua icona dell'interruttore e l'etichetta TAP/TUNER nella schermata Home. Rainbow sposta l'anello lungo la ruota dei colori a ogni battito; Random sceglie un colore nuovo a ogni battito. Entrambi mantengono l'etichetta bianca. Off ferma il lampeggio.",
     "usb-monitoring.p1": "L'HX Stomp manda sempre ciò che suoni direttamente alle sue uscite e alle cuffie, e invia lo stesso suono al computer su USB 1/2: è il monitoraggio hardware. Per ascoltare invece attraverso una DAW (monitoraggio software: senti il tuo suono con i plugin della DAW), imposta <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, pagina 3) su <strong>Send/USB</strong>. Il blocco Output del path A va allora al computer su USB 3/4 invece che a Main L/R, e Main e le cuffie suonano solo ciò che il computer rimanda su USB 1/2. Registra e monitora USB 3/4 nella DAW.",
     "usb-monitoring.li1": "<strong>Ogni preset</strong> segue l'impostazione: il path A va su Send/USB in ogni preset che carichi, e cambiare l'impostazione ha effetto subito. L'uscita del path B non cambia.",
     "usb-monitoring.li2": "<strong>Le uscite Send</strong> portano lo stesso suono di USB 3/4: sull'HX Stomp sono un'unica uscita. Lasciale scollegate, o aspettati di sentire il suono anche lì.",
@@ -1736,10 +1814,13 @@ var LANGS = {
     "real-block-names.name": "ブロックの実機名",
     "real-block-names.desc": "すべてのブロックの名前を、元になった実機の名前に変えます。例：Deez One Mod は Boss DS-1 Mod になります。",
     "real-block-names.floc": "モデルブラウザと Edit 画面",
+    "tap-command.name": "Tap コマンド",
+    "tap-command.desc": "タップテンポを必要なプリセットだけに：Command Center の Tap コマンドはプリセットと一緒に保存され、FS1–FS5 をリングがテンポに合わせて点滅するタップテンポスイッチにします。",
+    "tap-command.floc": "Menu &gt; Command Center の FS スロット",
     "tap-led-color.name": "TAP LED カラー",
     "tap-led-color.desc": "TAP フットスイッチの点滅する LED リングと、ホーム画面の TAP/TUNER のアイコンとラベルの色です。Rainbow は拍ごとに虹の色を順に進み、Random は拍ごとに新しい色を選びます。",
     "tap-led-color.floc": "TAP フットスイッチと、ホーム画面のそのアイコンとラベル",
-    "tap-led-color.where": "Global Settings &gt; Displays、Tap Tempo LED の下",
+    "tap-led-color.where": "Global Settings &gt; Displays、Tap Tempo LED があった位置",
     "usb-monitoring.name": "USB &amp; Send ルーティング",
     "usb-monitoring.desc": "Path A の出力先を選びます。USB 3/4 でコンピューターに送り、DAW とそのプラグインを通した音を聴く（Send/USB、USB Only）か、Main L/R に出しつつ Send 端子と USB 3/4 にも送る（Main+Snd）かです。",
     "usb-monitoring.floc": "Path A の出力：Main L/R、Send 端子、USB 3/4",
@@ -1841,15 +1922,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 はモデルに、元になった機材の名前をもじった名前を付けています（Deez One Mod、US Double Nrm）。ブロックの実機名をオンにすると、モデルブラウザと Edit 画面のタイトルで、各ブロックがその機材の名前（Boss DS-1 Mod、Twin Reverb Nrm）で表示されます。名前は <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a> の「based on」から取ったもので、最大 16 文字です。",
     "real-block-names.li1": "<strong>名前が変わらないもの：</strong>Line 6 オリジナルのモデル、ユーティリティ・ブロック、もともと実機名のタイトル。",
     "real-block-names.li2": "<strong>プリセット</strong>のモデル ID は変わらないので、実機名の有無にかかわらずプリセットは同じで、純正ファームウェアでも通常どおり開けます。",
+    "tap-command.p1": "純正の HX Stomp では、タップテンポはフットスイッチのグローバル機能です：FS3 の TAP/TUNER、または TAP に設定した FS4/FS5 が、すべてのプリセットで使われます。HXtra は Command Center に <strong>Tap</strong> コマンドを追加します。Command Center はプリセットごとに保存されるので、フットスイッチは置いたプリセットでだけテンポをタップします。",
+    "tap-command.li1": "<strong>設定方法：</strong>フットスイッチは Stomp スイッチである必要があります。FS1 と FS2 は常に Stomp です。FS3、FS4、FS5 は Global Settings &gt; Footswitches で機能を Stomp にします。次にプリセットで Menu &gt; Command Center を開き、そのフットスイッチのスロットを選んで Command を <strong>Tap</strong>（Hotkey の次）に回します。残すにはプリセットを保存してください。",
+    "tap-command.li2": "<strong>押すと</strong> TAP フットスイッチとまったく同じようにテンポをタップします。長押しではタップしません。",
+    "tap-command.li3": "<strong>リング</strong>（FS1–FS3）は TAP のリングと同じようにテンポに合わせて点滅し、Tap LED Color がビルドに入っていればその色になります。Tap LED Color の Off で点滅が止まります（Tap LED Color のないビルドでは純正の Tap Tempo LED で止まります）。FS4 と FS5 にはリングがありません。",
+    "tap-command.li4": "<strong>スナップショットの切り替え</strong>でタップされることはありません。",
+    "tap-command.li5": "<strong>ホーム画面のラベル</strong>は Tap と表示されます。ほかのコマンドのフットスイッチがそのコマンド名を表示するのと同じです。Command Center の Customize で名前を変えられます。",
+    "tap-command.li6": "<strong>純正ファームウェアでは</strong> Tap コマンドのあるプリセットも通常どおり開けますが、フットスイッチはタップしません。",
+    "tap-command.where": "設定なし：コマンドは Menu &gt; Command Center にあります",
     "tap-led-color.alt1": "Tap LED Color：赤、緑、青、続いて色相環を巡る Rainbow と、それに合わせて変わる BPM Display の Color Tempo",
-    "tap-led-color.p1": "TAP フットスイッチのリングはテンポに合わせて赤く点滅し、ホーム画面のアイコンとラベルも赤です。Tap LED Color（Global Settings &gt; Displays、Tap Tempo LED の下）で、HX Stomp がほかのフットスイッチに使う色の中から、この 3 つの色を変えられます。",
+    "tap-led-color.p1": "TAP フットスイッチのリングはテンポに合わせて赤く点滅し、ホーム画面のアイコンとラベルも赤です。Tap LED Color（Global Settings &gt; Displays、Tap Tempo LED があった位置）で、HX Stomp がほかのフットスイッチに使う色の中から、この 3 つの色を変えられます。",
     "tap-led-color.li1": "<strong>色</strong>は純正のフットスイッチ・パレットです。リングの各色はその色のブロックに HX Stomp が点灯させる色、アイコンの各色はその色の純正スイッチ・アイコンです。",
     "tap-led-color.li2": "<strong>Rainbow</strong> は拍ごとにリングの色を色相環に沿って少しずつ進めます。パレットの Red、DkOrange、Yellow、Green、Blue、Violet から Red に戻るまでを混ぜた 42 色で、120 BPM なら一周約 21 s です。",
     "tap-led-color.li3": "<strong>Random</strong> は拍ごとにパレットのランダムな色でリングを点灯させます。同じ色が 2 回続くことはありません。",
     "tap-led-color.li4": "Rainbow と Random では、アイコンとラベルは White のままです。タップやプリセット変更ではリングを現在の色で点灯し直し、次の色には進みません。",
-    "tap-led-color.li5": "<strong>外部 MIDI クロック：</strong>その間、リングは純正の点滅色のままです。リングを点滅させるかどうかは、引き続き <strong>Tap Tempo LED</strong> で決まります。",
+    "tap-led-color.li5": "<strong>外部 MIDI クロック：</strong>その間、リングは純正の点滅色のままです。<strong>Off</strong> で点滅が止まります。Tap LED Color は Displays で純正の Tap Tempo LED の位置に入り、その設定を切り替えます。Tap Tempo LED が Off だった本体は Off から始まります。",
     "tap-led-color.li6": "<strong>BPM Display の Color Tempo</strong> は、テンポとビート・ドットを TAP フットスイッチの色にします。Rainbow と Random ではリングの現在の色になります。",
-    "tap-led-color.what1": "TAP フットスイッチの色：テンポに合わせて点滅するリングと、ホーム画面のスイッチ・アイコンと TAP/TUNER ラベル。Rainbow は拍ごとにリングを色相環に沿って進め、Random は拍ごとに新しい色を選びます。どちらもラベルは白のままです。",
+    "tap-led-color.what1": "TAP フットスイッチの色：テンポに合わせて点滅するリングと、ホーム画面のスイッチ・アイコンと TAP/TUNER ラベル。Rainbow は拍ごとにリングを色相環に沿って進め、Random は拍ごとに新しい色を選びます。どちらもラベルは白のままです。Off で点滅が止まります。",
     "usb-monitoring.p1": "HX Stomp は、弾いた音を常にそのまま出力端子とヘッドホンに出し、同じ音を USB 1/2 でコンピューターにも送ります（ハードウェア・モニタリング）。代わりに DAW を通してモニターする（ソフトウェア・モニタリング：DAW のプラグインをかけた音を聴く）には、<strong>Path A Out</strong>（Global Settings &gt; Ins/Outs、3 ページ目）を <strong>Send/USB</strong> にします。すると Path A の Output ブロックは Main L/R ではなく USB 3/4 でコンピューターに送られ、Main とヘッドホンにはコンピューターから USB 1/2 で戻ってくる音だけが出ます。DAW では USB 3/4 を録音・モニターしてください。",
     "usb-monitoring.li1": "<strong>すべてのプリセット</strong>がこの設定に従います。読み込んだどのプリセットでも Path A は Send/USB に出力され、設定を変えるとすぐに切り替わります。Path B の出力は変わりません。",
     "usb-monitoring.li2": "<strong>Send 端子</strong>には USB 3/4 と同じ音が出ます。HX Stomp ではこの 2 つは 1 つの出力だからです。何もつながないでおくか、そこからも音が出ることを前提にしてください。",
@@ -1921,10 +2010,13 @@ var LANGS = {
     "real-block-names.name": "模块的真实名称",
     "real-block-names.desc": "将所有模块重命名为其原型设备的名称：例如 Deez One Mod 变为 Boss DS-1 Mod。",
     "real-block-names.floc": "模型浏览器和 Edit 界面",
+    "tap-command.name": "Tap 命令",
+    "tap-command.desc": "只在需要的预设里使用拍速：Command Center 中的 Tap 命令随预设保存，把 FS1–FS5 变成拍速开关，其灯环随速度闪烁。",
+    "tap-command.floc": "Menu &gt; Command Center，FS 槽位",
     "tap-led-color.name": "TAP LED 颜色",
     "tap-led-color.desc": "TAP 脚踏开关闪烁灯环的颜色，以及主屏幕上 TAP/TUNER 图标和标签的颜色。Rainbow 每拍沿彩虹前进一步；Random 每拍随机换一种颜色。",
     "tap-led-color.floc": "TAP 脚踏开关，以及它在主屏幕上的图标和标签",
-    "tap-led-color.where": "Global Settings &gt; Displays，Tap Tempo LED 下方",
+    "tap-led-color.where": "Global Settings &gt; Displays，原 Tap Tempo LED 的位置",
     "usb-monitoring.name": "USB 与 Send 路由",
     "usb-monitoring.desc": "决定 Path A 输出的去向：经 USB 3/4 送到电脑，让你通过 DAW 及其插件听到自己的音色（Send/USB、USB Only）；或送到 Main L/R，同时也送到 Send 接口和 USB 3/4（Main+Snd）。",
     "usb-monitoring.floc": "Path A 的输出：Main L/R、Send 接口和 USB 3/4",
@@ -2026,15 +2118,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 以原型设备为模型命名时会稍作改动（Deez One Mod、US Double Nrm）。开启模块的真实名称后，模型浏览器和 Edit 界面会改用原型设备的名称作为模块标题：Boss DS-1 Mod、Twin Reverb Nrm。这些名称取自 <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a> 的“based on”，最多 16 个字符。",
     "real-block-names.li1": "<strong>保留原名的：</strong>Line 6 原创模型、工具类模块，以及本来就是真实名称的标题。",
     "real-block-names.li2": "<strong>预设</strong>的模型 ID 不变，因此无论是否使用真实名称，预设都完全相同，在原厂固件上也照常打开。",
+    "tap-command.p1": "在原厂 HX Stomp 上，拍速是脚踏开关的全局功能：FS3 的 TAP/TUNER，或设为 TAP 的 FS4/FS5，在每个预设中都一样。HXtra 在 Command Center 中加入 <strong>Tap</strong> 命令，而 Command Center 随每个预设保存，所以脚踏开关只在你放置它的预设中拍速度。",
+    "tap-command.li1": "<strong>设置方法：</strong>脚踏开关必须是 Stomp 开关。FS1 和 FS2 始终是；FS3、FS4 或 FS5 需在 Global Settings &gt; Footswitches 中把功能设为 Stomp。然后在预设中打开 Menu &gt; Command Center，选择该脚踏开关的槽位，把 Command 转到 <strong>Tap</strong>（在 Hotkey 之后）。保存预设即可保留。",
+    "tap-command.li2": "<strong>按下它</strong>与 TAP 脚踏开关完全一样地拍速度。按住不会拍速度。",
+    "tap-command.li3": "<strong>它的灯环</strong>（FS1–FS3）像 TAP 灯环一样随速度闪烁，若你的构建包含 Tap LED Color，则使用其颜色。Tap LED Color 设为 Off 即停止闪烁（在不含 Tap LED Color 的构建中，由原厂 Tap Tempo LED 控制）。FS4 和 FS5 没有灯环。",
+    "tap-command.li4": "<strong>切换快照</strong>从不会拍速度。",
+    "tap-command.li5": "<strong>主屏幕上的标签</strong>显示 Tap，就像带其他命令的脚踏开关显示该命令的名称；可在 Command Center 中用 Customize 改名。",
+    "tap-command.li6": "<strong>在原厂固件上</strong>，带 Tap 命令的预设照常打开，但脚踏开关不会拍速度。",
+    "tap-command.where": "无设置：该命令在 Menu &gt; Command Center 中",
     "tap-led-color.alt1": "Tap LED Color：红、绿、蓝，然后 Rainbow 沿色轮变化，BPM 显示的 Color 设为 Tempo 时随之变化",
-    "tap-led-color.p1": "TAP 脚踏开关的灯环随速度闪红光，主屏幕上它的图标和标签也是红色。Tap LED Color（Global Settings &gt; Displays，Tap Tempo LED 下方）可从 HX Stomp 用于其他脚踏开关的颜色中，为这三者另选一种颜色。",
+    "tap-led-color.p1": "TAP 脚踏开关的灯环随速度闪红光，主屏幕上它的图标和标签也是红色。Tap LED Color（Global Settings &gt; Displays，原 Tap Tempo LED 的位置）可从 HX Stomp 用于其他脚踏开关的颜色中，为这三者另选一种颜色。",
     "tap-led-color.li1": "<strong>颜色</strong>取自原厂脚踏开关调色板：每种灯环颜色都是 HX Stomp 为该颜色的模块点亮的颜色，每个图标都是该颜色的原厂开关图标。",
     "tap-led-color.li2": "<strong>Rainbow</strong> 每拍让灯环沿色轮前进一小步：由调色板中的 Red、DkOrange、Yellow、Green、Blue 和 Violet 混合出 42 种色调，再回到 Red，在 120 BPM 下转一圈约 21 s。",
     "tap-led-color.li3": "<strong>Random</strong> 每拍以调色板中的一种随机颜色点亮灯环，绝不会连续两次相同。",
     "tap-led-color.li4": "使用 Rainbow 和 Random 时，图标和标签保持 White；敲击或切换预设时，灯环会以当前颜色重新点亮，而不会前进。",
-    "tap-led-color.li5": "<strong>外部 MIDI 时钟：</strong>此时灯环保持原厂的闪烁颜色。<strong>Tap Tempo LED</strong> 仍决定灯环是否闪烁。",
+    "tap-led-color.li5": "<strong>外部 MIDI 时钟：</strong>此时灯环保持原厂的闪烁颜色。<strong>Off</strong> 停止闪烁：Tap LED Color 在 Displays 中取代原厂 Tap Tempo LED 的位置并设置它，原先 Tap Tempo LED 为 Off 的设备会从 Off 开始。",
     "tap-led-color.li6": "<strong>BPM 显示的 Color 设为 Tempo</strong> 时，速度和节拍点使用 TAP 脚踏开关的颜色；使用 Rainbow 和 Random 时为灯环当前的颜色。",
-    "tap-led-color.what1": "TAP 脚踏开关的颜色：随速度闪烁的灯环，以及主屏幕上的开关图标和 TAP/TUNER 标签。Rainbow 每拍让灯环沿色轮前进；Random 每拍随机换一种颜色。两者的标签都保持白色。",
+    "tap-led-color.what1": "TAP 脚踏开关的颜色：随速度闪烁的灯环，以及主屏幕上的开关图标和 TAP/TUNER 标签。Rainbow 每拍让灯环沿色轮前进；Random 每拍随机换一种颜色。两者的标签都保持白色。Off 停止闪烁。",
     "usb-monitoring.p1": "HX Stomp 总是把你弹奏的声音直接送到输出和耳机，并通过 USB 1/2 把同样的声音送到电脑：这是硬件监听。若想改为通过 DAW 监听（软件监听：听到加上 DAW 插件后的音色），请把 <strong>Path A Out</strong>（Global Settings &gt; Ins/Outs，第 3 页）设为 <strong>Send/USB</strong>。这样 Path A 的 Output 模块就会经 USB 3/4 送到电脑，而不是 Main L/R，Main 和耳机只播放电脑经 USB 1/2 送回的声音。在 DAW 中录制并监听 USB 3/4。",
     "usb-monitoring.li1": "<strong>所有预设</strong>都遵循此设置：载入的每个预设中 Path A 都送往 Send/USB，转动设置会立即切换。Path B 自己的输出不受影响。",
     "usb-monitoring.li2": "<strong>Send 接口</strong>输出与 USB 3/4 相同的声音：在 HX Stomp 上它们是同一路输出。请不要在上面插线，否则那里也会有声音。",
@@ -2106,10 +2206,13 @@ var LANGS = {
     "real-block-names.name": "블록의 실제 이름",
     "real-block-names.desc": "모든 블록 이름을 원본 장비 이름으로 바꿉니다. 예: Deez One Mod는 Boss DS-1 Mod가 됩니다.",
     "real-block-names.floc": "모델 브라우저와 Edit 화면",
+    "tap-command.name": "Tap 명령",
+    "tap-command.desc": "탭 템포를 필요한 프리셋에서만: Command Center의 Tap 명령은 프리셋과 함께 저장되며, FS1–FS5를 링이 템포에 맞춰 깜박이는 탭 템포 스위치로 만듭니다.",
+    "tap-command.floc": "Menu &gt; Command Center의 FS 슬롯",
     "tap-led-color.name": "TAP LED 색상",
     "tap-led-color.desc": "TAP 풋스위치에서 깜박이는 LED 링의 색, 그리고 홈 화면의 TAP/TUNER 아이콘과 라벨의 색입니다. Rainbow는 박자마다 무지개 색을 한 단계씩 바꾸고, Random은 박자마다 새 색을 고릅니다.",
     "tap-led-color.floc": "TAP 풋스위치와 홈 화면의 아이콘·라벨",
-    "tap-led-color.where": "Global Settings &gt; Displays, Tap Tempo LED 아래",
+    "tap-led-color.where": "Global Settings &gt; Displays, Tap Tempo LED 자리",
     "usb-monitoring.name": "USB &amp; Send 라우팅",
     "usb-monitoring.desc": "Path A 출력을 보낼 곳: USB 3/4로 컴퓨터에 보내 DAW와 플러그인을 거친 톤을 듣거나(Send/USB, USB Only), Main L/R와 함께 Send 잭과 USB 3/4에도 보냅니다(Main+Snd).",
     "usb-monitoring.floc": "Path A 출력: Main L/R, Send 잭, USB 3/4",
@@ -2211,15 +2314,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6는 원본 장비 이름을 살짝 비틀어 모델 이름을 짓습니다(Deez One Mod, US Double Nrm). 블록의 실제 이름을 켜면 모델 브라우저와 Edit 화면의 블록 제목이 원본 장비 이름으로 바뀝니다: Boss DS-1 Mod, Twin Reverb Nrm. 이름은 <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>의 \"based on\" 항목에서 가져오며, 최대 16자입니다.",
     "real-block-names.li1": "<strong>이름이 바뀌지 않는 것:</strong> Line 6 오리지널 모델, 유틸리티 블록, 이미 실제 이름인 제목.",
     "real-block-names.li2": "<strong>프리셋</strong>은 같은 모델 ID를 유지하므로 실제 이름을 쓰든 안 쓰든 똑같고, 순정 펌웨어에서도 평소처럼 열립니다.",
+    "tap-command.p1": "순정 HX Stomp에서 탭 템포는 풋스위치의 전역 기능입니다: FS3의 TAP/TUNER, 또는 TAP으로 설정한 FS4/FS5가 모든 프리셋에서 쓰입니다. HXtra는 Command Center에 <strong>Tap</strong> 명령을 추가합니다. Command Center는 프리셋마다 저장되므로, 풋스위치는 넣어 둔 프리셋에서만 템포를 탭합니다.",
+    "tap-command.li1": "<strong>설정 방법:</strong> 풋스위치는 Stomp 스위치여야 합니다. FS1과 FS2는 항상 그렇고, FS3, FS4, FS5는 Global Settings &gt; Footswitches에서 기능을 Stomp로 설정합니다. 그런 다음 프리셋에서 Menu &gt; Command Center를 열고 그 풋스위치의 슬롯을 선택한 뒤 Command를 <strong>Tap</strong>(Hotkey 다음)으로 돌립니다. 유지하려면 프리셋을 저장하세요.",
+    "tap-command.li2": "<strong>누르면</strong> TAP 풋스위치와 똑같이 템포를 탭합니다. 길게 누르면 탭하지 않습니다.",
+    "tap-command.li3": "<strong>링</strong>(FS1–FS3)은 TAP 링처럼 템포에 맞춰 깜박이며, 빌드에 Tap LED Color가 있으면 그 색을 씁니다. Tap LED Color의 Off로 깜박임이 멈춥니다(Tap LED Color가 없는 빌드에서는 순정 Tap Tempo LED가 그 역할을 합니다). FS4와 FS5에는 링이 없습니다.",
+    "tap-command.li4": "<strong>스냅샷을 바꿔도</strong> 탭되지 않습니다.",
+    "tap-command.li5": "<strong>홈 화면 라벨</strong>은 Tap으로 표시됩니다. 다른 명령의 풋스위치가 그 명령 이름을 표시하는 것과 같으며, Command Center의 Customize로 이름을 바꿀 수 있습니다.",
+    "tap-command.li6": "<strong>순정 펌웨어에서는</strong> Tap 명령이 있는 프리셋도 평소처럼 열리지만, 풋스위치는 탭하지 않습니다.",
+    "tap-command.where": "설정 없음: 명령은 Menu &gt; Command Center에 있습니다",
     "tap-led-color.alt1": "Tap LED Color: 빨강, 초록, 파랑, 이어서 색상환을 도는 Rainbow, 그리고 이를 따라가는 BPM Display의 Color Tempo",
-    "tap-led-color.p1": "TAP 풋스위치의 링은 템포에 맞춰 빨간색으로 깜박이고, 홈 화면의 아이콘과 라벨도 빨간색입니다. Tap LED Color(Global Settings &gt; Displays, Tap Tempo LED 아래)로 HX Stomp가 다른 풋스위치에 쓰는 색 중에서 세 곳 모두의 색을 고를 수 있습니다.",
+    "tap-led-color.p1": "TAP 풋스위치의 링은 템포에 맞춰 빨간색으로 깜박이고, 홈 화면의 아이콘과 라벨도 빨간색입니다. Tap LED Color(Global Settings &gt; Displays, Tap Tempo LED 자리)로 HX Stomp가 다른 풋스위치에 쓰는 색 중에서 세 곳 모두의 색을 고를 수 있습니다.",
     "tap-led-color.li1": "<strong>색</strong>은 순정 풋스위치 팔레트입니다. 링의 각 색은 HX Stomp가 그 색의 블록에 켜는 색이고, 아이콘은 그 색의 순정 스위치 아이콘입니다.",
     "tap-led-color.li2": "<strong>Rainbow</strong>는 박자마다 링을 색상환을 따라 조금씩 옮깁니다. 팔레트의 Red, DkOrange, Yellow, Green, Blue, Violet을 거쳐 다시 Red로 이어지는 42단계의 색으로, 120 BPM에서 한 바퀴에 약 21 s 걸립니다.",
     "tap-led-color.li3": "<strong>Random</strong>은 박자마다 팔레트에서 무작위로 고른 색으로 링을 켜며, 같은 색이 연달아 나오지 않습니다.",
     "tap-led-color.li4": "Rainbow와 Random에서는 아이콘과 라벨이 White로 유지되며, 탭하거나 프리셋을 바꾸면 링이 다음 색으로 넘어가지 않고 현재 색으로 다시 켜집니다.",
-    "tap-led-color.li5": "<strong>외부 MIDI 클럭:</strong> 이때 링은 순정 색으로 깜박입니다. 링이 깜박일지 여부는 여전히 <strong>Tap Tempo LED</strong>가 정합니다.",
+    "tap-led-color.li5": "<strong>외부 MIDI 클럭:</strong> 이때 링은 순정 색으로 깜박입니다. <strong>Off</strong>는 깜박임을 멈춥니다. Tap LED Color가 Displays에서 순정 Tap Tempo LED 자리를 대신하며 그 설정을 바꾸고, Tap Tempo LED가 Off였던 기기는 Off로 시작합니다.",
     "tap-led-color.li6": "<strong>BPM Display의 Color Tempo</strong>는 템포와 박자 점에 TAP 풋스위치의 색을 적용합니다. Rainbow와 Random에서는 링의 현재 색입니다.",
-    "tap-led-color.what1": "TAP 풋스위치의 색: 템포에 맞춰 깜박이는 링, 그리고 홈 화면의 스위치 아이콘과 TAP/TUNER 라벨. Rainbow는 박자마다 링을 색상환을 따라 옮기고, Random은 박자마다 새 색을 고릅니다. 두 경우 모두 라벨은 흰색입니다.",
+    "tap-led-color.what1": "TAP 풋스위치의 색: 템포에 맞춰 깜박이는 링, 그리고 홈 화면의 스위치 아이콘과 TAP/TUNER 라벨. Rainbow는 박자마다 링을 색상환을 따라 옮기고, Random은 박자마다 새 색을 고릅니다. 두 경우 모두 라벨은 흰색입니다. Off는 깜박임을 멈춥니다.",
     "usb-monitoring.p1": "HX Stomp는 연주하는 소리를 늘 출력과 헤드폰으로 바로 내보내고, 같은 소리를 USB 1/2로 컴퓨터에 보냅니다. 이것이 하드웨어 모니터링입니다. 대신 DAW를 거쳐 모니터링하려면(소프트웨어 모니터링: DAW 플러그인을 건 톤을 듣기) <strong>Path A Out</strong>(Global Settings &gt; Ins/Outs, 3페이지)을 <strong>Send/USB</strong>로 설정하세요. 그러면 Path A의 Output 블록이 Main L/R 대신 USB 3/4로 컴퓨터에 가고, Main과 헤드폰에서는 컴퓨터가 USB 1/2로 돌려보내는 소리만 나옵니다. DAW에서 USB 3/4를 녹음하고 모니터링하세요.",
     "usb-monitoring.li1": "<strong>모든 프리셋</strong>이 이 설정을 따릅니다. 어떤 프리셋을 불러와도 Path A는 Send/USB로 가고, 설정을 돌리면 바로 바뀝니다. Path B의 출력은 바뀌지 않습니다.",
     "usb-monitoring.li2": "<strong>Send 잭</strong>에는 USB 3/4와 같은 소리가 나옵니다. HX Stomp에서는 둘이 하나의 출력이기 때문입니다. 잭을 비워 두거나, 그쪽에서도 소리가 나온다고 생각하세요.",
@@ -2291,10 +2402,13 @@ var LANGS = {
     "real-block-names.name": "Настоящие названия блоков",
     "real-block-names.desc": "Переименовывает все блоки по названиям приборов, на которых они основаны: например, Deez One Mod становится Boss DS-1 Mod.",
     "real-block-names.floc": "Браузер моделей и окно Edit",
+    "tap-command.name": "Команда Tap",
+    "tap-command.desc": "Тап-темп только в тех пресетах, где он нужен: команда Tap в Command Center, сохраняемая с пресетом, превращает FS1–FS5 в переключатель тап-темпа, кольцо которого мигает в темп.",
+    "tap-command.floc": "Menu &gt; Command Center, слот FS",
     "tap-led-color.name": "Цвет светодиода TAP",
     "tap-led-color.desc": "Цвет мигающего светодиодного кольца футсвича TAP, а также иконки и подписи TAP/TUNER на главном экране. Rainbow на каждой доле сдвигается по радуге; Random на каждой доле выбирает новый цвет.",
     "tap-led-color.floc": "Футсвич TAP, его иконка и подпись на главном экране",
-    "tap-led-color.where": "Global Settings &gt; Displays, под Tap Tempo LED",
+    "tap-led-color.where": "Global Settings &gt; Displays, на месте Tap Tempo LED",
     "usb-monitoring.name": "Маршрутизация USB &amp; Send",
     "usb-monitoring.desc": "Куда идёт выход path A: на компьютер по USB 3/4, чтобы слышать свой звук через DAW и её плагины (Send/USB, USB Only), или на Main L/R, а заодно на выходы Send и USB 3/4 (Main+Snd).",
     "usb-monitoring.floc": "Выход path A: Main L/R, выходы Send и USB 3/4",
@@ -2396,15 +2510,23 @@ var LANGS = {
     "real-block-names.p1": "Line 6 называет свои модели по приборам, на которых они основаны, но с изменениями (Deez One Mod, US Double Nrm). С функцией «Настоящие названия блоков» браузер моделей и заголовок окна Edit называют каждый блок по самому прибору: Boss DS-1 Mod, Twin Reverb Nrm. Названия взяты из поля «based on» на <a href=\"https://helixhelp.com/models\">helixhelp.com/models</a>, не длиннее 16 символов.",
     "real-block-names.li1": "<strong>Что сохраняет название:</strong> оригинальные модели Line 6, служебные блоки и названия, которые уже настоящие.",
     "real-block-names.li2": "<strong>Пресеты</strong> хранят те же ID моделей, поэтому пресет одинаков с настоящими названиями и без них и, как обычно, открывается на стоковой прошивке.",
+    "tap-command.p1": "На стоковом HX Stomp тап-темп — глобальная функция футсвича: TAP/TUNER на FS3 или FS4/FS5, настроенные на TAP, во всех пресетах. HXtra добавляет в Command Center команду <strong>Tap</strong>, а Command Center сохраняется с каждым пресетом, поэтому футсвич задаёт темп только в тех пресетах, куда вы её поставили.",
+    "tap-command.li1": "<strong>Настройка:</strong> футсвич должен быть переключателем Stomp. FS1 и FS2 — всегда; для FS3, FS4 или FS5 выберите функцию Stomp в Global Settings &gt; Footswitches. Затем в пресете откройте Menu &gt; Command Center, выберите слот футсвича и поверните Command до <strong>Tap</strong> (после Hotkey). Сохраните пресет, чтобы команда осталась.",
+    "tap-command.li2": "<strong>Нажатие</strong> задаёт темп точно так же, как футсвич TAP. Удержание темп не задаёт.",
+    "tap-command.li3": "<strong>Его кольцо</strong> (FS1–FS3) мигает в темп, как кольцо TAP, цветом Tap LED Color, если эта функция есть в вашей сборке. Off в Tap LED Color останавливает мигание (в сборке без Tap LED Color это делает стоковый Tap Tempo LED). У FS4 и FS5 колец нет.",
+    "tap-command.li4": "<strong>Смена снапшота</strong> никогда не задаёт темп.",
+    "tap-command.li5": "<strong>Подпись на главном экране</strong> — Tap, так же как футсвич с другой командой показывает название этой команды; Customize в Command Center её переименовывает.",
+    "tap-command.li6": "<strong>На стоковой прошивке</strong> пресет с командой Tap открывается как обычно, а футсвич темп не задаёт.",
+    "tap-command.where": "Нет настроек: команда находится в Menu &gt; Command Center",
     "tap-led-color.alt1": "Tap LED Color: красный, зелёный, синий, затем Rainbow, идущий по цветовому кругу, и Color Tempo в BPM Display, следующий за ним",
-    "tap-led-color.p1": "Кольцо футсвича TAP мигает красным в темп, а его иконка и подпись на главном экране красные. Tap LED Color (Global Settings &gt; Displays, под Tap Tempo LED) выбирает для всех трёх другой цвет из тех, что HX Stomp даёт другим футсвичам.",
+    "tap-led-color.p1": "Кольцо футсвича TAP мигает красным в темп, а его иконка и подпись на главном экране красные. Tap LED Color (Global Settings &gt; Displays, на месте Tap Tempo LED) выбирает для всех трёх другой цвет из тех, что HX Stomp даёт другим футсвичам.",
     "tap-led-color.li1": "<strong>Цвета</strong> — стоковая палитра футсвичей: каждый цвет кольца — тот, которым HX Stomp подсвечивает блок этого цвета, а каждая иконка — стоковая иконка кнопки этого цвета.",
     "tap-led-color.li2": "<strong>Rainbow</strong> на каждой доле сдвигает кольцо на небольшой шаг по цветовому кругу: 42 оттенка, смешанных из Red, DkOrange, Yellow, Green, Blue и Violet палитры и обратно к Red, полный круг примерно за 21 s при 120 BPM.",
     "tap-led-color.li3": "<strong>Random</strong> на каждой доле зажигает кольцо случайным цветом палитры, никогда не повторяя один и тот же два раза подряд.",
     "tap-led-color.li4": "С Rainbow и Random иконка и подпись остаются White, а нажатие TAP или смена пресета зажигает кольцо его текущим цветом, не сдвигая его дальше.",
-    "tap-led-color.li5": "<strong>Внешний MIDI clock:</strong> кольцо в этом случае мигает стоковым цветом. <strong>Tap Tempo LED</strong> по-прежнему решает, мигает ли кольцо вообще.",
+    "tap-led-color.li5": "<strong>Внешний MIDI clock:</strong> кольцо в этом случае мигает стоковым цветом. <strong>Off</strong> останавливает мигание: Tap LED Color занимает в Displays место стоковой настройки Tap Tempo LED и переключает её, а устройство, где Tap Tempo LED был Off, начинает с Off.",
     "tap-led-color.li6": "<strong>Color Tempo в BPM Display</strong> окрашивает темп и точку доли в цвет футсвича TAP, а при Rainbow и Random — в текущий цвет кольца.",
-    "tap-led-color.what1": "Цвет футсвича TAP: его кольцо, мигающее в темп, а также иконка кнопки и подпись TAP/TUNER на главном экране. Rainbow на каждой доле сдвигает кольцо по цветовому кругу; Random на каждой доле выбирает новый цвет. В обоих случаях подпись белая.",
+    "tap-led-color.what1": "Цвет футсвича TAP: его кольцо, мигающее в темп, а также иконка кнопки и подпись TAP/TUNER на главном экране. Rainbow на каждой доле сдвигает кольцо по цветовому кругу; Random на каждой доле выбирает новый цвет. В обоих случаях подпись белая. Off останавливает мигание.",
     "usb-monitoring.p1": "HX Stomp всегда выводит то, что вы играете, прямо на свои выходы и наушники и отправляет тот же звук на компьютер по USB 1/2: это аппаратный мониторинг. Чтобы вместо этого слушать себя через DAW (программный мониторинг: ваш звук с плагинами DAW), установите <strong>Path A Out</strong> (Global Settings &gt; Ins/Outs, страница 3) на <strong>Send/USB</strong>. Тогда блок Output на path A идёт на компьютер по USB 3/4 вместо Main L/R, а Main и наушники воспроизводят только то, что компьютер возвращает по USB 1/2. Записывайте и слушайте USB 3/4 в DAW.",
     "usb-monitoring.li1": "<strong>Каждый пресет</strong> подчиняется настройке: path A идёт на Send/USB в каждом загружаемом пресете, а смена настройки срабатывает сразу. Собственный выход path B не меняется.",
     "usb-monitoring.li2": "<strong>Выходы Send</strong> несут тот же звук, что и USB 3/4: на HX Stomp это один выход. Оставьте их неподключёнными или будьте готовы, что звук будет и там.",
