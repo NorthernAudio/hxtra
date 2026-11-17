@@ -120,7 +120,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 - **Parameters**: assign one to the same FS in Controller Assign, and it follows the footswitch too.
 - **MIDI**: **underneath, FS6 … FS10 are MIDI CC 20 … 24.** HX Edit shows them that way, and a MIDI controller sending those CCs switches them as well.
 
-<a href="https://wisemandenny.github.io/hxtra/web/features.html#long-press"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
+<a href="https://wisemandenny.github.io/hxtra/web/features.html#virtual-footswitches"><img src="docs/assets/icons/watch-demo.svg" width="124" height="28" alt="Watch demo"></a>
 
 ### <img src="docs/assets/icons/long-press.svg" width="28" height="28" align="top" alt=""> Footswitch long press
 
