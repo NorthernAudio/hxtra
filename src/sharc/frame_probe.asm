@@ -7,6 +7,10 @@
 // and external memory for the first word, keeps the addresses whose word 255 is the matching last word, and writes into each:
 // word 200 600DF00D, 216 and 217 the window peaks of input and output, 218 the knobs, 250 the window count, 251 the release
 // coefficient over a window. Words 201..215, 219..249 and 252 are left alone.
+//
+// Every other core (other compressors, the 3-Band Comp's nine, the Busy One amps, the Sweep Echo) goes straight to the stock
+// code: a preset near the DSP limit has no room for this wrapper's work on each of them (issue #84 froze the unit). With no
+// metered core the frames carry no marker, and the M4 turns the meter off after 1024 frames.
 
 .equ MAGIC1,  0xFACEF00D
 .equ MAGIC2,  0xF00DFACE
@@ -41,6 +45,7 @@ FP_WN:    .space 1
 FP_WC:    .space 1                      // windows so far
 FP_KIND:  .space 1                      // the core being run: 0 Deluxe or Rochester Comp (0x271a), 1 LA Studio Comp (0x2719), 2 Kinky Comp, Ampeg Opto Comp or Red Squeeze (0x2710)
 FP_R0:    .space 1
+FP_R1:    .space 1
 FP_I0:    .space 1                      // as called: the core's state, its buffers and its pm words
 FP_I1:    .space 1
 FP_I2:    .space 1
@@ -53,7 +58,6 @@ FP_LIST:  .space 16                     // N_FRAMES frame addresses + 1
 LA_REL:   .word 0x3F7FEED8              // the meter's fixed Release for the LA Studio Comp (500 ms), as a per-sample coefficient
 GR_PACK:  .space 1
 GR_CORE:  .space 1                      // the state (I0) of the core the meter shows: the last whose Mtr Size was set above Off
-GR_MISS:  .space 1                      // other cores' calls since it last ran: past 64 it is gone (another preset)
 CORES:    .space 97                     // N_CORE entries of CE words, then the next entry to replace
 FC_R3:    .space 1
 
@@ -71,6 +75,18 @@ ENTRY_2710:
     R0 = 2;
 fp_entry:
     DM(FP_KIND) = R0;
+    DM(FP_R1) = R1;
+    R0 = I0;
+    R1 = DM(GR_CORE);
+    COMP(R0, R1);
+    R1 = DM(FP_R1);
+    R0 = DM(FP_KIND);
+    IF EQ JUMP fp_mine;
+    R0 = PASS R0;
+    R0 = DM(FP_R0);
+    IF NE JUMP ORIG_2719;
+    JUMP ORIG;
+fp_mine:
     R0 = DM(FP_R0);
     DM(FP_I8) = I8;
     DM(FP_I1) = I1;                     // as called
@@ -115,20 +131,6 @@ fp_ran:
     DM(FP_SAVE + 12) = L5;
     L4 = 0; L5 = 0;
 
-    R0 = DM(FP_I0);                     // only the metered core is measured: other compressors, the Busy One amps and the Sweep Echo run these cores too
-    R1 = DM(GR_CORE);
-    COMP(R0, R1);
-    IF EQ JUMP fp_mine;
-    R0 = DM(GR_MISS);
-    R1 = 65;
-    COMP(R0, R1);
-    IF GE JUMP fp_pack;
-    R0 = R0 + 1;
-    DM(GR_MISS) = R0;
-    JUMP fp_pack;
-fp_mine:
-    R0 = 0;
-    DM(GR_MISS) = R0;
     I4 = DM(FP_I1);                     // and after
     CALL fp_max;
     DM(FP_A1) = R1;
@@ -201,10 +203,6 @@ fp_pack:
     R0 = DM(GR_CORE);                   // GR_TAG, Position, Direction, Thickness in bytes 3..0; 0 with no metered core
     R0 = PASS R0;
     IF EQ JUMP fp_bad;
-    R1 = DM(GR_MISS);
-    R2 = 64;
-    COMP(R1, R2);
-    IF GT JUMP fp_bad;
     CALL fp_find;
     R2 = PASS R2;
     IF EQ JUMP fp_bad;

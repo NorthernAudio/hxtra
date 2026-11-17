@@ -111,6 +111,29 @@ def test_probe_keeps_the_core_output_and_registers():
     assert [wrapped.u[r] for r in range(8)] == [alone.u[r] for r in range(8)]
 
 
+@pytest.mark.parametrize('entry', ['ENTRY_271A', 'ENTRY_2719', 'ENTRY_2710'])
+@pytest.mark.parametrize('metered', [False, True])
+def test_probe_other_cores_go_straight_to_the_stock_code(entry, metered):
+    """Issue #84: two 3-Band Comps (nine 0x271a cores) in a preset near the DSP limit froze the unit, so a core the meter does
+    not show costs a few instructions over the stock core alone, during the frame scan too, and leaves its output and registers as the core's."""
+    alone, sym = probe(span=4096)
+    for r in range(8):
+        alone.u[r] = 0x100 + r
+    c0 = alone.cycles
+    block(alone, sym, 'FAKE_CORE', 0x97000, 0.5)
+    stock = alone.cycles - c0
+    s, sym = probe(span=4096)
+    if metered:
+        knobs(s, sym, 'CTRL_271A', 0x96000, 0, 0, 20)
+    for r in range(8):
+        s.u[r] = 0x100 + r
+    c0 = s.cycles
+    block(s, sym, entry, 0x97000, 0.5)
+    assert s.cycles - c0 - stock <= 16
+    assert [s.rd(OUT + k) for k in range(16)] == [alone.rd(OUT + k) for k in range(16)]
+    assert [s.u[r] for r in range(8)] == [alone.u[r] for r in range(8)]
+
+
 def test_probe_window_peaks_and_frame_tail():
     """After 64 blocks the frame carries the window peaks of input (216) and output (217), the knobs (218) and the window count (250)."""
     s, sym = probe()
@@ -126,13 +149,13 @@ def test_probe_window_peaks_and_frame_tail():
 
 
 def test_probe_measures_only_the_metered_core():
-    """Another core's blocks (another compressor, an amp sharing the core) move no window; the meter goes off 64 blocks after its core."""
-    s, sym = probe()
+    """Another core's blocks (another compressor, an amp sharing the core) neither scan nor write a frame; the M4 times the meter out."""
+    s, sym = probe(span=4096)
     knobs(s, sym, 'CTRL_2719', 0x96000, 0, 0, 20)
     for _ in range(65):
         block(s, sym, 'ENTRY_2719', 0x97000, 0.5)
-    assert s.rd(FRAME + 250) == 0
-    assert s.rd(FRAME + 218) == 0
+    assert s.rd(sym('FP_CUR')) == 0
+    assert [s.rd(FRAME + w) for w in (200, 216, 217, 218, 250, 251)] == [0] * 6
     block(s, sym, 'ENTRY_2719', 0x96000, 0.5)
     assert s.rd(FRAME + 218) == 0x6B000014
 
@@ -472,8 +495,8 @@ def test_comp_patch_refuses_a_second_run(comp_patched):
 # ---- the whole GR build, pinned as tests/test_firmware.py pins the default one
 
 GR_BUILT_MD5 = {
-    'HX_GR': '28f18449ecbbfa9af38c34090905e43c',
-    'HX_GR HX_CLICK': 'd30a75d5edc70498f9893568c42da359',    # patch_click.py adds a model, which would drop knobs written before it
+    'HX_GR': '2e1a4e2c5eb18fd9c9808de83fc81eeb',
+    'HX_GR HX_CLICK': '9cbbfb3b75d648d0fda5a4f131d2c86a',    # patch_click.py adds a model, which would drop knobs written before it
 }
 
 

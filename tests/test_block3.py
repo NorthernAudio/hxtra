@@ -63,7 +63,7 @@ def test_room_ends_at_an_even_instruction():
 
 
 def test_costs_are_whole_instruction_pairs():
-    assert {f: block3.cost(f) for f in EVERY} == {'HX_CLICK': 213, 'HX_FX_GATE': 291, 'HX_GR': 789, 'HX_USB_MONITOR': 414}
+    assert {f: block3.cost(f) for f in EVERY} == {'HX_CLICK': 213, 'HX_FX_GATE': 291, 'HX_GR': 780, 'HX_USB_MONITOR': 414}
     for f in EVERY:
         n_dm, n_pm = block3.size(f)
         assert block3.cost(f) % 3 == 0 and block3.cost(f) >= n_dm + n_pm * 3 // 2
@@ -111,7 +111,7 @@ def test_slots_set_is_checked():
     assert block3.slots(env_of(EVERY, 0)) == 0
     with pytest.raises(SystemExit, match='HX_NAM_SLOTS is one of 3, 2, 1, 0'):
         block3.slots({block3.VAR: '4'})
-    with pytest.raises(SystemExit, match='HX_GR take 789 words of Block 3; 3 NAM slots leave 512'):
+    with pytest.raises(SystemExit, match='HX_GR take 780 words of Block 3; 3 NAM slots leave 512'):
         block3.slots(env_of(['HX_GR'], 3))
 
 
@@ -127,8 +127,8 @@ def test_build_py_kernel_takes_the_slot_count():
 # ---- whole builds with each slot count, pinned as tests/test_firmware.py pins the default one
 
 SLOTS_BUILT_MD5 = {
-    'HX_NAM_SLOTS=1 HX_GR HX_CLICK HX_FX_GATE': 'ef5a3a6f7429e741c22f2e1e76219be3',
-    'HX_NAM_SLOTS=0 HX_GR HX_CLICK HX_FX_GATE HX_REAL_NAMES': '36dcc6a477046f4710bb79db738853af',     # no NAM A2 Lite: no kernel, patch_menu.py on the stock image
+    'HX_NAM_SLOTS=1 HX_GR HX_CLICK HX_FX_GATE': '7ec81c853c012cc003569fb8e517d348',
+    'HX_NAM_SLOTS=0 HX_GR HX_CLICK HX_FX_GATE HX_REAL_NAMES': '580a87d6fea7987ca4906997fbeb549f',     # no NAM A2 Lite: no kernel, patch_menu.py on the stock image
 }
 
 

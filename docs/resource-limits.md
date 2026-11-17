@@ -14,7 +14,7 @@ The HX Stomp has two processors. The **M4** (LPC4350, the CPU) runs the screen, 
 
 | Resource | Left now | Spent by | Status |
 | --- | --- | --- | --- |
-| SHARC internal RAM (Block 3 room, `tools/block3.py`) | **512 words** beside 3 NAM slots; 2,528 (2), 7,290 (1), 14,239 (no NAM) | DSP code, DSP state: Metronome 213, FX Loop gate 291, GR meter 789 | verified offline |
+| SHARC internal RAM (Block 3 room, `tools/block3.py`) | **512 words** beside 3 NAM slots; 2,528 (2), 7,290 (1), 14,239 (no NAM) | DSP code, DSP state: Metronome 213, FX Loop gate 291, GR meter 780 | verified offline |
 | Preset model IDs (1..832) | **8** | each new model | verified offline |
 | Entry 2 partition (DSP boot stream, 512 KiB) | **9.5 KB** (NAM build); **2.3 KB** with `HX_GR=1 HX_CLICK=1` | DSP code and tables | verified offline |
 | Entry 3 (model database) | **between 1 KB and 11 KB** past the default build's `0xf0d00` bytes: `0xf10f0` is known to work, and by `0xf3888` the unit drops every amp and preamp (the partition itself has 53 KB) | models (~1.8 KB), knobs (~1 KB per model) | verified on unit |
