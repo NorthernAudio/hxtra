@@ -47,6 +47,7 @@ To add features, set their switches (the [features page](https://wisemandenny.gi
 | [Tap Command](https://wisemandenny.github.io/hxtra/web/features.html#tap-command) | `HX_CC_TAP=1` |
 | [Real Block Names](https://wisemandenny.github.io/hxtra/web/features.html#real-block-names) | `HX_REAL_NAMES=1` |
 | [FX Loop Noise Gate](https://wisemandenny.github.io/hxtra/web/features.html#fx-loop-gate) | `HX_FX_GATE=1` |
+| [Noise Gate Input Sidechain](https://wisemandenny.github.io/hxtra/web/features.html#gate-sidechain) | `HX_GATE_SC=1` |
 | [Foot Switch Long Press](https://wisemandenny.github.io/hxtra/web/features.html#long-press) | `HX_LONG_PRESS=1` |
 | [Virtual Footswitches (FS6-10)](https://wisemandenny.github.io/hxtra/web/features.html#virtual-footswitches) | `HX_LONG_PRESS=1`, with Foot Switch Long Press |
 | [Metronome](https://wisemandenny.github.io/hxtra/web/features.html#metronome) | `HX_CLICK=1` |

@@ -101,11 +101,19 @@ def test_no_event_carries_a_file_or_unit():
 
 
 @needs_node
-@pytest.mark.parametrize("kw", [{"host": "localhost"}, {"dnt": "1"}, {"gpc": True}])
-def test_test_switch_counts_anywhere_under_test(kw):
+@pytest.mark.parametrize("kw", [{}, {"host": "example.com"}, {"host": "localhost"}, {"host": "127.0.0.1"},
+                                {"host": "localhost", "dnt": "1"}, {"host": "127.0.0.1", "gpc": True}])
+def test_test_switch_counts_under_test(kw):
     (e, _), (v, _) = run('countEvent("build/gr-on"); countVisit();', search="?lang=de&count=test", **kw)
     assert query(e) == "p=test%2Fbuild%2Fgr-on&e=true"
     assert query(v) == "p=%2Ftest%2Fweb%2F&s=1440,900,2"
+
+
+@needs_node
+@pytest.mark.parametrize("kw", [{"dnt": "1"}, {"gpc": True}, {"host": "example.com", "dnt": "1"}])
+def test_test_switch_keeps_dnt_and_gpc_off_a_local_copy(kw):
+    """A shared ?count=test link must not count a browser that asked not to be tracked."""
+    assert run('countEvent("build/gr-on"); countVisit();', search="?count=test", **kw) == []
 
 
 @needs_node
