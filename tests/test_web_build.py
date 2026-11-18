@@ -133,7 +133,7 @@ def test_page_lists_the_dsp_features_and_slot_counts():
 
 
 def test_page_default_is_two_nam_slots_and_every_dsp_feature_and_fits():
-    # Mr. Wiseman's default (issue #111): 2 NAM slots with the GR meter, the Metronome and the FX Loop gate
+    # The maintainer's default (issue #111): 2 NAM slots with the GR meter, the Metronome and the FX Loop gate
     import block3
     boxes, slots, nam = page_dsp()
     picked = slots[0][1]
