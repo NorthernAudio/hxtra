@@ -261,11 +261,12 @@ def test_the_turn_off_turns_off_fs3_only_when_it_is_tap(tap):
     assert tap.leds() == [(cmd.LED_MODE, (2, 0)), (cmd.LED_MODE, (1, 0))]
 
 
+@pytest.mark.parametrize('handler', ['tc_refresh', 'tc_setting'])
 @pytest.mark.parametrize('bpm', [40.0, 60.0, 97.3, 120.0, 133.0, 240.0, 1.0, 1000.0])
-def test_the_refresh_sets_the_period_as_stock_works_it_out(tap, bpm):
+def test_the_refresh_and_a_tempo_change_set_the_period_as_stock_works_it_out(tap, bpm, handler):
     tap.footswitches((STOMP,) * 5, (0, 0, 9, 0, 0))
     tap.values.update({14: 2, 15: bpm, 16: 333.0})
-    assert tap.call('tc_refresh') == FS_STATE_OBJ
+    assert tap.call(handler) == FS_STATE_OBJ
     assert abs(tap.m.u32(BEAT_PERIOD) - int(60000 / bpm)) <= 1
     assert tap.m.read(BEAT_ON, 1) == b'\x01'
 
@@ -278,8 +279,9 @@ def test_tempo_select_picks_the_bpm_setting_as_stock(tap, select, bpm):
     assert tap.m.u32(BEAT_PERIOD) == {15: 1000, 16: 500}[bpm]
 
 
+@pytest.mark.parametrize('handler', ['tc_refresh', 'tc_setting'])
 @pytest.mark.parametrize('case', ['fs3 tap', 'no tap ring', 'tap led off', 'tap led unset', 'no tempo', 'tempo too fast'])
-def test_the_refresh_leaves_the_period_alone(tap, case):
+def test_the_refresh_and_a_tempo_change_leave_the_period_alone(tap, case, handler):
     tap.footswitches((STOMP,) * 5, (9, 0, 0, 0, 0))
     if case == 'fs3 tap':
         tap.footswitches((STOMP, STOMP, TAP_FN, STOMP, STOMP), (9, 0, 0, 0, 0))
@@ -295,7 +297,7 @@ def test_the_refresh_leaves_the_period_alone(tap, case):
         tap.values[16] = 2048.0
     tap.m.u32(BEAT_PERIOD, 1234)
     tap.m.u8(BEAT_ON, 1)
-    tap.call('tc_refresh')
+    tap.call(handler)
     assert tap.m.u32(BEAT_PERIOD) == 1234
     assert tap.m.read(BEAT_ON, 1) == (b'\x00' if case == 'tap led off' else b'\x01'), 'only Tap Tempo LED Off stops the beat'
 
@@ -369,11 +371,21 @@ def test_stock_call_sites_and_their_arguments():
     for site in cmd.NODE_CALLS:
         assert read(site, 4) == pm.bl(site, cmd.NODE_NAME)
     assert read(cmd.STEP_CALL, 4) == pm.bl(cmd.STEP_CALL, cmd.STEP)
-    for site in cmd.BEAT_RUN_CALLS + (cmd.BEAT_ON_CALL, cmd.REFRESH_CALL):
+    for site in cmd.BEAT_RUN_CALLS + (cmd.BEAT_ON_CALL, cmd.REFRESH_CALL, cmd.SETTING_CALL):
         assert read(site, 4) == pm.bl(site, cmd.FS_STATE)
         assert read(site + 4, 2) in (bytes.fromhex('037a'), bytes.fromhex('00eb')), 'ldrb r3, [r0, #8], or add.w r0, r0, r4, lsl #1'
     assert read(cmd.BEAT_OFF_CALL - 4, 8) == bytes.fromhex('0021 0220') + pm.bl(cmd.BEAT_OFF_CALL, cmd.LED_MODE)
     assert read(0x28de36b6, 4) == pm.bl(0x28de36b6, cmd.FIRE), "snapshot recall's fire stays stock"
+
+
+@pytest.mark.firmware
+def test_a_tempo_setting_change_resets_only_a_tap_footswitchs_beat_on_stock():
+    read = reader(stock_e0())
+    assert read(0x28dd2708, 6) == bytes.fromhex('6379 0399 192b'), 'cmp r3, #0x19: a setting change event'
+    assert struct.unpack('<3I', read(0x28dd272c, 12)) == (cmd.SETTING_CALL - 1,) * 3, 'settings 14, 15 and 16 go to the loop'
+    assert read(cmd.SETTING_CALL - 2, 2) == bytes.fromhex('0024'), 'movs r4, #0: from footswitch 1'
+    assert read(cmd.SETTING_CALL + 0xc, 2) == bytes.fromhex('012b'), 'cmp r3, #1: TAP'
+    assert read(0x28dd27a6, 4) == pm.bl(0x28dd27a6, 0x28dd0ab8), "only then the TAP ring's beat setup"
 
 
 @pytest.mark.firmware
@@ -384,6 +396,7 @@ def test_build_sends_every_site_to_the_module(m4emu):
     module = branch_target(cmd.FIRE_CALL, read(cmd.FIRE_CALL, 4)) - sym['tc_fire']
     assert read(module, len(code)) == code
     sites = {cmd.STEP_CALL: 'tc_step', cmd.BEAT_ON_CALL: 'tc_on', cmd.BEAT_OFF_CALL: 'tc_off', cmd.REFRESH_CALL: 'tc_refresh',
+             cmd.SETTING_CALL: 'tc_setting',
              **{s: 'tc_choice' for s in cmd.CHOICE_CALLS}, **{s: 'tc_running' for s in cmd.BEAT_RUN_CALLS},
              **{s: 'tc_node' for s in cmd.NODE_CALLS}}
     for site, handler in sites.items():

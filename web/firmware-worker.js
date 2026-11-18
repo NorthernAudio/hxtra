@@ -283,10 +283,10 @@ async function build(stock, flags, slots) {
     var report = step(6, "Checking every checksum and packing the file…",
                       ["tools/l6ia_verify.py", "build/nam_lite.l6ia"].concat(unit === "HX_Stomp" ? ["--e3-max", "0x" + E3_MAX.toString(16)] : []));
     if (report.indexOf("ALL OK") < 0) throw new Error("The built image failed its check.");
-    var file = unit + "_v3.80.0_HXtra.hxf";
+    var file = "hxtra.hxf";
     step(6, "Checking every checksum and packing the file…",
          ["tools/hxf.py", "pack", "build/nam_lite.l6ia", "build/" + file, "--donor", "build/stock.hxf"]);
-    var ram = ramPlan(p, step, file);
+    var ram = ramPlan(p, step, unit, file);
   } finally {
     run.destroy();
   }
@@ -298,14 +298,15 @@ async function build(stock, flags, slots) {
   var buf = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
   var want = unit === "HX_Stomp" && cache ? (cache.md5[unit] || {})[flags.concat(["HX_NAM_SLOTS=" + slots]).sort().join("+")]
       : BUILT_MD5[unit];
-  post({ type: "done", unit: unit, file: file, bytes: buf, md5: outMd5, pinned: want ? outMd5 === want : null, ram: ram },
+  var name = "HXtra" + (cache && cache.release ? "_" + cache.release : "") + ".hxf";     // a checkout's page has no release
+  post({ type: "done", unit: unit, file: name, bytes: buf, md5: outMd5, pinned: want ? outMd5 === want : null, ram: ram },
        [buf].concat(ram.regions ? ram.regions.map(function (r) { return r.bytes; }) : []));
 }
 
 // The RAM run of the built file: what tools/hxf_ram.py run would send. A failure here leaves the
 // build as it is; the page then offers no RAM run.
-function ramPlan(p, step, file) {
-  if (file.indexOf("HX_Effects") === 0) {      // the RAM loader is the HX Stomp's and XL's only
+function ramPlan(p, step, unit, file) {
+  if (unit === "HX_Effects") {      // the RAM loader is the HX Stomp's and XL's only
     post({ type: "log", text: "RAM run: HX Stomp and HX Stomp XL only.\n" });
     return {};
   }
