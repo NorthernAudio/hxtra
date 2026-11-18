@@ -290,7 +290,7 @@ async function build(stock, flags, slots) {
   var buf = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
   var want = unit === "HX_Stomp" && cache ? (cache.md5[unit] || {})[flags.concat(["HX_NAM_SLOTS=" + slots]).sort().join("+")]
       : BUILT_MD5[unit];
-  var name = "HXtra" + (cache && cache.release ? " " + cache.release : "") + ".hxf";     // a checkout's page has no release
+  var name = "HXtra" + (cache && cache.release ? "_" + cache.release : "") + ".hxf";     // a checkout's page has no release
   post({ type: "done", unit: unit, file: name, bytes: buf, md5: outMd5, pinned: want ? outMd5 === want : null, ram: ram },
        [buf].concat(ram.regions ? ram.regions.map(function (r) { return r.bytes; }) : []));
 }

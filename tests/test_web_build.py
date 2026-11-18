@@ -142,11 +142,11 @@ def test_page_default_is_two_nam_slots_and_every_dsp_feature_and_fits():
 
 
 def test_download_is_named_by_the_release():
-    # the built file downloads as "HXtra v1.2.0.hxf", the page names it the same before the build, and no copy names the old file
+    # the built file downloads as "HXtra_v1.2.0.hxf", the page names it the same before the build, and no copy names the old file
     page = (ROOT / "web/index.html").read_text()
-    assert 'var name = "HXtra" + (cache && cache.release ? " " + cache.release : "") + ".hxf";' in WORKER
+    assert 'var name = "HXtra" + (cache && cache.release ? "_" + cache.release : "") + ".hxf";' in WORKER
     assert 'post({ type: "done", unit: unit, file: name,' in WORKER
-    assert '$("fwName").textContent = "HXtra " + release + ".hxf";' in page
+    assert '$("fwName").textContent = "HXtra_" + release + ".hxf";' in page
     assert "_HXtra.hxf" not in page
     assert page.count("<code>HXtra</code>") == len(re.findall(r'"faq\.a5":', page))
 

@@ -2689,7 +2689,7 @@ var LANG_NAMES = {
       $("featNone").hidden = !$("dsp").hidden || !$("other").hidden;
       release = c.release;
       $("release").hidden = !release;
-      if (release) $("fwName").textContent = "HXtra " + release + ".hxf";
+      if (release) $("fwName").textContent = "HXtra_" + release + ".hxf";
       relDraw();
     }, function () { $("featNone").hidden = false; });
   } else {
