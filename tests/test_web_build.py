@@ -52,7 +52,7 @@ def test_stock_md5_as_build_py():
 
 
 def test_hx_stomp_only():
-    # Mr. Wiseman's call: no build for anyone without an HX Stomp
+    # No build for anyone without an HX Stomp
     assert py_dict("build.py", "STOCK_MD5") == {"a2cd8f4ae56f49415380270ebc484bf1": "HX_Stomp"}
     assert set(py_dict("build.py", "KERNEL")) == set(py_dict("build.py", "STEPS")) == {"HX_Stomp"}
     assert not NOT_HX_STOMP.keys() & js_object("STOCK_MD5").keys()
