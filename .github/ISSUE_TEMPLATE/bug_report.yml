@@ -39,6 +39,31 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: nam-slots
+    attributes:
+      label: NAM A2 Lite slots in your build
+      description: The number you picked under NAM A2 Lite on the setup page (HX_NAM_SLOTS with build.py).
+      options:
+        - "3"
+        - "2"
+        - "1"
+        - "Off"
+        - Not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: enabled
+    attributes:
+      label: Optional features on in your build
+      description: Tick every one you left checked on the setup page (or switched on with build.py). Leave them all empty if you turned them all off.
+      options:
+        - label: Gain reduction meter (HX_GR)
+        - label: Metronome block (HX_CLICK)
+        - label: Noise gate in the FX Loop and Return blocks (HX_FX_GATE)
+        - label: Input Sidechain on the Noise Gate block (HX_GATE_SC)
+        - label: "USB monitoring: Path A Out (HX_USB_MONITOR)"
+        - label: Real block names (HX_REAL_NAMES)
+  - type: dropdown
     id: features
     attributes:
       label: Which feature is it about?
@@ -95,4 +120,4 @@ body:
     id: more
     attributes:
       label: Anything else?
-      description: The preset you were using, MIDI gear connected, other features you changed, or build options you used.
+      description: The preset you were using, MIDI gear connected, or other settings you changed.
