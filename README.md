@@ -58,6 +58,8 @@ The setup page builds HXtra locally from your own firmware file, right in your b
 
 ## Features
 
+HXtra's settings and block knobs have teal labels, so you can tell them from the stock ones at a glance.
+
 <sub>*Demos were recorded from a real HX Stomp's screen, along with its audio and button presses, then overlaid on a simulated HX Stomp.*</sub>
 
 ### <img src="docs/assets/icons/tuner.svg" width="28" height="28" align="top" alt=""> Extra tuner settings
