@@ -115,6 +115,7 @@
   </header>
 
   <section id="overview">
+    <p data-i18n="overview.labels">HXtra's settings and block knobs have teal labels, so you can tell them from the stock ones at a glance.</p>
     <div class="tbl"><table>
     <thead>
     <tr>
@@ -166,12 +167,6 @@
     <td data-i18n="fx-loop-gate.desc">A noise gate on what comes back from the loop, like the Input block's, so a noisy pedal in the loop no longer takes a Noise Gate block.</td>
     <td data-i18n="fx-loop-gate.floc">The FX Loop and Return blocks</td>
     <td data-i18n="fx-loop-gate.where">The block's Gate, Threshold and Decay knobs</td>
-    </tr>
-    <tr>
-    <td><a href="#label-color" data-i18n="label-color.name">Label Color</a></td>
-    <td data-i18n="label-color.desc">HXtra's settings and block knobs have teal labels, so you can tell them from the stock ones at a glance.</td>
-    <td data-i18n="label-color.floc">Global Settings, and a block's knobs in the Edit view</td>
-    <td>-</td>
     </tr>
     <tr>
     <td><a href="#metronome" data-i18n="metronome.name">Metronome</a></td>
@@ -523,20 +518,6 @@
       </div>
     </section>
 
-    <section class="card feat" id="label-color">
-      <h2><img class="ico" src="../docs/assets/icons/label-color.svg" width="28" height="28" alt=""><span data-i18n="label-color.name">Label Color</span></h2>
-      <p data-i18n="label-color.p1">Every setting HXtra adds to Global Settings, and every knob it adds to a block, has its label in teal (Tap LED Color's Teal). The stock settings and knobs keep their white labels, and the values stay grey.</p>
-  <ul>
-  <li data-i18n="label-color.li1"><strong>In Global Settings:</strong> HXtra's own sections, such as BPM Display and Breathing Line, and HXtra's settings in the stock sections, such as FS6–FS10 Function in Footswitches and Tap LED Color in Displays.</li>
-  <li data-i18n="label-color.li2"><strong>On a block's knobs:</strong> the compressors' Mtr Pos, Mtr Dir and Mtr Size (the gain reduction meter), and every knob of NAM A2 Lite and the Metronome.</li>
-  <li data-i18n="label-color.li3"><strong>On in every HXtra firmware</strong>, with no setting of its own yet.</li>
-  </ul>
-      <div class="settings">
-        <h3 data-i18n="settings">Settings</h3>
-        <p class="where" data-i18n="nosettings">No settings</p>
-      </div>
-    </section>
-
     <section class="card feat" id="metronome">
       <h2><img class="ico" src="../docs/assets/icons/metronome.svg" width="35" height="28" alt=""><span data-i18n="metronome.name">Metronome</span></h2>
       <!-- demo: metronome -->
@@ -873,13 +854,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Una puerta de ruido sobre lo que vuelve del loop, como la del bloque Input, para que un pedal ruidoso en el loop ya no necesite un bloque Noise Gate.",
     "fx-loop-gate.floc": "Los bloques FX Loop y Return",
     "fx-loop-gate.where": "Las perillas Gate, Threshold y Decay del bloque",
-    "label-color.name": "Color de etiquetas",
-    "label-color.desc": "Los ajustes y las perillas de bloque de HXtra tienen etiquetas de color verde azulado, para distinguirlos de los de serie de un vistazo.",
-    "label-color.floc": "Global Settings y las perillas de un bloque en la vista Edit",
-    "label-color.p1": "Cada ajuste que HXtra añade a Global Settings, y cada perilla que añade a un bloque, tiene su etiqueta en verde azulado (el Teal de Tap LED Color). Los ajustes y perillas de serie mantienen sus etiquetas blancas, y los valores siguen en gris.",
-    "label-color.li1": "<strong>En Global Settings:</strong> las secciones propias de HXtra, como BPM Display y Breathing Line, y sus ajustes en las secciones de serie, como FS6–FS10 Function en Footswitches y Tap LED Color en Displays.",
-    "label-color.li2": "<strong>En las perillas de un bloque:</strong> Mtr Pos, Mtr Dir y Mtr Size de los compresores (el medidor de reducción de ganancia), y todas las perillas de NAM A2 Lite y del Metronome.",
-    "label-color.li3": "<strong>Activado en todo firmware HXtra</strong>, todavía sin ajuste propio.",
     "metronome.name": "Metrónomo",
     "metronome.desc": "Una pista de clic al tempo, como bloque: ajusta su pulso, su nivel y un tiempo fuerte acentuado, y tócalo bajo tu señal o solo.",
     "metronome.floc": "Navegador de modelos: Looper &gt; Metronome",
@@ -918,6 +892,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In de un bloque, o Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, páginas 4 y 5",
     "overview.name": "Demos",
+    "overview.labels": "Los ajustes y las perillas de bloque de HXtra tienen etiquetas de color verde azulado, para distinguirlos de los de serie de un vistazo.",
     "demos.note": "Las demos se grabaron de la pantalla de un HX Stomp real, junto con su audio y las pulsaciones de los botones, y luego se superpusieron sobre un HX Stomp simulado.",
     "bpm.alt1": "Pulsando TAP: el tempo y su punto de pulso lo siguen",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color y Dot Position",
@@ -1086,13 +1061,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Um noise gate no sinal que volta do loop, como o do bloco Input, para que um pedal ruidoso no loop não precise mais de um bloco Noise Gate.",
     "fx-loop-gate.floc": "Os blocos FX Loop e Return",
     "fx-loop-gate.where": "Os knobs Gate, Threshold e Decay do bloco",
-    "label-color.name": "Cor dos rótulos",
-    "label-color.desc": "Os ajustes e os knobs de bloco do HXtra têm rótulos verde-azulados, para você distingui-los dos originais num relance.",
-    "label-color.floc": "Global Settings e os knobs de um bloco na tela Edit",
-    "label-color.p1": "Cada ajuste que o HXtra adiciona ao Global Settings, e cada knob que adiciona a um bloco, tem o rótulo em verde-azulado (o Teal do Tap LED Color). Os ajustes e knobs originais mantêm os rótulos brancos, e os valores continuam cinza.",
-    "label-color.li1": "<strong>No Global Settings:</strong> as seções próprias do HXtra, como BPM Display e Breathing Line, e os ajustes do HXtra nas seções originais, como FS6–FS10 Function em Footswitches e Tap LED Color em Displays.",
-    "label-color.li2": "<strong>Nos knobs de um bloco:</strong> Mtr Pos, Mtr Dir e Mtr Size dos compressores (o medidor de redução de ganho), e todos os knobs do NAM A2 Lite e do Metronome.",
-    "label-color.li3": "<strong>Ativado em todo firmware HXtra</strong>, ainda sem ajuste próprio.",
     "metronome.name": "Metrônomo",
     "metronome.desc": "Um click no andamento, em forma de bloco: ajuste a batida, o nível e um tempo forte acentuado, e ouça-o junto com o seu sinal ou sozinho.",
     "metronome.floc": "Navegador de modelos: Looper &gt; Metronome",
@@ -1131,6 +1099,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In de um bloco, ou Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, páginas 4 e 5",
     "overview.name": "Demonstrações",
+    "overview.labels": "Os ajustes e os knobs de bloco do HXtra têm rótulos verde-azulados, para você distingui-los dos originais num relance.",
     "demos.note": "As demonstrações foram gravadas da tela de um HX Stomp real, junto com o áudio e os botões pressionados, e depois sobrepostas a um HX Stomp simulado.",
     "bpm.alt1": "Batendo o TAP: o andamento e o ponto de batida acompanham",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color e Dot Position",
@@ -1299,13 +1268,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Un noise gate sur ce qui revient de la boucle, comme celui du bloc Input : une pédale bruyante dans la boucle n'occupe plus de bloc Noise Gate.",
     "fx-loop-gate.floc": "Les blocs FX Loop et Return",
     "fx-loop-gate.where": "Les potentiomètres Gate, Threshold et Decay du bloc",
-    "label-color.name": "Couleur des libellés",
-    "label-color.desc": "Les réglages et les potentiomètres de bloc de HXtra ont des libellés bleu sarcelle, pour les distinguer d'un coup d'œil de ceux d'origine.",
-    "label-color.floc": "Global Settings, et les potentiomètres d'un bloc dans la vue Edit",
-    "label-color.p1": "Chaque réglage que HXtra ajoute à Global Settings, et chaque potentiomètre qu'il ajoute à un bloc, a son libellé en bleu sarcelle (le Teal de Tap LED Color). Les réglages et potentiomètres d'origine gardent leurs libellés blancs, et les valeurs restent grises.",
-    "label-color.li1": "<strong>Dans Global Settings :</strong> les sections propres à HXtra, comme BPM Display et Breathing Line, et les réglages de HXtra dans les sections d'origine, comme FS6–FS10 Function dans Footswitches et Tap LED Color dans Displays.",
-    "label-color.li2": "<strong>Sur les potentiomètres d'un bloc :</strong> Mtr Pos, Mtr Dir et Mtr Size des compresseurs (l'indicateur de réduction de gain), et tous les potentiomètres de NAM A2 Lite et du Metronome.",
-    "label-color.li3": "<strong>Actif dans tout firmware HXtra</strong>, sans réglage propre pour l'instant.",
     "metronome.name": "Métronome",
     "metronome.desc": "Un clic calé sur le tempo, sous forme de bloc : réglez sa pulsation, son niveau et un premier temps accentué, et jouez-le sous votre signal ou seul.",
     "metronome.floc": "Navigateur de modèles : Looper &gt; Metronome",
@@ -1344,6 +1306,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In d'un bloc, ou Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, pages 4 et 5",
     "overview.name": "Démos",
+    "overview.labels": "Les réglages et les potentiomètres de bloc de HXtra ont des libellés bleu sarcelle, pour les distinguer d'un coup d'œil de ceux d'origine.",
     "demos.note": "Les démos ont été enregistrées depuis l'écran d'un vrai HX Stomp, avec son audio et les appuis sur ses boutons, puis superposées à un HX Stomp simulé.",
     "bpm.alt1": "Appuis sur TAP : le tempo et son point de pulsation suivent",
     "bpm.alt2": "Global Settings, BPM Display : Font Size, Color et Dot Position",
@@ -1512,13 +1475,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Ein Noise Gate für das, was aus dem Loop zurückkommt, wie das des Input-Blocks, sodass ein rauschendes Pedal im Loop keinen eigenen Noise-Gate-Block mehr braucht.",
     "fx-loop-gate.floc": "Die Blöcke FX Loop und Return",
     "fx-loop-gate.where": "Die Regler Gate, Threshold und Decay des Blocks",
-    "label-color.name": "Beschriftungsfarbe",
-    "label-color.desc": "Die Einstellungen und Block-Regler von HXtra haben petrolfarbene Beschriftungen, damit du sie auf einen Blick von den originalen unterscheidest.",
-    "label-color.floc": "Global Settings und die Regler eines Blocks in der Edit-Ansicht",
-    "label-color.p1": "Jede Einstellung, die HXtra zu Global Settings hinzufügt, und jeder Regler, den es einem Block hinzufügt, hat eine petrolfarbene Beschriftung (das Teal von Tap LED Color). Die originalen Einstellungen und Regler behalten ihre weißen Beschriftungen, und die Werte bleiben grau.",
-    "label-color.li1": "<strong>In Global Settings:</strong> die eigenen Bereiche von HXtra, etwa BPM Display und Breathing Line, und die Einstellungen von HXtra in den originalen Bereichen, etwa FS6–FS10 Function in Footswitches und Tap LED Color in Displays.",
-    "label-color.li2": "<strong>An den Reglern eines Blocks:</strong> Mtr Pos, Mtr Dir und Mtr Size der Kompressoren (die Gain-Reduction-Anzeige) und alle Regler von NAM A2 Lite und dem Metronome.",
-    "label-color.li3": "<strong>In jeder HXtra-Firmware aktiv</strong>, noch ohne eigene Einstellung.",
     "metronome.name": "Metronom",
     "metronome.desc": "Ein Click-Track im Tempo, als Block: Stell den Schlag, die Lautstärke und einen betonten Schlag ein und spiel ihn unter deinem Signal oder allein.",
     "metronome.floc": "Modell-Browser: Looper &gt; Metronome",
@@ -1557,6 +1513,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In eines Blocks oder Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, Seiten 4 und 5",
     "overview.name": "Demos",
+    "overview.labels": "Die Einstellungen und Block-Regler von HXtra haben petrolfarbene Beschriftungen, damit du sie auf einen Blick von den originalen unterscheidest.",
     "demos.note": "Die Demos wurden vom Bildschirm eines echten HX Stomp aufgenommen, samt Audio und Tastendrücken, und dann über einen simulierten HX Stomp gelegt.",
     "bpm.alt1": "TAP antippen: Das Tempo und sein Beat-Punkt folgen",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color und Dot Position",
@@ -1725,13 +1682,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Un noise gate su ciò che torna dal loop, come quello del blocco Input, così un pedale rumoroso nel loop non richiede più un blocco Noise Gate.",
     "fx-loop-gate.floc": "I blocchi FX Loop e Return",
     "fx-loop-gate.where": "Le manopole Gate, Threshold e Decay del blocco",
-    "label-color.name": "Colore delle etichette",
-    "label-color.desc": "Le impostazioni e le manopole di blocco di HXtra hanno etichette color verde acqua, così le distingui a colpo d'occhio da quelle originali.",
-    "label-color.floc": "Global Settings e le manopole di un blocco nella vista Edit",
-    "label-color.p1": "Ogni impostazione che HXtra aggiunge a Global Settings, e ogni manopola che aggiunge a un blocco, ha l'etichetta color verde acqua (il Teal di Tap LED Color). Le impostazioni e le manopole originali mantengono le etichette bianche, e i valori restano grigi.",
-    "label-color.li1": "<strong>In Global Settings:</strong> le sezioni proprie di HXtra, come BPM Display e Breathing Line, e le impostazioni di HXtra nelle sezioni originali, come FS6–FS10 Function in Footswitches e Tap LED Color in Displays.",
-    "label-color.li2": "<strong>Sulle manopole di un blocco:</strong> Mtr Pos, Mtr Dir e Mtr Size dei compressori (il misuratore di riduzione del guadagno), e tutte le manopole di NAM A2 Lite e del Metronome.",
-    "label-color.li3": "<strong>Attivo in ogni firmware HXtra</strong>, ancora senza un'impostazione propria.",
     "metronome.name": "Metronomo",
     "metronome.desc": "Un click a tempo, sotto forma di blocco: imposta la suddivisione, il livello e l'accento sul battere, e suonalo sotto il tuo segnale o da solo.",
     "metronome.floc": "Browser dei modelli: Looper &gt; Metronome",
@@ -1770,6 +1720,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In di un blocco, o Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, pagine 4 e 5",
     "overview.name": "Demo",
+    "overview.labels": "Le impostazioni e le manopole di blocco di HXtra hanno etichette color verde acqua, così le distingui a colpo d'occhio da quelle originali.",
     "demos.note": "Le demo sono state registrate dallo schermo di un vero HX Stomp, insieme al suo audio e alle pressioni dei pulsanti, poi sovrapposte a un HX Stomp simulato.",
     "bpm.alt1": "Battendo TAP: il tempo e il suo punto del battito seguono",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color e Dot Position",
@@ -1938,13 +1889,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Input ブロックと同様のノイズゲートを、ループから戻ってくる信号にかけます。ループ内のノイズの多いペダルのために Noise Gate ブロックを使う必要がなくなります。",
     "fx-loop-gate.floc": "FX Loop ブロックと Return ブロック",
     "fx-loop-gate.where": "ブロックの Gate、Threshold、Decay ノブ",
-    "label-color.name": "ラベルカラー",
-    "label-color.desc": "HXtra の設定とブロックのノブはラベルがティール色になるので、標準のものと一目で見分けられます。",
-    "label-color.floc": "Global Settings と、Edit 画面のブロックのノブ",
-    "label-color.p1": "HXtra が Global Settings に加える設定と、ブロックに加えるノブのラベルはティール色（Tap LED Color の Teal）になります。標準の設定とノブのラベルは白のままで、値はグレーのままです。",
-    "label-color.li1": "<strong>Global Settings：</strong>BPM Display や Breathing Line など HXtra 独自のセクションと、Footswitches の FS6–FS10 Function や Displays の Tap LED Color など、標準セクション内の HXtra の設定。",
-    "label-color.li2": "<strong>ブロックのノブ：</strong>コンプレッサーの Mtr Pos、Mtr Dir、Mtr Size（ゲインリダクションメーター）と、NAM A2 Lite と Metronome のすべてのノブ。",
-    "label-color.li3": "<strong>すべての HXtra ファームウェアで有効</strong>です。専用の設定はまだありません。",
     "metronome.name": "メトロノーム",
     "metronome.desc": "テンポに合わせて鳴るクリック・トラックをブロックとして使えます。拍の間隔、音量、アクセントを付けるダウンビートを設定し、自分の音の下で鳴らすことも、クリックだけを鳴らすこともできます。",
     "metronome.floc": "モデルブラウザ：Looper &gt; Metronome",
@@ -1983,6 +1927,7 @@ var LANGS = {
     "virtual-footswitches.floc": "ブロックの Bypass Assign &gt; MIDI In、または Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches、4 ページ目と 5 ページ目",
     "overview.name": "デモ",
+    "overview.labels": "HXtra の設定とブロックのノブはラベルがティール色になるので、標準のものと一目で見分けられます。",
     "demos.note": "デモは実機の HX Stomp の画面を、音声やボタン操作とともに録画し、シミュレーションした HX Stomp に重ねたものです。",
     "bpm.alt1": "TAP をタップ：テンポとビート・ドットが追従します",
     "bpm.alt2": "Global Settings、BPM Display：Font Size、Color、Dot Position",
@@ -2151,13 +2096,6 @@ var LANGS = {
     "fx-loop-gate.desc": "为从效果回路返回的信号加上噪声门，与 Input 模块的噪声门相同，这样回路里有噪声较大的单块时，也不必再占用一个 Noise Gate 模块。",
     "fx-loop-gate.floc": "FX Loop 和 Return 模块",
     "fx-loop-gate.where": "模块的 Gate、Threshold 和 Decay 旋钮",
-    "label-color.name": "标签颜色",
-    "label-color.desc": "HXtra 的设置和模块旋钮使用青绿色标签，让你一眼就能和原厂的区分开。",
-    "label-color.floc": "Global Settings，以及 Edit 界面中模块的旋钮",
-    "label-color.p1": "HXtra 加到 Global Settings 的每个设置，以及加到模块上的每个旋钮，标签都是青绿色（Tap LED Color 的 Teal）。原厂的设置和旋钮保持白色标签，数值仍为灰色。",
-    "label-color.li1": "<strong>在 Global Settings 中：</strong>HXtra 自己的分区，如 BPM Display 和 Breathing Line，以及原厂分区中的 HXtra 设置，如 Footswitches 中的 FS6–FS10 Function 和 Displays 中的 Tap LED Color。",
-    "label-color.li2": "<strong>在模块的旋钮上：</strong>压缩器的 Mtr Pos、Mtr Dir 和 Mtr Size（增益衰减表），以及 NAM A2 Lite 和 Metronome 的所有旋钮。",
-    "label-color.li3": "<strong>所有 HXtra 固件都已开启</strong>，目前还没有单独的设置。",
     "metronome.name": "节拍器",
     "metronome.desc": "以模块形式提供、与速度同步的节拍音：设置节拍、音量和加重音的强拍，可以叠在你的信号下播放，也可以单独播放。",
     "metronome.floc": "模型浏览器：Looper &gt; Metronome",
@@ -2196,6 +2134,7 @@ var LANGS = {
     "virtual-footswitches.floc": "模块的 Bypass Assign &gt; MIDI In，或 Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches，第 4 和第 5 页",
     "overview.name": "演示",
+    "overview.labels": "HXtra 的设置和模块旋钮使用青绿色标签，让你一眼就能和原厂的区分开。",
     "demos.note": "演示录自真实 HX Stomp 的屏幕，连同它的声音和按键操作，再叠加到模拟的 HX Stomp 上。",
     "bpm.alt1": "踩 TAP 打拍：速度和节拍点随之变化",
     "bpm.alt2": "Global Settings 中的 BPM Display：Font Size、Color 和 Dot Position",
@@ -2364,13 +2303,6 @@ var LANGS = {
     "fx-loop-gate.desc": "루프에서 돌아오는 신호에 거는 노이즈 게이트입니다. Input 블록의 게이트와 같아서, 루프에 노이즈가 많은 페달이 있어도 Noise Gate 블록을 따로 쓸 필요가 없습니다.",
     "fx-loop-gate.floc": "FX Loop와 Return 블록",
     "fx-loop-gate.where": "블록의 Gate, Threshold, Decay 노브",
-    "label-color.name": "레이블 색상",
-    "label-color.desc": "HXtra의 설정과 블록 노브는 레이블이 틸 색상이라 순정 항목과 한눈에 구분할 수 있습니다.",
-    "label-color.floc": "Global Settings와 Edit 화면의 블록 노브",
-    "label-color.p1": "HXtra가 Global Settings에 추가한 모든 설정과 블록에 추가한 모든 노브는 레이블이 틸 색상(Tap LED Color의 Teal)입니다. 순정 설정과 노브는 흰색 레이블을 유지하고, 값은 계속 회색입니다.",
-    "label-color.li1": "<strong>Global Settings:</strong> BPM Display, Breathing Line 같은 HXtra 고유 섹션과, Footswitches의 FS6–FS10 Function, Displays의 Tap LED Color 같은 순정 섹션 안의 HXtra 설정.",
-    "label-color.li2": "<strong>블록의 노브:</strong> 컴프레서의 Mtr Pos, Mtr Dir, Mtr Size(게인 리덕션 미터)와 NAM A2 Lite 및 Metronome의 모든 노브.",
-    "label-color.li3": "<strong>모든 HXtra 펌웨어에서 켜져 있으며</strong>, 아직 별도 설정은 없습니다.",
     "metronome.name": "메트로놈",
     "metronome.desc": "템포에 맞춰 울리는 클릭 트랙 블록입니다. 박자, 레벨, 강세를 줄 첫 박을 정하고, 내 신호 아래에 깔거나 클릭만 단독으로 재생합니다.",
     "metronome.floc": "모델 브라우저: Looper &gt; Metronome",
@@ -2409,6 +2341,7 @@ var LANGS = {
     "virtual-footswitches.floc": "블록의 Bypass Assign &gt; MIDI In 또는 Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, 4페이지와 5페이지",
     "overview.name": "데모",
+    "overview.labels": "HXtra의 설정과 블록 노브는 레이블이 틸 색상이라 순정 항목과 한눈에 구분할 수 있습니다.",
     "demos.note": "데모는 실제 HX Stomp의 화면을 오디오, 버튼 입력과 함께 녹화한 뒤, 시뮬레이션한 HX Stomp 위에 겹쳐 만들었습니다.",
     "bpm.alt1": "TAP을 탭하면 템포와 박자 점이 따라옵니다",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color, Dot Position",
@@ -2577,13 +2510,6 @@ var LANGS = {
     "fx-loop-gate.desc": "Нойз-гейт на сигнале, возвращающемся из петли, как у блока Input, так что шумной педали в петле больше не нужен отдельный блок Noise Gate.",
     "fx-loop-gate.floc": "Блоки FX Loop и Return",
     "fx-loop-gate.where": "Ручки Gate, Threshold и Decay блока",
-    "label-color.name": "Цвет подписей",
-    "label-color.desc": "У настроек и ручек блоков HXtra бирюзовые подписи, чтобы их можно было с одного взгляда отличить от штатных.",
-    "label-color.floc": "Global Settings и ручки блока в окне Edit",
-    "label-color.p1": "У каждой настройки, которую HXtra добавляет в Global Settings, и у каждой ручки, которую он добавляет блоку, бирюзовая подпись (Teal из Tap LED Color). Штатные настройки и ручки сохраняют белые подписи, а значения остаются серыми.",
-    "label-color.li1": "<strong>В Global Settings:</strong> собственные разделы HXtra, например BPM Display и Breathing Line, и настройки HXtra в штатных разделах, например FS6–FS10 Function в Footswitches и Tap LED Color в Displays.",
-    "label-color.li2": "<strong>На ручках блока:</strong> Mtr Pos, Mtr Dir и Mtr Size компрессоров (индикатор подавления усиления) и все ручки NAM A2 Lite и Metronome.",
-    "label-color.li3": "<strong>Включено в любой прошивке HXtra</strong>, своей настройки пока нет.",
     "metronome.name": "Метроном",
     "metronome.desc": "Клик-трек в темп, в виде блока: задайте долю, громкость и акцентированную сильную долю и слушайте его вместе со своим сигналом или отдельно.",
     "metronome.floc": "Браузер моделей: Looper &gt; Metronome",
@@ -2622,6 +2548,7 @@ var LANGS = {
     "virtual-footswitches.floc": "Bypass Assign &gt; MIDI In блока или Controller Assign",
     "virtual-footswitches.where": "Global Settings &gt; Footswitches, страницы 4 и 5",
     "overview.name": "Демо",
+    "overview.labels": "У настроек и ручек блоков HXtra бирюзовые подписи, чтобы их можно было с одного взгляда отличить от штатных.",
     "demos.note": "Демо записаны с экрана настоящего HX Stomp вместе со звуком и нажатиями кнопок, а затем наложены на симулированный HX Stomp.",
     "bpm.alt1": "Нажатия TAP: темп и точка доли следуют за ними",
     "bpm.alt2": "Global Settings, BPM Display: Font Size, Color и Dot Position",
