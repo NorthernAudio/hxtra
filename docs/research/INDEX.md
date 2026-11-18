@@ -70,6 +70,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/gate-sidechain.md](features/gate-sidechain.md) | Noise Gate Input Sidechain (#131): design, the two dropped designs, cost, unit results, builds | working on the Noise Gate's sidechain, or on the gate core |
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
+| [features/label-color.md](features/label-color.md) | HXtra settings' and block parameters' labels in Teal; where Global Settings, the Edit view and the tuner page colour their labels; why Rainbow was dropped | working on label colours, or Global Settings' slot paint |
 | [features/tap-command.md](features/tap-command.md) | the Tap command in the Command Center (#108): type 9, the knob's list, the press, the ring on the stock beat | working on the Tap command, or on the stock beat |
 | [features/preset-color.md](features/preset-color.md) | Preset LED Color: the current preset's ring and icon in Preset mode, the stock Preset LED case and Home builder | working on Preset mode's look |
 | [features/boot-splash.md](features/boot-splash.md) | a custom boot picture, the boot line's text, colour emoji | working on the boot screen |
