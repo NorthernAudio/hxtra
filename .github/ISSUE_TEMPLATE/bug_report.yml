@@ -8,22 +8,16 @@ body:
         Thanks for taking the time to report this. Please check the README's [Known issues](https://github.com/wisemandenny/hxtra#known-issues) and the [open issues](https://github.com/wisemandenny/hxtra/issues) first.
 
         **HX Stomp stuck at the splash screen?** Power it off, hold Page Right while powering it on, and reinstall the stock firmware with Line 6 Updater. Then tell us what happened here.
-  - type: input
+  - type: dropdown
     id: version
     attributes:
       label: HXtra version
-      description: The boot screen shows it at power-on, or see the release you downloaded.
-      placeholder: v1.1.0
-    validations:
-      required: true
-  - type: dropdown
-    id: device
-    attributes:
-      label: Device
+      description: The boot screen shows it at power-on, or see the release you downloaded. Not the HX Stomp firmware version (3.80.0).
       options:
-        - HX Stomp
-        - HX Effects
-        - Other
+        - v1.2.0
+        - v1.1.1
+        - v1.1.0
+        - v1.0.0
     validations:
       required: true
   - type: dropdown
