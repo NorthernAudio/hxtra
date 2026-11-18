@@ -193,6 +193,13 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 - A noise gate on what comes back from the loop, like the Input block's, so a noisy pedal in the loop no longer takes a Noise Gate block.
 - Each FX Loop and Return block then uses about 0.2% (mono) or 0.4% (stereo) more DSP.
 
+### <img src="docs/assets/icons/gate-sidechain.svg" width="28" height="28" align="top" alt=""> Noise Gate Input Sidechain
+
+*Input Sidechain knob on the Noise Gate block*
+
+- On, the Noise Gate opens and closes on your guitar as it comes in, so a gate after a high-gain drive follows the clean guitar.
+- Each Noise Gate block then uses about 0.1% (mono) or 0.2% (stereo) more DSP.
+
 ### <img src="docs/assets/icons/nam.svg" width="28" height="28" align="top" alt=""> NAM A2 Lite
 
 - [Neural Amp Modeler](https://www.neuralampmodeler.com) captures on the HX Stomp's own DSP, from [hx-stomp-nam-lite](https://github.com/nocaseguy/hx-stomp-nam-lite). The setup page converts your `.nam` files.

@@ -1,0 +1,19 @@
+# Noise Gate Input Sidechain (`HX_GATE_SC=1`, `src/sharc/gate_sc.asm`, `tools/patch_sidechain.py`, `tools/features/gate_sidechain.py`)
+
+Issue #131: the Noise Gate block keyed by the input instead of by its own signal. Status tags as in [conventions.md](../conventions.md); the facts about the cores are in [sharc/cores/gates.md](../sharc/cores/gates.md).
+
+- Decided by Mr. Wiseman (2026-11-17): the stock Noise Gate block gets one setting, Input Sidechain, Off or On (short name `Input SC`), and the setup page ticks it by default like every DSP option. 21:23: the key comes from the Input block's meters, so it works with Input Gate Off. Claims approved by the coordinator (wraps of `0x2720`, `0x2a94` and `0x2390`, the knob, `HX_GATE_SC` last in `tools/block3.py` FEATURES).
+- Design [verified on unit, gate-sidechain-3]: the Noise Gate's knob writes pid 100 to each of its `0x2720` cores; the core's control wrapper keeps a 16-entry table {state, On, tick of its last call, captures seen}. The Input block's jack reader `0x2a94` (only in the Input composites, members 0 and 13) arms `SC_ARM = 2`; the next two meters `0x2390` (members 34 on buffer 0 = L, 37 on buffer 1 = R, ahead of the gate at member 39) leave (L + R) / 2 in `SC_CAP`, the key the Input gate's `0x89` would make. A Noise Gate core with the knob On writes `SC_CAP` over its key buffer (`I1 + 16`) and runs stock, if a capture came since its last call; otherwise its own key. A Noise Gate core also disarms leftover arms. Every other core and meter runs as stock.
+- Tried and dropped:
+  - gate-sidechain-1: writers from the Input block's Threshold node to its gate's cores (paths `[2, 40, 3]`, `[2, 40, 6]`, pid 101) [verified on unit: no capture]. All 17,132 stock writers use one-level paths.
+  - gate-sidechain-2: the jack reader arming the next two `0x2720` cores as the Input gate's [verified on unit]. It works with Input Gate On, but with Input Gate Off the Input block skips its gate composite, so nothing is captured.
+- Cost [verified offline, in ssim]: a Noise Gate core adds 55 to 115 instructions a call; a meter call adds 3 (plus one 16-sample capture for each of the Input block's two meters); a jack reader call adds 3. Static Model Table cost +10 a core (Noise Gate 150 → 160 mono, 190 → 210 stereo). Block 3: 324 words (98 data, 149 instructions).
+- The HX Stomp's preset has one Input block (grid index 0); `0x600010` is the HX Effects' Input. Every Noise Gate keys from it, on path A or B.
+- On the unit (gate-sidechain-3, `484c6da9…`, every setup-page feature + `HX_GATE_SC`, 2 NAM slots, 2026-11-17 21:31) [verified on unit]. Plucks over hiss (peak 0.05 over ±0.003) played into USB 5/6 with the Input block on USB 5/6, then Gain +12, Gain +12, Noise Gate (Threshold −40, Decay 0.1), USB 1 recorded; the level between plucks:
+  - SC Off: −30.8 dB, as with no gate; the boosted hiss holds the gate open.
+  - SC On, Input Gate Off: −40.3 dB mono, −40.6 stereo. SC On, Input Gate On: −40.5 both.
+  - Path B in use: −24.8 Off, −34.5 On. With an FX Loop after it, its own gate on: −30.8 Off, −40.5 On.
+  - Threshold −20 control: SC Off −37.0; SC On −59.8, and the plucks drop from −7 to −14.6 dB because the input never reaches −20.
+  - #84's SVT.hlx (a near-limit preset) loads in HX Edit and survives switching away and back with the knob, no freeze (Mr. Wiseman, 21:40).
+- Builds [verified offline]: `HX_GATE_SC=1` MD5 `456d211e…`; with `HX_FX_GATE`, `HX_GR`, `HX_CLICK`, `HX_USB_MONITOR`, `HX_REAL_NAMES` `3d00298d…`.
+- Not yet checked on the unit: the knob on the screen and after a preset save, HX Edit with the extra knob.
