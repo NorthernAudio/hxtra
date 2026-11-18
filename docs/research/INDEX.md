@@ -67,6 +67,7 @@ Before writing anything, read [conventions.md](conventions.md): the status tags,
 | [features/long-press.md](features/long-press.md) | holds per footswitch, FS6..FS10 on CC 20..24, CC text, the footswitch probes | working on long press, or footswitch holds |
 | [features/more-snapshots.md](features/more-snapshots.md) | bank B (snapshots 4..6), the bank marker, saving and the preset file key, next and previous across the banks | working on more snapshots |
 | [features/fx-gate.md](features/fx-gate.md) | the FX Loop gate (#69): decisions, the two designs and the boots, builds and their MD5s, what the unit has not checked | working on the gate in the FX Loop and Return blocks |
+| [features/gate-sidechain.md](features/gate-sidechain.md) | Noise Gate Input Sidechain (#131): design, the two dropped designs, cost, unit results, builds | working on the Noise Gate's sidechain, or on the gate core |
 | [features/metronome.md](features/metronome.md) | the Metronome block: model, browser folder, look, kernel | working on the Metronome, or adding an effect model |
 | [features/tap-color.md](features/tap-color.md) | Tap LED Color: the TAP ring, icon and label in a palette colour | working on the TAP footswitch's look |
 | [features/tap-command.md](features/tap-command.md) | the Tap command in the Command Center (#108): type 9, the knob's list, the press, the ring on the stock beat | working on the Tap command, or on the stock beat |
