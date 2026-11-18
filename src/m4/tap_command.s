@@ -266,6 +266,15 @@ tc_refresh:                         @ the footswitch LED refresh's () -> state: 
     pop {r4, lr}
     bx r3
 
+.thumb_func
+.global tc_setting
+tc_setting:                         @ a tempo setting's change, before each ring's function -> state: stock resets only a TAP ring's beat
+    push {r4, lr}
+    bl tc_tempo
+    ldr r3, =FS_STATE
+    pop {r4, lr}
+    bx r3
+
 tc_tempo:                           @ while a Tap ring is to blink and FS3 is not TAP: the beat's period from the BPM and the beat on,
                                     @ or off with Tap Tempo LED Off
     push {r4, lr}
