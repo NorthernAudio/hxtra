@@ -28,6 +28,7 @@ BEAT_RUN_CALLS = (0x28d9be3a, 0x28d9be4c)               # the stock beat's "is F
 BEAT_ON_CALL = 0x28d9be92                               # its turn on, before FS3's colour and on
 LED_MODE, BEAT_OFF_CALL = 0x28db8260, 0x28d9beba        # its turn off: LED 2 off
 REFRESH_CALL = 0x28dd0b70                               # the footswitch LED refresh, before each ring's function
+SETTING_CALL = 0x28dd276c                               # a tempo setting's change (external clock too) looking for a TAP footswitch
 
 
 def tap_inc(p):
@@ -58,3 +59,4 @@ def apply(p):
     p.own_call(BEAT_ON_CALL, FS_STATE, "the stock beat's turn on", m['tc_on'])
     p.own_call(BEAT_OFF_CALL, LED_MODE, "the stock beat's turn off", m['tc_off'])
     p.own_call(REFRESH_CALL, FS_STATE, 'the footswitch LED refresh', m['tc_refresh'])
+    p.own_call(SETTING_CALL, FS_STATE, "a tempo setting's change", m['tc_setting'])
