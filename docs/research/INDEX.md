@@ -102,5 +102,6 @@ Measurements and studies from building NAM A2 Lite into the stock firmware, copi
 | [KIT_UNIT_MEASUREMENTS.md](KIT_UNIT_MEASUREMENTS.md) | the DSP call rate and load word |
 | [KIT_EP_DMA.md](KIT_EP_DMA.md) | external-port DMA on the SHARC |
 | [STOCK_BITEXACT_OPT.md](STOCK_BITEXACT_OPT.md) | stock models' declared cost against their measured cycles |
+| [SHARC_VISA.md](SHARC_VISA.md) | upstream's copy of [sharc/visa.md](sharc/visa.md); read ours |
 | [KIT_NAM_A2_FULL.md](KIT_NAM_A2_FULL.md), [NAM_A2_FULL_STOCK_UNIT.md](NAM_A2_FULL_STOCK_UNIT.md) | NAM A2 Full, studied and stopped |
 | [HELIX_FLOOR_FEASIBILITY.md](HELIX_FLOOR_FEASIBILITY.md), [HELIX_FLOOR_KERNEL_COST.md](HELIX_FLOOR_KERNEL_COST.md), [HELIX_FLOOR_RECALL.md](HELIX_FLOOR_RECALL.md) | the Helix Floor / LT |
