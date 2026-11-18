@@ -161,6 +161,12 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 - **This Preset** (None, Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the current preset's own colour, kept when you save the preset. In Preset footswitch mode its ring and its switch icon on the Home screen are lit in that colour while it is selected, and dimmed while it is not.
 - **Preset LED Color** (Red, DkOrange, LtOrange, Yellow, Green, Teal, Blue, Violet, Pink, White): the colour of a preset without its own while it is selected. Such a preset's ring stays off while it is not, as stock.
 
+### <img src="docs/assets/icons/label-color.svg" width="28" height="28" align="top" alt=""> Label Color
+
+*No settings*
+
+- Every setting HXtra adds to Global Settings, and every knob it adds to a block (the compressors' meter knobs, NAM A2 Lite and the Metronome), has its label in teal, so you can tell them from the stock ones at a glance. Stock labels stay white.
+
 ### <img src="docs/assets/icons/metronome.svg" width="35" height="28" align="top" alt=""> Metronome
 
 *New block: Looper › Metronome*
