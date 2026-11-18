@@ -186,6 +186,12 @@
     <td data-i18n="nam-a2-lite.where">The block's knobs</td>
     </tr>
     <tr>
+    <td><a href="#gate-sidechain" data-i18n="gate-sidechain.name">Noise Gate Input Sidechain</a></td>
+    <td data-i18n="gate-sidechain.desc">An Input Sidechain knob on the Noise Gate block: on, its gate opens and closes on your guitar as it comes in, so a gate after a high-gain drive follows the clean guitar.</td>
+    <td data-i18n="gate-sidechain.floc">The Noise Gate block, mono and stereo</td>
+    <td data-i18n="gate-sidechain.where">The block's Input Sidechain knob</td>
+    </tr>
+    <tr>
     <td><a href="#preset-led-color" data-i18n="preset-led-color.name">Preset Mode LED Color</a></td>
     <td data-i18n="preset-led-color.desc">In Preset footswitch mode, each preset's own colour, kept when you save the preset: its ring and Home screen icon are lit in it while it is selected, and dimmed while it is not.</td>
     <td data-i18n="preset-led-color.floc">The preset footswitches, in Preset footswitch mode</td>
@@ -600,6 +606,37 @@
       </div>
     </section>
 
+    <section class="card feat" id="gate-sidechain">
+      <h2><img class="ico" src="../docs/assets/icons/gate-sidechain.svg" width="28" height="28" alt=""><span data-i18n="gate-sidechain.name">Noise Gate Input Sidechain</span></h2>
+      <p data-i18n="gate-sidechain.p1">The Noise Gate block can take its key from the input instead of from its own signal (<a href="https://github.com/wisemandenny/hxtra/issues/131">#131</a>). With Input Sidechain on, the gate opens and closes on what the Input block's gate hears (your guitar before any block, left and right summed) while it still gates the signal reaching it. A gate after a high-gain drive then follows the clean guitar: it closes when you stop playing, and the drive's own hiss no longer holds it open.</p>
+  <ul>
+  <li data-i18n="gate-sidechain.exp"><strong>Experimental:</strong> tested with recorded signals, not yet with a played instrument, so it may need tuning. It works only with a cable in the HX Stomp's guitar input.</li>
+  <li data-i18n="gate-sidechain.li1"><strong>DSP:</strong> each Noise Gate block costs about 0.1% more (0.2% stereo), whether Input Sidechain is on or off. A preset already at the limit with a Noise Gate may not load.</li>
+  <li data-i18n="gate-sidechain.li2"><strong>Threshold</strong> is then compared with the input's level, so set it as you would the Input block's gate. The Input block's own Input Gate can be on or off.</li>
+  <li data-i18n="gate-sidechain.li3"><strong>Presets</strong> saved with Input Sidechain keep the knob. HX Edit doesn't show it, as it has its own list of each block's knobs; opening such a preset on stock firmware is not tested yet.</li>
+  </ul>
+      <div class="settings">
+        <h3 data-i18n="settings">Settings</h3>
+        <p class="where" data-i18n="gate-sidechain.where">The block's Input Sidechain knob</p>
+        <div class="tbl"><table>
+        <thead>
+        <tr>
+        <th data-i18n="th.knob">Knob</th>
+        <th data-i18n="th.values">Values</th>
+        <th data-i18n="th.what">What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><strong>Input Sidechain</strong></td>
+        <td><strong>Off</strong>, On</td>
+        <td data-i18n="gate-sidechain.what1">On, the gate follows the input instead of the signal reaching the block. Off, the block works as on stock firmware.</td>
+        </tr>
+        </tbody>
+        </table></div>
+      </div>
+    </section>
+
     <section class="card feat" id="preset-led-color">
       <h2><img class="ico" src="../docs/assets/icons/preset-color.svg" width="28" height="28" alt=""><span data-i18n="preset-led-color.name">Preset Mode LED Color</span></h2>
       <p data-i18n="preset-led-color.p1">In Preset footswitch mode the HX Stomp lights the current preset's ring red, with a red switch icon on the Home screen, and leaves the other two presets' rings off. HXtra gives each preset a colour of its own, from the same palette as Tap LED color.</p>
@@ -827,6 +864,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Reproduce capturas de Neural Amp Modeler en el propio DSP del HX Stomp, hasta tres a la vez; la página de instalación convierte tus archivos .nam.",
     "nam-a2-lite.floc": "Navegador de modelos: Amp &gt; NAM",
     "nam-a2-lite.where": "Las perillas del bloque",
+    "gate-sidechain.name": "Input Sidechain de Noise Gate",
+    "gate-sidechain.desc": "Una perilla Input Sidechain en el bloque Noise Gate: activada, la puerta se abre y se cierra con la guitarra tal como entra, así que una puerta después de una distorsión de mucha ganancia sigue a la guitarra limpia.",
+    "gate-sidechain.floc": "El bloque Noise Gate, mono y estéreo",
+    "gate-sidechain.where": "La perilla Input Sidechain del bloque",
     "preset-led-color.name": "Color del LED en modo Preset",
     "preset-led-color.desc": "En el modo de footswitch Preset, un color propio para cada preset, que se conserva al guardarlo: su anillo y su icono en la pantalla de inicio se encienden con él mientras está seleccionado, y atenuados cuando no.",
     "preset-led-color.floc": "Los footswitches de preset, en el modo de footswitch Preset",
@@ -930,6 +971,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Capturas:</strong> no se incluye ninguna. Tú aportas tus propios archivos <code>.nam</code>, y sus licencias dependen de sus autores.",
     "nam-a2-lite.p2": "El <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> del proyecto original recoge los cambios de NAM.",
     "nam-a2-lite.li5": "<strong>Model</strong> se lee como el número de ranura, 4 en vez de 4.0, en el HX Stomp. Un valor entre ranuras (desde un controlador MIDI) se lee como la ranura que suena. El HX Stomp XL sigue mostrando 4.0.",
+    "gate-sidechain.p1": "El bloque Noise Gate puede tomar su clave de la entrada en lugar de su propia señal (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Con Input Sidechain activado, la puerta se abre y se cierra según lo que oye la puerta del bloque Input (tu guitarra antes de cualquier bloque, izquierda y derecha sumadas), pero sigue actuando sobre la señal que le llega. Una puerta después de una distorsión de mucha ganancia sigue entonces a la guitarra limpia: se cierra cuando dejas de tocar, y el soplido de la distorsión ya no la mantiene abierta.",
+    "gate-sidechain.exp": "<strong>Experimental:</strong> probado con señales grabadas, aún no con un instrumento tocado, así que puede necesitar ajustes. Solo funciona con un cable en la entrada de guitarra del HX Stomp.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> cada bloque Noise Gate cuesta un 0.1% más (0.2% en estéreo), tenga Input Sidechain activado o no. Puede que un preset que ya está en el límite con un Noise Gate no cargue.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> se compara entonces con el nivel de la entrada, así que ajústalo como la puerta del bloque Input. La puerta propia del bloque Input (Input Gate) puede estar activada o no.",
+    "gate-sidechain.li3": "<strong>Los presets</strong> guardados con Input Sidechain conservan la perilla. HX Edit no la muestra, porque tiene su propia lista de perillas de cada bloque; aún no se ha probado abrir uno de esos presets con el firmware original.",
+    "gate-sidechain.what1": "Activado, la puerta sigue a la entrada en lugar de a la señal que llega al bloque. En Off, el bloque funciona como con el firmware original.",
     "preset-led-color.p1": "En el modo de footswitch Preset, el HX Stomp enciende en rojo el anillo del preset actual, con un icono de interruptor rojo en la pantalla de inicio, y deja apagados los anillos de los otros dos presets. HXtra da a cada preset un color propio, de la misma paleta que el color del LED de TAP.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, página 2) fija el color del preset actual. Guarda el preset para conservarlo: el color se almacena en el propio preset, así que va con él cuando lo mueves, exportas o restauras.",
     "preset-led-color.li2": "<strong>Seleccionado</strong>, el anillo y el icono de un preset se encienden con su color. <strong>No seleccionado</strong>, un preset con color lo muestra atenuado (el tono que usa el HX Stomp para un bloque en bypass de ese color), para que veas qué footswitch tiene cada preset.",
@@ -1023,6 +1070,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Toca capturas do Neural Amp Modeler no próprio DSP do HX Stomp, até três ao mesmo tempo; a página de instalação converte seus arquivos .nam.",
     "nam-a2-lite.floc": "Navegador de modelos: Amp &gt; NAM",
     "nam-a2-lite.where": "Os knobs do bloco",
+    "gate-sidechain.name": "Input Sidechain do Noise Gate",
+    "gate-sidechain.desc": "Um controle Input Sidechain no bloco Noise Gate: ligado, o gate abre e fecha conforme a guitarra na entrada, então um gate depois de uma distorção de alto ganho segue a guitarra limpa.",
+    "gate-sidechain.floc": "O bloco Noise Gate, mono e estéreo",
+    "gate-sidechain.where": "O controle Input Sidechain do bloco",
     "preset-led-color.name": "Cor do LED no modo Preset",
     "preset-led-color.desc": "No modo de footswitch Preset, cada preset tem sua própria cor, mantida quando você salva o preset: o anel e o ícone dele na tela inicial acendem nessa cor enquanto ele está selecionado e ficam esmaecidos quando não está.",
     "preset-led-color.floc": "Os footswitches de preset, no modo de footswitch Preset",
@@ -1126,6 +1177,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Capturas:</strong> nenhuma vem incluída. Você traz seus próprios arquivos <code>.nam</code>, e as licenças deles cabem aos autores.",
     "nam-a2-lite.p2": "O <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> do projeto original traz as mudanças do NAM.",
     "nam-a2-lite.li5": "<strong>Model</strong> mostra o número do slot, 4 em vez de 4.0, no HX Stomp. Um valor entre slots (vindo de um controlador MIDI) mostra o slot que toca. O HX Stomp XL continua mostrando 4.0.",
+    "gate-sidechain.p1": "O bloco Noise Gate pode tirar sua chave da entrada em vez do próprio sinal (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Com Input Sidechain ligado, o gate abre e fecha conforme o que o gate do bloco Input ouve (sua guitarra antes de qualquer bloco, esquerda e direita somadas), mas continua atuando no sinal que chega a ele. Um gate depois de uma distorção de alto ganho passa a seguir a guitarra limpa: fecha quando você para de tocar, e o chiado da distorção não o mantém mais aberto.",
+    "gate-sidechain.exp": "<strong>Experimental:</strong> testado com sinais gravados, ainda não com um instrumento tocado, então pode precisar de ajustes. Só funciona com um cabo na entrada de guitarra do HX Stomp.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> cada bloco Noise Gate custa cerca de 0.1% a mais (0.2% em estéreo), com Input Sidechain ligado ou não. Um preset que já está no limite com um Noise Gate pode não carregar.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> passa a ser comparado com o nível da entrada, então ajuste-o como o gate do bloco Input. O Input Gate do próprio bloco Input pode estar ligado ou desligado.",
+    "gate-sidechain.li3": "<strong>Os presets</strong> salvos com Input Sidechain mantêm o controle. O HX Edit não o mostra, pois tem sua própria lista de controles de cada bloco; abrir um desses presets no firmware original ainda não foi testado.",
+    "gate-sidechain.what1": "Ligado, o gate segue a entrada em vez do sinal que chega ao bloco. Em Off, o bloco funciona como no firmware original.",
     "preset-led-color.p1": "No modo de footswitch Preset, o HX Stomp acende em vermelho o anel do preset atual, com um ícone de footswitch vermelho na tela inicial, e deixa apagados os anéis dos outros dois presets. O HXtra dá a cada preset uma cor própria, da mesma paleta do Tap LED Color.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, página 2) define a cor do preset atual. Salve o preset para mantê-la: a cor fica guardada no próprio preset, então vai junto quando você o move, exporta ou restaura.",
     "preset-led-color.li2": "<strong>Selecionado</strong>, o anel e o ícone de um preset acendem na cor dele. <strong>Não selecionado</strong>, um preset com cor a mostra esmaecida (o tom que o HX Stomp usa para um bloco em bypass dessa cor), para você ver qual footswitch tem qual preset.",
@@ -1219,6 +1276,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Joue des captures Neural Amp Modeler sur le DSP du HX Stomp lui-même, jusqu'à trois à la fois ; la page d'installation convertit vos fichiers .nam.",
     "nam-a2-lite.floc": "Navigateur de modèles : Amp &gt; NAM",
     "nam-a2-lite.where": "Les potentiomètres du bloc",
+    "gate-sidechain.name": "Input Sidechain du Noise Gate",
+    "gate-sidechain.desc": "Un réglage Input Sidechain dans le bloc Noise Gate : activé, le gate s'ouvre et se ferme selon la guitare telle qu'elle entre, si bien qu'un gate placé après une saturation à fort gain suit la guitare claire.",
+    "gate-sidechain.floc": "Le bloc Noise Gate, mono et stéréo",
+    "gate-sidechain.where": "Le réglage Input Sidechain du bloc",
     "preset-led-color.name": "Couleur des LED en mode Preset",
     "preset-led-color.desc": "En mode de footswitch Preset, une couleur propre à chaque preset, conservée quand vous enregistrez le preset : son anneau et son icône sur l'écran d'accueil s'allument dans cette couleur quand il est sélectionné, et s'atténuent quand il ne l'est pas.",
     "preset-led-color.floc": "Les footswitchs de preset, en mode de footswitch Preset",
@@ -1322,6 +1383,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Captures :</strong> aucune n'est incluse. Vous apportez vos propres fichiers <code>.nam</code>, et leurs licences relèvent de leurs auteurs.",
     "nam-a2-lite.p2": "Le <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> du projet amont détaille les changements de NAM.",
     "nam-a2-lite.li5": "<strong>Model</strong> s'affiche comme le numéro d'emplacement, 4 plutôt que 4.0, sur le HX Stomp. Une valeur entre deux emplacements (venant d'un contrôleur MIDI) s'affiche comme l'emplacement qui joue. Le HX Stomp XL affiche toujours 4.0.",
+    "gate-sidechain.p1": "Le bloc Noise Gate peut prendre sa clé sur l'entrée plutôt que sur son propre signal (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Avec Input Sidechain activé, le gate s'ouvre et se ferme selon ce qu'entend le gate du bloc Input (ta guitare avant tout bloc, gauche et droite additionnées), tout en agissant sur le signal qui lui arrive. Un gate placé après une saturation à fort gain suit alors la guitare claire : il se ferme dès que tu arrêtes de jouer, et le souffle de la saturation ne le garde plus ouvert.",
+    "gate-sidechain.exp": "<strong>Expérimental :</strong> testé avec des signaux enregistrés, pas encore avec un instrument joué, il peut donc demander des réglages. Ne fonctionne qu'avec un câble dans l'entrée guitare du HX Stomp.",
+    "gate-sidechain.li1": "<strong>DSP :</strong> chaque bloc Noise Gate coûte environ 0.1 % de plus (0.2 % en stéréo), qu'Input Sidechain soit activé ou non. Un preset déjà à la limite avec un Noise Gate risque de ne pas se charger.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> est alors comparé au niveau de l'entrée : règle-le comme le gate du bloc Input. L'Input Gate du bloc Input peut être activé ou non.",
+    "gate-sidechain.li3": "<strong>Les presets</strong> enregistrés avec Input Sidechain gardent le réglage. HX Edit ne l'affiche pas, car il a sa propre liste des réglages de chaque bloc ; ouvrir un tel preset avec le firmware d'origine n'est pas encore testé.",
+    "gate-sidechain.what1": "Activé, le gate suit l'entrée plutôt que le signal qui arrive au bloc. Sur Off, le bloc fonctionne comme avec le firmware d'origine.",
     "preset-led-color.p1": "En mode de footswitch Preset, le HX Stomp allume en rouge l'anneau du preset en cours, avec une icône de footswitch rouge sur l'écran d'accueil, et laisse éteints les anneaux des deux autres presets. HXtra donne à chaque preset sa propre couleur, issue de la même palette que Tap LED Color.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, page 2) règle la couleur du preset en cours. Enregistrez le preset pour la conserver : la couleur est stockée dans le preset lui-même, elle le suit donc quand vous le déplacez, l'exportez ou le restaurez.",
     "preset-led-color.li2": "<strong>Sélectionné</strong>, l'anneau et l'icône d'un preset s'allument dans sa couleur. <strong>Non sélectionné</strong>, un preset qui a une couleur l'affiche atténuée (la nuance que le HX Stomp utilise pour un bloc désactivé de cette couleur) : vous voyez ainsi quel footswitch porte quel preset.",
@@ -1415,6 +1482,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Spielt Captures von Neural Amp Modeler auf dem eigenen DSP des HX Stomp, bis zu drei gleichzeitig; die Einrichtungsseite wandelt deine .nam-Dateien um.",
     "nam-a2-lite.floc": "Modell-Browser: Amp &gt; NAM",
     "nam-a2-lite.where": "Die Regler des Blocks",
+    "gate-sidechain.name": "Noise Gate Input Sidechain",
+    "gate-sidechain.desc": "Ein Regler Input Sidechain im Noise-Gate-Block: eingeschaltet öffnet und schließt das Gate nach der Gitarre, wie sie hereinkommt, sodass ein Gate hinter einer High-Gain-Verzerrung der cleanen Gitarre folgt.",
+    "gate-sidechain.floc": "Der Noise-Gate-Block, mono und stereo",
+    "gate-sidechain.where": "Der Regler Input Sidechain des Blocks",
     "preset-led-color.name": "LED-Farbe im Preset-Modus",
     "preset-led-color.desc": "Im Fußschaltermodus Preset hat jedes Preset eine eigene Farbe, die beim Speichern des Presets erhalten bleibt: Sein Ring und sein Symbol auf dem Home-Bildschirm leuchten darin, solange es ausgewählt ist, und gedimmt, solange nicht.",
     "preset-led-color.floc": "Die Preset-Fußschalter im Fußschaltermodus Preset",
@@ -1518,6 +1589,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Captures:</strong> Es sind keine enthalten. Du bringst deine eigenen <code>.nam</code>-Dateien mit, und über ihre Lizenzen entscheiden ihre Urheber.",
     "nam-a2-lite.p2": "Das <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> des Upstream-Projekts enthält die NAM-Änderungen.",
     "nam-a2-lite.li5": "<strong>Model</strong> zeigt auf dem HX Stomp die Slot-Nummer, 4 statt 4.0. Ein Wert zwischen zwei Slots (von einem MIDI-Controller) zeigt den Slot, der spielt. Der HX Stomp XL zeigt weiterhin 4.0.",
+    "gate-sidechain.p1": "Der Noise-Gate-Block kann sein Steuersignal vom Eingang statt von seinem eigenen Signal nehmen (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Mit Input Sidechain an öffnet und schließt das Gate nach dem, was das Gate des Input-Blocks hört (deine Gitarre vor jedem Block, links und rechts summiert), bearbeitet aber weiter das Signal, das bei ihm ankommt. Ein Gate hinter einer High-Gain-Verzerrung folgt dann der cleanen Gitarre: Es schließt, sobald du aufhörst zu spielen, und das Rauschen der Verzerrung hält es nicht mehr offen.",
+    "gate-sidechain.exp": "<strong>Experimentell:</strong> mit aufgenommenen Signalen getestet, noch nicht mit einem gespielten Instrument, braucht also eventuell Feinschliff. Funktioniert nur mit einem Kabel im Gitarreneingang des HX Stomp.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> Jeder Noise-Gate-Block kostet etwa 0.1 % mehr (0.2 % in Stereo), ob Input Sidechain an ist oder nicht. Ein Preset, das mit einem Noise Gate schon am Limit ist, lädt dann vielleicht nicht.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> wird dann mit dem Pegel am Eingang verglichen; stell ihn also ein wie beim Gate des Input-Blocks. Das Input Gate des Input-Blocks selbst kann an oder aus sein.",
+    "gate-sidechain.li3": "<strong>Presets</strong>, die mit Input Sidechain gespeichert sind, behalten den Regler. HX Edit zeigt ihn nicht an, da es eine eigene Liste der Regler jedes Blocks hat; ein solches Preset mit der Original-Firmware zu öffnen, ist noch nicht getestet.",
+    "gate-sidechain.what1": "An folgt das Gate dem Eingang statt dem Signal, das beim Block ankommt. Auf Off arbeitet der Block wie mit der Original-Firmware.",
     "preset-led-color.p1": "Im Fußschaltermodus Preset lässt der HX Stomp den Ring des aktuellen Presets rot leuchten, mit einem roten Schaltersymbol auf dem Home-Bildschirm, und die Ringe der beiden anderen Presets bleiben aus. HXtra gibt jedem Preset eine eigene Farbe, aus derselben Palette wie Tap LED Color.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, Seite 2) legt die Farbe des aktuellen Presets fest. Speichere das Preset, um sie zu behalten: Die Farbe steckt im Preset selbst und geht also mit, wenn du es verschiebst, exportierst oder wiederherstellst.",
     "preset-led-color.li2": "<strong>Ausgewählt</strong> leuchten Ring und Symbol eines Presets in seiner Farbe. <strong>Nicht ausgewählt</strong> zeigt ein Preset mit Farbe diese gedimmt (in dem Ton, den der HX Stomp für einen Block dieser Farbe im Bypass nutzt), sodass du siehst, welcher Fußschalter welches Preset hat.",
@@ -1611,6 +1688,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Suona catture Neural Amp Modeler sul DSP dell'HX Stomp stesso, fino a tre alla volta; la pagina di installazione converte i tuoi file .nam.",
     "nam-a2-lite.floc": "Browser dei modelli: Amp &gt; NAM",
     "nam-a2-lite.where": "Le manopole del blocco",
+    "gate-sidechain.name": "Input Sidechain del Noise Gate",
+    "gate-sidechain.desc": "Un controllo Input Sidechain nel blocco Noise Gate: attivo, il gate si apre e si chiude seguendo la chitarra così come entra, così un gate dopo una distorsione ad alto gain segue la chitarra pulita.",
+    "gate-sidechain.floc": "Il blocco Noise Gate, mono e stereo",
+    "gate-sidechain.where": "Il controllo Input Sidechain del blocco",
     "preset-led-color.name": "Colore LED in modalità Preset",
     "preset-led-color.desc": "In modalità footswitch Preset, ogni preset ha un colore suo, conservato quando salvi il preset: il suo anello e la sua icona nella schermata Home sono accesi in quel colore quando è selezionato, e attenuati quando non lo è.",
     "preset-led-color.floc": "I footswitch dei preset, in modalità footswitch Preset",
@@ -1714,6 +1795,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Catture:</strong> non ne è inclusa nessuna. Porti i tuoi file <code>.nam</code>, e le loro licenze dipendono dai rispettivi autori.",
     "nam-a2-lite.p2": "Il <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> del progetto originale riporta le modifiche a NAM.",
     "nam-a2-lite.li5": "<strong>Model</strong> si legge come numero dello slot, 4 anziché 4.0, sull'HX Stomp. Un valore tra due slot (da un controller MIDI) si legge come lo slot che suona. L'HX Stomp XL mostra ancora 4.0.",
+    "gate-sidechain.p1": "Il blocco Noise Gate può prendere la chiave dall'ingresso invece che dal proprio segnale (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Con Input Sidechain attivo, il gate si apre e si chiude seguendo ciò che sente il gate del blocco Input (la chitarra prima di qualsiasi blocco, sinistro e destro sommati), ma continua ad agire sul segnale che gli arriva. Un gate dopo una distorsione ad alto gain segue così la chitarra pulita: si chiude appena smetti di suonare, e il fruscio della distorsione non lo tiene più aperto.",
+    "gate-sidechain.exp": "<strong>Sperimentale:</strong> provato con segnali registrati, non ancora con uno strumento suonato, quindi potrebbe richiedere qualche ritocco. Funziona solo con un cavo nell'ingresso chitarra dell'HX Stomp.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> ogni blocco Noise Gate costa circa lo 0.1% in più (0.2% in stereo), con Input Sidechain attivo o no. Un preset già al limite con un Noise Gate potrebbe non caricarsi.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> viene allora confrontato con il livello dell'ingresso: regolalo come il gate del blocco Input. L'Input Gate del blocco Input può essere attivo o no.",
+    "gate-sidechain.li3": "<strong>I preset</strong> salvati con Input Sidechain mantengono il controllo. HX Edit non lo mostra, perché ha un proprio elenco dei controlli di ogni blocco; aprire uno di questi preset con il firmware originale non è ancora stato provato.",
+    "gate-sidechain.what1": "Attivo, il gate segue l'ingresso invece del segnale che arriva al blocco. Su Off, il blocco funziona come con il firmware originale.",
     "preset-led-color.p1": "In modalità footswitch Preset l'HX Stomp accende in rosso l'anello del preset corrente, con un'icona dell'interruttore rossa nella schermata Home, e lascia spenti gli anelli degli altri due preset. HXtra dà a ogni preset un colore suo, dalla stessa tavolozza di Tap LED Color.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, pagina 2) imposta il colore del preset corrente. Salva il preset per conservarlo: il colore è memorizzato nel preset stesso, quindi lo segue quando lo sposti, lo esporti o lo ripristini.",
     "preset-led-color.li2": "<strong>Selezionato</strong>, l'anello e l'icona di un preset sono accesi nel suo colore. <strong>Non selezionato</strong>, un preset con un colore lo mostra attenuato (la tonalità che l'HX Stomp usa per un blocco in bypass di quel colore), così vedi quale footswitch richiama quale preset.",
@@ -1807,6 +1894,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Neural Amp Modeler のキャプチャーを HX Stomp 本体の DSP で最大 3 つ同時に鳴らします。.nam ファイルはセットアップページで変換します。",
     "nam-a2-lite.floc": "モデルブラウザ：Amp &gt; NAM",
     "nam-a2-lite.where": "ブロックのノブ",
+    "gate-sidechain.name": "Noise Gate の Input Sidechain",
+    "gate-sidechain.desc": "Noise Gate ブロックに Input Sidechain ノブを追加：On にすると、ゲートは入力されたままのギターで開閉するので、ハイゲインの歪みの後のゲートがクリーンなギターに追従します。",
+    "gate-sidechain.floc": "Noise Gate ブロック（モノ・ステレオ）",
+    "gate-sidechain.where": "ブロックの Input Sidechain ノブ",
     "preset-led-color.name": "Preset モードの LED カラー",
     "preset-led-color.desc": "Preset フットスイッチ・モードで、プリセットごとに独自の色を付けられ、色はプリセットの保存時に一緒に保存されます。選択中はリングとホーム画面のアイコンがその色で点灯し、選択していないときは暗く点灯します。",
     "preset-led-color.floc": "プリセット・フットスイッチ（Preset フットスイッチ・モード時）",
@@ -1910,6 +2001,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>キャプチャー：</strong>同梱していません。ご自身の <code>.nam</code> ファイルを用意してください。ライセンスは各作者の定めに従います。",
     "nam-a2-lite.p2": "NAM の変更点はアップストリームの <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> にあります。",
     "nam-a2-lite.li5": "HX Stomp では <strong>Model</strong> がスロット番号として、4.0 ではなく 4 と表示されます。（MIDI コントローラーからの）スロット間の値は、実際に鳴るスロットとして表示されます。HX Stomp XL では従来どおり 4.0 と表示されます。",
+    "gate-sidechain.p1": "Noise Gate ブロックは、自分の信号ではなく入力をキーにできます（<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>）。Input Sidechain を On にすると、ゲートは Input ブロックのゲートが聞く信号（どのブロックも通る前のギター、L と R の合計）で開閉し、ゲートをかけるのはブロックに届いた信号のままです。ハイゲインの歪みの後のゲートがクリーンなギターに追従し、弾くのをやめると閉じ、歪み自体のノイズで開いたままになることがなくなります。",
+    "gate-sidechain.exp": "<strong>試験的機能：</strong>録音した信号でテスト済みですが、実際に演奏した楽器ではまだ試していないため、調整が必要になるかもしれません。HX Stomp のギター入力にケーブルが挿さっているときだけ動作します。",
+    "gate-sidechain.li1": "<strong>DSP：</strong>Input Sidechain の On／Off にかかわらず、Noise Gate ブロックはそれぞれ約 0.1%（ステレオは 0.2%）多く使います。Noise Gate を含んで上限に達しているプリセットは読み込めないことがあります。",
+    "gate-sidechain.li2": "<strong>Threshold</strong> は入力のレベルと比べられるので、Input ブロックのゲートと同じように設定してください。Input ブロック自体の Input Gate は On でも Off でもかまいません。",
+    "gate-sidechain.li3": "Input Sidechain を使って保存した<strong>プリセット</strong>はノブの設定を保持します。HX Edit は各ブロックのノブの一覧を独自に持っているため、このノブを表示しません。そのプリセットを純正ファームウェアで開くことはまだテストしていません。",
+    "gate-sidechain.what1": "On でゲートはブロックに届く信号ではなく入力に追従します。Off では純正ファームウェアと同じように動作します。",
     "preset-led-color.p1": "Preset フットスイッチ・モードでは、HX Stomp は現在のプリセットのリングを赤く点灯し、ホーム画面に赤いスイッチ・アイコンを表示して、ほかの 2 つのプリセットのリングは消灯します。HXtra では、Tap LED Color と同じパレットから、プリセットごとに独自の色を付けられます。",
     "preset-led-color.li1": "<strong>This Preset</strong>（Global Settings &gt; Displays、2 ページ目）で現在のプリセットの色を設定します。色を残すにはプリセットを保存してください。色はプリセット自体に保存されるので、移動、エクスポート、復元してもプリセットと一緒に引き継がれます。",
     "preset-led-color.li2": "<strong>選択中</strong>は、プリセットのリングとアイコンがその色で点灯します。<strong>選択していないとき</strong>は、色を付けたプリセットは暗く表示されます（その色のブロックをバイパスしたときに HX Stomp が使う色合い）。どのフットスイッチにどのプリセットがあるかがひと目で分かります。",
@@ -2003,6 +2100,10 @@ var LANGS = {
     "nam-a2-lite.desc": "在 HX Stomp 自身的 DSP 上运行 Neural Amp Modeler 采样，最多同时三个；安装页面会帮你转换 .nam 文件。",
     "nam-a2-lite.floc": "模型浏览器：Amp &gt; NAM",
     "nam-a2-lite.where": "模块的旋钮",
+    "gate-sidechain.name": "Noise Gate 输入侧链",
+    "gate-sidechain.desc": "Noise Gate 模块新增 Input Sidechain 旋钮：开启后，噪声门按输入时的吉他信号开关，因此放在高增益失真之后的噪声门会跟随干净的吉他信号。",
+    "gate-sidechain.floc": "Noise Gate 模块（单声道和立体声）",
+    "gate-sidechain.where": "模块的 Input Sidechain 旋钮",
     "preset-led-color.name": "Preset 模式 LED 颜色",
     "preset-led-color.desc": "在 Preset 脚踏开关模式下，每个预设都有自己的颜色，并随预设保存：选中时它的灯环和主屏幕图标以该颜色点亮，未选中时变暗。",
     "preset-led-color.floc": "预设脚踏开关，在 Preset 脚踏开关模式下",
@@ -2106,6 +2207,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>采样：</strong>不附带任何采样。请自备 <code>.nam</code> 文件，其许可由各自的作者决定。",
     "nam-a2-lite.p2": "上游的 <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> 记录了 NAM 的改动。",
     "nam-a2-lite.li5": "<strong>Model</strong> 在 HX Stomp 上显示为槽位编号，是 4 而不是 4.0。介于两个槽位之间的值（来自 MIDI 控制器）显示为实际播放的槽位。HX Stomp XL 仍显示 4.0。",
+    "gate-sidechain.p1": "Noise Gate 模块可以用输入信号而不是自身信号作为触发（<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>）。开启 Input Sidechain 后，噪声门按 Input 模块的噪声门所听到的信号（经过任何模块之前的吉他信号，左右声道相加）开关，但仍作用于送到它的信号。放在高增益失真之后的噪声门因此会跟随干净的吉他信号：停止弹奏时就关闭，失真本身的底噪不再让它保持打开。",
+    "gate-sidechain.exp": "<strong>实验性功能：</strong>已用录制的信号测试，尚未用实际演奏的乐器测试，可能需要调整。仅在 HX Stomp 的吉他输入插有线缆时有效。",
+    "gate-sidechain.li1": "<strong>DSP：</strong>无论 Input Sidechain 是否开启，每个 Noise Gate 模块都会多占用约 0.1%（立体声 0.2%）。已经接近上限且含有 Noise Gate 的预设可能无法加载。",
+    "gate-sidechain.li2": "<strong>Threshold</strong> 此时与输入电平比较，所以请像设置 Input 模块的噪声门那样设置它。Input 模块自身的 Input Gate 开或关均可。",
+    "gate-sidechain.li3": "使用 Input Sidechain 保存的<strong>预设</strong>会保留该旋钮。HX Edit 有自己的模块旋钮列表，因此不显示它；在原厂固件中打开这类预设尚未测试。",
+    "gate-sidechain.what1": "开启时，噪声门跟随输入信号，而不是送到模块的信号。Off 时，模块与原厂固件相同。",
     "preset-led-color.p1": "在 Preset 脚踏开关模式下，HX Stomp 把当前预设的灯环点亮为红色，主屏幕上的开关图标也是红色，另外两个预设的灯环则熄灭。HXtra 让每个预设拥有自己的颜色，调色板与 Tap LED Color 相同。",
     "preset-led-color.li1": "<strong>This Preset</strong>（Global Settings &gt; Displays，第 2 页）设置当前预设的颜色。保存预设才能保留它：颜色存储在预设本身中，因此移动、导出或恢复预设时颜色都会随之保留。",
     "preset-led-color.li2": "<strong>选中时</strong>，预设的灯环和图标以它的颜色点亮。<strong>未选中时</strong>，有颜色的预设以暗色显示（即 HX Stomp 对该颜色的旁通模块所用的色调），让你看清哪个脚踏开关对应哪个预设。",
@@ -2199,6 +2306,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Neural Amp Modeler 캡처를 HX Stomp 자체 DSP에서 최대 3개까지 동시에 재생합니다. .nam 파일은 설치 페이지에서 변환합니다.",
     "nam-a2-lite.floc": "모델 브라우저: Amp &gt; NAM",
     "nam-a2-lite.where": "블록의 노브",
+    "gate-sidechain.name": "Noise Gate 입력 사이드체인",
+    "gate-sidechain.desc": "Noise Gate 블록의 Input Sidechain 노브: 켜면 게이트가 들어오는 그대로의 기타에 따라 열리고 닫혀, 하이게인 드라이브 뒤의 게이트가 클린 기타를 따라갑니다.",
+    "gate-sidechain.floc": "Noise Gate 블록(모노, 스테레오)",
+    "gate-sidechain.where": "블록의 Input Sidechain 노브",
     "preset-led-color.name": "프리셋 모드 LED 색상",
     "preset-led-color.desc": "Preset 풋스위치 모드에서 프리셋마다 고유한 색을 지정하며, 프리셋을 저장하면 유지됩니다. 선택된 동안에는 링과 홈 화면 아이콘이 그 색으로 켜지고, 선택되지 않은 동안에는 어둡게 표시됩니다.",
     "preset-led-color.floc": "Preset 풋스위치 모드의 프리셋 풋스위치",
@@ -2302,6 +2413,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>캡처:</strong> 포함된 캡처는 없습니다. <code>.nam</code> 파일은 직접 준비해야 하며, 라이선스는 각 제작자에게 달려 있습니다.",
     "nam-a2-lite.p2": "NAM 관련 변경 사항은 업스트림의 <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a>에 있습니다.",
     "nam-a2-lite.li5": "<strong>Model</strong>은 HX Stomp에서 4.0이 아니라 4처럼 슬롯 번호로 표시됩니다. 슬롯 사이의 값(MIDI 컨트롤러에서 보낸 값)은 실제로 재생되는 슬롯으로 표시됩니다. HX Stomp XL에서는 여전히 4.0으로 표시됩니다.",
+    "gate-sidechain.p1": "Noise Gate 블록은 자기 신호 대신 입력을 키로 쓸 수 있습니다(<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). Input Sidechain을 켜면 게이트는 Input 블록의 게이트가 듣는 신호(어떤 블록도 거치기 전의 기타, 왼쪽과 오른쪽 합)에 따라 열리고 닫히지만, 게이트를 거는 대상은 블록에 도착한 신호 그대로입니다. 그래서 하이게인 드라이브 뒤의 게이트가 클린 기타를 따라갑니다. 연주를 멈추면 닫히고, 드라이브 자체의 잡음이 게이트를 열어 두지 못합니다.",
+    "gate-sidechain.exp": "<strong>실험적 기능:</strong> 녹음된 신호로 테스트했고 실제로 연주한 악기로는 아직 테스트하지 않아 조정이 필요할 수 있습니다. HX Stomp의 기타 입력에 케이블이 꽂혀 있을 때만 동작합니다.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> Input Sidechain을 켜든 끄든 Noise Gate 블록마다 약 0.1%(스테레오 0.2%) 더 듭니다. Noise Gate가 있고 이미 한도에 다다른 프리셋은 불러오지 못할 수 있습니다.",
+    "gate-sidechain.li2": "<strong>Threshold</strong>는 이때 입력 레벨과 비교되므로 Input 블록의 게이트처럼 설정하세요. Input 블록 자체의 Input Gate는 켜도 되고 꺼도 됩니다.",
+    "gate-sidechain.li3": "Input Sidechain으로 저장한 <strong>프리셋</strong>은 노브 설정을 유지합니다. HX Edit는 블록마다 자체 노브 목록을 갖고 있어 이 노브를 표시하지 않습니다. 그런 프리셋을 순정 펌웨어에서 여는 것은 아직 테스트하지 않았습니다.",
+    "gate-sidechain.what1": "켜면 게이트가 블록에 도착하는 신호 대신 입력을 따라갑니다. Off면 순정 펌웨어처럼 동작합니다.",
     "preset-led-color.p1": "Preset 풋스위치 모드에서 HX Stomp는 현재 프리셋의 링을 빨간색으로 켜고 홈 화면에 빨간 스위치 아이콘을 표시하며, 나머지 두 프리셋의 링은 꺼 둡니다. HXtra는 TAP LED 색상과 같은 팔레트에서 프리셋마다 고유한 색을 줍니다.",
     "preset-led-color.li1": "<strong>This Preset</strong>(Global Settings &gt; Displays, 2페이지)으로 현재 프리셋의 색을 정합니다. 유지하려면 프리셋을 저장하세요. 색이 프리셋 자체에 저장되므로 프리셋을 옮기거나 내보내거나 복원해도 함께 따라갑니다.",
     "preset-led-color.li2": "<strong>선택된</strong> 프리셋은 링과 아이콘이 그 색으로 켜집니다. <strong>선택되지 않은</strong> 프리셋은 색이 있으면 어둡게 표시되므로(HX Stomp가 그 색의 바이패스된 블록에 쓰는 음영), 어느 풋스위치에 어느 프리셋이 있는지 알 수 있습니다.",
@@ -2395,6 +2512,10 @@ var LANGS = {
     "nam-a2-lite.desc": "Воспроизводит захваты Neural Amp Modeler на собственном DSP HX Stomp, до трёх одновременно; страница установки конвертирует ваши файлы .nam.",
     "nam-a2-lite.floc": "Браузер моделей: Amp &gt; NAM",
     "nam-a2-lite.where": "Ручки блока",
+    "gate-sidechain.name": "Input Sidechain для Noise Gate",
+    "gate-sidechain.desc": "Регулятор Input Sidechain в блоке Noise Gate: когда он включён, гейт открывается и закрывается по гитаре в том виде, в каком она приходит на вход, поэтому гейт после хай-гейн перегруза следует за чистой гитарой.",
+    "gate-sidechain.floc": "Блок Noise Gate, моно и стерео",
+    "gate-sidechain.where": "Регулятор Input Sidechain блока",
     "preset-led-color.name": "Цвет светодиодов в режиме Preset",
     "preset-led-color.desc": "В режиме футсвичей Preset у каждого пресета свой цвет, который сохраняется вместе с пресетом: его кольцо и иконка на главном экране горят этим цветом, пока пресет выбран, и приглушены, пока нет.",
     "preset-led-color.floc": "Футсвичи пресетов в режиме футсвичей Preset",
@@ -2498,6 +2619,12 @@ var LANGS = {
     "nam-a2-lite.li4": "<strong>Захваты:</strong> в комплект не входят. Вы используете свои файлы <code>.nam</code>, а их лицензии определяют их авторы.",
     "nam-a2-lite.p2": "Изменения NAM описаны в <a href=\"https://github.com/wisemandenny/hxtra/blob/main/CHANGELOG.md\">CHANGELOG.md</a> исходного проекта.",
     "nam-a2-lite.li5": "<strong>Model</strong> на HX Stomp отображается как номер слота: 4, а не 4.0. Значение между слотами (с MIDI-контроллера) отображается как слот, который звучит. HX Stomp XL по-прежнему показывает 4.0.",
+    "gate-sidechain.p1": "Блок Noise Gate может брать управляющий сигнал со входа, а не из собственного сигнала (<a href=\"https://github.com/wisemandenny/hxtra/issues/131\">#131</a>). С включённым Input Sidechain гейт открывается и закрывается по тому, что слышит гейт блока Input (гитара до всех блоков, левый и правый каналы вместе), но по-прежнему обрабатывает сигнал, который приходит к нему. Гейт после хай-гейн перегруза тогда следует за чистой гитарой: закрывается, как только вы перестаёте играть, и собственный шум перегруза больше не держит его открытым.",
+    "gate-sidechain.exp": "<strong>Экспериментально:</strong> проверено на записанных сигналах, но ещё не на живом инструменте, поэтому может потребовать доработки. Работает, только когда в гитарный вход HX Stomp вставлен кабель.",
+    "gate-sidechain.li1": "<strong>DSP:</strong> каждый блок Noise Gate стоит примерно на 0.1% больше (0.2% в стерео), включён Input Sidechain или нет. Пресет, который уже на пределе и содержит Noise Gate, может не загрузиться.",
+    "gate-sidechain.li2": "<strong>Threshold</strong> тогда сравнивается с уровнем на входе, поэтому настраивайте его как гейт блока Input. Собственный Input Gate блока Input может быть включён или выключен.",
+    "gate-sidechain.li3": "<strong>Пресеты</strong>, сохранённые с Input Sidechain, сохраняют регулятор. HX Edit его не показывает, так как у него свой список регуляторов каждого блока; открытие такого пресета на заводской прошивке ещё не проверено.",
+    "gate-sidechain.what1": "Когда включён, гейт следует за входом, а не за сигналом, который приходит в блок. В положении Off блок работает как на заводской прошивке.",
     "preset-led-color.p1": "В режиме футсвичей Preset HX Stomp подсвечивает кольцо текущего пресета красным, с красной иконкой кнопки на главном экране, а кольца двух других пресетов не горят. HXtra даёт каждому пресету свой цвет из той же палитры, что и у цвета светодиода TAP.",
     "preset-led-color.li1": "<strong>This Preset</strong> (Global Settings &gt; Displays, страница 2) задаёт цвет текущего пресета. Чтобы цвет остался, сохраните пресет: цвет хранится в самом пресете, поэтому переходит вместе с ним при перемещении, экспорте или восстановлении.",
     "preset-led-color.li2": "<strong>Выбранный</strong> пресет горит своим цветом на кольце и иконке. <strong>Невыбранный</strong> пресет с цветом показывает его приглушённым (тем оттенком, которым HX Stomp показывает отключённый блок этого цвета), так что видно, на каком футсвиче какой пресет.",
