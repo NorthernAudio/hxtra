@@ -4,11 +4,9 @@ Most people never need this page: the [setup page](https://wisemandenny.github.i
 
 ## Requirements
 
-- An **HX Stomp**: HXtra supports the HX Stomp only. `build.py` still builds upstream's NAM A2 Lite for the HX Stomp XL and the HX Effects (on the HX Effects NAM is in Distortion > Mono), untested, with none of HXtra's features.
-- Line 6's firmware 3.80.0 for your unit. The build checks the MD5 and refuses any other file:
-  - HX Stomp: `HX_Stomp_v3.80.0_0x103966115.hxf`, MD5 `a2cd8f4ae56f49415380270ebc484bf1`. Download it from [line6.com](https://line6.com/software/readeula.html?rid=12906); you need to sign in with a free Line 6 (Helix) account to get the download.
-  - HX Stomp XL: `HX_Stomp_XL_v3.80.0_0x103966115.hxf`, MD5 `329e3a26d60d3de1988b6785fa833ee1`
-  - HX Effects: `HX_Effects_v3.80.0_0xd97239907.hxf`, MD5 `7c2ebdf1bffb6bcc5f89dda97f91e40c`
+- An **HX Stomp**: HXtra is for the HX Stomp only. `build.py` refuses the HX Stomp XL's and the HX Effects' firmware files.
+- Line 6's firmware 3.80.0 for the HX Stomp. The build checks the MD5 and refuses any other file:
+  - `HX_Stomp_v3.80.0_0x103966115.hxf`, MD5 `a2cd8f4ae56f49415380270ebc484bf1`. Download it from [line6.com](https://line6.com/software/readeula.html?rid=12906); you need to sign in with a free Line 6 (Helix) account to get the download.
 - Python 3.10 or newer with `numpy`: `pip install numpy`. To run a build from RAM from the command line, also `pyusb` and `dfu-util`.
 - For every feature but the boot screen and real block names, clang: their M4 code is assembled with it at build time. On a Mac, Apple's Command Line Tools (`xcode-select --install`); on Linux or WSL, `apt install clang` (clang 18 gives the same bytes as Apple's). `tools/m4asm.py` takes `HX_CLANG` (a path, or a name on `PATH`) first, then the Command Line Tools' clang, then `clang` on `PATH`. For the boot screen, macOS converts pictures (`sips`) and renders emoji (`swift`); elsewhere give a 320x240 PNG and `--splash-glyph` pictures.
 - **Line 6 Updater** to install, and **HX Edit** to import captures.
@@ -21,10 +19,10 @@ cd hxtra
 python3 build.py path/to/HX_Stomp_v3.80.0_0x103966115.hxf
 ```
 
-This writes `build/HX_Stomp_v3.80.0_HXtra.hxf` (from the XL's file, `build/HX_Stomp_XL_v3.80.0_HXtra.hxf`; from the HX Effects', `build/HX_Effects_v3.80.0_HXtra.hxf`). It takes about 2 minutes, most of it the kernel check of step 1. The build:
+This writes `build/HX_Stomp_v3.80.0_HXtra.hxf`. It takes about 2 minutes, most of it the kernel check of step 1. The build:
 
 1. Assembles the NAM kernel for the NAM slot count and runs it in the SHARC simulator, checking every block's output bit for bit against a reference NAM A2 implementation (`src/sharc/nam_a2.asm`). Add `--no-check` to skip this step.
-2. Adds NAM A2 Lite in place of Xenomorph Fuzz Mono (preset ID 555): `tools/patch_amp.py remove-model`, `add-fx-model --knobs eq`, `move-folder` (into Amp > NAM) and `ir-title --knob 6` (the IR name in the block title, from the Model knob). These are `build.py`'s `STEPS`; the HX Effects has its own one step, `effects-eq`.
+2. Adds NAM A2 Lite in place of Xenomorph Fuzz Mono (preset ID 555): `tools/patch_amp.py remove-model`, `add-fx-model --knobs eq`, `move-folder` (into Amp > NAM) and `ir-title --knob 6` (the IR name in the block title, from the Model knob). These are `build.py`'s `STEPS`.
 3. On the HX Stomp, adds the HXtra features that are turned on to the main application (`tools/patch_menu.py`, from `tools/features/`).
 4. Adds the kernel to the DSP's boot code (`patch_amp.py patch`).
 5. Recomputes and verifies every checksum: the container MD5, the archive Fletcher-32 and CRC-32, and the image CRCs.

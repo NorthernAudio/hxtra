@@ -545,13 +545,6 @@ def build_steps(tmp_path, monkeypatch, unit, env):
     return ran
 
 
-@pytest.mark.parametrize('unit', ['HX_Stomp_XL', 'HX_Effects'])
-def test_gr_is_for_the_hx_stomp_only(tmp_path, monkeypatch, unit):
-    ran = build_steps(tmp_path, monkeypatch, unit, {'HX_GR': '1'})
-    assert '--slots' not in next(a for a in ran if a[0] == 'tools/sharc/nam_multi.py')
-    assert not any(a[0] == 'tools/patch_comp.py' for a in ran)
-
-
 @pytest.mark.parametrize('env', [{}, {'HX_CLICK': '1'}])
 def test_gr_keeps_nam_on_two_slots_and_patches_last(tmp_path, monkeypatch, env):
     ran = build_steps(tmp_path, monkeypatch, 'HX_Stomp', {'HX_GR': '1'} | env)

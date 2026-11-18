@@ -17,16 +17,6 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: device
-    attributes:
-      label: Device
-      options:
-        - HX Stomp
-        - HX Effects
-        - Other
-    validations:
-      required: true
-  - type: dropdown
     id: how
     attributes:
       label: How are you running HXtra?

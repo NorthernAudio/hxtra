@@ -435,11 +435,6 @@ def test_build_without_the_flag_has_no_gate(tmp_path, monkeypatch):
     assert 'tools/patch_gate.py' not in build_steps(tmp_path, monkeypatch, 'HX_Stomp', {})
 
 
-@pytest.mark.parametrize('unit', ['HX_Stomp_XL', 'HX_Effects'])
-def test_gate_is_for_the_hx_stomp_only(tmp_path, monkeypatch, unit):
-    assert 'tools/patch_gate.py' not in build_steps(tmp_path, monkeypatch, unit, {'HX_FX_GATE': '1'})
-
-
 def test_web_worker_runs_the_gate_between_the_metronome_and_the_gr_knobs():
     js = (ROOT / 'web/firmware-worker.js').read_text()
     at = lambda s: js.index(s, js.index('step(5,'))
