@@ -22,11 +22,11 @@ TRACKER = snippet('  var COUNTER = ', '  function markDone(n) {')
 COUNT_BUILD = snippet('  function countBuild(b) {', '  function slotsPicked() {')
 
 
-def run(js, host="wisemandenny.github.io", dnt=None, gpc=False, referrer=""):
+def run(js, host="wisemandenny.github.io", dnt=None, gpc=False, referrer="", search=""):
     """Runs the page's tracker in node with a fake browser; returns each fetch as [url, options]."""
     env = f"""
 var sent = [];
-var location = {{ hostname: {json.dumps(host)}, origin: "https://" + {json.dumps(host)} }};
+var location = {{ hostname: {json.dumps(host)}, origin: "https://" + {json.dumps(host)}, search: {json.dumps(search)} }};
 var navigator = {{ doNotTrack: {json.dumps(dnt)}, globalPrivacyControl: {json.dumps(gpc)} }};
 var document = {{ referrer: {json.dumps(referrer)} }};
 var screen = {{ width: 1440, height: 900 }};
@@ -98,3 +98,17 @@ def test_no_event_carries_a_file_or_unit():
     assert len(calls) >= 10
     for c in calls:
         assert not re.search(r"file|md5|unit|\.text|message|\.info|\.wav", c), c
+
+
+@needs_node
+@pytest.mark.parametrize("kw", [{"host": "localhost"}, {"dnt": "1"}, {"gpc": True}])
+def test_test_switch_counts_anywhere_under_test(kw):
+    (e, _), (v, _) = run('countEvent("build/gr-on"); countVisit();', search="?lang=de&count=test", **kw)
+    assert query(e) == "p=test%2Fbuild%2Fgr-on&e=true"
+    assert query(v) == "p=%2Ftest%2Fweb%2F&s=1440,900,2"
+
+
+@needs_node
+@pytest.mark.parametrize("search", ["?count=testing", "?count=tes", "?recount=test"])
+def test_only_the_exact_test_switch_counts_off_the_live_page(search):
+    assert run('countEvent("build");', host="localhost", search=search) == []
