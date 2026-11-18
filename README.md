@@ -199,6 +199,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 - On, the Noise Gate opens and closes on your guitar as it comes in, so a gate after a high-gain drive follows the clean guitar.
 - Each Noise Gate block then uses about 0.1% (mono) or 0.2% (stereo) more DSP.
+- *Experimental:* tested with recorded signals, not yet with a played instrument, so it may need tuning. It works only with a cable in the HX Stomp's guitar input.
 
 ### <img src="docs/assets/icons/nam.svg" width="28" height="28" align="top" alt=""> NAM A2 Lite
 
