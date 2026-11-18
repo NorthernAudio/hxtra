@@ -8,7 +8,7 @@ The input is Line 6's own HX Stomp firmware file, version 3.80.0
 (Line 6 Updater keeps a copy; see README.md). Nothing of it is in this
 repository: the build reads it, adds NAM A2 Lite and writes a new .hxf
 (default build/HX_Stomp_v3.80.0_HXtra.hxf) for Line 6 Updater.
-HXtra is for the HX Stomp only: any other file, the HX Stomp XL's and the HX Effects' included, is refused.
+HXtra is for the HX Stomp only: any other file is refused.
 
 NAM A2 Lite runs as up to three blocks at once, each playing its own capture from a User IR slot.
 HX_NAM_SLOTS=3, 2, 1 or 0 sets how many (0: no NAM A2 Lite); unset, the most that

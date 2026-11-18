@@ -4,7 +4,7 @@ Most people never need this page: the [setup page](https://wisemandenny.github.i
 
 ## Requirements
 
-- An **HX Stomp**: HXtra is for the HX Stomp only. `build.py` refuses the HX Stomp XL's and the HX Effects' firmware files.
+- An **HX Stomp**: HXtra is for the HX Stomp only, and `build.py` refuses any other firmware file.
 - Line 6's firmware 3.80.0 for the HX Stomp. The build checks the MD5 and refuses any other file:
   - `HX_Stomp_v3.80.0_0x103966115.hxf`, MD5 `a2cd8f4ae56f49415380270ebc484bf1`. Download it from [line6.com](https://line6.com/software/readeula.html?rid=12906); you need to sign in with a free Line 6 (Helix) account to get the download.
 - Python 3.10 or newer with `numpy`: `pip install numpy`. To run a build from RAM from the command line, also `pyusb` and `dfu-util`.
