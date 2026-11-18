@@ -1,7 +1,7 @@
 """tools/features/tuner.py and src/m4/tuner.s: Tuner Activation and Lock Tuner Settings on a third page of the tuner's settings, run
 in unicorn (the tap, the page's paint, knob turns and presses, Lock On everywhere else, and the hooks around them), and the firmware."""
+import hashlib
 import struct
-import subprocess
 
 import pytest
 
@@ -11,7 +11,7 @@ import setting_ids
 from features import tuner
 from firmware import assert_virtual, built, built_e0, reader
 
-TUNER_BEFORE_LABEL_COLOR = 'f7d0a6c'     # next when label_color came: tuner.s with the stock label colour written in
+TUNER_BEFORE_LABEL_COLOR = '8899a7604edc19a027a246e7cefd6de4'     # tuner.s of f7d0a6c, the stock label colour written in
 MODS = features.load()
 IDS = setting_ids.by_name()
 ACTIVATE, LOCK = IDS['tuner.activate'], IDS['tuner.lock']
@@ -257,12 +257,9 @@ def test_paint_switch_sends_page_4_to_its_paint(m4emu, page, to):
         assert shown == [] and len(t.m.calls(to)) == 1 and len(t.m.calls(tuner.PAINT_END)) == (to == tuner.PAINT_END)
 
 
-def test_without_label_color_the_module_is_the_one_before_it(m4emu, tmp_path):
-    old = tmp_path / 'tuner.s'
-    old.write_text(subprocess.run(['git', 'show', f'{TUNER_BEFORE_LABEL_COLOR}:src/m4/tuner.s'], cwd=pm.ROOT, check=True,
-                                  capture_output=True, text=True).stdout)
+def test_without_label_color_the_module_is_the_one_before_it(m4emu):
     now, _ = m4emu.assemble('src/m4/tuner.s', MODS, IDS, VIRT_SET, inc={'tuner_label.inc': tuner.label_inc()})
-    assert now == m4emu.assemble(str(old), MODS, IDS, VIRT_SET)[0]
+    assert hashlib.md5(now).hexdigest() == TUNER_BEFORE_LABEL_COLOR
 
 
 def test_the_label_row_is_label_colors_when_it_is_built(m4emu):
