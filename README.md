@@ -176,11 +176,12 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 
 *Global Settings › Ins/Outs, page 3*
 
-- **Path A Out** (Main L/R, Send/USB, USB Only, Main+Snd): where path A's Output block goes, in every preset.
+- **Path A Out**: where path A's output goes, in every preset.
   - **Main L/R**: as stock.
-  - **Send/USB**: to the computer on USB 3/4 instead of Main L/R, so you hear your tone through your DAW and its plugins. Main and the phones play only what the computer sends back on USB 1/2. On the HX Stomp, USB 3/4 and the Send jacks are one output, so the Send jacks carry the same sound. Don't use it with an FX Loop block: the output would feed back through the loop.
-  - **USB Only**: like Send/USB, but the Send jacks stay silent, for every Send and FX Loop block too. It's safe with an FX Loop block, which then gets no signal.
-  - **Main+Snd**: path A stays on Main L/R, and the same sound also goes to the Send jacks and USB 3/4 at 0 dB, with no split or block used: for a second amp, a front-of-house feed or recording. Don't use it with an FX Loop block either.
+  - **Send/USB**: to your computer on USB 3/4, so you monitor through your DAW. Main and the phones play what the computer sends back. The Send jacks get it too.
+  - **USB Only**: to your computer only; the Send jacks stay silent.
+  - **Main+Snd**: Main L/R as usual, plus a copy to the Send jacks and USB 3/4.
+- Don't use Send/USB or Main+Snd in a preset with an FX Loop block: it feeds back.
 
 ### <img src="docs/assets/icons/real-names.svg" width="28" height="28" align="top" alt=""> Real Block Names
 
