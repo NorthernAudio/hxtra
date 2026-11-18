@@ -131,6 +131,9 @@ def test_build_py_kernel_takes_the_slot_count():
 SLOTS_BUILT_MD5 = {
     'HX_NAM_SLOTS=1 HX_GR HX_CLICK HX_FX_GATE': '8c095c00a436ee4046ffcc6e5137c720',
     'HX_NAM_SLOTS=0 HX_GR HX_CLICK HX_FX_GATE HX_REAL_NAMES': '20f5c06bda3b57c6b810bc8c0d318780',     # no NAM A2 Lite: no kernel, patch_menu.py on the stock image
+    'HX_NAM_SLOTS=0 HX_GR HX_FX_GATE': '1e1354b02308f018e3295697b14892d7',               # no add-model before patch_comp: its strings grow at the tail
+    'HX_NAM_SLOTS=0 HX_GR HX_GATE_SC': '2ce05cbd32e5e7942234be973bc1402d',
+    'HX_NAM_SLOTS=0 HX_FX_GATE HX_GATE_SC': '39c2ef0e722fae76c12816240c2f452f',      # patch_sidechain.py's strings, after patch_gate.py's
 }
 
 
