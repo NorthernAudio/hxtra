@@ -2528,7 +2528,10 @@ var LANG_NAMES = {
   var COUNTER = "https://hxtra.goatcounter.com/count";
   // ?count=test counts from any copy, under test/, to check the counter before a release
   var testing = /[?&]count=test(&|$)/.test(location.search);
-  var tracking = testing || location.hostname === "wisemandenny.github.io" && navigator.doNotTrack !== "1" && !navigator.globalPrivacyControl;
+  var optedOut = navigator.doNotTrack === "1" || !!navigator.globalPrivacyControl;
+  // DNT and GPC hold for a shared ?count=test link too; only a local copy overrides them, for testing
+  var local = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  var tracking = testing && local || !optedOut && (testing || location.hostname === "wisemandenny.github.io");
   function track(query) {
     if (!tracking) return;
     fetch(COUNTER + "?" + query + "&rnd=" + Math.random().toString(36).slice(2),
