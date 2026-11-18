@@ -202,7 +202,7 @@ The meter also shows while you edit the compressor, so you can dial in Threshold
 *Input Sidechain knob on the Noise Gate block*
 
 - On, the Noise Gate opens and closes on your guitar as it comes in, so a gate after a high-gain drive follows the clean guitar.
-- Each Noise Gate block then uses about 0.1% (mono) or 0.2% (stereo) more DSP.
+- Each Noise Gate block then counts 0.1% (mono) or 0.2% (stereo) more toward the DSP limit.
 - *Experimental:* tested with recorded signals, not yet with a played instrument, so it may need tuning. It works only with a cable in the HX Stomp's guitar input.
 
 ### <img src="docs/assets/icons/nam.svg" width="28" height="28" align="top" alt=""> NAM A2 Lite
@@ -336,6 +336,7 @@ HXtra itself doesn't: it runs on the processor that drives the screen and footsw
 - **Compressor Gain Reduction Meter**, on the compressors that have it
 - **Metronome**, while the block is in a preset
 - **FX Loop Noise Gate**, on each FX Loop and Return block
+- **Noise Gate Input Sidechain**, on each Noise Gate block
 - **USB & Send Routing**, to move path A's output
 - **NAM A2 Lite** blocks, like any amp block
 
@@ -347,7 +348,7 @@ If you hear crackling, leave those out on the setup page.
 <td valign="top">
 
 ### <img src="docs/assets/icons/faq-choose.svg" width="28" height="28" align="top" alt=""> Can I choose which features I get?
-Partly. On the setup page you pick the **DSP features**: how many NAM A2 Lite blocks (3, 2, 1 or none), the gain reduction meter, the Metronome, the FX Loop gate and USB & Send Routing. They share the HX Stomp's spare DSP memory, so the page shows what's left as you tick, and fewer NAM blocks leave room for more of the others. Real block names is a box too. Every other feature is always in; to leave one of those out, [build it yourself](docs/building.md).
+Partly. On the setup page you pick the **DSP features**: how many NAM A2 Lite blocks (3, 2, 1 or none), the gain reduction meter, the Metronome, the FX Loop gate, USB & Send Routing and Input Sidechain. They share the HX Stomp's spare DSP memory, so the page shows what's left as you tick, and fewer NAM blocks leave room for more of the others. Real block names is a box too. Every other feature is always in; to leave one of those out, [build it yourself](docs/building.md).
 
 &nbsp;
 
