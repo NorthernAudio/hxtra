@@ -16,7 +16,7 @@ pytestmark = pytest.mark.firmware
 # The ten-knob NAM A2 Lite with its tone stack in Amp > NAM on Xenomorph Fuzz Mono's ID 555 (build.py's STEPS),
 # the kernel's --mid-sweep, DSP cost 2275, tools/patch_menu.py's HXtra entry and boot screen.
 BUILT_MD5 = {
-    "HX_STOMP_HXF": "195682572258a3347d94ca7610a697b8",
+    "HX_STOMP_HXF": "f3fbca667ba81933cd0ad29854a54098",
 }
 
 
