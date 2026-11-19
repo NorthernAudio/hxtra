@@ -16,6 +16,7 @@ from pathlib import Path
 
 import pytest
 
+import block3
 import m4asm
 import m4cache
 
@@ -218,21 +219,40 @@ def test_site_root_keeps_the_anchor():
     assert 'location.replace("web/" + location.hash)' in site
 
 
+def page_combo(slots, leave_out=()):
+    """The flags of the page's combination with every feature and DSP feature that fits but leave_out, at slots NAM slots."""
+    dsp = [f for f in m4cache.web_dsp() if f not in leave_out]
+    while not block3.fits(slots, dsp):
+        dsp.pop(0)
+    return m4cache.web_flags() + dsp + [m4cache.slots_flag(slots)]
+
+
+# the default selection, then one of each kind the v1.2.0 cache lacked a module for (issue #163)
+PAGE_COMBOS = {"default": (2, ()), "no GR": (2, ("HX_GR",)), "no Metronome": (2, ("HX_CLICK",)),
+               "no USB Monitor": (2, ("HX_USB_MONITOR",)), "3 NAM slots": (3, ()), "no NAM, no DSP": (0, tuple(m4cache.web_dsp()))}
+
+
+def test_page_combos_are_offered():
+    offered = {m4cache.combo_key(c) for c in m4cache.combos()}
+    assert all(m4cache.combo_key(page_combo(*c)) in offered for c in PAGE_COMBOS.values())
+
+
 @pytest.mark.firmware
-@pytest.mark.parametrize("nam", [True, False])
-def test_page_copy_builds_features_from_the_cache(tmp_path, nam):
+@pytest.mark.parametrize("combo", PAGE_COMBOS)
+def test_page_copy_builds_features_from_the_cache(tmp_path, combo):
     stock = os.environ.get("HX_STOMP_HXF")
     if not stock:
         pytest.skip("HX_STOMP_HXF is not set")
-    flags = ["HX_BPM", "HX_LONG_PRESS", "HX_GR"]      # a section of its own, settings in a stock category, Entry 3's strings
+    flags = page_combo(*PAGE_COMBOS[combo])
+    nam = m4cache.flag_env(flags)[block3.VAR] != "0"
     cache = tmp_path / "m4cache.json"
-    cache.write_text(json.dumps({"modules": {**m4cache.modules(stock, flags), **m4cache.modules(stock, flags, nam=False)}}))
+    cache.write_text(json.dumps({"modules": m4cache.modules(stock, flags, nam)}))      # what m4cache.make keeps for it
     page = tmp_path / "repo"
     for p in listed_sources():
         (page / p).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / p, page / p)
     env = {k: v for k, v in os.environ.items() if not k.startswith("HX_")}
-    env.update({f: "1" for f in flags})
+    env.update(m4cache.flag_env(flags))
     base = m4cache.nam_base(stock, str(tmp_path)) if nam else stock     # what build.py, and the page, give patch_menu.py
     out = {}
     for name, root, extra in (("clang", ROOT, {}), ("cache", page, {"HX_M4_CACHE": str(cache)})):
