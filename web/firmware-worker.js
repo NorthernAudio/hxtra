@@ -125,13 +125,16 @@ var SOURCES = [
 // The release's M4 code for the features (tools/m4cache.py); a page from a checkout has none, and offers no features.
 var CACHE = "m4cache.json";
 
-// One command of build.py: run a script as __main__ with argv, return its output.
+// One command of build.py: run a script as __main__ with argv, its folder on sys.path as `python script.py` has it.
 var DRIVER = [
   "import contextlib, io, os, runpy, sys",
   "os.chdir('/repo')",
   "def run(argv):",
   "    out = io.StringIO()",
   "    sys.argv = list(argv)",
+  "    here = os.path.dirname(os.path.abspath(argv[0]))",
+  "    if here not in sys.path:",
+  "        sys.path.insert(0, here)",
   "    try:",
   "        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):",
   "            runpy.run_path(argv[0], run_name='__main__')",
