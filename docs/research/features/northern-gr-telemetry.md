@@ -180,7 +180,7 @@ The remainder of the original callback reads the peak from offset 1004, checks i
 
 ## ARM to SHARC: use the existing parameter path
 
-There was no new generic control transport. We reused the upstream model-registration / parameter-map mechanism. Eight float inputs in Entry 3 and the host composite in Entry 4 map UI parameters to child parameter IDs (order 7, 5, 8, 9, 10, 11, 6, 15). The DSP reads actual values with units consistent with the UI (Threshold in dB, Ratio as a ratio, Attack converted to seconds, Release and Mix scaled to fractions by the kernel). See upstream model blob and registry notes.
+There was no new generic control transport. We reused the upstream model-registration / parameter-map mechanism. Eight float inputs in Entry 3 and the host composite in Entry 4 map UI parameters to child parameter IDs (order 7, 5, 8, 9, 10, 11, 6, 15). The DSP reads actual values with units consistent with the UI (Threshold in dB, Ratio as a ratio, Attack stored in seconds, Release and Mix supplied as 0..1 fractions and displayed as percentages). See upstream model blob and registry notes.
 
 The critical bug in early Northern revisions was that injecting the meter reinstalled the *stock* control registry entry, overwriting the custom registration. The UI changed but the algorithm did not receive its expected parameters. The repair was to replay the boot stream's tag-4 writes to obtain the **effective final** record, preserve it, and replace just its processing callback. These values are historical diagnostics specific to the Northern build; they are not allocations recommended for upstream.
 
